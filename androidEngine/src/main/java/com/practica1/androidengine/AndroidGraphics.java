@@ -10,8 +10,6 @@ import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.practica1.graphics.ColorJ;
-import com.practica1.graphics.Graphics;
 import com.practica1.graphics.IFont;
 import com.practica1.graphics.IImage;
 
@@ -20,7 +18,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AndroidGraphics extends Graphics {
+public class AndroidGraphics {
     private final SurfaceView myView;
     private final SurfaceHolder holder;
     private final AssetManager assets;
@@ -30,7 +28,25 @@ public class AndroidGraphics extends Graphics {
     private Canvas canvas;
     private int relWidth, relHeight;
 
+
+
     private Map<String, AndroidImage> imageMap = new HashMap<>();
+
+    int tX;
+    int tY;
+    float scl;
+
+
+
+    public void setScl(float scl) {
+        this.scl = scl;
+    }
+    public void settX(int tX) {
+        this.tX = tX;
+    }
+    public void settY(int tY) {
+        this.tY = tY;
+    }
 
 
     /**
@@ -54,6 +70,49 @@ public class AndroidGraphics extends Graphics {
         this.assets = assets;
     }
 
+    public void rescale() {
+        float w = GetWidth();
+        float h = GetHeight();
+        float scale = Math.min(w/GetWidthRelative(), h/GetHeightRelative());
+
+        float transformX = (GetWidth() - (GetWidthRelative()* scale)) / 2;
+        float transformY = (GetHeight() - (GetHeightRelative() * scale)) / 2;
+
+        if (transformX > 0) {
+            transformX = (GetWidth() / 2) - GetWidthRelative() * scale / 2;
+        } else {
+            transformX = 0;
+        }
+
+        if (transformY > 0) {
+            transformY = (GetHeight() / 2) - GetHeightRelative() * scale / 2;
+        } else {
+            transformY = 0;
+        }
+
+        setScl(scale);
+        settX((int)transformX);
+        settY((int)transformY);
+
+        doTranslate(transformX, transformY);
+        doScale(scale);
+    }
+
+
+    public int getTranslateY() {
+        return tY;
+    }
+
+
+    public int getTranslateX() {
+        return tX;
+    }
+
+
+    public float getScale() {
+        return scl;
+    }
+
     /**
      * Draws a filled circle with the specified center coordinates (x, y), radius (r), and outline color (c)
      * @param x: x-coordinate of the center of the circle.
@@ -61,7 +120,6 @@ public class AndroidGraphics extends Graphics {
      * @param r: radius of the circle.
      * @param c: color of the circle.
      */
-    @Override
     public void RenderCircle(int x, int y, int r, ColorJ c) {
         paint = new Paint();
         paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
@@ -76,7 +134,7 @@ public class AndroidGraphics extends Graphics {
      * @param h: height of the rectangle.
      * @param c: color of the outline.
      */
-    @Override
+
     public void RenderRect(int x, int y, int w, int h, ColorJ c) {
         paint = new Paint();
         paint.setStyle(Paint.Style.STROKE); // Establece el estilo del contorno
@@ -94,7 +152,7 @@ public class AndroidGraphics extends Graphics {
      * @param c: color parameter, for the outline color of the rectangle.
      * @param insideC: color parameter, for the fill color of the rectangle.
      */
-    @Override
+
     public void RenderFillRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC) {
         paint = new Paint();
         paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
@@ -110,7 +168,7 @@ public class AndroidGraphics extends Graphics {
      * @param w: Width on the canvas.
      * @param h: Height on the canvas.
      */
-    @Override
+
     public void RenderImage(IImage image, int x, int y, int w, int h) {
         AndroidImage androidImage = (AndroidImage) image;
         Rect src = new Rect();
@@ -129,7 +187,7 @@ public class AndroidGraphics extends Graphics {
      * @param y2: y-coordinate of the ending point.
      * @param c: color of the line.
      */
-    @Override
+
     public void RenderLine(int x1, int y1, int x2, int y2, ColorJ c) {
         paint.setColor(Color.argb(100, c.getR(), c.getG(), c.getB()));
         canvas.drawLine(x1,y1,x2,y2, paint);
@@ -143,7 +201,7 @@ public class AndroidGraphics extends Graphics {
      * @param txt: Text content to be rendered.
      * @param c: Color of the text.
      */
-    @Override
+
     public void RenderText(int x, int y, int size, String txt, ColorJ c) {
         paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
         Paint.FontMetrics fm = paint.getFontMetrics();
@@ -156,7 +214,7 @@ public class AndroidGraphics extends Graphics {
      * Sets the current font for rendering text.
      * @param font: The font to be set as the current font.
      */
-    @Override
+
     public void SetFont(IFont font) {
         actualDFont = ((AndroidFont) font);
     }
@@ -168,7 +226,7 @@ public class AndroidGraphics extends Graphics {
      * @param boldStyle: Style flag for font boldness.
      * @return The created AndroidFont instance.
      */
-    @Override
+
     public AndroidFont CreateFont(String route, int size, boolean boldStyle) {
         paint = actualDFont.createFont(route, size, boldStyle, assets);
         return actualDFont;
@@ -179,8 +237,8 @@ public class AndroidGraphics extends Graphics {
      * @param name: Name of the font.
      * @return The current font.
      */
-    @Override
-    public IFont GetFont(String name) {
+
+    public AndroidFont GetFont(String name) {
         return actualDFont;
     }
 
@@ -188,7 +246,7 @@ public class AndroidGraphics extends Graphics {
      * Gets the height of the rendering canvas.
      * @return The height of the canvas.
      */
-    @Override
+
     public int GetHeight() {
         return myView.getHeight();
     }
@@ -197,7 +255,7 @@ public class AndroidGraphics extends Graphics {
      * Gets the width of the rendering canvas.
      * @return The width of the canvas.
      */
-    @Override
+
     public int GetWidth() {
         return myView.getWidth();
     }
@@ -206,7 +264,7 @@ public class AndroidGraphics extends Graphics {
      * Gets the relative height of the rendering canvas.
      * @return The relative height of the canvas.
      */
-    @Override
+
     public int GetHeightRelative() {
         return relHeight;
     }
@@ -215,7 +273,7 @@ public class AndroidGraphics extends Graphics {
      * Gets the relative width of the rendering canvas.
      * @return The relative width of the canvas.
      */
-    @Override
+
     public int GetWidthRelative() {
         return relWidth;
     }
@@ -224,7 +282,7 @@ public class AndroidGraphics extends Graphics {
      * Clears the screen with the specified color.
      * @param color: The color used to clear the screen.
      */
-    @Override
+
     public void CleanScreen(ColorJ color) {
         paint.setARGB(100, color.getR(), color.getG(), color.getB());
         this.canvas.drawColor(paint.getColor());
@@ -238,7 +296,7 @@ public class AndroidGraphics extends Graphics {
      * @param route: The file route of the image.
      * @return The created AndroidImage instance.
      */
-    @Override
+
     public IImage createImage(String route) {
        actualDImage = imageMap.get(route);
 
@@ -263,7 +321,7 @@ public class AndroidGraphics extends Graphics {
      * Initiates the rendering process and locks the canvas for rendering.
      * @return True if the rendering process has started successfully.
      */
-    @Override
+
     public boolean startRender() {
         while (!this.holder.getSurface().isValid());
         this.canvas = this.holder.lockCanvas();
@@ -273,7 +331,7 @@ public class AndroidGraphics extends Graphics {
     /**
      * Finishes the rendering process and unlocks the canvas.
      */
-    @Override
+
     public void finishRender() {
         this.holder.unlockCanvasAndPost(canvas);
     }
@@ -283,7 +341,7 @@ public class AndroidGraphics extends Graphics {
      * @param tx: The translation in the x-axis.
      * @param ty: The translation in the y-axis.
      */
-    @Override
+
     public void doTranslate(float tx, float ty) {
         canvas.translate(tx, ty);
     }
@@ -292,7 +350,7 @@ public class AndroidGraphics extends Graphics {
      * Scales the canvas by the specified scale factor (scale).
       @param scale: The scale factor for both x and y axes.
      */
-    @Override
+
     public void doScale(float scale) {
         canvas.scale(scale, scale);
     }
@@ -300,7 +358,7 @@ public class AndroidGraphics extends Graphics {
     /**
      * Saves the current state of the canvas, allowing for later restoration.
      */
-    @Override
+
     public void save() {
         canvas.save();
     }
@@ -308,7 +366,7 @@ public class AndroidGraphics extends Graphics {
     /**
      * Restores the previously saved state of the canvas.
      */
-    @Override
+
     public void restore() {
         canvas.restore();
     }

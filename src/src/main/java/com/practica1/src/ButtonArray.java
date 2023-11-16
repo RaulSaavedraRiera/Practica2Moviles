@@ -1,6 +1,5 @@
 package com.practica1.src;
 
-import com.practica1.engine.IEngine;
 import com.practica1.graphics.ColorJ;
 import com.practica1.graphics.IGraphics;
 import com.practica1.input.TouchEvent;

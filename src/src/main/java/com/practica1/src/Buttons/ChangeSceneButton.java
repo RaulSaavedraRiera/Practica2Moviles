@@ -2,11 +2,8 @@ package com.practica1.src.Buttons;
 
 import com.practica1.input.TouchEvent;
 import com.practica1.src.GameObject;
-import com.practica1.engine.IEngine;
 import com.practica1.graphics.ColorJ;
 import com.practica1.graphics.IGraphics;
-import com.practica1.src.SceneManager;
-import com.practica1.src.scenes.MenuScene;
 
 /*Clase base para los botones de cambio de escena*/
 public class ChangeSceneButton extends GameObject {

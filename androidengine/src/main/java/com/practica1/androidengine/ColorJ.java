@@ -1,9 +1,9 @@
-package com.practica1.graphics;
+package com.practica1.androidengine;
 
 /**
  * Clase que se encarga de guardar los datos sobre los colores
  */
-public class ColorJ implements IColor {
+public class ColorJ {
 
     int  r = 255;
     int  g = 255;
@@ -14,7 +14,6 @@ public class ColorJ implements IColor {
         this.setRGB(R, G, B);
     }
 
-    @Override
     public void setRGB(int R, int G, int B){
         r = R;
         b = B;

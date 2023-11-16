@@ -1,6 +1,6 @@
 package com.practica1.src;
 
-import com.practica1.sound.IAudioSystem;
+
 import com.practica1.src.messages.InputColorMessage;
 import com.practica1.src.messages.Message;
 import com.practica1.src.messages.PlaySoundMessage;

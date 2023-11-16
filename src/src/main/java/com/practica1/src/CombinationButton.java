@@ -1,7 +1,5 @@
 package com.practica1.src;
 
-import com.practica1.engine.IEngine;
-import com.practica1.src.messages.ButtonDesactiveMessage;
 import com.practica1.src.messages.Message;
 import com.practica1.graphics.ColorJ;
 import com.practica1.graphics.IGraphics;

@@ -1,31 +1,28 @@
-package com.practica1.desktopengine;
+package com.practica1.androidengine;
 
-/**
- * Clase base para la creacion y funcionamiento de la pool de sonidos en desktop
- */
-public class PoolSoundsDesktop {
+/*Clase base para la creacion y funcionamiento de la pool*/
+public class Pool{
 
     private int size;
-    private DesktopSound[] pool;
+    private TouchEvent[] pool;
     int id = 0;
     int actSize;
 
     //Incializacion de la pool asi como marcar todos sus elementos como libres
-    public PoolSoundsDesktop(int pSize)
+    public Pool(int pSize)
     {
         size = pSize;
-        pool = new DesktopSound[size];
+        pool = new TouchEvent[size];
         for(int i = 0; i < size; i++)
         {
-            //Valores de inicio para los primeros elementos de la pool
-            pool[i] = new DesktopSound(".", false);
+            pool[i] = new TouchEvent();
             pool[i].free();
         }
 
     }
 
     //Creacion de un nuevo evento para la pool
-    public DesktopSound newEvent(String name)
+    public TouchEvent newEvent()
     {
         //Si la pool esta toda ocupada devolvemos null
         if(actSize == size)
@@ -47,7 +44,7 @@ public class PoolSoundsDesktop {
     }
 
     //Liberamos el evento
-    public void freeEvent(DesktopSound e){
+    public void freeEvent(TouchEvent e){
         e.free();
         actSize--;
     }

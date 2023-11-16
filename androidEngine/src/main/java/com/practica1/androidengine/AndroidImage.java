@@ -9,24 +9,34 @@ import com.practica1.graphics.ImageJ;
  * resource in an Android application. It encapsulates a `Bitmap` and provides methods to
  * access the image's width, height, and the underlying `Bitmap` object.
  */
-public class AndroidImage extends ImageJ {
+public class AndroidImage {
+
+    String route;
     private Bitmap bitmap;
     AndroidImage(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
 
-    @Override
+
     public int GetWidth() {
         return this.bitmap.getWidth();
     }
 
-    @Override
+
     public int GetHeight() {
         return this.bitmap.getHeight();
     }
 
     public Bitmap getImage() {
         return bitmap;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
     }
 
 }

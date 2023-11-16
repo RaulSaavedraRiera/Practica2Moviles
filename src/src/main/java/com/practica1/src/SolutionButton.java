@@ -1,10 +1,6 @@
 package com.practica1.src;
 
-import com.practica1.engine.IEngine;
 import com.practica1.graphics.IGraphics;
-import com.practica1.input.TouchEvent;
-
-import java.awt.Color;
 
 /*clase que contiene los botones de pista que mostramos en las filas*/
 public class SolutionButton extends Button{

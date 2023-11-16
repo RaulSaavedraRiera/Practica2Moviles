@@ -4,9 +4,6 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.SoundPool;
 
-import com.practica1.sound.IAudioSystem;
-import com.practica1.sound.ISound;
-import com.practica1.sound.SoundJ;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -17,7 +14,7 @@ import java.util.Map;
  * for managing audio playback using Android's SoundPool. It provides methods to load and play audio
  * sounds, stop playing sounds, and release audio resources.
  */
-public class AndroidAudio implements IAudioSystem {
+public class AndroidAudio {
 
     private AssetManager assets;
     SoundPool soundsPool;
@@ -33,8 +30,8 @@ public class AndroidAudio implements IAudioSystem {
      * fully loaded.
      * @param sound Sound to play
      */
-    @Override
-    public void PlayAudio(ISound sound) {
+
+    public void PlayAudio(AndroidSound sound) {
         AndroidSound s = null;
         int soundId = -1;
         try {
@@ -62,14 +59,14 @@ public class AndroidAudio implements IAudioSystem {
      * Stops playing the received sound.
      * @param sound Sound to stop playing.
      */
-    @Override
-    public void StopAudio(ISound sound) {
-        AndroidSound s = (AndroidSound) sound;
-        if(s.getStreamId() != -1)
-            this.soundsPool.stop(s.getStreamId());
+
+    public void StopAudio(AndroidSound sound) {
+
+        if(sound.getStreamId() != -1)
+            this.soundsPool.stop(sound.getStreamId());
     }
 
-    @Override
+
     public void ReleaseAudio() {
         soundsPool.release();
         soundsPool = new SoundPool.Builder().setMaxStreams(10).build();

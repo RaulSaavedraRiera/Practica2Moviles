@@ -1,12 +1,8 @@
 package com.practica1.androidengine;
 
-import android.text.method.Touch;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
-
-import com.practica1.input.TouchEvent;
-import com.practica1.pool.Pool;
 
 import java.util.ArrayList;
 

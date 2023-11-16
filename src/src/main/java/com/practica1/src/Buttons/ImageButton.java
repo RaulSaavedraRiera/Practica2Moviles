@@ -4,9 +4,6 @@ import com.practica1.graphics.IGraphics;
 import com.practica1.graphics.ImageJ;
 import com.practica1.input.TouchEvent;
 import com.practica1.src.GameObject;
-import com.practica1.src.SceneManager;
-import com.practica1.src.messages.DaltonicChangeSolicitateMessage;
-import com.practica1.src.scenes.MenuScene;
 
 
 /*Clase base para los botones con imagen*/

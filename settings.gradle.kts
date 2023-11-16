@@ -16,7 +16,5 @@ dependencyResolutionManagement {
 rootProject.name = "Mastermind"
 include(":app")
 include(":src")
-include(":Desktop")
-include(":DesktopEngine")
 include(":Engine")
 include(":androidEngine")

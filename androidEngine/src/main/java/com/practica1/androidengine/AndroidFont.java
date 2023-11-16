@@ -12,19 +12,22 @@ import java.util.Map;
  * Extension of the `FontJ` class and represents a font for text rendering in an Android application.
  * It provides methods to access font properties, set font size, bold style, and create a custom Paint object for rendering text.
  */
-public class AndroidFont extends FontJ {
+public class AndroidFont {
     private Typeface actualFont;
     private Paint paint;
 
+    protected String Route;
+    protected int Size;
+    protected boolean Bold;
     Map<String, Typeface> fontMap = new HashMap<>();
 
-
     AndroidFont(String fontName, int size, boolean bold) {
-        super(fontName, size, bold);
+        Route = fontName;
+        Bold = bold;
+        Size = size;
         paint = new Paint();
     }
     @RequiresApi(api = 34)
-    @Override
     public String getName() {
         return actualFont.getSystemFontFamilyName();
     }
@@ -32,7 +35,7 @@ public class AndroidFont extends FontJ {
     /**
      * @return Is actualFont bold or not.
      */
-    @Override
+
     public boolean getBold() {
         return actualFont.isBold();
     }
@@ -40,7 +43,7 @@ public class AndroidFont extends FontJ {
     /**
      * @return current textSize
      */
-    @Override
+
     public int getSize() {
         return (int)paint.getTextSize();
     }
@@ -49,7 +52,7 @@ public class AndroidFont extends FontJ {
      * Sets the size of the text.
      * @param size desired size
      */
-    @Override
+
     public void setSize(int size) {
         paint.setTextSize(size);
     }
@@ -58,7 +61,7 @@ public class AndroidFont extends FontJ {
      * Specify if bold text or not
      * @param to boolean
      */
-    @Override
+
     public void setBold(boolean to) {
         int style = this.Bold ? Typeface.BOLD : Typeface.NORMAL;
         Typeface newFont = Typeface.create(actualFont, style);

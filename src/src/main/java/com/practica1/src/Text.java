@@ -1,11 +1,8 @@
 package com.practica1.src;
 
-import com.practica1.engine.IEngine;
 import com.practica1.graphics.ColorJ;
 import com.practica1.graphics.FontJ;
 import com.practica1.graphics.IGraphics;
-
-import java.awt.Font;
 
 
 //Clase text para dibujar textos

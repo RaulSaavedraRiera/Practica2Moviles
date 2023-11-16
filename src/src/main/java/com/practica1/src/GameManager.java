@@ -1,16 +1,13 @@
 package com.practica1.src;
 
-import com.practica1.src.messages.ButtonDesactiveMessage;
 import com.practica1.src.messages.Message;
 import com.practica1.graphics.ColorJ;
 import com.practica1.src.messages.InputColorMessage;
-import com.practica1.src.messages.PlaySoundMessage;
 import com.practica1.src.messages.ReleaseSoundMessage;
 import com.practica1.src.scenes.EndScene;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 /*Clase GameManager que se encarga de gestionar el estado del juego en el nivel
 * principal. Guarda los colores, las columnas, redirige el input a estas, etc.*/

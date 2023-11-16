@@ -1,6 +1,5 @@
 package com.practica1.src.scenes;
 
-import com.practica1.engine.IEngine;
 import com.practica1.src.IGameObject;
 import com.practica1.engine.IScene;
 import com.practica1.graphics.IGraphics;
