@@ -14,7 +14,7 @@ public class AndroidSound {
     int id;
     int streamId = -1;
 
-    AndroidSound(int id, String name, boolean loop) {
+    public AndroidSound(int id, String name, boolean loop) {
         this.id = id;
         this.name = name;
         this.loop = loop;

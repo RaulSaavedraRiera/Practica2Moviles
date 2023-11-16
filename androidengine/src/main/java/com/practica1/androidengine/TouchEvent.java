@@ -1,7 +1,5 @@
 package com.practica1.androidengine;
 
-import com.practica1.pool.IPool;
-
 /**
  * Clase que almacena la informacion sobre los eventos de input. Esta implementa
  * IPool para poder saber el estado de este en la pool que se crean en los InputHandlers

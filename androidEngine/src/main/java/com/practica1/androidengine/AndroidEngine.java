@@ -2,9 +2,6 @@ package com.practica1.androidengine;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import com.practica1.sound.IAudioSystem;
-
 import java.util.ArrayList;
 
 /**
@@ -192,5 +189,5 @@ public class AndroidEngine implements Runnable {
     }
 
 
-    public IAudioSystem GetAudioSystem() {return audioSystem;}
+    public AndroidAudio GetAudioSystem() {return audioSystem;}
 }

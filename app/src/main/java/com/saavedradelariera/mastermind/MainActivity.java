@@ -1,7 +1,6 @@
 package com.saavedradelariera.mastermind;
 
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.Window;
@@ -10,8 +9,8 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.practica1.androidengine.AndroidEngine;
-import com.practica1.src.SceneManager;
-import com.practica1.src.scenes.MenuScene;
+import com.saavedradelariera.src.SceneManager;
+import com.saavedradelariera.src.scenes.MenuScene;
 
 public class MainActivity extends AppCompatActivity {
     AndroidEngine androidEngine;

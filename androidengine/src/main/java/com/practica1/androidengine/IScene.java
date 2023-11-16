@@ -1,12 +1,10 @@
 package com.practica1.androidengine;
-import com.practica1.sound.IAudioSystem;
-
 import java.util.ArrayList;
 
 public interface IScene {
     String name = "";
 
-    void SetScene(AndroidGraphics graphics, IAudioSystem audioSystem);
+    void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem);
 
     String GetName();
 
