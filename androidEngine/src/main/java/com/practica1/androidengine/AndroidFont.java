@@ -4,7 +4,6 @@ import android.content.res.AssetManager;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import androidx.annotation.RequiresApi;
-import com.practica1.graphics.FontJ;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ public class AndroidFont {
     protected boolean Bold;
     Map<String, Typeface> fontMap = new HashMap<>();
 
-    AndroidFont(String fontName, int size, boolean bold) {
+    public AndroidFont(String fontName, int size, boolean bold) {
         Route = fontName;
         Bold = bold;
         Size = size;
@@ -37,7 +36,7 @@ public class AndroidFont {
      */
 
     public boolean getBold() {
-        return actualFont.isBold();
+        return Bold;
     }
 
     /**
@@ -88,7 +87,6 @@ public class AndroidFont {
             Typeface customTypeface = Typeface.createFromAsset(assetManager, route);
             customTypeface = Typeface.create(customTypeface, style);
             actualFont = customTypeface;
-
             fontMap.put(route, actualFont);
         }
 
@@ -102,5 +100,9 @@ public class AndroidFont {
      */
     public Typeface getFont() {
         return actualFont;
+    }
+
+    public String getRoute() {
+        return Route;
     }
 }

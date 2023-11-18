@@ -1,15 +1,15 @@
 package com.saavedradelariera.src.Buttons;
 
-import com.practica1.graphics.IGraphics;
-import com.practica1.graphics.ImageJ;
-import com.practica1.input.TouchEvent;
+import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.AndroidImage;
+import com.practica1.androidengine.TouchEvent;
 import com.saavedradelariera.src.GameObject;
 
 
 /*Clase base para los botones con imagen*/
 public class ImageButton extends GameObject {
 
-    ImageJ image;
+    AndroidImage image;
     private int X;
     private int Y;
     private int W;
@@ -18,7 +18,7 @@ public class ImageButton extends GameObject {
     public ImageButton(String route,int x, int y, int w, int h ){
         super(x,y,w,h);
 
-        image = new ImageJ();
+        image = new AndroidImage();
         image.setRoute(route);
         X = x;
         Y = y;
@@ -27,7 +27,7 @@ public class ImageButton extends GameObject {
     }
 
     @Override
-    public void Render(IGraphics graphics) {
+    public void Render(AndroidGraphics graphics) {
         graphics.RenderImage(graphics.createImage(image.getRoute()),X, Y, W, H);
     }
 

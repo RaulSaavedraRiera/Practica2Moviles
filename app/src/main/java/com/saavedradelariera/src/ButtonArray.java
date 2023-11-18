@@ -1,8 +1,9 @@
 package com.saavedradelariera.src;
 
-import com.practica1.graphics.ColorJ;
-import com.practica1.graphics.IGraphics;
-import com.practica1.input.TouchEvent;
+import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.ColorJ;
+import com.practica1.androidengine.TouchEvent;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,7 @@ public class ButtonArray extends GameObject {
     //genera botones ya inicalizdos, usado en InputSolution
     public void GenerateEnableButtons(int n, float spaceCoefficient, float offsetBtwButtons,
                                       float smallCircle, ArrayList<Integer> num, ArrayList<ColorJ> colors, boolean inputEnable
-                                      ,boolean cleanColorEnable, boolean daltonic) {
+                                      , boolean cleanColorEnable, boolean daltonic) {
 
 
         //calculos de posicion similares al anterior
@@ -86,11 +87,11 @@ public class ButtonArray extends GameObject {
     }
 
     @Override
-    public void Render(IGraphics iGraphics) {
+    public void Render(AndroidGraphics iGraphics) {
     }
 
     @Override
-    public void Update(IEngine IEngine, float deltaTime) {
+    public void Update(AndroidEngine IEngine, float deltaTime) {
 
     }
 

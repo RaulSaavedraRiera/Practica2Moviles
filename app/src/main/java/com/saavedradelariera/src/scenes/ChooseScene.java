@@ -1,8 +1,9 @@
 package com.saavedradelariera.src.scenes;
 
-import com.practica1.graphics.ColorJ;
-import com.practica1.graphics.IGraphics;
-import com.practica1.sound.IAudioSystem;
+import com.practica1.androidengine.AndroidAudio;
+import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonGame;
 import com.saavedradelariera.src.Text;
@@ -12,9 +13,9 @@ public class ChooseScene extends Scene {
 
     public ChooseScene(){
     }
-    @Override
-    public void SetScene(IGraphics graphics, IAudioSystem audioSystem) {
 
+    @Override
+    public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
         super.SetScene(graphics, audioSystem);
 
         name = "ChooseScene";

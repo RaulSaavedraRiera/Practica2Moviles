@@ -2,8 +2,6 @@ package com.practica1.androidengine;
 
 import android.graphics.Bitmap;
 
-import com.practica1.graphics.ImageJ;
-
 /**
  * The `AndroidImage` class is an extension of the `ImageJ` class and represents an image
  * resource in an Android application. It encapsulates a `Bitmap` and provides methods to
@@ -13,8 +11,7 @@ public class AndroidImage {
 
     String route;
     private Bitmap bitmap;
-    AndroidImage(Bitmap bitmap) {
-        this.bitmap = bitmap;
+    public AndroidImage() {
     }
 
 
@@ -39,4 +36,7 @@ public class AndroidImage {
         this.route = route;
     }
 
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 }

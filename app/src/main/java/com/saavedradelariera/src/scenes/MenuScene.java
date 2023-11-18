@@ -2,6 +2,7 @@ package com.saavedradelariera.src.scenes;
 
 import com.practica1.androidengine.AndroidAudio;
 import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButton;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonMenu;
 import com.saavedradelariera.src.Text;
@@ -13,9 +14,7 @@ public class MenuScene extends Scene {
     }
     @Override
     public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
-
         super.SetScene(graphics, audioSystem);
-
         name = "MenuScene";
 
         ChangeSceneButton b = new ChangeSceneButtonMenu(100, 500, 400,

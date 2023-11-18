@@ -2,6 +2,7 @@ package com.saavedradelariera.src.scenes;
 
 import com.practica1.androidengine.AndroidAudio;
 import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
 import com.saavedradelariera.src.Buttons.DaltonicButton;
 import com.saavedradelariera.src.GameManager;

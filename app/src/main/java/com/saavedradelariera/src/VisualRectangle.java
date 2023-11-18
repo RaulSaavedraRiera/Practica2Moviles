@@ -1,8 +1,9 @@
 package com.saavedradelariera.src;
 
-import com.practica1.graphics.ColorJ;
-import com.practica1.graphics.IGraphics;
 
+import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.ColorJ;
 
 //clase que permite dibujar un rectángulo gráficamente
 public class VisualRectangle extends GameObject {
@@ -23,7 +24,7 @@ public class VisualRectangle extends GameObject {
 
     //overrideamos los métodos de GameObject y actualizamos render para que pinte lo deseado
     @Override
-    public void Render(IGraphics graphics) {
+    public void Render(AndroidGraphics graphics) {
         if(!fill) {
             graphics.RenderRect(posX, posY, width, height, color);
         }
@@ -32,7 +33,7 @@ public class VisualRectangle extends GameObject {
     }
 
     @Override
-    public void Update(IEngine engine, float deltaTime) {
+    public void Update(AndroidEngine engine, float deltaTime) {
 
     }
 }

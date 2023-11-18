@@ -1,9 +1,10 @@
 package com.saavedradelariera.src;
 
+import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.ColorJ;
+import com.practica1.androidengine.TouchEvent;
 import com.saavedradelariera.src.messages.Message;
-import com.practica1.graphics.ColorJ;
-import com.practica1.graphics.IGraphics;
-import com.practica1.input.TouchEvent;
 import com.saavedradelariera.src.messages.InputColorMessage;
 import com.saavedradelariera.src.messages.PlaySoundMessage;
 
@@ -37,12 +38,12 @@ public class CombinationButton extends Button {
 
 
     @Override
-    public void Render(IGraphics graphics) {
+    public void Render(AndroidGraphics graphics) {
         super.Render(graphics);
     }
 
     @Override
-    public void Update(IEngine IEngine, float deltaTime) {
+    public void Update(AndroidEngine IEngine, float deltaTime) {
     }
 
 

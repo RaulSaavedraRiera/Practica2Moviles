@@ -18,7 +18,7 @@ public abstract class Scene implements IScene {
 
     //inicialzia la escena generando su audiomanager
 
-    public void SetScene(AndroidEngine graphics, AndroidAudio audioSystem){
+    public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem){
         AudioManager aM = new AudioManager(audioSystem);
         AddGO(aM);
         SceneManager.getInstance().RegisterToMessage(aM);
@@ -61,7 +61,6 @@ public abstract class Scene implements IScene {
     }
 
     //pasa el input a todos los GO de la escena, se detiene si uno lo da como suyo
-
     public void HandleInput(ArrayList<TouchEvent> events){
 
         for(TouchEvent e : events)

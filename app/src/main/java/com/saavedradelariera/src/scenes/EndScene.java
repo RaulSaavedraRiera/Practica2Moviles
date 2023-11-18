@@ -1,13 +1,12 @@
 package com.saavedradelariera.src.scenes;
-
-import com.practica1.graphics.ColorJ;
-import com.practica1.graphics.IGraphics;
-import com.practica1.sound.IAudioSystem;
+import com.practica1.androidengine.AndroidAudio;
+import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.ButtonArray;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonGame;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonMenu;
 import com.saavedradelariera.src.Text;
-
 import java.util.ArrayList;
 
 
@@ -31,10 +30,8 @@ public class EndScene extends Scene {
 
     }
 
-    //600, 1000
     @Override
-    public void SetScene(IGraphics graphics, IAudioSystem audioSystem) {
-
+    public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
         super.SetScene(graphics, audioSystem);
 
 

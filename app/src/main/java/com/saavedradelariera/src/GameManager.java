@@ -1,7 +1,7 @@
 package com.saavedradelariera.src;
 
+import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.messages.Message;
-import com.practica1.graphics.ColorJ;
 import com.saavedradelariera.src.messages.InputColorMessage;
 import com.saavedradelariera.src.messages.ReleaseSoundMessage;
 import com.saavedradelariera.src.scenes.EndScene;

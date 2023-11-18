@@ -1,9 +1,10 @@
 package com.saavedradelariera.src;
 
-import com.practica1.graphics.ColorJ;
-import com.practica1.graphics.FontJ;
-import com.practica1.graphics.IGraphics;
 
+import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.AndroidFont;
+import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.ColorJ;
 
 //Clase text para dibujar textos
 public class Text extends GameObject {
@@ -11,7 +12,7 @@ public class Text extends GameObject {
     //color y cadena de texto
     ColorJ c;
     String txt;
-    FontJ font;
+    AndroidFont font;
     boolean useFont = false;
 
 
@@ -22,8 +23,7 @@ public class Text extends GameObject {
         this.c = c;
         this.txt = text;
         useFont = true;
-        font = new FontJ(route, w, false);
-
+        font = new AndroidFont(route, w, false);
     }
 
     //Inicialización de un Text sin fuente específica
@@ -32,18 +32,19 @@ public class Text extends GameObject {
         this.c = c;
         this.txt = text;
     }
+
      //Renderiza el texto con la fuente default o una especifica
     @Override
-    public void Render(IGraphics graphics) {
+    public void Render(AndroidGraphics graphics) {
         //Si usa la fuente la crea o setea
         if(useFont)
-            graphics.CreateFont(font.getName(), font.getSize(), font.getBold());
+            graphics.CreateFont(font.getRoute(), font.getSize(), font.getBold());
 
         graphics.RenderText(posX, posY, width, txt, c);
     }
 
     @Override
-    public void Update(IEngine iEngine, float deltaTime) {
+    public void Update(AndroidEngine iEngine, float deltaTime) {
 
     }
 

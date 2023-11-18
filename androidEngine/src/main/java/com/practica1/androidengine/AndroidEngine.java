@@ -52,7 +52,7 @@ public class AndroidEngine implements Runnable {
     /**
      * Método para el bucle principal de los juegos
      */
-
+    @Override
     public void run() {
 
         if (renderThread != Thread.currentThread()) {
@@ -144,7 +144,6 @@ public class AndroidEngine implements Runnable {
     /**
      * Pausar el hilo
      */
-
     public void Pause() {
         if (this.running) {
             this.running = false;

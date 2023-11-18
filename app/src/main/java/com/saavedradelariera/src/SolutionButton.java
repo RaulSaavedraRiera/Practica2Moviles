@@ -1,6 +1,7 @@
 package com.saavedradelariera.src;
 
-import com.practica1.graphics.IGraphics;
+import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.AndroidGraphics;
 
 /*clase que contiene los botones de pista que mostramos en las filas*/
 public class SolutionButton extends Button{
@@ -16,12 +17,12 @@ public class SolutionButton extends Button{
 
     //overrideamos los métodos de GameObject y actualizamos render para que pinte lo deseado
     @Override
-    public void Render(IGraphics graphics) {
+    public void Render(AndroidGraphics graphics) {
         super.Render(graphics);
     }
 
     @Override
-    public void Update(IEngine IEngine, float deltaTime) {
+    public void Update(AndroidEngine IEngine, float deltaTime) {
 
     }
 

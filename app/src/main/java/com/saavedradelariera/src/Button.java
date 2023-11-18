@@ -1,7 +1,8 @@
 package com.saavedradelariera.src;
 
-import com.practica1.graphics.ColorJ;
-import com.practica1.graphics.IGraphics;
+
+import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.ColorJ;
 
 /*Clase base botón para crear tanto lso botones de color como los de las pistas*/
 public abstract class Button extends GameObject {
@@ -25,7 +26,7 @@ public abstract class Button extends GameObject {
         SetSmallCircleSize(smallCircle);
     }
 
-    public void Render(IGraphics graphics) {
+    public void Render(AndroidGraphics graphics) {
 
         graphics.RenderCircle(posX,posY,width/2,this.backgroundColor);
         graphics.RenderCircle( posX + posXSmallCircle, posY + posYSmallCircle,(int)(width*smallCirclePercent)/2,this.color);

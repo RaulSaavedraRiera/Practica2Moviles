@@ -1,6 +1,9 @@
 package com.saavedradelariera.src;
 
+import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
+import com.practica1.androidengine.TouchEvent;
 
 import java.util.ArrayList;
 
@@ -37,11 +40,11 @@ public class InputSolution extends GameObject {
     }
 
     @Override
-    public void Render(IGraphics iGraphics) {
+    public void Render(AndroidGraphics iGraphics) {
     }
 
     @Override
-    public void Update(IEngine IEngine, float deltaTime) {
+    public void Update(AndroidEngine IEngine, float deltaTime) {
 
     }
 

@@ -1,7 +1,8 @@
 package com.saavedradelariera.src.Buttons;
 
+import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.SceneManager;
-import com.practica1.graphics.ColorJ;
 import com.saavedradelariera.src.scenes.GameScene;
 
 
@@ -9,7 +10,7 @@ import com.saavedradelariera.src.scenes.GameScene;
 public class ChangeSceneButtonGame extends ChangeSceneButton {
 
     int n;
-    IEngine engine;
+    AndroidEngine engine;
     public ChangeSceneButtonGame(int x, int y, int w, int h, ColorJ c, ColorJ c2, int n){
         super(x,y,w,h,c,c2);
 

@@ -10,9 +10,6 @@ import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.practica1.graphics.IFont;
-import com.practica1.graphics.IImage;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -27,16 +24,10 @@ public class AndroidGraphics {
     private AndroidImage actualDImage;
     private Canvas canvas;
     private int relWidth, relHeight;
-
-
-
     private Map<String, AndroidImage> imageMap = new HashMap<>();
-
     int tX;
     int tY;
     float scl;
-
-
 
     public void setScl(float scl) {
         this.scl = scl;
@@ -47,7 +38,6 @@ public class AndroidGraphics {
     public void settY(int tY) {
         this.tY = tY;
     }
-
 
     /**
      * Constructor for the AndroidGraphics class.
@@ -70,44 +60,14 @@ public class AndroidGraphics {
         this.assets = assets;
     }
 
-    public void rescale() {
-        float w = GetWidth();
-        float h = GetHeight();
-        float scale = Math.min(w/GetWidthRelative(), h/GetHeightRelative());
-
-        float transformX = (GetWidth() - (GetWidthRelative()* scale)) / 2;
-        float transformY = (GetHeight() - (GetHeightRelative() * scale)) / 2;
-
-        if (transformX > 0) {
-            transformX = (GetWidth() / 2) - GetWidthRelative() * scale / 2;
-        } else {
-            transformX = 0;
-        }
-
-        if (transformY > 0) {
-            transformY = (GetHeight() / 2) - GetHeightRelative() * scale / 2;
-        } else {
-            transformY = 0;
-        }
-
-        setScl(scale);
-        settX((int)transformX);
-        settY((int)transformY);
-
-        doTranslate(transformX, transformY);
-        doScale(scale);
-    }
-
 
     public int getTranslateY() {
         return tY;
     }
 
-
     public int getTranslateX() {
         return tX;
     }
-
 
     public float getScale() {
         return scl;
@@ -169,7 +129,7 @@ public class AndroidGraphics {
      * @param h: Height on the canvas.
      */
 
-    public void RenderImage(IImage image, int x, int y, int w, int h) {
+    public void RenderImage(AndroidImage image, int x, int y, int w, int h) {
         AndroidImage androidImage = (AndroidImage) image;
         Rect src = new Rect();
         src.set(0,0, androidImage.GetWidth(),androidImage.GetHeight());
@@ -203,6 +163,7 @@ public class AndroidGraphics {
      */
 
     public void RenderText(int x, int y, int size, String txt, ColorJ c) {
+        paint.setTextSize(size);
         paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
         Paint.FontMetrics fm = paint.getFontMetrics();
         float halfFontHeight = (fm.descent - fm.ascent) / 2;
@@ -215,8 +176,8 @@ public class AndroidGraphics {
      * @param font: The font to be set as the current font.
      */
 
-    public void SetFont(IFont font) {
-        actualDFont = ((AndroidFont) font);
+    public void SetFont(AndroidFont font) {
+        actualDFont = font;
     }
 
     /**
@@ -297,7 +258,7 @@ public class AndroidGraphics {
      * @return The created AndroidImage instance.
      */
 
-    public IImage createImage(String route) {
+    public AndroidImage createImage(String route) {
        actualDImage = imageMap.get(route);
 
         if (actualDImage == null) {
@@ -310,7 +271,8 @@ public class AndroidGraphics {
                 throw new RuntimeException(e);
             }
             // Crea una instancia de AndroidImage y almacénala en el mapa
-            actualDImage = new AndroidImage(bitmap);
+            actualDImage = new AndroidImage();
+            actualDImage.setBitmap(bitmap);
             imageMap.put(route, actualDImage);
         }
 
@@ -337,25 +299,6 @@ public class AndroidGraphics {
     }
 
     /**
-     * Translates the canvas by the specified translation values (tx, ty).
-     * @param tx: The translation in the x-axis.
-     * @param ty: The translation in the y-axis.
-     */
-
-    public void doTranslate(float tx, float ty) {
-        canvas.translate(tx, ty);
-    }
-
-    /**
-     * Scales the canvas by the specified scale factor (scale).
-      @param scale: The scale factor for both x and y axes.
-     */
-
-    public void doScale(float scale) {
-        canvas.scale(scale, scale);
-    }
-
-    /**
      * Saves the current state of the canvas, allowing for later restoration.
      */
 
@@ -370,4 +313,33 @@ public class AndroidGraphics {
     public void restore() {
         canvas.restore();
     }
+
+    public void rescale() {
+        float w = GetWidth();
+        float h = GetHeight();
+        float scale = Math.min(w/GetWidthRelative(), h/GetHeightRelative());
+
+        float transformX = (GetWidth() - (GetWidthRelative()* scale)) / 2;
+        float transformY = (GetHeight() - (GetHeightRelative() * scale)) / 2;
+
+        if (transformX > 0) {
+            transformX = (GetWidth() / 2) - GetWidthRelative() * scale / 2;
+        } else {
+            transformX = 0;
+        }
+
+        if (transformY > 0) {
+            transformY = (GetHeight() / 2) - GetHeightRelative() * scale / 2;
+        } else {
+            transformY = 0;
+        }
+
+        setScl(scale);
+        settX((int)transformX);
+        settY((int)transformY);
+
+        canvas.translate(transformX, transformY);
+        canvas.scale(scale, scale);
+    }
+
 }

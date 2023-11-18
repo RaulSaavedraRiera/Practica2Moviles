@@ -1,6 +1,5 @@
 package com.saavedradelariera.src;
-
-import com.practica1.graphics.ColorJ;
+import com.practica1.androidengine.ColorJ;
 
 import java.util.ArrayList;
 
