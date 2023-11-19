@@ -59,7 +59,9 @@ public class AndroidGraphics {
         this.actualDFont = new AndroidFont("Arial", 50, false);
         this.assets = assets;
     }
-
+    public AssetManager getAssets() {
+        return assets;
+    }
 
     public int getTranslateY() {
         return tY;
