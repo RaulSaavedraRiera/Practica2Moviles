@@ -35,9 +35,7 @@ public class LevelButton extends GameObject {
     public void Render(AndroidGraphics graphics) {
         graphics.RenderFillRect(posX, posY, width, height, c, c2);
     }
-
-
-
+    
     //Comprobamos si se ha pulsado sobre el botón y si es así llamamos al método HandleClick para procesarlo
     @Override
     public boolean HandleInput(TouchEvent e)
