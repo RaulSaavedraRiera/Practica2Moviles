@@ -2,6 +2,7 @@ package com.saavedradelariera.src.Buttons;
 
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.SceneManager;
+import com.saavedradelariera.src.WorldManager;
 import com.saavedradelariera.src.scenes.ChooseScene;
 import com.saavedradelariera.src.scenes.WorldScene;
 
@@ -15,6 +16,7 @@ public class ChangeSceneButtonWorld extends ChangeSceneButton {
     @Override
     protected boolean HandleClick() {
         WorldScene wS = new WorldScene();
+        WorldManager.getInstance().addScene(wS);
         SceneManager.getInstance().SetScene(wS);
         return true;
     }

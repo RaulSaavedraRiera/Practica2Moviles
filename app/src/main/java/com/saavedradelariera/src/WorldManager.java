@@ -4,8 +4,12 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.practica1.androidengine.AndroidEngine;
+import com.saavedradelariera.src.scenes.WorldScene;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WorldManager {
 
@@ -15,6 +19,7 @@ public class WorldManager {
     private ArrayList<String> files = new ArrayList<String>();
     private ArrayList<ArrayList<Level>> level = new ArrayList<ArrayList<Level>>();
     private static WorldManager instance = null;
+    private Map<Integer, WorldScene> scenesMap = new HashMap<>();
 
     private void WorldManager(){}
 
@@ -94,4 +99,20 @@ public class WorldManager {
             return -1;
         }
     }
+
+    public boolean isSceneCreated(int id)
+    {
+        return scenesMap.containsKey(id);
+    }
+
+    public void addScene(WorldScene wS)
+    {
+        scenesMap.put(idActualWordl, wS);
+    }
+
+    public WorldScene getWorldScene()
+    {
+        return scenesMap.get(idActualWordl);
+    }
+
 }

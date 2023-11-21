@@ -4,6 +4,7 @@ import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
 import com.saavedradelariera.src.GameObject;
+import com.saavedradelariera.src.Text;
 
 /*Clase base para los botones de cambio de escena*/
 public class LevelButton extends GameObject {
@@ -15,7 +16,7 @@ public class LevelButton extends GameObject {
     private int H;
     private int id;
 
-    public LevelButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int id) {
+    public LevelButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int id, String font) {
         super(x, y, w, h);
         this.c = c;
         this.c2 = c2;
@@ -24,13 +25,15 @@ public class LevelButton extends GameObject {
         W = w;
         H = h;
         this.id = id;
+
+        Text t = new Text(font,posX + width/3, posY +height/3, W/3, height/3, String.valueOf(id), c2);
+
     }
 
     //Los botones serán representados como rectángulos
     @Override
     public void Render(AndroidGraphics graphics) {
         graphics.RenderFillRect(posX, posY, width, height, c, c2);
-        graphics.RenderText(posX + width/3, posY +height/3, height/3,  String.valueOf(id), c2);
     }
 
 

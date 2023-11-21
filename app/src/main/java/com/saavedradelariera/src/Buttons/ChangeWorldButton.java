@@ -19,10 +19,20 @@ public class ChangeWorldButton extends ImageButton {
     @Override
     protected boolean HandleClick() {
 
+        int id;
         if(WorldManager.getInstance().changeWorld(this.type))
         {
-            WorldScene ws = new WorldScene();
-            SceneManager.getInstance().SetScene(ws);
+            id = WorldManager.getInstance().getIdActualWordl();
+            if(WorldManager.getInstance().isSceneCreated(id))
+            {
+                SceneManager.getInstance().SetScene(WorldManager.getInstance().getWorldScene());
+            }
+            else {
+                WorldScene ws = new WorldScene();
+                WorldManager.getInstance().addScene(ws);
+                SceneManager.getInstance().SetScene(ws);
+
+            }
         }
 
         return true;

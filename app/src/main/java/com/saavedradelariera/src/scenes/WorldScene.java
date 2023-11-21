@@ -28,21 +28,21 @@ public class WorldScene extends Scene {
     private ColorJ c2 = new ColorJ(0, 0, 0);
 
     public WorldScene(){
-
         id = WorldManager.getInstance().getIdActualWordl();
     }
 
     @Override
     public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
         super.SetScene(graphics, audioSystem);
+
         name = "WorldScene";
+
         Text t = new Text("Night.ttf",200, 50, 50, 100,  "MUNDO " + String.valueOf(id), new ColorJ(0, 0, 0));
         ChangeWorldButton cw1 = new ChangeWorldButton("arrowC1.png", 400, 35, 50, 50, true);
         ChangeWorldButton cw2 = new ChangeWorldButton("arrowC2.png", 120, 35, 50, 50, false);
         ChangeSceneButtonBack buttonBack = new ChangeSceneButtonBack("arrow.png",50, 35, 50,
                 50);
 
-        int screenWidth = graphics.GetWidth();
         int contGlobal = 1;
 
         int n = WorldManager.getInstance().getLevelInWorld(id - 1);
@@ -53,8 +53,8 @@ public class WorldScene extends Scene {
                 int x = startX + col * (buttonWidth + padding);
                 int y = startY + row * (buttonHeight + padding * 2);
 
-                LevelButton l = new LevelButton(x, y, buttonWidth, buttonHeight,
-                        c, c2, contGlobal);
+                LevelButton l = new LevelButton( x, y, buttonWidth, buttonHeight,
+                        c, c2, contGlobal,"Night.ttf");
                 contGlobal++;
 
                 if(contGlobal >= n)
