@@ -9,11 +9,12 @@ import com.saavedradelariera.src.Buttons.ChangeSceneButtonMenu;
 import com.saavedradelariera.src.Buttons.ChangeWorldButton;
 import com.saavedradelariera.src.Buttons.LevelButton;
 import com.saavedradelariera.src.Text;
+import com.saavedradelariera.src.WorldManager;
 
 public class WorldScene extends Scene {
 
 
-    private int id = 1;
+    private int id;
     private int buttonWidth = 150;
     private int buttonHeight = 150;
     private int padding = 20;
@@ -27,6 +28,8 @@ public class WorldScene extends Scene {
     private ColorJ c2 = new ColorJ(0, 0, 0);
 
     public WorldScene(){
+
+        id = WorldManager.getInstance().getIdActualWordl();
     }
 
     @Override
@@ -34,8 +37,8 @@ public class WorldScene extends Scene {
         super.SetScene(graphics, audioSystem);
         name = "WorldScene";
         Text t = new Text("Night.ttf",200, 50, 50, 100,  "MUNDO " + String.valueOf(id), new ColorJ(0, 0, 0));
-        ChangeWorldButton cw1 = new ChangeWorldButton("arrowC1.png", 400, 35, 50, 50);
-        ChangeWorldButton cw2 = new ChangeWorldButton("arrowC2.png", 120, 35, 50, 50);
+        ChangeWorldButton cw1 = new ChangeWorldButton("arrowC1.png", 400, 35, 50, 50, true);
+        ChangeWorldButton cw2 = new ChangeWorldButton("arrowC2.png", 120, 35, 50, 50, false);
         ChangeSceneButtonBack buttonBack = new ChangeSceneButtonBack("arrow.png",50, 35, 50,
                 50);
 

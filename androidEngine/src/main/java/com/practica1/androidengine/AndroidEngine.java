@@ -1,4 +1,5 @@
 package com.practica1.androidengine;
+import android.content.Context;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -38,6 +39,11 @@ public class AndroidEngine implements Runnable {
      * */
     protected void Render() {
         activeIScene.RenderScene(graphics);
+    }
+
+    public Context getContext()
+    {
+        return myView.getContext().getApplicationContext();
     }
 
     /**

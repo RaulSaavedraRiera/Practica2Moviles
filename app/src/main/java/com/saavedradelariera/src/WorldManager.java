@@ -1,36 +1,26 @@
 package com.saavedradelariera.src;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.practica1.androidengine.AndroidEngine;
-import com.practica1.androidengine.AndroidGraphics;
-import com.saavedradelariera.src.messages.Message;
-import com.saavedradelariera.src.scenes.Scene;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
-/*Clase que gestiona las escenas del juego para facilitar su funcionamiento y relacion con el motor de
-de tecnología. Permite lanzar nuevas ecenas, mandar mensajes y añadir objetos a la escena*/
 public class WorldManager {
 
-    private int idActualWordl;
-
+    private int idActualWordl = 1;
     private int nWorld;
-
+    final String path = "levels";
     private ArrayList<String> files = new ArrayList<String>();
     private static WorldManager instance = null;
 
-    private AndroidGraphics androidGraphics;
-    private AssetManager assetManager;
-
     private void WorldManager(){}
 
-    public void Init(AndroidGraphics graphics) {
-        androidGraphics = graphics;
-        assetManager = graphics.getAssets();
+    public void Init(AndroidEngine engine) {
 
-        ReadWorlds();
+        ReadWorlds(engine.getContext());
+
     }
     public static WorldManager getInstance() {
         if (instance == null) {
@@ -39,24 +29,36 @@ public class WorldManager {
         return instance;
     }
 
-    public void ReadWorlds()
+    public void ReadWorlds(Context c)
     {
+        AssetManager mngr = c.getAssets();
+
         try {
-            String[] directories = assetManager.list("levels/");
+            String[] directories = mngr.list(path);
 
-            // Procesar los nombres obtenidos (directorios) y guardarlos en el ArrayList
             for (String directory : directories) {
-
                     files.add(directory);
                     nWorld++;
-
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        int a = 0;
-
     }
 
+    public int getIdActualWordl() {
+        return idActualWordl;
+    }
+
+    public boolean changeWorld(boolean add){
+
+        if(add && idActualWordl + 1 < nWorld + 1)
+        {
+            idActualWordl++;
+            return true;
+        }else if (!add && idActualWordl - 1 > 0){
+            idActualWordl--;
+            return true;
+        }
+        return false;
+    }
 }
