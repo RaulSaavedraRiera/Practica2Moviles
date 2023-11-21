@@ -13,6 +13,7 @@ public class WorldManager {
     private int nWorld;
     final String path = "levels";
     private ArrayList<String> files = new ArrayList<String>();
+    private ArrayList<ArrayList<Level>> level = new ArrayList<ArrayList<Level>>();
     private static WorldManager instance = null;
 
     private void WorldManager(){}
@@ -20,7 +21,7 @@ public class WorldManager {
     public void Init(AndroidEngine engine) {
 
         ReadWorlds(engine.getContext());
-
+        ReadLevels(engine.getContext());
     }
     public static WorldManager getInstance() {
         if (instance == null) {
@@ -60,5 +61,37 @@ public class WorldManager {
             return true;
         }
         return false;
+    }
+
+    public void ReadLevels(Context c)
+    {
+        AssetManager mngr = c.getAssets();
+
+        try {
+            for(String nameW : files)
+            {
+                String[] directories = mngr.list(path+'/'+nameW);
+
+                ArrayList<Level> levels = new ArrayList<>();
+
+                for (String directory : directories) {
+                    Level l = new Level();
+                    levels.add(l);
+                }
+                level.add(levels);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getLevelInWorld(int id)
+    {
+        if (id >= 0 && id < level.size()) {
+            ArrayList<Level> selectedLevels = level.get(id);
+            return selectedLevels.size();
+        } else {
+            return -1;
+        }
     }
 }

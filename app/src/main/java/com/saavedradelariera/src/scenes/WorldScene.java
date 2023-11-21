@@ -45,15 +45,20 @@ public class WorldScene extends Scene {
         int screenWidth = graphics.GetWidth();
         int contGlobal = 1;
 
+        int n = WorldManager.getInstance().getLevelInWorld(id - 1);
+        int numberOfRows = Math.min(n / buttonsPerRow + 1, 4);
+
         for (int row = 0; row < numberOfRows; row++) {
             for (int col = 0; col < buttonsPerRow; col++) {
-
                 int x = startX + col * (buttonWidth + padding);
                 int y = startY + row * (buttonHeight + padding * 2);
 
                 LevelButton l = new LevelButton(x, y, buttonWidth, buttonHeight,
                         c, c2, contGlobal);
                 contGlobal++;
+
+                if(contGlobal >= n)
+                    break;
             }
         }
     }

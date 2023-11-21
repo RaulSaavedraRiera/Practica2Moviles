@@ -29,12 +29,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(renderView);
         androidEngine = new AndroidEngine(renderView);
 
+        WorldManager.getInstance().Init(androidEngine);
         SceneManager.getInstance().Init(androidEngine);
         //MenuScene mS = new MenuScene();
         WorldScene mS = new WorldScene();
         SceneManager.getInstance().SetScene(mS);
 
-        WorldManager.getInstance().Init(androidEngine);
+
         //androidEngine.Resume();
 
     }
