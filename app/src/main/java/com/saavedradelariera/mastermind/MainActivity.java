@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         WorldManager.getInstance().Init(androidEngine);
         SceneManager.getInstance().Init(androidEngine);
-        //MenuScene mS = new MenuScene();
-        WorldScene mS = new WorldScene();
+        MenuScene mS = new MenuScene();
+        //WorldScene mS = new WorldScene();
         SceneManager.getInstance().SetScene(mS);
 
 
