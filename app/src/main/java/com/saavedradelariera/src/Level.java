@@ -12,9 +12,18 @@ public class Level {
 
     private boolean locked;
 
-    Level() {
+    private int difficult;
+
+    Level(int dif, boolean locked) {
+        this.difficult = dif;
+        this.locked = locked;
     }
 
-    
+    public int getDifficult() {
+        return difficult;
+    }
 
+    public boolean isLocked() {
+        return locked;
+    }
 }

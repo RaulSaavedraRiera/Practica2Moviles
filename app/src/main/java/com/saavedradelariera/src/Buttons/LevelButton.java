@@ -4,7 +4,11 @@ import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
 import com.saavedradelariera.src.GameObject;
+import com.saavedradelariera.src.Level;
+import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.Text;
+import com.saavedradelariera.src.WorldManager;
+import com.saavedradelariera.src.scenes.GameScene;
 
 /*Clase base para los botones de cambio de escena*/
 public class LevelButton extends GameObject {
@@ -40,11 +44,9 @@ public class LevelButton extends GameObject {
     @Override
     public boolean HandleInput(TouchEvent e)
     {
-
         if(e.getType() == TouchEvent.TouchEventType.CLICK || e.getType() == TouchEvent.TouchEventType.TOUCH_UP)
         {
             if (ISOver(e.getX(), e.getY())) {
-
               return HandleClick();
             }
         }
@@ -71,6 +73,13 @@ public class LevelButton extends GameObject {
 
     //Método para procesar dicho click
     protected boolean HandleClick(){
+
+        Level level = WorldManager.getInstance().getLevel(id-1);
+
+        GameScene gS = new GameScene(level.getDifficult());
+        SceneManager.getInstance().SetScene(gS);
+
+
         return false;
     }
 }

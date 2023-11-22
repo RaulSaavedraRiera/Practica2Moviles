@@ -43,23 +43,25 @@ public class WorldScene extends Scene {
         ChangeSceneButtonBack buttonBack = new ChangeSceneButtonBack("arrow.png",50, 35, 50,
                 50);
 
-        int contGlobal = 1;
-
+        int contGlobal = 0;
         int n = WorldManager.getInstance().getLevelInWorld(id - 1);
         int numberOfRows = Math.min(n / buttonsPerRow + 1, 4);
 
-        for (int row = 0; row < numberOfRows; row++) {
+
+        int row = 0;
+        while (contGlobal < n && row < numberOfRows) {
             for (int col = 0; col < buttonsPerRow; col++) {
                 int x = startX + col * (buttonWidth + padding);
                 int y = startY + row * (buttonHeight + padding * 2);
 
-                LevelButton l = new LevelButton( x, y, buttonWidth, buttonHeight,
-                        c, c2, contGlobal,"Night.ttf");
-                contGlobal++;
-
-                if(contGlobal >= n)
+                if (contGlobal < n) {
+                    LevelButton l = new LevelButton(x, y, buttonWidth, buttonHeight, c, c2, contGlobal + 1, "Night.ttf");
+                    contGlobal++;
+                } else {
                     break;
+                }
             }
+            row++;
         }
     }
 }

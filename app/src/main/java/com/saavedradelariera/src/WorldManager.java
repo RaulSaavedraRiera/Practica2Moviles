@@ -6,18 +6,29 @@ import android.content.res.AssetManager;
 import com.practica1.androidengine.AndroidEngine;
 import com.saavedradelariera.src.scenes.WorldScene;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Clase encargada de leer los directorios de los mundos, asi como de leer los json de los niveles y guardar toda esta informacion
+ * para poder ser usada por las demas clases.
+ */
 public class WorldManager {
 
-    private int idActualWordl = 1;
+    private int idActualWorld = 1;
     private int nWorld;
     final String path = "levels";
     private ArrayList<String> files = new ArrayList<String>();
-    private ArrayList<ArrayList<Level>> level = new ArrayList<ArrayList<Level>>();
+    private ArrayList<ArrayList<Level>> worlds = new ArrayList<ArrayList<Level>>();
     private static WorldManager instance = null;
     private Map<Integer, WorldScene> scenesMap = new HashMap<>();
 
@@ -35,7 +46,7 @@ public class WorldManager {
         return instance;
     }
 
-    public void ReadWorlds(Context c)
+    private void ReadWorlds(Context c)
     {
         AssetManager mngr = c.getAssets();
 
@@ -52,23 +63,23 @@ public class WorldManager {
     }
 
     public int getIdActualWordl() {
-        return idActualWordl;
+        return idActualWorld;
     }
 
     public boolean changeWorld(boolean add){
 
-        if(add && idActualWordl + 1 < nWorld + 1)
+        if(add && idActualWorld + 1 < nWorld + 1)
         {
-            idActualWordl++;
+            idActualWorld++;
             return true;
-        }else if (!add && idActualWordl - 1 > 0){
-            idActualWordl--;
+        }else if (!add && idActualWorld - 1 > 0){
+            idActualWorld--;
             return true;
         }
         return false;
     }
 
-    public void ReadLevels(Context c)
+    private void ReadLevels(Context c)
     {
         AssetManager mngr = c.getAssets();
 
@@ -80,10 +91,10 @@ public class WorldManager {
                 ArrayList<Level> levels = new ArrayList<>();
 
                 for (String directory : directories) {
-                    Level l = new Level();
+                    Level l = JSONToLevel(mngr, path + '/' + nameW + '/' + directory);
                     levels.add(l);
                 }
-                level.add(levels);
+                worlds.add(levels);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,8 +103,8 @@ public class WorldManager {
 
     public int getLevelInWorld(int id)
     {
-        if (id >= 0 && id < level.size()) {
-            ArrayList<Level> selectedLevels = level.get(id);
+        if (id >= 0 && id < worlds.size()) {
+            ArrayList<Level> selectedLevels = worlds.get(id);
             return selectedLevels.size();
         } else {
             return -1;
@@ -107,12 +118,51 @@ public class WorldManager {
 
     public void addScene(WorldScene wS)
     {
-        scenesMap.put(idActualWordl, wS);
+        scenesMap.put(idActualWorld, wS);
     }
 
     public WorldScene getWorldScene()
     {
-        return scenesMap.get(idActualWordl);
+        return scenesMap.get(idActualWorld);
+    }
+
+    private Level JSONToLevel(AssetManager mngr, String filePath) {
+        try {
+            InputStream inputStream = mngr.open(filePath);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            bufferedReader.close();
+            String json = stringBuilder.toString();
+
+            JSONObject jsonObject = new JSONObject(json);
+
+            int dif = jsonObject.getInt("dif");
+            boolean lock = jsonObject.getBoolean("locked");
+
+            Level level = new Level(dif, lock);
+
+            return level;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    public Level getLevel(int levelIndex) {
+        if (idActualWorld >= 0 && idActualWorld <= worlds.size()) {
+            ArrayList<Level> selectedLevels = worlds.get(idActualWorld);
+            if (levelIndex >= 0 && levelIndex < selectedLevels.size()) {
+                return selectedLevels.get(levelIndex);
+            }
+        }
+        return null;
     }
 
 }
