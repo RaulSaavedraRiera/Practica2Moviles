@@ -99,6 +99,10 @@ public class GameScene extends Scene {
                 nRows = 10;
                 nColors = 9;
                 break;
+                //Nivel personalizado
+            case 4:
+
+                break;
         }
 
     }

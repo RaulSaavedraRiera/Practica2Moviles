@@ -15,8 +15,9 @@ public class ChangeSceneButtonWorld extends ChangeSceneButton {
 
     @Override
     protected boolean HandleClick() {
+        SceneManager.getInstance().pushSceneStack();
+
         WorldScene wS = new WorldScene();
-        WorldManager.getInstance().addScene(wS);
         SceneManager.getInstance().SetScene(wS);
         return true;
     }

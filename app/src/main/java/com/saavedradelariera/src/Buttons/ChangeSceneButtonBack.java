@@ -5,7 +5,7 @@ import com.saavedradelariera.src.messages.ReleaseSoundMessage;
 import com.saavedradelariera.src.scenes.MenuScene;
 
 
-/*Botón de cambio de escena a la escena inicial*/
+/*Botón de cambio de escena a la escena anterior*/
 public class ChangeSceneButtonBack extends ImageButton {
 
 
@@ -15,9 +15,8 @@ public class ChangeSceneButtonBack extends ImageButton {
 
     @Override
     protected boolean HandleClick() {
-        MenuScene mS = new MenuScene();
         SceneManager.getInstance().SendMessageToActiveScene(new ReleaseSoundMessage());
-        SceneManager.getInstance().SetScene(mS);
+        SceneManager.getInstance().SetScene(SceneManager.getInstance().useSceneStack());
         return true;
     }
 }

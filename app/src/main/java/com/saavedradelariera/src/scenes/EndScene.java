@@ -6,6 +6,8 @@ import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.ButtonArray;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonGame;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonMenu;
+import com.saavedradelariera.src.Buttons.ChangeSceneFinalButton;
+import com.saavedradelariera.src.Buttons.ChangeToNewGameButton;
 import com.saavedradelariera.src.Text;
 import java.util.ArrayList;
 
@@ -52,10 +54,10 @@ public class EndScene extends Scene {
         ButtonArray b =  new ButtonArray(100, 350, 400, 300);
         b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, colors, false, false, daltonic);
 
-        new ChangeSceneButtonGame(100, 700, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128), gameDifficult);
+        new ChangeToNewGameButton(100, 700, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128), gameDifficult);
         new Text("Night.ttf",180, 710, 36, 90,  "Volver a jugar", new ColorJ(0, 0, 0));
 
-        new ChangeSceneButtonMenu(100, 775, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128));
+        new ChangeSceneFinalButton(100, 775, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128));
         new Text("Night.ttf",160, 785, 36, 90,  "Elegir dificultad", new ColorJ(0, 0, 0));
 
     }

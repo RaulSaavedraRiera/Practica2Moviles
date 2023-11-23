@@ -75,10 +75,10 @@ public class LevelButton extends GameObject {
     protected boolean HandleClick(){
 
         Level level = WorldManager.getInstance().getLevel(id-1);
+        SceneManager.getInstance().pushSceneStack();
 
         GameScene gS = new GameScene(level.getDifficult());
         SceneManager.getInstance().SetScene(gS);
-
 
         return false;
     }

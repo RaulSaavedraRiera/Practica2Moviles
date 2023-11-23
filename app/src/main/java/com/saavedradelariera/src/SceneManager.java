@@ -5,6 +5,7 @@ import com.saavedradelariera.src.messages.Message;
 import com.saavedradelariera.src.scenes.Scene;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /*Clase que gestiona las escenas del juego para facilitar su funcionamiento y relacion con el motor de
 de tecnología. Permite lanzar nuevas ecenas, mandar mensajes y añadir objetos a la escena*/
@@ -14,8 +15,10 @@ public class SceneManager {
 
     //escena activa
     Scene activeScene = null;
-
+    Stack<Scene> sceneStack = new Stack<>();
     ArrayList<GameObject> messagesGO = new ArrayList<>();
+
+
 
     //constructor vacio
     private void SceneManager(){}
@@ -37,6 +40,8 @@ public class SceneManager {
     {
         if(engine == null)
             throw new RuntimeException("no seteado el engine");
+
+        //pushSceneStack(scene);
 
         activeScene = scene;
         //limpia los objetos registrados a mensajes de la anterior escena
@@ -69,5 +74,14 @@ public class SceneManager {
     public void UnRegisterToMessage(GameObject gO)
     {
         messagesGO.remove(gO);
+    }
+
+    public void pushSceneStack(){
+        sceneStack.add(activeScene);
+    }
+    public Scene useSceneStack(){
+        Scene aux = sceneStack.peek();
+        sceneStack.pop();
+        return aux;
     }
 }

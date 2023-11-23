@@ -30,7 +30,7 @@ public class WorldManager {
     private ArrayList<String> files = new ArrayList<String>();
     private ArrayList<ArrayList<Level>> worlds = new ArrayList<ArrayList<Level>>();
     private static WorldManager instance = null;
-    private Map<Integer, WorldScene> scenesMap = new HashMap<>();
+    private Level actualLevel;
 
     private void WorldManager(){}
 
@@ -79,6 +79,11 @@ public class WorldManager {
         return false;
     }
 
+
+    public int getIdActualWorld() {
+        return idActualWorld;
+    }
+
     private void ReadLevels(Context c)
     {
         AssetManager mngr = c.getAssets();
@@ -111,21 +116,6 @@ public class WorldManager {
         }
     }
 
-    public boolean isSceneCreated(int id)
-    {
-        return scenesMap.containsKey(id);
-    }
-
-    public void addScene(WorldScene wS)
-    {
-        scenesMap.put(idActualWorld, wS);
-    }
-
-    public WorldScene getWorldScene()
-    {
-        return scenesMap.get(idActualWorld);
-    }
-
     private Level JSONToLevel(AssetManager mngr, String filePath) {
         try {
             InputStream inputStream = mngr.open(filePath);
@@ -156,8 +146,8 @@ public class WorldManager {
     }
 
     public Level getLevel(int levelIndex) {
-        if (idActualWorld >= 0 && idActualWorld <= worlds.size()) {
-            ArrayList<Level> selectedLevels = worlds.get(idActualWorld);
+        if (idActualWorld > 0 && idActualWorld - 1 <= worlds.size()) {
+            ArrayList<Level> selectedLevels = worlds.get(idActualWorld-1);
             if (levelIndex >= 0 && levelIndex < selectedLevels.size()) {
                 return selectedLevels.get(levelIndex);
             }
@@ -165,4 +155,12 @@ public class WorldManager {
         return null;
     }
 
+    //Posible uso en GameScene para poder saber los datos exactos del nivel actual
+    public void setActualLevel(Level actualLevel) {
+        this.actualLevel = actualLevel;
+    }
+
+    public Level getActualLevel() {
+        return actualLevel;
+    }
 }
