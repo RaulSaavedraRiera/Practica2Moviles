@@ -8,6 +8,7 @@ import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
 import com.saavedradelariera.src.Buttons.DaltonicButton;
 import com.saavedradelariera.src.GameManager;
 import com.saavedradelariera.src.InputSolution;
+import com.saavedradelariera.src.Level;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.Row;
 import com.saavedradelariera.src.Text;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 /*Escena de juego principal*/
 public class GameScene extends Scene {
     int nButtons, nRows, nColors, difficult;
-    boolean scaleRowWithSpace = false;
 
     ArrayList<AndroidImage> images;
 
@@ -42,42 +42,9 @@ public class GameScene extends Scene {
         SetSceneSettings(difficult);
         name = "GameScene";
 
-
-        //calcula diferentes valores para poder colocar los elementos correctamenrte
-        int x = (int)(graphics.GetWidthRelative()*0.025f);
-
-        int y = (int)(graphics.GetHeightRelative()*0.1f);
-
-        int width = (int)(graphics.GetWidthRelative()*0.95f);
-
-        int height;
-        if(scaleRowWithSpace)
-            height = (int)((graphics.GetHeightRelative()*0.7f)/nRows);
-        else
-            height = (int)((graphics.GetHeightRelative()*0.7f)/10);
-
-        int offsetX = 0;
-
-        int offsetY;
-
-        if(scaleRowWithSpace)
-            offsetY= (int)(y/nRows);
-        else
-            offsetY = height/10;
-
-
-
-        //genera las columnas
-        ArrayList<Row> rows = new ArrayList<>();
-
-        for (int i = 0; i < nRows; i++) {
-            Row row = new Row(x + offsetX*i, y + height*i + offsetY*i, width, height, nButtons, i+1);
-            rows.add(row);
-        }
-
         //le pasamos al manager las columnas para que las gestione
         GameManager gameManager = new GameManager();
-        gameManager.Init(difficult, rows, nButtons);
+        gameManager.Init(difficult, nButtons, nRows, graphics);
 
         if(images != null)
             gameManager.SetImages(images);
@@ -123,8 +90,12 @@ public class GameScene extends Scene {
                 nColors = 9;
                 break;
                 //Nivel personalizado
-            case 4:
 
+            case 4:
+                Level aux = ResourcesManager.getInstance().getActualLevel();
+                nButtons = aux.getCodeSize();
+                nRows = aux.getAttempts();
+                nColors = aux.getCodeOpt();
                 break;
         }
 

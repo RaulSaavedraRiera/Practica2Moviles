@@ -1,5 +1,6 @@
 package com.saavedradelariera.src;
 
+import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.messages.Message;
@@ -23,7 +24,7 @@ public class GameManager extends GameObject {
 
     private SolutionManager solutionManager;
 
-    int currentRow = 0;
+    int currentRow = 0, buttonsPerRow, rowWidth, rowHeight;
 
     int difficult;
 
@@ -52,14 +53,16 @@ public class GameManager extends GameObject {
     }
 
   //Inicializa el GameManager
-    public void Init(int difficult, ArrayList<Row> r, int solutionSize){
+    public void Init(int difficult, int solutionSize, int nRows, AndroidGraphics graphics){
 
         //Lo registra para recibir mensajes
         SceneManager.getInstance().RegisterToMessage(this);
 
 
         //almacena las columnas y la dificultad, así como crea un solutionManager
-        rows = r;
+        buttonsPerRow = solutionSize;
+        GenerateRows(nRows, graphics);
+
         this.difficult = difficult;
 
         solutionManager = new SolutionManager(difficult);
@@ -74,6 +77,28 @@ public class GameManager extends GameObject {
                 "Te quedan " + String.valueOf(rows.size() - currentRow) + " intentos", new ColorJ(0, 0, 0));
 
 
+    }
+
+    void GenerateRows(int nRows, AndroidGraphics graphics){
+        rows = new ArrayList<>();
+
+        //calcula diferentes valores para poder colocar los elementos correctamenrte
+        int x = (int)(graphics.GetWidthRelative()*0.025f);
+
+        int y = (int)(graphics.GetHeightRelative()*0.1f);
+
+        rowWidth = (int)(graphics.GetWidthRelative()*0.95f);
+
+        rowHeight = (int)((graphics.GetHeightRelative()*0.7f)/10);
+
+        int offsetX = 0;
+
+        int offsetY = height/10;
+
+        for (int i = 0; i < nRows; i++) {
+            Row row = new Row(x + offsetX*i, y + rowHeight*i + offsetY*i, rowWidth, rowHeight, buttonsPerRow , i+1);
+            rows.add(row);
+        }
     }
 
     public void SetImages(ArrayList<AndroidImage> imgs)
