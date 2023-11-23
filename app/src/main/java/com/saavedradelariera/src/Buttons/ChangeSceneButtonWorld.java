@@ -2,8 +2,6 @@ package com.saavedradelariera.src.Buttons;
 
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.SceneManager;
-import com.saavedradelariera.src.WorldManager;
-import com.saavedradelariera.src.scenes.ChooseScene;
 import com.saavedradelariera.src.scenes.WorldScene;
 
 /*Botón de cambio de escena a la escena de selección de dificultad*/

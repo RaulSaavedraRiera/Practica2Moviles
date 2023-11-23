@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.practica1.androidengine.AndroidEngine;
-import com.saavedradelariera.src.scenes.WorldScene;
+import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.AndroidImage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,41 +15,44 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
  * Clase encargada de leer los directorios de los mundos, asi como de leer los json de los niveles y guardar toda esta informacion
  * para poder ser usada por las demas clases.
  */
-public class WorldManager {
+public class ResourcesManager {
 
     private int idActualWorld = 1;
     private int nWorld;
     final String path = "levels";
     private ArrayList<String> files = new ArrayList<String>();
+    private ArrayList<String> filesImage = new ArrayList<String>();
     private ArrayList<ArrayList<Level>> worlds = new ArrayList<ArrayList<Level>>();
-    private static WorldManager instance = null;
+    private static ResourcesManager instance = null;
     private Level actualLevel;
+
+    private Context currentContext;
 
     private void WorldManager(){}
 
     public void Init(AndroidEngine engine) {
 
-        ReadWorlds(engine.getContext());
-        ReadLevels(engine.getContext());
+        currentContext = engine.getContext();
+        ReadWorlds();
+        ReadLevels();
+        LoadImageFolders();
     }
-    public static WorldManager getInstance() {
+    public static ResourcesManager getInstance() {
         if (instance == null) {
-            instance = new WorldManager();
+            instance = new ResourcesManager();
         }
         return instance;
     }
 
-    private void ReadWorlds(Context c)
+    private void ReadWorlds()
     {
-        AssetManager mngr = c.getAssets();
+        AssetManager mngr = currentContext.getAssets();
 
         try {
             String[] directories = mngr.list(path);
@@ -84,9 +88,9 @@ public class WorldManager {
         return idActualWorld;
     }
 
-    private void ReadLevels(Context c)
+    private void ReadLevels()
     {
-        AssetManager mngr = c.getAssets();
+        AssetManager mngr = currentContext.getAssets();
 
         try {
             for(String nameW : files)
@@ -114,6 +118,64 @@ public class WorldManager {
         } else {
             return -1;
         }
+    }
+
+    public Level getLevel(int levelIndex) {
+        if (idActualWorld > 0 && idActualWorld - 1 <= worlds.size()) {
+            ArrayList<Level> selectedLevels = worlds.get(idActualWorld-1);
+            if (levelIndex >= 0 && levelIndex < selectedLevels.size()) {
+                return selectedLevels.get(levelIndex);
+            }
+        }
+        return null;
+    }
+
+    //Posible uso en GameScene para poder saber los datos exactos del nivel actual
+    public void setActualLevel(Level actualLevel) {
+        this.actualLevel = actualLevel;
+    }
+
+    public Level getActualLevel() {
+        return actualLevel;
+    }
+
+    public void LoadImageFolders()
+    {
+        ArrayList<AndroidImage> images = new ArrayList<>();
+
+        AssetManager mngr = currentContext.getAssets();
+
+        try {
+            String[] directories = mngr.list("sprites");
+
+            for (String directory : directories) {
+                filesImage.add(directory);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<AndroidImage> LoadImages(int id, AndroidGraphics g)
+    {
+        ArrayList<AndroidImage> images = new ArrayList<>();
+        AssetManager mngr = currentContext.getAssets();
+
+        try {
+
+                String[] directories = mngr.list(path+'/'+filesImage.get(id));
+
+
+                for (String directory : directories) {
+                    AndroidImage i = g.createImage(directory);
+                    images.add(i);
+                }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return images;
     }
 
     private Level JSONToLevel(AssetManager mngr, String filePath) {
@@ -145,22 +207,5 @@ public class WorldManager {
         return null;
     }
 
-    public Level getLevel(int levelIndex) {
-        if (idActualWorld > 0 && idActualWorld - 1 <= worlds.size()) {
-            ArrayList<Level> selectedLevels = worlds.get(idActualWorld-1);
-            if (levelIndex >= 0 && levelIndex < selectedLevels.size()) {
-                return selectedLevels.get(levelIndex);
-            }
-        }
-        return null;
-    }
 
-    //Posible uso en GameScene para poder saber los datos exactos del nivel actual
-    public void setActualLevel(Level actualLevel) {
-        this.actualLevel = actualLevel;
-    }
-
-    public Level getActualLevel() {
-        return actualLevel;
-    }
 }

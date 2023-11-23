@@ -1,7 +1,7 @@
 package com.saavedradelariera.src.Buttons;
 
 import com.saavedradelariera.src.SceneManager;
-import com.saavedradelariera.src.WorldManager;
+import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.scenes.WorldScene;
 
 /*Botón de daltonismo; cuenta con una imagen fija y si es pulsado manda un mensaje de cambio de dicho modo*/
@@ -18,7 +18,7 @@ public class ChangeWorldButton extends ImageButton {
     @Override
     protected boolean HandleClick() {
 
-        if(WorldManager.getInstance().changeWorld(this.type))
+        if(ResourcesManager.getInstance().changeWorld(this.type))
         {
             if(this.type){
 

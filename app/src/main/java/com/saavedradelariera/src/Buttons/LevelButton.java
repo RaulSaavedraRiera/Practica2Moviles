@@ -7,7 +7,7 @@ import com.saavedradelariera.src.GameObject;
 import com.saavedradelariera.src.Level;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.Text;
-import com.saavedradelariera.src.WorldManager;
+import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.scenes.GameScene;
 
 /*Clase base para los botones de cambio de escena*/
@@ -74,7 +74,7 @@ public class LevelButton extends GameObject {
     //Método para procesar dicho click
     protected boolean HandleClick(){
 
-        Level level = WorldManager.getInstance().getLevel(id-1);
+        Level level = ResourcesManager.getInstance().getLevel(id-1);
         SceneManager.getInstance().pushSceneStack();
 
         GameScene gS = new GameScene(level.getDifficult());

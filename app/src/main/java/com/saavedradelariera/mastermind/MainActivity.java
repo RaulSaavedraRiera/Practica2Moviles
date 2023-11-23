@@ -10,9 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.practica1.androidengine.AndroidEngine;
 import com.saavedradelariera.src.SceneManager;
-import com.saavedradelariera.src.WorldManager;
+import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.scenes.MenuScene;
-import com.saavedradelariera.src.scenes.WorldScene;
 
 public class MainActivity extends AppCompatActivity {
     AndroidEngine androidEngine;
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(renderView);
         androidEngine = new AndroidEngine(renderView);
 
-        WorldManager.getInstance().Init(androidEngine);
+        ResourcesManager.getInstance().Init(androidEngine);
         SceneManager.getInstance().Init(androidEngine);
         MenuScene mS = new MenuScene();
         //WorldScene mS = new WorldScene();

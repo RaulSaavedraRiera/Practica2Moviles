@@ -3,13 +3,11 @@ package com.saavedradelariera.src.scenes;
 import com.practica1.androidengine.AndroidAudio;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
-import com.saavedradelariera.src.Buttons.ChangeSceneButton;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
-import com.saavedradelariera.src.Buttons.ChangeSceneButtonMenu;
 import com.saavedradelariera.src.Buttons.ChangeWorldButton;
 import com.saavedradelariera.src.Buttons.LevelButton;
 import com.saavedradelariera.src.Text;
-import com.saavedradelariera.src.WorldManager;
+import com.saavedradelariera.src.ResourcesManager;
 
 public class WorldScene extends Scene {
 
@@ -28,7 +26,7 @@ public class WorldScene extends Scene {
     private ColorJ c2 = new ColorJ(0, 0, 0);
 
     public WorldScene(){
-        id = WorldManager.getInstance().getIdActualWordl();
+        id = ResourcesManager.getInstance().getIdActualWordl();
     }
 
     @Override
@@ -44,7 +42,7 @@ public class WorldScene extends Scene {
                 50);
 
         int contGlobal = 0;
-        int n = WorldManager.getInstance().getLevelInWorld(id - 1);
+        int n = ResourcesManager.getInstance().getLevelInWorld(id - 1);
         int numberOfRows = Math.min(n / buttonsPerRow + 1, 4);
 
 
