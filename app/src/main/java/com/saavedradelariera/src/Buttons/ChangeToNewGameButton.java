@@ -11,7 +11,6 @@ public class ChangeToNewGameButton extends ChangeSceneButton {
     int n;
     public ChangeToNewGameButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int n){
         super(x,y,w,h,c,c2);
-
         this.n = n;
     }
 
@@ -19,7 +18,6 @@ public class ChangeToNewGameButton extends ChangeSceneButton {
     protected boolean HandleClick() {
         GameScene gS = new GameScene(n);
         SceneManager.getInstance().SetScene(gS);
-
         return true;
     }
 }
