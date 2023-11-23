@@ -26,7 +26,6 @@ public class GameManager extends GameObject {
     int currentRow = 0;
 
     int difficult;
-    boolean levelWithImages = false;
 
     ArrayList<AndroidImage> images;
 
@@ -108,7 +107,7 @@ public class GameManager extends GameObject {
         //System.out.println("nbuttons" + rows.get(currentRow).GetNextButton() + " " + "tries" + playerTry.size());
 
         boolean rowEnded;
-        if(!levelWithImages)
+        if(images == null)
             rowEnded = rows.get(currentRow).Enablebutton(optionSelected, colors.get(optionSelected), inputInRows, clearInRows, currentDaltonicEnable);
         else
            rowEnded = rows.get(currentRow).Enablebutton(optionSelected, images.get(optionSelected), inputInRows, clearInRows);
