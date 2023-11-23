@@ -2,6 +2,7 @@ package com.saavedradelariera.src.scenes;
 
 import com.practica1.androidengine.AndroidAudio;
 import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
 import com.saavedradelariera.src.Buttons.DaltonicButton;
@@ -17,14 +18,23 @@ public class GameScene extends Scene {
     int nButtons, nRows, nColors, difficult;
     boolean scaleRowWithSpace = false;
 
+    ArrayList<AndroidImage> images;
+
     public GameScene(int diff){
         difficult = diff;
+    }
+
+    public GameScene(int diff, ArrayList<AndroidImage> levelImages)
+    {
+        difficult = diff;
+        images = levelImages;
     }
 
     @Override
     public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
 
         super.SetScene(graphics, audioSystem);
+
 
         SetSceneSettings(difficult);
         name = "GameScene";
@@ -66,9 +76,19 @@ public class GameScene extends Scene {
         GameManager gameManager = new GameManager();
         gameManager.Init(difficult, rows, nButtons);
 
+        if(images != null)
+            gameManager.SetImages(images);
+
+
+        InputSolution inputSolution;
         //creamos el input solution
-        InputSolution inputSolution = new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f),
-                graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, gameManager.GetColors());
+        if(images == null)
+            inputSolution = new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f),
+                graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, gameManager.GetColors(), false);
+        //o con sprites
+        else
+            inputSolution = new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f),
+                    graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, images);
 
         new Text("Night.ttf",200, 50, 25, 50,  "Averigua el código", new ColorJ(0, 0, 0));
         new DaltonicButton("ojo.png", 500, 40, 50, 50);

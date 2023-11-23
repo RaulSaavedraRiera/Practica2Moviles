@@ -2,6 +2,7 @@ package com.saavedradelariera.src;
 
 import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
 
@@ -78,6 +79,37 @@ public class ButtonArray extends GameObject {
         }
     }
 
+    //version para imagenes
+    public void GenerateEnableButtons(int n, float spaceCoefficient, float offsetBtwButtons,
+                                      float smallCircle, ArrayList<Integer> num, ArrayList<AndroidImage> imgs, boolean inputEnable, boolean deleteColorButton) {
+
+
+        //calculos de posicion similares al anterior
+        int zoneButton = (int) ((width / n) * spaceCoefficient);
+        int widthButton = (int) ((width / (n * offsetBtwButtons)) * spaceCoefficient);
+
+        if (zoneButton > height * spaceCoefficient) {
+            zoneButton = (int) (height * spaceCoefficient);
+            widthButton = (int) (zoneButton / offsetBtwButtons);
+        }
+
+
+        int initialOffset = (int) ((width - zoneButton * n) / 2);
+
+        int offsetY = (int) ((height - widthButton) / 2);
+
+        CombinationButton b;
+
+
+        //los genera con los comportamientos y colores dados
+        for (int i = 0; i < n; i++) {
+            b =  new CombinationButton(
+                    posX + initialOffset + zoneButton * i, posY + offsetY, widthButton, widthButton, smallCircle, i);
+            b.EnableCombinationButton(imgs.get(num.get(i)), num.get(i), 1f, inputEnable, deleteColorButton);
+            buttons.add(b);
+        }
+    }
+
 
     //desactiva el input de todos los botones
     public void DisableInputButtons(){
@@ -99,6 +131,10 @@ public class ButtonArray extends GameObject {
   //activa el boton seleccionado con los valores dados; permitiendo diferentes comportamientos y color
     public void Enablebutton(int i, ColorJ c, int n,float smallCircle, boolean inputEnabled, boolean cleanColorEnable, boolean daltonicCurrentEnabled){
      buttons.get(i).EnableCombinationButton(c,n,smallCircle, inputEnabled, cleanColorEnable, daltonicCurrentEnabled);
+    }
+    //version para imagenes
+    public void Enablebutton(int i, AndroidImage img, int n, float smallCircle, boolean inputEnabled, boolean cleanColorEnable){
+        buttons.get(i).EnableCombinationButton(img ,n,smallCircle, inputEnabled, cleanColorEnable);
     }
 
     //devuelve el n de botones

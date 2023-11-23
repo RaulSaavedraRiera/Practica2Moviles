@@ -1,4 +1,5 @@
 package com.saavedradelariera.src;
+import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 
 import java.util.ArrayList;
@@ -138,6 +139,22 @@ public class Row extends GameObject {
         currentButton = combinationArray.GetFirstAvailableButton();
         //lo activamos
         combinationArray.Enablebutton(currentButton, color, n, 0.9f, inputEnabled, clearColorEnable, currentDaltonicEnable);
+        //y ahora buscamos el proximo disponible
+        currentButton = combinationArray.GetFirstAvailableButton();
+
+        //devolvemos true o false segun si la fila esta completa
+        if(currentButton == combinationArray.GetNButtons())
+            return true;
+        else
+            return false;
+    }
+
+    //activamos un boton de la combinacion, en este caso con una imagen
+    public boolean Enablebutton(int n, AndroidImage image, boolean inputEnabled, boolean clearColorEnable) {
+        //obtenemos el primer boton disponible
+        currentButton = combinationArray.GetFirstAvailableButton();
+        //lo activamos
+        combinationArray.Enablebutton(currentButton, image, n, 0.9f, inputEnabled, clearColorEnable);
         //y ahora buscamos el proximo disponible
         currentButton = combinationArray.GetFirstAvailableButton();
 

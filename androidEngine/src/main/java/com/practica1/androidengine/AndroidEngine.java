@@ -19,7 +19,7 @@ public class AndroidEngine implements Runnable {
     ColorJ fColor = new ColorJ(255, 255, 255);
     ColorJ sColor = new ColorJ(80, 80, 80);
     private Thread renderThread;
-    private boolean running = false;
+    private volatile boolean running = false;
 
     private SurfaceHolder holder;
     private SurfaceView myView;

@@ -2,6 +2,7 @@ package com.saavedradelariera.src;
 
 import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
 import com.saavedradelariera.src.messages.Message;
@@ -24,6 +25,9 @@ public class CombinationButton extends Button {
     private float initialSmallCirclePercent;
 
 
+    AndroidImage image;
+
+
     //generamos el boton con unos valores predeterminados
     public CombinationButton(int x, int y, int w, int h, float smallCircle, int rowN){
         super(x,y,w,h, smallCircle);
@@ -39,7 +43,10 @@ public class CombinationButton extends Button {
 
     @Override
     public void Render(AndroidGraphics graphics) {
-        super.Render(graphics);
+        if(!enable || image == null)
+            super.Render(graphics);
+        else
+            graphics.RenderImage(image, posX, posY, width, height);
     }
 
     @Override
@@ -81,6 +88,32 @@ public class CombinationButton extends Button {
 
         colorText = new Text("Night.ttf", posX + (3*width)/8 , posY + (3*height)/8, width/2,
                         height/2, s, new ColorJ(0, 0, 0));
+    }
+
+    //para botones con imagen
+    public void EnableCombinationButton(AndroidImage i, int n, float smallCircle, boolean input, boolean deleteColor)
+    {
+        enable = true;
+        number = n;
+
+        image = i;
+
+        backgroundColor = new ColorJ(0,0,0);
+        SetSmallCircleSize(smallCircle);
+
+        inputEnable = input;
+        deleteColorButton = deleteColor;
+
+        SceneManager.getInstance().RegisterToMessage(this);
+
+        String s;
+        if(daltonicEnable)
+            s = String.valueOf(number);
+        else
+            s = "";
+
+        colorText = new Text("Night.ttf", posX + (3*width)/8 , posY + (3*height)/8, width/2,
+                height/2, s, new ColorJ(0, 0, 0));
     }
 
     public void DisableInput(){

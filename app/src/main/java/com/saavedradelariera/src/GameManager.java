@@ -1,5 +1,6 @@
 package com.saavedradelariera.src;
 
+import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.messages.Message;
 import com.saavedradelariera.src.messages.InputColorMessage;
@@ -24,7 +25,10 @@ public class GameManager extends GameObject {
 
     int currentRow = 0;
 
-    int diffcult;
+    int difficult;
+    boolean levelWithImages = false;
+
+    ArrayList<AndroidImage> images;
 
 
     //si activamos inputInRows y no clearInRows podras seleccionar colores desde las filas pero no quitarlos
@@ -57,7 +61,7 @@ public class GameManager extends GameObject {
 
         //almacena las columnas y la dificultad, así como crea un solutionManager
         rows = r;
-        this.diffcult = difficult;
+        this.difficult = difficult;
 
         solutionManager = new SolutionManager(difficult);
 
@@ -73,6 +77,11 @@ public class GameManager extends GameObject {
 
     }
 
+    public void SetImages(ArrayList<AndroidImage> imgs)
+    {
+        images = imgs;
+    }
+
 
     public ColorJ GetColor(int i)
     {
@@ -84,7 +93,7 @@ public class GameManager extends GameObject {
     }
 
     //Método para procesar el input de una nueva entrada a la solución dada por el jugador
-    void ColorInput(int colorSelected){
+    void ColorInput(int optionSelected){
 
 
         //si se ha alcanzado el máximo de botones no se hace anda
@@ -95,13 +104,17 @@ public class GameManager extends GameObject {
 
 
         //añadimos intento
-        playerTry.set(rows.get(currentRow).GetNextButton(), colorSelected);
+        playerTry.set(rows.get(currentRow).GetNextButton(), optionSelected);
         //System.out.println("nbuttons" + rows.get(currentRow).GetNextButton() + " " + "tries" + playerTry.size());
 
+        boolean rowEnded;
+        if(!levelWithImages)
+            rowEnded = rows.get(currentRow).Enablebutton(optionSelected, colors.get(optionSelected), inputInRows, clearInRows, currentDaltonicEnable);
+        else
+           rowEnded = rows.get(currentRow).Enablebutton(optionSelected, images.get(optionSelected), inputInRows, clearInRows);
 
-
-        //lo representamos graficamente, por defecto permitimis
-        if(rows.get(currentRow).Enablebutton(colorSelected, colors.get(colorSelected), inputInRows, clearInRows, currentDaltonicEnable))
+        //lo representamos graficamente, por defecto permitimos
+        if(rowEnded)
         {
             //si se ha llegado al final de linea
             ArrayList<Integer> compSol = solutionManager.compareSolution(playerTry);
@@ -130,7 +143,7 @@ public class GameManager extends GameObject {
     private void EndGame(boolean win){
 
 
-        EndScene endScene = new EndScene(win, currentRow, colors, solutionManager.getSolution(), currentDaltonicEnable, diffcult);
+        EndScene endScene = new EndScene(win, currentRow, colors, solutionManager.getSolution(), currentDaltonicEnable, difficult);
         SceneManager.getInstance().SendMessageToActiveScene(new ReleaseSoundMessage());
         SceneManager.getInstance().SetScene(endScene);
     }
