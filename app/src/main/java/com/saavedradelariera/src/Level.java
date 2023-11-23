@@ -10,20 +10,31 @@ import java.util.ArrayList;
 
 public class Level {
 
-    private boolean locked;
+    private int codeSize;
+    private int codeOpt;
+    private int attempts;
+    private boolean repeat;
 
-    private int difficult;
-
-    Level(int dif, boolean locked) {
-        this.difficult = dif;
-        this.locked = locked;
+    Level(int codeSize, int codeOpt, boolean repeat, int attempts) {
+        this.attempts = attempts;
+        this.codeSize = codeSize;
+        this.codeOpt = codeOpt;
+        this.repeat = repeat;
     }
 
-    public int getDifficult() {
-        return difficult;
+    public int getAttempts() {
+        return attempts;
     }
 
-    public boolean isLocked() {
-        return locked;
+    public int getCodeOpt() {
+        return codeOpt;
+    }
+
+    public int getCodeSize() {
+        return codeSize;
+    }
+
+    public boolean isRepeat() {
+        return repeat;
     }
 }

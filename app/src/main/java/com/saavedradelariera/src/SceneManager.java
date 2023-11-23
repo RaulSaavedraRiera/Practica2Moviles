@@ -18,8 +18,6 @@ public class SceneManager {
     Stack<Scene> sceneStack = new Stack<>();
     ArrayList<GameObject> messagesGO = new ArrayList<>();
 
-
-
     //constructor vacio
     private void SceneManager(){}
     //incialziacion en dos pasos
@@ -40,8 +38,6 @@ public class SceneManager {
     {
         if(engine == null)
             throw new RuntimeException("no seteado el engine");
-
-        //pushSceneStack(scene);
 
         activeScene = scene;
         //limpia los objetos registrados a mensajes de la anterior escena

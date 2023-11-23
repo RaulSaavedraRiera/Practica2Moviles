@@ -259,7 +259,6 @@ public class AndroidGraphics {
      * @param route: The file route of the image.
      * @return The created AndroidImage instance.
      */
-
     public AndroidImage createImage(String route) {
        actualDImage = imageMap.get(route);
 

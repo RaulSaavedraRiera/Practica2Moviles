@@ -44,7 +44,7 @@ public class LevelButton extends GameObject {
     @Override
     public boolean HandleInput(TouchEvent e)
     {
-        if(e.getType() == TouchEvent.TouchEventType.CLICK || e.getType() == TouchEvent.TouchEventType.TOUCH_UP)
+        if(e.getType() == TouchEvent.TouchEventType.TOUCH_UP)
         {
             if (ISOver(e.getX(), e.getY())) {
               return HandleClick();
@@ -73,11 +73,10 @@ public class LevelButton extends GameObject {
 
     //Método para procesar dicho click
     protected boolean HandleClick(){
-
         Level level = ResourcesManager.getInstance().getLevel(id-1);
-        SceneManager.getInstance().pushSceneStack();
+        //SceneManager.getInstance().pushSceneStack();
 
-        GameScene gS = new GameScene(level.getDifficult());
+        GameScene gS = new GameScene(4);
         SceneManager.getInstance().SetScene(gS);
 
         return false;

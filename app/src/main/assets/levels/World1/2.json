@@ -1,4 +1,6 @@
 {
-  "dif": 3,
-  "locked": true
+  "codeSize": 3,
+  "codeOpt": 5,
+  "repeat": false, 
+  "attempts": 4 
 }

@@ -30,12 +30,9 @@ public class InputHandlerAndroid implements View.OnTouchListener {
     public boolean onTouch(View view, MotionEvent motionEvent) {
         TouchEvent event = pool.newEvent();;
 
-        int index = motionEvent.getActionIndex();
         int action =  motionEvent.getActionMasked();
-        int finger = motionEvent.getPointerId(index);
-
-        event.setX((int) motionEvent.getX(finger));
-        event.setY((int) motionEvent.getY(finger));
+        event.setX((int) motionEvent.getX());
+        event.setY((int) motionEvent.getY());
 
         if(action == MotionEvent.ACTION_DOWN) {
             event.setType(TouchEvent.TouchEventType.TOUCH_DOWN);

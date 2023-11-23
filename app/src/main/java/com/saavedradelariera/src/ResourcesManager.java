@@ -31,7 +31,6 @@ public class ResourcesManager {
     private ArrayList<ArrayList<Level>> worlds = new ArrayList<ArrayList<Level>>();
     private static ResourcesManager instance = null;
     private Level actualLevel;
-
     private Context currentContext;
 
     private void WorldManager(){}
@@ -50,21 +49,6 @@ public class ResourcesManager {
         return instance;
     }
 
-    private void ReadWorlds()
-    {
-        AssetManager mngr = currentContext.getAssets();
-
-        try {
-            String[] directories = mngr.list(path);
-
-            for (String directory : directories) {
-                    files.add(directory);
-                    nWorld++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public int getIdActualWordl() {
         return idActualWorld;
@@ -84,8 +68,63 @@ public class ResourcesManager {
     }
 
 
-    public int getIdActualWorld() {
-        return idActualWorld;
+    public int getLevelInWorld(int id)
+    {
+        if (id >= 0 && id < worlds.size()) {
+            ArrayList<Level> selectedLevels = worlds.get(id);
+            return selectedLevels.size();
+        } else {
+            return -1;
+        }
+    }
+
+    public Level getLevel(int levelIndex) {
+        if (idActualWorld > 0 && idActualWorld - 1 <= worlds.size()) {
+            ArrayList<Level> selectedLevels = worlds.get(idActualWorld-1);
+            if (levelIndex >= 0 && levelIndex < selectedLevels.size()) {
+                setActualLevel(selectedLevels.get(levelIndex));
+                return selectedLevels.get(levelIndex);
+            }
+        }
+        return null;
+    }
+
+    public Level getActualLevel() {
+        return actualLevel;
+    }
+
+    public void LoadImageFolders()
+    {
+        ArrayList<AndroidImage> images = new ArrayList<>();
+        AssetManager mngr = currentContext.getAssets();
+
+        try {
+            String[] directories = mngr.list("sprites");
+
+            for (String directory : directories) {
+                filesImage.add("sprites/" + directory);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<AndroidImage> LoadImages(int id, AndroidGraphics g)
+    {
+        ArrayList<AndroidImage> images = new ArrayList<>();
+        AssetManager mngr = currentContext.getAssets();
+
+        try {
+                String[] directories = mngr.list(filesImage.get(id));
+                for (String directory : directories) {
+                    AndroidImage i = g.createImage(filesImage.get(id) + "/" + directory);
+                    images.add(i);
+                }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return images;
     }
 
     private void ReadLevels()
@@ -110,72 +149,9 @@ public class ResourcesManager {
         }
     }
 
-    public int getLevelInWorld(int id)
-    {
-        if (id >= 0 && id < worlds.size()) {
-            ArrayList<Level> selectedLevels = worlds.get(id);
-            return selectedLevels.size();
-        } else {
-            return -1;
-        }
-    }
 
-    public Level getLevel(int levelIndex) {
-        if (idActualWorld > 0 && idActualWorld - 1 <= worlds.size()) {
-            ArrayList<Level> selectedLevels = worlds.get(idActualWorld-1);
-            if (levelIndex >= 0 && levelIndex < selectedLevels.size()) {
-                return selectedLevels.get(levelIndex);
-            }
-        }
-        return null;
-    }
-
-    //Posible uso en GameScene para poder saber los datos exactos del nivel actual
-    public void setActualLevel(Level actualLevel) {
+    private void setActualLevel(Level actualLevel) {
         this.actualLevel = actualLevel;
-    }
-
-    public Level getActualLevel() {
-        return actualLevel;
-    }
-
-    public void LoadImageFolders()
-    {
-        ArrayList<AndroidImage> images = new ArrayList<>();
-
-        AssetManager mngr = currentContext.getAssets();
-
-        try {
-            String[] directories = mngr.list("sprites");
-
-            for (String directory : directories) {
-                filesImage.add("sprites/" + directory);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public ArrayList<AndroidImage> LoadImages(int id, AndroidGraphics g)
-    {
-        ArrayList<AndroidImage> images = new ArrayList<>();
-        AssetManager mngr = currentContext.getAssets();
-
-        try {
-
-                String[] directories = mngr.list(filesImage.get(id));
-
-
-                for (String directory : directories) {
-                    AndroidImage i = g.createImage(filesImage.get(id) + "/" + directory);
-                    images.add(i);
-                }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return images;
     }
 
     private Level JSONToLevel(AssetManager mngr, String filePath) {
@@ -193,10 +169,12 @@ public class ResourcesManager {
 
             JSONObject jsonObject = new JSONObject(json);
 
-            int dif = jsonObject.getInt("dif");
-            boolean lock = jsonObject.getBoolean("locked");
+            int codeSize = jsonObject.getInt("codeSize");
+            int codeOpt = jsonObject.getInt("codeOpt");
+            boolean repeat = jsonObject.getBoolean("repeat");
+            int attempts = jsonObject.getInt("attempts");
 
-            Level level = new Level(dif, lock);
+            Level level = new Level(codeSize, codeOpt, repeat, attempts);
 
             return level;
         } catch (IOException e) {
@@ -205,6 +183,22 @@ public class ResourcesManager {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    private void ReadWorlds()
+    {
+        AssetManager mngr = currentContext.getAssets();
+
+        try {
+            String[] directories = mngr.list(path);
+
+            for (String directory : directories) {
+                files.add(directory);
+                nWorld++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

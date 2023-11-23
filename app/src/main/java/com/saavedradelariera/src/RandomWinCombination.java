@@ -39,6 +39,11 @@ public class RandomWinCombination {
                 nSol = 6;
                 canRepeat = true;
                 break;
+            case 4:
+                nColors = ResourcesManager.getInstance().getActualLevel().getCodeOpt();
+                nSol =  ResourcesManager.getInstance().getActualLevel().getCodeSize();
+                canRepeat = ResourcesManager.getInstance().getActualLevel().isRepeat();
+                break;
         }
 
       return GenerateWinCombination();
