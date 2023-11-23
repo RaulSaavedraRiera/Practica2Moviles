@@ -149,7 +149,7 @@ public class ResourcesManager {
             String[] directories = mngr.list("sprites");
 
             for (String directory : directories) {
-                filesImage.add(directory);
+                filesImage.add("sprites/" + directory);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -163,11 +163,11 @@ public class ResourcesManager {
 
         try {
 
-                String[] directories = mngr.list(path+'/'+filesImage.get(id));
+                String[] directories = mngr.list(filesImage.get(id));
 
 
                 for (String directory : directories) {
-                    AndroidImage i = g.createImage(directory);
+                    AndroidImage i = g.createImage(filesImage.get(id) + "/" + directory);
                     images.add(i);
                 }
 

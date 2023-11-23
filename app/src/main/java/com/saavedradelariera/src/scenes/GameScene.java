@@ -8,6 +8,7 @@ import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
 import com.saavedradelariera.src.Buttons.DaltonicButton;
 import com.saavedradelariera.src.GameManager;
 import com.saavedradelariera.src.InputSolution;
+import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.Row;
 import com.saavedradelariera.src.Text;
 
@@ -34,6 +35,8 @@ public class GameScene extends Scene {
     public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
 
         super.SetScene(graphics, audioSystem);
+
+        images = ResourcesManager.getInstance().LoadImages(0, graphics);
 
 
         SetSceneSettings(difficult);
