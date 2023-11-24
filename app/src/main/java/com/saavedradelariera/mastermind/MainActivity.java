@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.practica1.androidengine.AndroidEngine;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ResourcesManager;
+import com.saavedradelariera.src.ShopManager;
+import com.saavedradelariera.src.WorldManager;
 import com.saavedradelariera.src.scenes.MenuScene;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         ResourcesManager.getInstance().Init(androidEngine);
         SceneManager.getInstance().Init(androidEngine);
+        ShopManager.getInstance().Init(androidEngine);
         MenuScene mS = new MenuScene();
         //WorldScene mS = new WorldScene();
         SceneManager.getInstance().SetScene(mS);
