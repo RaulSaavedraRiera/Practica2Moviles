@@ -3,8 +3,10 @@ package com.saavedradelariera.src;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
+import com.practica1.androidengine.TouchEvent;
 import com.saavedradelariera.src.messages.Message;
 import com.saavedradelariera.src.messages.InputColorMessage;
+import com.saavedradelariera.src.messages.PlaySoundMessage;
 import com.saavedradelariera.src.messages.ReleaseSoundMessage;
 import com.saavedradelariera.src.scenes.EndScene;
 
@@ -24,9 +26,13 @@ public class GameManager extends GameObject {
 
     private SolutionManager solutionManager;
 
-    int currentRow = 0, buttonsPerRow, rowWidth, rowHeight;
+    int currentRow = 0, buttonsPerRow, rowWidth, rowHeight, offsetX, offsetY, iniX, iniY;
 
     int difficult;
+
+    int dragY = 0, totalYOffset = 0, maxYOffset = 0;
+
+
 
     ArrayList<AndroidImage> images;
 
@@ -83,22 +89,25 @@ public class GameManager extends GameObject {
         rows = new ArrayList<>();
 
         //calcula diferentes valores para poder colocar los elementos correctamenrte
-        int x = (int)(graphics.GetWidthRelative()*0.025f);
+        iniX = (int)(graphics.GetWidthRelative()*0.025f);
 
-        int y = (int)(graphics.GetHeightRelative()*0.1f);
+        iniY = (int)(graphics.GetHeightRelative()*0.1f);
 
         rowWidth = (int)(graphics.GetWidthRelative()*0.95f);
 
         rowHeight = (int)((graphics.GetHeightRelative()*0.7f)/10);
 
-        int offsetX = 0;
+        offsetX = 0;
 
-        int offsetY = height/10;
+        offsetY = height/10;
 
         for (int i = 0; i < nRows; i++) {
-            Row row = new Row(x + offsetX*i, y + rowHeight*i + offsetY*i, rowWidth, rowHeight, buttonsPerRow , i+1);
+            Row row = new Row(iniX + offsetX*i, iniY + (rowHeight + offsetY)*i, rowWidth, rowHeight, buttonsPerRow , i+1);
             rows.add(row);
         }
+
+       CalculateRowOffset();
+        AddRows(10);
     }
 
     public void SetImages(ArrayList<AndroidImage> imgs)
@@ -114,6 +123,21 @@ public class GameManager extends GameObject {
 
     public ArrayList<ColorJ> GetColors(){
         return colors;
+    }
+
+    void AddRows(int n){
+        for (int i = 1; i <= n; i++) {
+            Row row = new Row(iniX + offsetX* rows.size(), iniY + (rowHeight + offsetY)*rows.size() , rowWidth, rowHeight, buttonsPerRow , rows.size());
+            rows.add(row);
+        }
+
+        CalculateRowOffset();
+    }
+
+    void CalculateRowOffset(){
+        if(rows.size() > 10)
+            maxYOffset = iniY + (rowHeight + offsetY) * (rows.size() - 10);
+
     }
 
     //Método para procesar el input de una nueva entrada a la solución dada por el jugador
@@ -170,6 +194,38 @@ public class GameManager extends GameObject {
         EndScene endScene = new EndScene(win, currentRow, colors, solutionManager.getSolution(), currentDaltonicEnable, difficult);
         SceneManager.getInstance().SendMessageToActiveScene(new ReleaseSoundMessage());
         SceneManager.getInstance().SetScene(endScene);
+    }
+
+    @Override
+    public boolean HandleInput(TouchEvent e) {
+
+            if(e.getType() == TouchEvent.TouchEventType.DRAG) {
+                int changeInY = -(int)(e.getY() - dragY);
+                //comprobar si puede bajar
+                if((changeInY > 0 && totalYOffset + changeInY <= 0)
+                        //o si puede subir
+                        || (changeInY < 0 && totalYOffset + changeInY >= -maxYOffset))
+                {
+                    totalYOffset += changeInY;
+                    ModifyRowsOffsetY((changeInY));
+                }
+                dragY = (int)e.getY();
+                return true;
+            }
+            else if(e.getType() == TouchEvent.TouchEventType.TOUCH_DOWN)
+            {
+                dragY = (int)e.getY();
+            }
+
+            return false;
+
+    }
+
+    void ModifyRowsOffsetY(int currentOffsetY)
+    {
+        for (Row r: rows) {
+            r.AddOffsetYToRow(currentOffsetY);
+        }
     }
 
     //Recibe mensajes tanto de input como de cambio en el modo daltonico

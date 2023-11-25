@@ -17,7 +17,7 @@ public class Row extends GameObject {
 
     //variables que necesitamos para almacenar la información de la línea
     ArrayList<SolutionButton> solutionButtons = new ArrayList<>();
-    ArrayList<VisualRectangle> visuals = new ArrayList<>();
+    ArrayList<GameObject> objectsInRow = new ArrayList<>();
 
     ButtonArray combinationArray;
 
@@ -50,8 +50,8 @@ public class Row extends GameObject {
         combinationArray = new ButtonArray(posX + offset, posY, widthForButtons, height);
         combinationArray.GenerateButtons(nButtons, limitHeight, offsetButtons, smallCircleButtons);
 
-
-        new Text("Night.ttf", posX + width/16, posY + height/3, width/15, height/15, String.valueOf(index), new ColorJ(0 ,0, 0));
+        objectsInRow.addAll(combinationArray.GetButtons());
+        objectsInRow.add((new Text("Night.ttf", posX + width/16, posY + height/3, width/15, height/15, String.valueOf(index), new ColorJ(0 ,0, 0))));
 
         //visuals.add(new VisualRectangle(posX + offset+widthForButtons, posY, offset, height, new ColorJ(128, 128, 128), true));
     }
@@ -61,16 +61,16 @@ public class Row extends GameObject {
 
         VisualRectangle border =
                 new VisualRectangle(posX, posY, width, height, new ColorJ(200, 200, 200), false);
-        visuals.add(border);
+        objectsInRow.add(border);
         VisualRectangle limit1 =
                 new VisualRectangle(posX + initialOffset,
                         posY + (int) (((1 - limitHeight) * height) / 2), (int) (width * limitAnchor), (int) (height * limitHeight), new ColorJ(128, 128, 128), true);
-        visuals.add(limit1);
+        objectsInRow.add(limit1);
 
         VisualRectangle limit2 =
                 new VisualRectangle(posX + initialOffset + widthForButtons,
                         posY + (int) (((1 - limitHeight) * height) / 2), (int) (width * limitAnchor), (int) (height * limitHeight), new ColorJ(128, 128, 128), true);
-        visuals.add(limit2);
+        objectsInRow.add(limit2);
 
     }
 
@@ -123,10 +123,10 @@ public class Row extends GameObject {
 
         //generamos los botones con los valores calculados
         for (int i = 0; i < nButtons; i++) {   //añadimos los botones
-            solutionButtons.add(new
-                    SolutionButton(initialOffset + (int) (buttonZone * (i % cols)), initialOffsetY + (int) (buttonZone * (i / cols) + buttonSize / 2),
-                    buttonSize, buttonSize, 0.9f));
-
+           SolutionButton b = new SolutionButton(initialOffset + (int) (buttonZone * (i % cols)), initialOffsetY + (int) (buttonZone * (i / cols) + buttonSize / 2),
+                    buttonSize, buttonSize, 0.9f);
+            solutionButtons.add(b);
+            objectsInRow.add(b);
         }
 
 
@@ -179,6 +179,12 @@ public class Row extends GameObject {
     public int GetNextButton(){
         currentButton = combinationArray.GetFirstAvailableButton();
         return currentButton;
+    }
+
+    public void AddOffsetYToRow(int offsetY){
+        for (GameObject o: objectsInRow) {
+            o.posY += offsetY;
+        }
     }
 }
 

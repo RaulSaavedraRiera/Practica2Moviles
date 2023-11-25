@@ -12,6 +12,7 @@ import com.saavedradelariera.src.Level;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.Row;
 import com.saavedradelariera.src.Text;
+import com.saavedradelariera.src.VisualRectangle;
 
 import java.util.ArrayList;
 
@@ -60,9 +61,16 @@ public class GameScene extends Scene {
             inputSolution = new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f),
                     graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, images);
 
-        new Text("Night.ttf",200, 50, 25, 50,  "Averigua el código", new ColorJ(0, 0, 0));
-        new DaltonicButton("ojo.png", 500, 40, 50, 50);
+
+        //parte superior del nivel
+        //rectangulo para tapar la parte de arriba
+        new VisualRectangle(
+                0, 0, (int)graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), new ColorJ(255,255,255), true);
+         new Text("Night.ttf",200, 50, 25, 50,  "Averigua el código", new ColorJ(0, 0, 0));
         new ChangeSceneButtonBack("X.png", 70, 50, 30, 30);
+        //si no hay imagenes metemos el daltonic button
+        if(images == null)
+            new DaltonicButton("ojo.png", 500, 40, 50, 50);
 
     }
 

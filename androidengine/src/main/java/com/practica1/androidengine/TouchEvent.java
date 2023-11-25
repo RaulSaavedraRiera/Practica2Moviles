@@ -61,6 +61,7 @@ public class TouchEvent implements IPool {
         TOUCH_DOWN,
         TOUCH_UP,
         CLICK,
+        DRAG,
         NONE;
     }
 

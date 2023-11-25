@@ -39,7 +39,11 @@ public class InputHandlerAndroid implements View.OnTouchListener {
 
         } else if (action == MotionEvent.ACTION_UP) {
             event.setType(TouchEvent.TouchEventType.TOUCH_UP);
-        }else {
+        }
+        else if (action == MotionEvent.ACTION_MOVE) {
+            event.setType(TouchEvent.TouchEventType.DRAG);
+        }
+        else {
             event.setType(TouchEvent.TouchEventType.NONE);
         }
 

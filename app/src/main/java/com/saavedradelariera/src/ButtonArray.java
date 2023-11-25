@@ -141,6 +141,7 @@ public class ButtonArray extends GameObject {
     public int GetNButtons(){
         return buttons.size();
     }
+    public ArrayList<CombinationButton> GetButtons() { return buttons;}
 
     //Pasa el input a los botones
     public boolean HandleInput(TouchEvent e) {
