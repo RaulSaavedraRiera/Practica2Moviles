@@ -1,27 +1,30 @@
 package com.saavedradelariera.src;
 
 public class Skin {
-    public Skin(String title, int price, String path) {
-        this.title = title;
-        //this.bought = bought;
-        this.price = price;
-        this.path = path;
-    }
-
-    private String title;
     private boolean bought;
     private int price;
-    private String path;
+    private String samplePath, skinsPath, title;
 
-    public String getPath() {
-        return path;
+    public Skin(String title, int price, String samplePath, String skinsPath) {
+        this.title = title;
+        this.price = price;
+        this.samplePath = samplePath;
+        this.skinsPath = skinsPath;
+    }
+
+    public void setBought(boolean bought) {
+        this.bought = bought;
+    }
+
+    public String getSamplePath() {
+        return samplePath;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public boolean isBought() {
+    public boolean getBought() {
         return bought;
     }
 
