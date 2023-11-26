@@ -14,10 +14,10 @@ public class ImageButton extends GameObject {
     private int Y;
     private int W;
     private int H;
+    private boolean cleanScreen = false;
 
     public ImageButton(String route,int x, int y, int w, int h ){
         super(x,y,w,h);
-
         image = new AndroidImage();
         image.setRoute(route);
         X = x;
@@ -26,8 +26,22 @@ public class ImageButton extends GameObject {
         H = h;
     }
 
+    public ImageButton(String route,int x, int y, int w, int h, boolean cleanScreen){
+        super(x,y,w,h);
+        image = new AndroidImage();
+        image.setRoute(route);
+        X = x;
+        Y = y;
+        W = w;
+        H = h;
+        this.cleanScreen = cleanScreen;
+    }
+
     @Override
     public void Render(AndroidGraphics graphics) {
+        if(cleanScreen) {
+            graphics.CleanScreen();
+        }
         graphics.RenderImage(graphics.createImage(image.getRoute()),X, Y, W, H);
     }
 
