@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         MenuScene mS = new MenuScene();
         //WorldScene mS = new WorldScene();
         SceneManager.getInstance().SetScene(mS);
-
-
         //androidEngine.Resume();
 
     }

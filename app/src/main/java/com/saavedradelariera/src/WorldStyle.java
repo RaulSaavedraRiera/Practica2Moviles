@@ -2,13 +2,19 @@ package com.saavedradelariera.src;
 
 public class WorldStyle {
 
-    String background;
+    private String background;
+    private int idSkins;
 
-    WorldStyle(String background) {
+    WorldStyle(String background, int id) {
         this.background = background;
+        this.idSkins = id;
     }
 
     public String getBackground() {
         return background;
+    }
+
+    public int getIdSkins() {
+        return idSkins;
     }
 }

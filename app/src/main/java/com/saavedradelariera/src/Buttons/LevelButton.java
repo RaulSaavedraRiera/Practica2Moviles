@@ -12,17 +12,18 @@ import com.saavedradelariera.src.scenes.GameScene;
 /*Botón de cambio de escena a la escena de juego, se almacena la dificultad para pasarselo a esta*/
 public class LevelButton extends ChangeSceneButton {
 
-    int id;
+    private int id;
 
     public LevelButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int id, String font){
         super(x,y,w,h,c,c2);
 
+        this.id = id;
         Text t = new Text(font,posX + width/3, posY +height/3, w/3, height/3, String.valueOf(id), c2);
     }
 
     @Override
     protected boolean HandleClick() {
-        Level level = ResourcesManager.getInstance().getLevel(id);
+        Level level = ResourcesManager.getInstance().getLevel(this.id-1);
         SceneManager.getInstance().pushSceneStack();
 
         GameScene gS = new GameScene(4);

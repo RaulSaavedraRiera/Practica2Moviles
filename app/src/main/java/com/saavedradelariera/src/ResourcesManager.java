@@ -84,6 +84,10 @@ public class ResourcesManager {
         }
     }
 
+    public int getSkinsId(){
+        return worldStyles.get(idActualWorld-1).getIdSkins();
+    }
+
     public Level getLevel(int levelIndex) {
         if (idActualWorld > 0 && idActualWorld - 1 <= worlds.size()) {
             ArrayList<Level> selectedLevels = worlds.get(idActualWorld-1);
@@ -189,7 +193,8 @@ public class ResourcesManager {
             JSONObject jsonObject = new JSONObject(json);
             if (filePath.contains("style")) {
                 String background = jsonObject.getString("background");
-                WorldStyle w = new WorldStyle(BgPath+ background);
+                int idSkin = jsonObject.getInt("skins");
+                WorldStyle w = new WorldStyle(BgPath+ background, idSkin);
                 worldStyles.add(w);
             }
             else {

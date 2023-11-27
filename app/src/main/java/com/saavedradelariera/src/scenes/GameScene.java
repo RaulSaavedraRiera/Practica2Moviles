@@ -37,7 +37,7 @@ public class GameScene extends Scene {
 
         super.SetScene(graphics, audioSystem);
 
-        images = ResourcesManager.getInstance().LoadImages(0, graphics);
+        images = ResourcesManager.getInstance().LoadImages(ResourcesManager.getInstance().getSkinsId(), graphics);
 
 
         SetSceneSettings(difficult);
