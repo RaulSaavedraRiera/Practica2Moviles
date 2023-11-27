@@ -98,10 +98,10 @@ public class ResourcesManager {
         AssetManager mngr = currentContext.getAssets();
 
         try {
-            String[] directories = mngr.list("sprites");
+            String[] directories = mngr.list("sprites/icons");
 
             for (String directory : directories) {
-                filesImage.add("sprites/" + directory);
+                filesImage.add("sprites/icons/" + directory);
             }
         } catch (IOException e) {
             e.printStackTrace();

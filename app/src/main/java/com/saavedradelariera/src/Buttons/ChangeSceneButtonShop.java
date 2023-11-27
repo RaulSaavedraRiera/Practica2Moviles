@@ -11,6 +11,8 @@ public class ChangeSceneButtonShop extends ChangeSceneButton {
 
     @Override
     protected boolean HandleClick() {
+        SceneManager.getInstance().pushSceneStack();
+
         ShopScene sS = new ShopScene();
         SceneManager.getInstance().SetScene(sS);
         return true;
