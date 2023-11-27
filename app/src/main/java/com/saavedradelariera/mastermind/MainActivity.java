@@ -12,7 +12,6 @@ import com.practica1.androidengine.AndroidEngine;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.ShopManager;
-import com.saavedradelariera.src.WorldManager;
 import com.saavedradelariera.src.scenes.MenuScene;
 
 public class MainActivity extends AppCompatActivity {

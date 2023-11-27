@@ -38,7 +38,8 @@ public class ShopScene extends Scene {
         String currentCat = ShopManager.getInstance().getCategory(pageId);
         Text t = new Text("Night.ttf", 200, 50, 50, 50, currentCat, new ColorJ(0, 0, 0));
 
-        ImageButton coin = new ImageButton("coin.png", 520, 30, 50, 60);
+        ImageButton coin = new ImageButton("coin.png", 520, 20, 50, 60);
+        Text balance = new Text(535, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), c);
         ChangeShopPageButton cw1 = new ChangeShopPageButton(this, "arrowC1.png", 450, 35, 50, 50, true);
         ChangeShopPageButton cw2 = new ChangeShopPageButton(this, "arrowC2.png", 120, 35, 50, 50, false);
         ChangeSceneButtonBack buttonBack = new ChangeSceneButtonBack("arrow.png", 50, 35, 50, 50);

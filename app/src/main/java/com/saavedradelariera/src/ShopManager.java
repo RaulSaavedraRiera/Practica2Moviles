@@ -17,18 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShopManager {
-    private ArrayList<Skin> backgrounds;
-
-    //private ArrayList<Skin> icons;
     final String path = "store";
-
     int currentPage = 0;
+    int balance = 0;
     private ArrayList<String> categories = new ArrayList<String>();
-
     public Map<String, ArrayList<Skin>> skinMap = new HashMap<>();
-    public Map<String, ArrayList<Skin>> iconsMap = new HashMap<>();
-
-    //public Map<String, ArrayList<Skin>>  = new HashMap<>();
     private static ShopManager instance = null;
 
     public static ShopManager getInstance() {
@@ -39,7 +32,7 @@ public class ShopManager {
     }
 
     public boolean changePage(boolean nextPage) {
-        if(nextPage)
+        if(nextPage && currentPage+1 < categories.size())
         {
             currentPage++;
             return true;
@@ -51,11 +44,15 @@ public class ShopManager {
     }
 
     public void Init(AndroidEngine engine) {
-        ReadCategories(engine.getContext());
-        ReadSkins(engine.getContext());
+        loadShop(engine);
     }
 
-    private void ReadCategories (Context c)
+    private void loadShop(AndroidEngine engine) {
+        readCategories(engine.getContext());
+        readSkins(engine.getContext());
+    }
+
+    private void readCategories(Context c)
     {
         AssetManager mngr = c.getAssets();
 
@@ -100,7 +97,7 @@ public class ShopManager {
         return null;
     }
 
-    private void ReadSkins(Context c)
+    private void readSkins(Context c)
     {
         AssetManager mngr = c.getAssets();
 
@@ -139,16 +136,15 @@ public class ShopManager {
         return categories.get(catId);
     }
 
-
-    public void nextPage() {
-        currentPage += 1;
-    }
-
-    public void previousPage() {
-        currentPage -= 1;
-    }
-
     public int getCurrentPage() {
         return currentPage;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void addBalance(int amount) {
+        balance += amount;
     }
 }
