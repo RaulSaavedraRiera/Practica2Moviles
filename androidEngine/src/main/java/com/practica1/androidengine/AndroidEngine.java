@@ -1,8 +1,10 @@
 package com.practica1.androidengine;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
 import java.util.ArrayList;
 
 /**
@@ -35,21 +37,19 @@ public class AndroidEngine implements Runnable {
 
     /**
      * Render principal que se encarga de llamar al render de la escena actual
-     *
-     * */
+     */
     protected void Render() {
+        graphics.CleanScreen();
         activeIScene.RenderScene(graphics);
     }
 
-    public Context getContext()
-    {
+    public Context getContext() {
         return myView.getContext().getApplicationContext();
     }
 
     /**
      * Update principal que se encarga de llamar al update de la escena actual
-     *
-     * */
+     */
     protected void Update(float deltaTime) {
         activeIScene.UpdateScene(this, deltaTime);
     }
@@ -96,7 +96,6 @@ public class AndroidEngine implements Runnable {
             if (graphics.startRender()) {
 
                 graphics.save();
-                graphics.CleanScreen(fColor);
                 graphics.rescale();
 
                 Render();
@@ -194,5 +193,7 @@ public class AndroidEngine implements Runnable {
     }
 
 
-    public AndroidAudio GetAudioSystem() {return audioSystem;}
+    public AndroidAudio GetAudioSystem() {
+        return audioSystem;
+    }
 }

@@ -32,7 +32,6 @@ public class ResourcesManager {
     private static ResourcesManager instance = null;
     private Level actualLevel;
     private Context currentContext;
-
     private void WorldManager(){}
 
     public void Init(AndroidEngine engine) {
@@ -200,6 +199,4 @@ public class ResourcesManager {
             e.printStackTrace();
         }
     }
-
-
 }
