@@ -1,7 +1,10 @@
 package com.saavedradelariera.src.Buttons;
 
+import android.graphics.Color;
+
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
+import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
 import com.saavedradelariera.src.GameObject;
 
@@ -10,6 +13,8 @@ import com.saavedradelariera.src.GameObject;
 public class ImageButton extends GameObject {
 
     AndroidImage image;
+
+    ColorJ c = new ColorJ(255, 255, 255);
     private int X;
     private int Y;
     private int W;
@@ -40,7 +45,7 @@ public class ImageButton extends GameObject {
     @Override
     public void Render(AndroidGraphics graphics) {
         if(cleanScreen) {
-            graphics.CleanScreen();
+            graphics.CleanScreen(c);
         }
         graphics.RenderImage(graphics.createImage(image.getRoute()),X, Y, W, H);
     }

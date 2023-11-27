@@ -264,12 +264,19 @@ public class AndroidGraphics {
      * @param color: The color used to clear the screen.
      */
 
-    public void CleanScreen() {
-        paint.setColor(Color.WHITE);
-        this.canvas.drawColor(Color.WHITE);
+    public void CleanScreen(ColorJ color) {
+        paint.setColor(Color.argb(255, color.getR(), color.getG(), color.getB()));
+        canvas.drawColor(Color.argb(255, color.getR(), color.getG(), color.getB()));
         this.canvas.drawRect(0, 0, myView.getWidth(), myView.getHeight(), paint);
     }
 
+
+    public void setBackgroundImage(AndroidImage backgroundImage) {
+        if (canvas != null) {
+            canvas.drawColor(Color.WHITE); // Limpia el canvas antes de dibujar la nueva imagen de fondo
+            RenderImage(backgroundImage, 0, 0, GetWidth(), GetHeight());
+        }
+    }
 
     /**
      * Creates an image from the specified file route.
@@ -329,7 +336,6 @@ public class AndroidGraphics {
     /**
      * Restores the previously saved state of the canvas.
      */
-
     public void restore() {
         canvas.restore();
     }

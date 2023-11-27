@@ -39,7 +39,7 @@ public class AndroidEngine implements Runnable {
      * Render principal que se encarga de llamar al render de la escena actual
      */
     protected void Render() {
-        graphics.CleanScreen();
+        graphics.CleanScreen(fColor);
         activeIScene.RenderScene(graphics);
     }
 

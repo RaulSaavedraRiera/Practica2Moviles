@@ -15,23 +15,30 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Clase encargada de leer los directorios de los mundos, asi como de leer los json de los niveles y guardar toda esta informacion
  * para poder ser usada por las demas clases.
  */
 public class ResourcesManager {
-
     private int idActualWorld = 1;
     private int nWorld;
     final String path = "levels";
+    final String BgPath = "sprites/backgrounds/";
+
     private ArrayList<String> files = new ArrayList<String>();
     private ArrayList<String> filesImage = new ArrayList<String>();
+    private ArrayList<WorldStyle> worldStyles = new ArrayList<WorldStyle>();
     private ArrayList<ArrayList<Level>> worlds = new ArrayList<ArrayList<Level>>();
+    private Map<String, AndroidImage> backgrounds = new HashMap<>();
     private static ResourcesManager instance = null;
     private Level actualLevel;
     private Context currentContext;
+
+
+
     private void WorldManager(){}
 
     public void Init(AndroidEngine engine) {
@@ -126,6 +133,18 @@ public class ResourcesManager {
         return images;
     }
 
+    public AndroidImage getBackground(AndroidGraphics graphics)
+    {
+        String aux = worldStyles.get(idActualWorld-1).getBackground();
+        if(backgrounds.containsKey(aux)){
+            return backgrounds.get(aux);
+        }else {
+            AndroidImage androidImage = graphics.createImage(aux);
+            backgrounds.put(aux, androidImage);
+            return androidImage;
+        }
+    }
+
     private void ReadLevels()
     {
         AssetManager mngr = currentContext.getAssets();
@@ -139,7 +158,8 @@ public class ResourcesManager {
 
                 for (String directory : directories) {
                     Level l = JSONToLevel(mngr, path + '/' + nameW + '/' + directory);
-                    levels.add(l);
+                    if(l != null)
+                        levels.add(l);
                 }
                 worlds.add(levels);
             }
@@ -167,15 +187,20 @@ public class ResourcesManager {
             String json = stringBuilder.toString();
 
             JSONObject jsonObject = new JSONObject(json);
+            if (filePath.contains("style")) {
+                String background = jsonObject.getString("background");
+                WorldStyle w = new WorldStyle(BgPath+ background);
+                worldStyles.add(w);
+            }
+            else {
+                int codeSize = jsonObject.getInt("codeSize");
+                int codeOpt = jsonObject.getInt("codeOpt");
+                boolean repeat = jsonObject.getBoolean("repeat");
+                int attempts = jsonObject.getInt("attempts");
 
-            int codeSize = jsonObject.getInt("codeSize");
-            int codeOpt = jsonObject.getInt("codeOpt");
-            boolean repeat = jsonObject.getBoolean("repeat");
-            int attempts = jsonObject.getInt("attempts");
-
-            Level level = new Level(codeSize, codeOpt, repeat, attempts);
-
-            return level;
+                Level level = new Level(codeSize, codeOpt, repeat, attempts);
+                return level;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
