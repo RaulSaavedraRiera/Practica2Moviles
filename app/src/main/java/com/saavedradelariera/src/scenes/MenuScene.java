@@ -28,8 +28,8 @@ public class MenuScene extends Scene {
 
         Text t1 = new Text("Spicy.ttf",125, 250, 60, 100,  "Master Mind", new ColorJ(0, 0, 0));
         Text t = new Text("Night.ttf",230, 535, 50, 100,  "JUGAR", new ColorJ(0, 0, 0));
-        Text t2 = new Text("Night.ttf",230, 735, 50, 100,  "MUNDOS", new ColorJ(0, 0, 0));
-        Text t3 = new Text("Night.ttf",230, 935, 50, 100,  "PERSONALIZAR", new ColorJ(0, 0, 0));
+        Text t2 = new Text("Night.ttf",215, 735, 50, 100,  "MUNDOS", new ColorJ(0, 0, 0));
+        Text t3 = new Text("Night.ttf",145, 935, 50, 100,  "PERSONALIZAR", new ColorJ(0, 0, 0));
 
     }
 }
