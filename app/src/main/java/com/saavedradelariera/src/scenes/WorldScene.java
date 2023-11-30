@@ -35,19 +35,17 @@ public class WorldScene extends Scene {
         name = "WorldScene";
 
         AndroidImage i = ResourcesManager.getInstance().getBackground(graphics);
-
         ImageBackground img = new ImageBackground(i);
 
         Text t = new Text("Night.ttf",200, 50, 50, 100,  "MUNDO " + String.valueOf(id),c2);
         ChangeWorldButton cw1 = new ChangeWorldButton("arrowC1.png", 400, 35, 50, 50, true);
         ChangeWorldButton cw2 = new ChangeWorldButton("arrowC2.png", 120, 35, 50, 50, false);
         ChangeSceneButtonBack buttonBack = new ChangeSceneButtonBack("arrow.png",50, 35, 50,
-                50);
+                50, true);
 
         int contGlobal = 0;
         int n = ResourcesManager.getInstance().getLevelInWorld(id - 1);
         int numberOfRows = Math.min(n / buttonsPerRow + 1, 4);
-
 
         int row = 0;
         while (contGlobal < n && row < numberOfRows) {

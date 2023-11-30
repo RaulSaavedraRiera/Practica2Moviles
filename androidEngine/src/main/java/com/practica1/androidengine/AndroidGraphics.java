@@ -273,9 +273,20 @@ public class AndroidGraphics {
 
     public void setBackgroundImage(AndroidImage backgroundImage) {
         if (canvas != null) {
-            canvas.drawColor(Color.WHITE); // Limpia el canvas antes de dibujar la nueva imagen de fondo
-            RenderImage(backgroundImage, 0, 0, GetWidth(), GetHeight());
+            canvas.drawColor(Color.WHITE);
+            int marginTop = 100;
+            Rect src = new Rect();
+            src.set(0, 0, backgroundImage.GetWidth(), backgroundImage.GetHeight());
+
+            int canvasWidth = GetWidth();
+            int posY = marginTop;
+
+            Rect dst = new Rect();
+            dst.set(0, posY, canvasWidth, posY + backgroundImage.GetHeight());
+            Paint paint = new Paint();
+            this.canvas.drawBitmap(backgroundImage.getImage(), src, dst, paint);
         }
+
     }
 
     /**
@@ -299,6 +310,7 @@ public class AndroidGraphics {
             // Crea una instancia de AndroidImage y almacénala en el mapa
             actualDImage = new AndroidImage();
             actualDImage.setBitmap(bitmap);
+            actualDImage.setRoute(route);
             imageMap.put(route, actualDImage);
         }
 
