@@ -3,10 +3,12 @@ package com.saavedradelariera.src.Buttons;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
+import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.GameObject;
 
 /*Clase base para los botones de cambio de escena*/
 public class ChangeSceneButton extends GameObject {
+    private ClickListener clickListener;
 
     private ColorJ c = new ColorJ(173, 216, 230);
     private ColorJ c2 = new ColorJ(173, 216, 230);
@@ -70,6 +72,14 @@ public class ChangeSceneButton extends GameObject {
 
     //Método para procesar dicho click
     protected boolean HandleClick(){
-        return false;
+        if (clickListener != null) {
+            clickListener.onClick();
+        }
+
+        return true;
+    }
+
+    public void setClickListener(ClickListener listener) {
+        this.clickListener = listener;
     }
 }
