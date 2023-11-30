@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
 /**
@@ -25,6 +27,9 @@ public class AndroidEngine implements Runnable {
 
     private SurfaceHolder holder;
     private SurfaceView myView;
+
+
+    private Mobile mobile;
 
     public AndroidEngine(SurfaceView surfaceView) {
         super();
@@ -195,5 +200,20 @@ public class AndroidEngine implements Runnable {
 
     public AndroidAudio GetAudioSystem() {
         return audioSystem;
+    }
+
+    public void GenerateMobile(AppCompatActivity app){
+        if(app == null || mobile != null)
+            return;
+
+        mobile = new Mobile(app);
+    }
+
+    public Mobile GetMobile(){
+        return mobile;
+    }
+
+    public void GenerateBanner(int adViewID){
+        mobile.GenerateBanner(adViewID);
     }
 }
