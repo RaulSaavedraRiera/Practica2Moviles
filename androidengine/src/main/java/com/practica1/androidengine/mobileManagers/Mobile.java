@@ -1,6 +1,9 @@
-package com.practica1.androidengine;
+package com.practica1.androidengine.mobileManagers;
+
+import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.drawable.IconCompat;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -12,6 +15,7 @@ public class Mobile {
 
     AppCompatActivity activity;
     AdView mAdView;
+    Notifications mNotifications;
 
     AdRequest adRequest;
     public Mobile(AppCompatActivity activity){
@@ -23,15 +27,18 @@ public class Mobile {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
+        mNotifications = new Notifications(activity);
     }
 
-    void GenerateBanner(int adViewID){
+    public void GenerateBanner(int adViewID){
         mAdView = activity.findViewById(adViewID);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
 
-
+    public void SolicitateNotification(int icon, String title, String body, String channelName){
+        mNotifications.GenerateNotification( icon, title, body, channelName);
+    }
 
 }
 
