@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -207,6 +208,20 @@ public class AndroidGraphics {
         return actualDFont;
     }
 
+    public void RenderFillRoundRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC, int cornerRadius) {
+        paint = new Paint();
+        paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
+        canvas.drawRoundRect(new RectF(x, y, x + w, y + h), cornerRadius, cornerRadius, paint);
+        RenderRect(x, y, w, h, c);
+    }
+
+    public void drawRoundRectangle(float cx, float cy, float width, float height, float arc, ColorJ c1) {
+        paint.setColor(Color.argb(255, c1.getR(), c1.getG(), c1.getB()));
+        RectF rect = new RectF(cx - width / 2, cy - height / 2, cx + width / 2, cy + height / 2);
+        canvas.drawRoundRect(rect, arc, arc, paint);
+    }
+
+
     /**
      * Gets the current font by name.
      *
@@ -273,9 +288,20 @@ public class AndroidGraphics {
 
     public void setBackgroundImage(AndroidImage backgroundImage) {
         if (canvas != null) {
-            canvas.drawColor(Color.WHITE); // Limpia el canvas antes de dibujar la nueva imagen de fondo
-            RenderImage(backgroundImage, 0, 0, GetWidth(), GetHeight());
+            canvas.drawColor(Color.WHITE);
+            int marginTop = 100;
+            Rect src = new Rect();
+            src.set(0, 0, backgroundImage.GetWidth(), backgroundImage.GetHeight());
+
+            int canvasWidth = GetWidth();
+            int posY = marginTop;
+
+            Rect dst = new Rect();
+            dst.set(0, posY, canvasWidth, posY + backgroundImage.GetHeight());
+            Paint paint = new Paint();
+            this.canvas.drawBitmap(backgroundImage.getImage(), src, dst, paint);
         }
+
     }
 
     /**
@@ -299,6 +325,7 @@ public class AndroidGraphics {
             // Crea una instancia de AndroidImage y almacénala en el mapa
             actualDImage = new AndroidImage();
             actualDImage.setBitmap(bitmap);
+            actualDImage.setRoute(route);
             imageMap.put(route, actualDImage);
         }
 

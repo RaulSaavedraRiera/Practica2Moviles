@@ -9,8 +9,8 @@ import com.saavedradelariera.src.scenes.GameScene;
 public class ChangeToNewGameButton extends ChangeSceneButton {
 
     int n;
-    public ChangeToNewGameButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int n){
-        super(x,y,w,h,c,c2);
+    public ChangeToNewGameButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int n, int radius){
+        super(x,y,w,h,c,c2, radius);
         this.n = n;
     }
 

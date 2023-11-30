@@ -14,8 +14,8 @@ public class LevelButton extends ChangeSceneButton {
 
     private int id;
 
-    public LevelButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int id, String font){
-        super(x,y,w,h,c,c2);
+    public LevelButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int id, String font, int radius){
+        super(x,y,w,h,c,c2, radius);
 
         this.id = id;
         Text t = new Text(font,posX + width/3, posY +height/3, w/3, height/3, String.valueOf(id), c2);

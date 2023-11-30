@@ -137,6 +137,10 @@ public class ResourcesManager {
         return images;
     }
 
+    public void resetWorld()
+    {
+        idActualWorld = 1;
+    }
     public AndroidImage getBackground(AndroidGraphics graphics)
     {
         String aux = worldStyles.get(idActualWorld-1).getBackground();
