@@ -6,6 +6,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.drawable.IconCompat;
+
+import com.practica1.androidengine.mobileManagers.Mobile;
 
 import java.util.ArrayList;
 
@@ -27,7 +30,6 @@ public class AndroidEngine implements Runnable {
 
     private SurfaceHolder holder;
     private SurfaceView myView;
-
 
     private Mobile mobile;
 
@@ -216,4 +218,8 @@ public class AndroidEngine implements Runnable {
     public void GenerateBanner(int adViewID){
         mobile.GenerateBanner(adViewID);
     }
+    public void SolicitateNotification(int icon, String title, String body, String channelName){
+        mobile.SolicitateNotification(icon, title, body, channelName);
+    }
+
 }

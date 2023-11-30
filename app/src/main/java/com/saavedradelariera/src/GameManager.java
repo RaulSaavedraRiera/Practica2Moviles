@@ -200,7 +200,7 @@ public class GameManager extends GameObject {
     public boolean HandleInput(TouchEvent e) {
 
             if(e.getType() == TouchEvent.TouchEventType.DRAG) {
-                int changeInY = -(int)(e.getY() - dragY);
+                int changeInY = (int)(e.getY() - dragY);
                 //comprobar si puede bajar
                 if((changeInY > 0 && totalYOffset + changeInY <= 0)
                         //o si puede subir
