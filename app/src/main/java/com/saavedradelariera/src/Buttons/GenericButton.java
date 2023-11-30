@@ -11,20 +11,30 @@ public class GenericButton extends GameObject {
     private ClickListener clickListener;
     private ColorJ c, c2;
     private int x, y, w, h;
+    private int X;
+    private int Y;
+    private int W;
+    private int H;
 
-    public GenericButton(int x, int y, int w, int h, ColorJ c, ColorJ c2) {
+    private int radius;
+
+
+    public ChangeSceneButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int radius) {
         super(x, y, w, h);
         this.c = c;
         this.c2 = c2;
-        this.x = x;
-        this.y = y;
-        this.h = h;
+        X = x;
+        Y = y;
+        W = w;
+        H = h;
+        this.radius = radius;
     }
+
 
     //Los botones serán representados como rectángulos
     @Override
     public void Render(AndroidGraphics graphics) {
-        graphics.RenderFillRect(posX, posY, width, height, c, c2);
+        graphics.RenderFillRoundRect(posX, posY, width, height, c, c2, radius);
     }
 
     //Comprobamos si se ha pulsado sobre el botón y si es así llamamos al método HandleClick para procesarlo

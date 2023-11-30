@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -206,6 +207,20 @@ public class AndroidGraphics {
         paint = actualDFont.createFont(route, size, boldStyle, assets);
         return actualDFont;
     }
+
+    public void RenderFillRoundRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC, int cornerRadius) {
+        paint = new Paint();
+        paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
+        canvas.drawRoundRect(new RectF(x, y, x + w, y + h), cornerRadius, cornerRadius, paint);
+        RenderRect(x, y, w, h, c);
+    }
+
+    public void drawRoundRectangle(float cx, float cy, float width, float height, float arc, ColorJ c1) {
+        paint.setColor(Color.argb(255, c1.getR(), c1.getG(), c1.getB()));
+        RectF rect = new RectF(cx - width / 2, cy - height / 2, cx + width / 2, cy + height / 2);
+        canvas.drawRoundRect(rect, arc, arc, paint);
+    }
+
 
     /**
      * Gets the current font by name.

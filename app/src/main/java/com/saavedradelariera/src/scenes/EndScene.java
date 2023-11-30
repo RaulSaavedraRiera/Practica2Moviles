@@ -52,10 +52,10 @@ public class EndScene extends Scene {
         ButtonArray b = new ButtonArray(100, 350, 400, 300);
         b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, colors, false, false, daltonic);
 
-        new ChangeToNewGameButton(100, 700, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128), gameDifficult);
-        new Text("Night.ttf", 180, 710, 36, 90, "Volver a jugar", new ColorJ(0, 0, 0));
+        new ChangeToNewGameButton(100, 700, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128), gameDifficult, 10);
+        new Text("Night.ttf",180, 710, 36, 90,  "Volver a jugar", new ColorJ(0, 0, 0));
 
-        ChangeSceneButton finalButton = new ChangeSceneButton(100, 775, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128));
+        ChangeSceneButton finalButton = new ChangeSceneButton(100, 775, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128), 10);
         new Text("Night.ttf",160, 785, 36, 90,  "Elegir dificultad", new ColorJ(0, 0, 0));
         finalButton.setClickListener(new ClickListener() {
             @Override
