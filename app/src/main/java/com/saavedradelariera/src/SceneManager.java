@@ -80,4 +80,9 @@ public class SceneManager {
         sceneStack.pop();
         return aux;
     }
+
+    public void resetStack()
+    {
+        sceneStack.clear();;
+    }
 }
