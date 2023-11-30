@@ -54,7 +54,7 @@ public class WorldScene extends Scene {
                 int y = startY + row * (buttonHeight + padding * 2);
 
                 if (contGlobal < n) {
-                    LevelButton l = new LevelButton(x, y, buttonWidth, buttonHeight, c, c2, contGlobal + 1, "Night.ttf");
+                    LevelButton l = new LevelButton(x, y, buttonWidth, buttonHeight, c, c2, contGlobal + 1, "Night.ttf", 10);
                     contGlobal++;
                 } else {
                     break;

@@ -18,8 +18,10 @@ public class ChangeSceneButton extends GameObject {
     private int W;
     private int H;
 
+    private int radius;
 
-    public ChangeSceneButton(int x, int y, int w, int h, ColorJ c, ColorJ c2) {
+
+    public ChangeSceneButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int radius) {
         super(x, y, w, h);
         this.c = c;
         this.c2 = c2;
@@ -27,15 +29,15 @@ public class ChangeSceneButton extends GameObject {
         Y = y;
         W = w;
         H = h;
+        this.radius = radius;
     }
+
 
     //Los botones serán representados como rectángulos
     @Override
     public void Render(AndroidGraphics graphics) {
-        graphics.RenderFillRect(posX, posY, width, height, c, c2);
+        graphics.RenderFillRoundRect(posX, posY, width, height, c, c2, radius);
     }
-
-
 
     //Comprobamos si se ha pulsado sobre el botón y si es así llamamos al método HandleClick para procesarlo
     @Override

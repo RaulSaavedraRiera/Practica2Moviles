@@ -11,8 +11,8 @@ public class ChangeSceneButtonGame extends ChangeSceneButton {
 
     int n;
     AndroidEngine engine;
-    public ChangeSceneButtonGame(int x, int y, int w, int h, ColorJ c, ColorJ c2, int n){
-        super(x,y,w,h,c,c2);
+    public ChangeSceneButtonGame(int x, int y, int w, int h, ColorJ c, ColorJ c2, int n, int radius){
+        super(x,y,w,h,c,c2, radius);
 
         this.n = n;
     }

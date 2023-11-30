@@ -20,11 +20,11 @@ public class MenuScene extends Scene {
         name = "MenuScene";
 
         ChangeSceneButton buttonMenu = new ChangeSceneButton(100, 500, 400,
-                100, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128));
+                100, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128), 10);
         ChangeSceneButton buttonWorld = new ChangeSceneButton(100, 700, 400,
-                100, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128));
+                100, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128), 10);
         ChangeSceneButton buttonShop = new ChangeSceneButton(100, 900, 400,
-                100, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128));
+                100, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128), 10);
 
         buttonMenu.setClickListener(new ClickListener() {
             @Override
