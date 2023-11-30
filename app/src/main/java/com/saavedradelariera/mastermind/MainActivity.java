@@ -8,11 +8,7 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 import com.practica1.androidengine.AndroidEngine;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ResourcesManager;
@@ -32,19 +28,10 @@ public class MainActivity extends AppCompatActivity {
         SurfaceView renderView = findViewById(R.id.surfaceView);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 
-
-       MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
         androidEngine = new AndroidEngine(renderView);
 
+        androidEngine.GenerateMobile(this);
+        androidEngine.GenerateBanner(R.id.adView);
 
         ResourcesManager.getInstance().Init(androidEngine);
         SceneManager.getInstance().Init(androidEngine);
