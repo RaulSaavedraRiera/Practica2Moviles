@@ -31,7 +31,7 @@ public class Notifications {
     public void GenerateNotification(int icon, String title, String body, String name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
            // CharSequence name = "Mi Canal";
-            int importance = NotificationManager.IMPORTANCE_LOW;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("mi canal", name, importance);
             channel.setDescription("Descripción del canal");
             NotificationManager notificationManager = app.getApplicationContext().getSystemService(NotificationManager.class);
