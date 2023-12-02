@@ -8,8 +8,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Build;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.view.PixelCopy;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.practica1.androidengine.mobileManagers.ScreenShootFinish;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -212,7 +218,6 @@ public class AndroidGraphics {
         paint = new Paint();
         paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
         canvas.drawRoundRect(new RectF(x, y, x + w, y + h), cornerRadius, cornerRadius, paint);
-        RenderRect(x, y, w, h, c);
     }
 
     public void drawRoundRectangle(float cx, float cy, float width, float height, float arc, ColorJ c1) {
@@ -393,6 +398,36 @@ public class AndroidGraphics {
 
         canvas.translate(transformX, transformY);
         canvas.scale(scale, scale);
+    }
+
+
+
+    public void generateScreenShoot(int x, int y, int w, int h, ScreenShootFinish callBack) {
+        Bitmap bitmap = Bitmap.createBitmap(myView.getWidth(), myView.getHeight(),
+                Bitmap.Config.ARGB_8888);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            HandlerThread handlerThread = new HandlerThread("PixelCopier");
+            handlerThread.start();
+            PixelCopy.request(myView, bitmap, new PixelCopy.OnPixelCopyFinishedListener() {
+                @Override
+                public void onPixelCopyFinished(int copyResult) {
+                    if (copyResult == PixelCopy.SUCCESS) {
+                        // generar Bitmap a partir de otro dadas unas coordenadas y un tamaño
+                        Bitmap finalBitmap = Bitmap.createBitmap(bitmap, x, y, w, h);
+                        //shareImage(finalBitmap, "Me he pasado el Mastermind!!");
+
+                        callBack.doAction(finalBitmap);
+
+                    }
+                    handlerThread.quitSafely();
+
+                }
+            }, new Handler(handlerThread.getLooper()));
+
+        }
+
+
     }
 
 }

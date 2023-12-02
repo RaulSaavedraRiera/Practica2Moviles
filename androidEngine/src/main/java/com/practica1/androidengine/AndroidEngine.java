@@ -1,6 +1,7 @@
 package com.practica1.androidengine;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -208,7 +209,7 @@ public class AndroidEngine implements Runnable {
         if(app == null || mobile != null)
             return;
 
-        mobile = new Mobile(app);
+        mobile = new Mobile(app, myView);
     }
 
     public Mobile GetMobile(){
@@ -220,6 +221,10 @@ public class AndroidEngine implements Runnable {
     }
     public void SolicitateNotification(int icon, String title, String body, String channelName){
         mobile.SolicitateNotification(icon, title, body, channelName);
+    }
+
+    public void SolicitateShare(Bitmap bitmap, String mnsg){
+        mobile.SolicitatShare(bitmap, mnsg);
     }
 
 }

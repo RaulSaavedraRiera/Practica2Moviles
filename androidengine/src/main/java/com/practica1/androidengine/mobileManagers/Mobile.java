@@ -1,6 +1,8 @@
 package com.practica1.androidengine.mobileManagers;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.view.SurfaceView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.IconCompat;
@@ -11,14 +13,17 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
+import org.w3c.dom.Text;
+
+
 public class Mobile {
 
     AppCompatActivity activity;
     AdView mAdView;
     Notifications mNotifications;
-
+    MobileShare mobileShare;
     AdRequest adRequest;
-    public Mobile(AppCompatActivity activity){
+    public Mobile(AppCompatActivity activity, SurfaceView surfaceView){
 
         this.activity = activity;
 
@@ -28,6 +33,7 @@ public class Mobile {
             }
         });
         mNotifications = new Notifications(activity);
+        mobileShare = new MobileShare(surfaceView, activity);
     }
 
     public void GenerateBanner(int adViewID){
@@ -38,6 +44,10 @@ public class Mobile {
 
     public void SolicitateNotification(int icon, String title, String body, String channelName){
         mNotifications.GenerateNotification( icon, title, body, channelName);
+    }
+
+    public void SolicitatShare(Bitmap bitmap, String mnsg){
+        mobileShare.shareImage(bitmap, mnsg);
     }
 
 }
