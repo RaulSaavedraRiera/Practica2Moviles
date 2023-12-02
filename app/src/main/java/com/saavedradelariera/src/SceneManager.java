@@ -49,6 +49,10 @@ public class SceneManager {
 
     }
 
+    public AndroidEngine getEngine() {
+        return engine;
+    }
+
     public void AddGameObjectToActiveScene(IGameObject gO){
         activeScene.AddGO(gO);
     }

@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground, "jaje", "jeje", "R.string.channel_name");
 
+
       /*
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
