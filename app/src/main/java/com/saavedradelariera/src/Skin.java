@@ -3,13 +3,18 @@ package com.saavedradelariera.src;
 public class Skin {
     private boolean bought;
     private int price;
-    private String samplePath, skinsPath, title;
+    private String samplePath, skinsPath, title, category;
 
-    public Skin(String title, int price, String samplePath, String skinsPath) {
+    public String getCategory() {
+        return category;
+    }
+
+    public Skin(String title, int price, String samplePath, String skinsPath, String category) {
         this.title = title;
         this.price = price;
         this.samplePath = samplePath;
         this.skinsPath = skinsPath;
+        this.category = category;
     }
 
     public void setBought(boolean bought) {

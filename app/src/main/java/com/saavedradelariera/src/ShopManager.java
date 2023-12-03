@@ -19,10 +19,12 @@ import java.util.Map;
 public class ShopManager {
     final String path = "store";
     int currentPage = 0;
-    int balance = 0;
+    int balance = 100;
     private ArrayList<String> categories = new ArrayList<String>();
-    public Map<String, ArrayList<Skin>> skinMap = new HashMap<>();
+    private Map<String, Map<String, Skin>> skinMap = new HashMap<>();
+    private Map<String, String> activeSkinsMap = new HashMap<>();
     private static ShopManager instance = null;
+    private ArrayList<String> boughtSkins = new ArrayList<>();
 
     public static ShopManager getInstance() {
         if (instance == null) {
@@ -67,7 +69,7 @@ public class ShopManager {
         }
     }
 
-    private Skin JSONToSkin(AssetManager mngr, String filePath) {
+    private Skin JSONToSkin(AssetManager mngr, String filePath, String category) {
         try {
             InputStream inputStream = mngr.open(filePath);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -86,7 +88,7 @@ public class ShopManager {
             String skinPath = jsonObject.getString("skinsPath");
             int price = jsonObject.getInt("price");
 
-            Skin skin = new Skin(title, price, samplePath, skinPath);
+            Skin skin = new Skin(title, price, samplePath, skinPath, category);
             return skin;
 
         } catch (IOException e) {
@@ -107,16 +109,12 @@ public class ShopManager {
                 String[] files = mngr.list(path+'/'+category);
 
                 for (String file : files) {
-                    Skin skin = JSONToSkin(mngr, path + '/' + category + '/' + file);
+                    Skin skin = JSONToSkin(mngr, path + '/' + category + '/' + file, category);
 
-                    if (skinMap.get(category) != null) {
-                        skinMap.get(category).add(skin);
-                    } else {
-                        // Crea una nueva lista, agrega el skin y ponla en el mapa
-                        ArrayList<Skin> skinList = new ArrayList<>();
-                        skinList.add(skin);
-                        skinMap.put(category, skinList);
+                    if (skinMap.get(category) == null) {
+                        skinMap.put(category, new HashMap<>());
                     }
+                    skinMap.get(category).put(skin.getTitle(), skin);
                 }
             }
         } catch (IOException e) {
@@ -124,13 +122,14 @@ public class ShopManager {
         }
     }
 
-    public ArrayList<Skin> getBackgrounds() {
-        return skinMap.get("backgrounds");
+    public ArrayList<Skin> getSkinsByCat(String cat) {
+        if (skinMap.get(cat) != null) {
+            ArrayList<Skin> skinsList = new ArrayList<>(skinMap.get(cat).values());
+            return skinsList;
+        } else {
+            return new ArrayList<>();
+        }
     }
-
-    public ArrayList<Skin> getSkinsByCat(String cat) { return skinMap.get(cat);}
-
-    public ArrayList<Skin> getSkinsByCatId(int catId) { return skinMap.get(categories.get(catId));}
 
     public String getCategory(int catId) {
         return categories.get(catId);
@@ -146,5 +145,13 @@ public class ShopManager {
 
     public void addBalance(int amount) {
         balance += amount;
+    }
+
+    public void addBoughtSkin(String skinTitle) {
+        boughtSkins.add(skinTitle);
+    }
+
+    public void setActiveSkin(String category, String skinName) {
+        activeSkinsMap.put(category, skinName);
     }
 }

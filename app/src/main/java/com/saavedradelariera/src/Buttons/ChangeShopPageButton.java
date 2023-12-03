@@ -1,11 +1,12 @@
 package com.saavedradelariera.src.Buttons;
 
+import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.scenes.ShopScene;
 
 public class ChangeShopPageButton extends ImageButton {
-
+    private ClickListener clickListener;
     boolean nextPage;
     ShopScene shopScene;
 
@@ -17,6 +18,10 @@ public class ChangeShopPageButton extends ImageButton {
 
     @Override
     protected boolean HandleClick() {
+        if (clickListener != null) {
+            clickListener.onClick();
+        }
+
         if (ShopManager.getInstance().changePage(this.nextPage)) {
             if (this.nextPage) {
                 SceneManager.getInstance().pushSceneStack();
@@ -26,6 +31,11 @@ public class ChangeShopPageButton extends ImageButton {
                 SceneManager.getInstance().SetScene(SceneManager.getInstance().useSceneStack());
             }
         }
+
         return true;
+    }
+
+    public void setClickListener(ClickListener listener) {
+        this.clickListener = listener;
     }
 }

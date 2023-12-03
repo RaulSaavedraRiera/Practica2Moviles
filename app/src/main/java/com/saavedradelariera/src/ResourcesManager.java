@@ -233,4 +233,8 @@ public class ResourcesManager {
             e.printStackTrace();
         }
     }
+
+    public Context getContext() {
+        return currentContext;
+    }
 }

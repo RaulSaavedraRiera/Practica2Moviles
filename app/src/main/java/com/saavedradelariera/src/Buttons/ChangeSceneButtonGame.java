@@ -7,7 +7,7 @@ import com.saavedradelariera.src.scenes.GameScene;
 
 
 /*Botón de cambio de escena a la escena de juego, se almacena la dificultad para pasarselo a esta*/
-public class ChangeSceneButtonGame extends ChangeSceneButton {
+public class ChangeSceneButtonGame extends GenericButton {
 
     int n;
     AndroidEngine engine;
