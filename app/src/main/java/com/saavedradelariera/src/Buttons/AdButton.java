@@ -23,19 +23,19 @@ public class AdButton extends GenericButton {
     @Override
     protected boolean HandleClick() {
 
-        /*SceneManager.getInstance().getEngine().SolicitateRewardAd(new AdFinish() {
+        SceneManager.getInstance().getEngine().SolicitateRewardAd(new AdFinish() {
             @Override
             public void doAction() {
 
+                GameScene gS = (GameScene) SceneManager.getInstance().getPeckStack();
 
+                SceneManager.getInstance().useSceneStack();
+                SceneManager.getInstance().ReturnToScene(gS);
+
+                gS.getGameManager().AddRows(2);
             }
-        });*/
-        GameScene gS = (GameScene) SceneManager.getInstance().getPeckStack();
+        });
 
-        SceneManager.getInstance().useSceneStack();
-        SceneManager.getInstance().ReturnToScene(gS);
-
-        gS.getGameManager().AddRows(2);
 
 
         return true;

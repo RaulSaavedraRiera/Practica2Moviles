@@ -88,14 +88,17 @@ public class Mobile {
 
     public void showRewardedAd(AdFinish adFinish) {
         if (rewardedAd != null) {
-
-            System.out.println("NO VA");
-            /*rewardedAd.show(activity, new OnUserEarnedRewardListener() {
+            app.runOnUiThread(new Runnable() {
                 @Override
-                public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
-                    adFinish.doAction();
+                public void run() {
+                    rewardedAd.show(activity, new OnUserEarnedRewardListener() {
+                        @Override
+                        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                            adFinish.doAction();
+                        }
+                    });
                 }
-            });*/
+            });
         } else {
             Log.d("TAG", "The rewarded ad wasn't ready yet.");
         }
