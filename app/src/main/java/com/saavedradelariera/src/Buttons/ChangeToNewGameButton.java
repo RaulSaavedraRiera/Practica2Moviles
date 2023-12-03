@@ -16,6 +16,7 @@ public class ChangeToNewGameButton extends ChangeSceneButton {
 
     @Override
     protected boolean HandleClick() {
+        SceneManager.getInstance().useSceneStack();
         GameScene gS = new GameScene(n);
         SceneManager.getInstance().SetScene(gS);
         return true;

@@ -4,6 +4,7 @@ import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.ButtonArray;
+import com.saavedradelariera.src.Buttons.AdButton;
 import com.saavedradelariera.src.Buttons.ChangeSceneButton;
 import com.saavedradelariera.src.Buttons.ChangeToNewGameButton;
 import com.saavedradelariera.src.Buttons.ShareButton;
@@ -49,6 +50,8 @@ public class EndScene extends Scene {
         {
             new Text("Night.ttf",200, 120, 45, 125,  "GAME OVER", new ColorJ(0, 0, 0));
             new Text("Night.ttf",175, 175, 18, 50,  "Te has quedado sin intentos", new ColorJ(0, 0, 0));
+
+            new AdButton(100, 510, 400, 100, new ColorJ(0, 255, 255), new ColorJ(0, 0, 0), "Night.ttf", 10);
         }
 
         new Text("Night.ttf",270, 300, 20, 50,  "código:", new ColorJ(0, 0, 0));

@@ -42,6 +42,6 @@ public class ChooseScene extends Scene {
         Text t3 = new Text("Night.ttf",200, 620, 40, 100,  "Imposible", new ColorJ(0, 0, 0));
 
         ChangeSceneButtonBack buttonBack = new ChangeSceneButtonBack("arrow.png",75, 75, 30,
-                30);
+                30, true);
     }
 }

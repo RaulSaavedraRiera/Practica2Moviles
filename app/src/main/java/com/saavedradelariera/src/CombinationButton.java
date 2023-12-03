@@ -63,7 +63,6 @@ public class CombinationButton extends Button {
             colorText.txt = "";
     }
 
-
     //Activa el botón con diferentes modalidades de comportamiento y color
     public void EnableCombinationButton(ColorJ c, int n, float smallCircle, boolean input, boolean deleteColor, boolean daltonic)
     {
@@ -129,8 +128,8 @@ public class CombinationButton extends Button {
         SetBackgroundColor(new ColorJ(200, 200, 200));
         SceneManager.getInstance().UnRegisterToMessage(this);
         SceneManager.getInstance().UnRegisterToMessage(this);
-       SetSmallCircleSize(initialSmallCirclePercent);
-       colorText.txt = "";
+        SetSmallCircleSize(initialSmallCirclePercent);
+        colorText.txt = "";
 
     }
 

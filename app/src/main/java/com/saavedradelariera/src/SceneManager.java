@@ -46,7 +46,21 @@ public class SceneManager {
         //inicialzia la escena y se la pasa al engine
         activeScene.SetScene(engine.GetGraphics(), engine.GetAudioSystem());
         engine.SetScene(activeScene);
+    }
 
+    //lanza una nueva escena al motor y la inicializa
+    public void ReturnToScene(Scene scene) //boolean clearWithDelay
+    {
+        if(engine == null)
+            throw new RuntimeException("no seteado el engine");
+
+        activeScene = scene;
+        //limpia los objetos registrados a mensajes de la anterior escena
+        messagesGO.clear();
+
+        //inicialzia la escena y se la pasa al engine
+        //activeScene.ReturnScene(engine.GetGraphics(), engine.GetAudioSystem());
+        engine.SetScene(activeScene);
     }
 
     public AndroidEngine getEngine() {
@@ -84,9 +98,16 @@ public class SceneManager {
         sceneStack.pop();
         return aux;
     }
-
     public void resetStack()
     {
         sceneStack.clear();;
+    }
+
+    public Scene getPeckStack()
+    {
+        if(sceneStack.empty())
+            return null;
+
+        return sceneStack.peek();
     }
 }

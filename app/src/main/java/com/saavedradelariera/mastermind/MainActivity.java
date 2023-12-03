@@ -1,26 +1,17 @@
 package com.saavedradelariera.mastermind;
 
-import android.Manifest;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.os.Build;
+import android.media.tv.AdRequest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
-import android.view.Window;
-import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.graphics.drawable.IconCompat;
 
-
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.practica1.androidengine.AndroidEngine;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ResourcesManager;
@@ -41,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
         androidEngine = new AndroidEngine(renderView);
 
-        androidEngine.GenerateMobile(this);
+        androidEngine.GenerateMobile(this, MainActivity.this);
         androidEngine.GenerateBanner(R.id.adView);
-
+        androidEngine.SolicitateLoadRewardAd();
 
         androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground, "jaje", "jeje", "R.string.channel_name");
 

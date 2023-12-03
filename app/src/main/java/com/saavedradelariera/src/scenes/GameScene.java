@@ -20,6 +20,8 @@ import java.util.ArrayList;
 public class GameScene extends Scene {
     int nButtons, nRows, nColors, difficult;
 
+    GameManager gameManager;
+
     ArrayList<AndroidImage> images;
 
     public GameScene(int diff){
@@ -44,7 +46,7 @@ public class GameScene extends Scene {
         name = "GameScene";
 
         //le pasamos al manager las columnas para que las gestione
-        GameManager gameManager = new GameManager();
+        gameManager = new GameManager();
         gameManager.Init(difficult, nButtons, nRows, graphics);
 
         if(images != null)
@@ -72,6 +74,10 @@ public class GameScene extends Scene {
         if(images == null)
             new DaltonicButton("ojo.png", 500, 40, 50, 50);
 
+    }
+
+    public GameManager getGameManager() {
+        return gameManager;
     }
 
     void SetSceneSettings(int difficult){
