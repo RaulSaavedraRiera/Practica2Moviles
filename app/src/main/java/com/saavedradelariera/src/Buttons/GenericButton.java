@@ -7,26 +7,18 @@ import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.GameObject;
 
 /*Clase base para los botones de cambio de escena*/
-public class ChangeSceneButton extends GameObject {
+public class GenericButton extends GameObject {
     private ClickListener clickListener;
+    private ColorJ c, c2;
+    private int x, y, w, h;
 
-    private ColorJ c = new ColorJ(173, 216, 230);
-    private ColorJ c2 = new ColorJ(173, 216, 230);
-
-    private int X;
-    private int Y;
-    private int W;
-    private int H;
-
-
-    public ChangeSceneButton(int x, int y, int w, int h, ColorJ c, ColorJ c2) {
+    public GenericButton(int x, int y, int w, int h, ColorJ c, ColorJ c2) {
         super(x, y, w, h);
         this.c = c;
         this.c2 = c2;
-        X = x;
-        Y = y;
-        W = w;
-        H = h;
+        this.x = x;
+        this.y = y;
+        this.h = h;
     }
 
     //Los botones serán representados como rectángulos
@@ -35,47 +27,39 @@ public class ChangeSceneButton extends GameObject {
         graphics.RenderFillRect(posX, posY, width, height, c, c2);
     }
 
-
-
     //Comprobamos si se ha pulsado sobre el botón y si es así llamamos al método HandleClick para procesarlo
     @Override
-    public boolean HandleInput(TouchEvent e)
-    {
-
-        if(e.getType() == TouchEvent.TouchEventType.CLICK || e.getType() == TouchEvent.TouchEventType.TOUCH_UP)
-        {
+    public boolean HandleInput(TouchEvent e) {
+        if (e.getType() == TouchEvent.TouchEventType.CLICK || e.getType() == TouchEvent.TouchEventType.TOUCH_UP) {
             if (ISOver(e.getX(), e.getY())) {
 
-              return HandleClick();
+                return HandleClick();
             }
         }
-
         return false;
     }
 
-
     public int getH() {
-        return H;
+        return h;
     }
 
     public int getW() {
-        return W;
+        return w;
     }
 
     public int getX() {
-        return X;
+        return x;
     }
 
     public int getY() {
-        return Y;
+        return y;
     }
 
     //Método para procesar dicho click
-    protected boolean HandleClick(){
+    protected boolean HandleClick() {
         if (clickListener != null) {
             clickListener.onClick();
         }
-
         return true;
     }
 

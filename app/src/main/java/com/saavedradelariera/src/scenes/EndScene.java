@@ -1,14 +1,19 @@
 package com.saavedradelariera.src.scenes;
+
 import com.practica1.androidengine.AndroidAudio;
-import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.ButtonArray;
+<<<<<<< Updated upstream
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonGame;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonMenu;
 import com.saavedradelariera.src.Buttons.ChangeSceneFinalButton;
+=======
+import com.saavedradelariera.src.Buttons.GenericButton;
+>>>>>>> Stashed changes
 import com.saavedradelariera.src.Buttons.ChangeToNewGameButton;
 import com.saavedradelariera.src.Text;
+
 import java.util.ArrayList;
 
 
@@ -22,8 +27,8 @@ public class EndScene extends Scene {
     boolean daltonic;
 
 
-    public EndScene(boolean win, int tries, ArrayList<ColorJ> colors, ArrayList<Integer> numbers, boolean daltonic, int gameDifficult){
-        this.win =win;
+    public EndScene(boolean win, int tries, ArrayList<ColorJ> colors, ArrayList<Integer> numbers, boolean daltonic, int gameDifficult) {
+        this.win = win;
         this.tries = tries;
         this.colors = colors;
         this.numbers = numbers;
@@ -38,27 +43,36 @@ public class EndScene extends Scene {
 
 
         //TODO falta añadirle formato a este texto
-        if(win)
-        {
-            new Text("Night.ttf",200, 120, 45, 125,  "ENHORABUENA!!", new ColorJ(0, 0, 0));
-            new Text("Night.ttf",175, 175, 18, 50,  "Has averiguado el código en:", new ColorJ(0, 0, 0));
-            new Text("Night.ttf",230, 250, 30, 70,  String.valueOf(tries) + " intentos", new ColorJ(0, 0, 0));
-        }
-        else
-        {
-            new Text("Night.ttf",200, 120, 45, 125,  "GAME OVER", new ColorJ(0, 0, 0));
-            new Text("Night.ttf",175, 175, 18, 50,  "Te has quedado sin intentos", new ColorJ(0, 0, 0));
+        if (win) {
+            new Text("Night.ttf", 200, 120, 45, 125, "ENHORABUENA!!", new ColorJ(0, 0, 0));
+            new Text("Night.ttf", 175, 175, 18, 50, "Has averiguado el código en:", new ColorJ(0, 0, 0));
+            new Text("Night.ttf", 230, 250, 30, 70, String.valueOf(tries) + " intentos", new ColorJ(0, 0, 0));
+        } else {
+            new Text("Night.ttf", 200, 120, 45, 125, "GAME OVER", new ColorJ(0, 0, 0));
+            new Text("Night.ttf", 175, 175, 18, 50, "Te has quedado sin intentos", new ColorJ(0, 0, 0));
         }
 
-        new Text("Night.ttf",270, 400, 20, 50,  "código:", new ColorJ(0, 0, 0));
-        ButtonArray b =  new ButtonArray(100, 350, 400, 300);
+        new Text("Night.ttf", 270, 400, 20, 50, "código:", new ColorJ(0, 0, 0));
+        ButtonArray b = new ButtonArray(100, 350, 400, 300);
         b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, colors, false, false, daltonic);
 
         new ChangeToNewGameButton(100, 700, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128), gameDifficult);
-        new Text("Night.ttf",180, 710, 36, 90,  "Volver a jugar", new ColorJ(0, 0, 0));
+        new Text("Night.ttf", 180, 710, 36, 90, "Volver a jugar", new ColorJ(0, 0, 0));
 
+<<<<<<< Updated upstream
         new ChangeSceneFinalButton(100, 775, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128));
         new Text("Night.ttf",160, 785, 36, 90,  "Elegir dificultad", new ColorJ(0, 0, 0));
 
+=======
+        GenericButton finalButton = new GenericButton(100, 775, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128));
+        new Text("Night.ttf", 160, 785, 36, 90, "Elegir dificultad", new ColorJ(0, 0, 0));
+        finalButton.setClickListener(new ClickListener() {
+            @Override
+            public void onClick() {
+                ChooseScene mS = new ChooseScene();
+                SceneManager.getInstance().SetScene(mS);
+            }
+        });
+>>>>>>> Stashed changes
     }
 }
