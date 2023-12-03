@@ -11,22 +11,15 @@ public class GenericButton extends GameObject {
     private ClickListener clickListener;
     private ColorJ c, c2;
     private int x, y, w, h;
-    private int X;
-    private int Y;
-    private int W;
-    private int H;
-
     private int radius;
 
-
-    public ChangeSceneButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int radius) {
+    public GenericButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int radius) {
         super(x, y, w, h);
         this.c = c;
         this.c2 = c2;
-        X = x;
-        Y = y;
-        W = w;
-        H = h;
+        this.x = x;
+        this.y = y;
+        this.h = h;
         this.radius = radius;
     }
 
