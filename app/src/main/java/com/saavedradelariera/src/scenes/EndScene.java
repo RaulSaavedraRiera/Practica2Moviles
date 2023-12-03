@@ -8,7 +8,6 @@ import com.saavedradelariera.src.Buttons.AdButton;
 import com.saavedradelariera.src.Buttons.ChangeSceneButton;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonGame;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonMenu;
-import com.saavedradelariera.src.Buttons.ChangeSceneFinalButton;
 import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.Buttons.ChangeToNewGameButton;
 import com.saavedradelariera.src.Buttons.ShareButton;
