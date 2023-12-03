@@ -5,9 +5,6 @@ import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.ButtonArray;
 import com.saavedradelariera.src.Buttons.AdButton;
-import com.saavedradelariera.src.Buttons.ChangeSceneButton;
-import com.saavedradelariera.src.Buttons.ChangeSceneButtonGame;
-import com.saavedradelariera.src.Buttons.ChangeSceneButtonMenu;
 import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.Buttons.ChangeToNewGameButton;
 import com.saavedradelariera.src.Buttons.ShareButton;
@@ -65,7 +62,7 @@ public class EndScene extends Scene {
         new ChangeToNewGameButton(100, 700, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128), gameDifficult, 10);
         new Text("Night.ttf",180, 710, 36, 90,  "Volver a jugar", new ColorJ(0, 0, 0));
 
-        ChangeSceneButton finalButton = new GenericButton(100, 775, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128), 10);
+        GenericButton finalButton = new GenericButton(100, 775, 400, 50, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128), 10);
         new Text("Night.ttf",160, 785, 36, 90,  "Elegir dificultad", new ColorJ(0, 0, 0));
 
         finalButton.setClickListener(new ClickListener() {
