@@ -1,5 +1,6 @@
 package com.practica1.androidengine;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,6 +10,7 @@ import android.view.SurfaceView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.IconCompat;
 
+import com.practica1.androidengine.mobileManagers.AdFinish;
 import com.practica1.androidengine.mobileManagers.Mobile;
 
 import java.util.ArrayList;
@@ -205,11 +207,11 @@ public class AndroidEngine implements Runnable {
         return audioSystem;
     }
 
-    public void GenerateMobile(AppCompatActivity app){
+    public void GenerateMobile(AppCompatActivity app, Activity act){
         if(app == null || mobile != null)
             return;
 
-        mobile = new Mobile(app, myView);
+        mobile = new Mobile(app, myView, act);
     }
 
     public Mobile GetMobile(){
@@ -224,7 +226,17 @@ public class AndroidEngine implements Runnable {
     }
 
     public void SolicitateShare(Bitmap bitmap, String mnsg){
-        mobile.SolicitatShare(bitmap, mnsg);
+        mobile.SolicitateShare(bitmap, mnsg);
+    }
+
+    public void SolicitateLoadRewardAd()
+    {
+        mobile.loadRewardedAd();
+    }
+
+    public void SolicitateRewardAd(AdFinish adFinish)
+    {
+        mobile.showRewardedAd(adFinish);
     }
 
 }

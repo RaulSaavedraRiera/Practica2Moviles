@@ -107,7 +107,6 @@ public class GameManager extends GameObject {
         }
 
        CalculateRowOffset();
-        AddRows(10);
     }
 
     public void SetImages(ArrayList<AndroidImage> imgs)
@@ -125,7 +124,7 @@ public class GameManager extends GameObject {
         return colors;
     }
 
-    void AddRows(int n){
+    public void AddRows(int n){
         for (int i = 1; i <= n; i++) {
             Row row = new Row(iniX + offsetX* rows.size(), iniY + (rowHeight + offsetY)*rows.size() , rowWidth, rowHeight, buttonsPerRow , rows.size());
             rows.add(row);
@@ -190,6 +189,8 @@ public class GameManager extends GameObject {
     //al acabar el juego cargamos la siguiente escena con los valores según si ha ganado, dificultad seleccionada.
     private void EndGame(boolean win){
 
+        if(!win)
+            SceneManager.getInstance().pushSceneStack();
 
         EndScene endScene = new EndScene(win, currentRow, colors, solutionManager.getSolution(), currentDaltonicEnable, difficult);
         SceneManager.getInstance().SendMessageToActiveScene(new ReleaseSoundMessage());

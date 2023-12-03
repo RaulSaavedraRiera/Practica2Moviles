@@ -16,7 +16,7 @@ public class ChangeSceneButtonBack extends ImageButton {
         super(route,x,y,w,h);
     }
 
-    public ChangeSceneButtonBack(String route, int x, int y, int w, int h, boolean isWorld ){
+    public ChangeSceneButtonBack(String route, int x, int y, int w, int h, boolean isWorld){
         super(route,x,y,w,h);
         this.isWorld = isWorld;
     }
