@@ -5,9 +5,11 @@ import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.IScene;
 import com.practica1.androidengine.TouchEvent;
+import com.saavedradelariera.src.GameObject;
 import com.saavedradelariera.src.IGameObject;
 import com.saavedradelariera.src.AudioManager;
 import com.saavedradelariera.src.SceneManager;
+import com.saavedradelariera.src.messages.Message;
 
 import java.util.ArrayList;
 
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 public abstract class Scene implements IScene {
     protected String name = "";
     protected ArrayList<IGameObject> GOList = new ArrayList<IGameObject>();
+    protected ArrayList<IGameObject> GOMessageList = new ArrayList<>();
 
     //inicialzia la escena generando su audiomanager
 
@@ -26,6 +29,9 @@ public abstract class Scene implements IScene {
 
     public void AddGO(IGameObject g){
         GOList.add(g);
+    }
+    public void AddGOToMessages(IGameObject g){
+        GOMessageList.add(g);
     }
 
     public  void RemoveGO(IGameObject g){
@@ -57,6 +63,13 @@ public abstract class Scene implements IScene {
         for (IGameObject gO : GOList)
         {
             gO.Update(IEngine, deltaTime);
+        }
+    }
+
+    public void SendMessageToGO(Message m){
+        for (int i = 0; i < GOMessageList.size(); i++) {
+            if(i < GOMessageList.size())
+                GOMessageList.get(i).ReceiveMessage(m);
         }
     }
 

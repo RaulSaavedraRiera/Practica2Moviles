@@ -30,6 +30,7 @@ public abstract class GameObject implements IGameObject {
 
     }
 
+    @Override
     public void ReceiveMessage(Message m) {
     }
 

@@ -3,6 +3,7 @@ package com.saavedradelariera.src;
 import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.TouchEvent;
+import com.saavedradelariera.src.messages.Message;
 
 /*interfaz de GameObject*/
 public interface IGameObject {
@@ -21,6 +22,9 @@ public interface IGameObject {
     int GetY();
     int GetWidth();
     int GetHeight();
+
+     void ReceiveMessage(Message m);
+
 
     boolean ISOver(float x, float y);
 }

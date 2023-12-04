@@ -73,19 +73,15 @@ public class SceneManager {
 
     public void SendMessageToActiveScene(Message m)
     {
-        for (int i = 0; i < messagesGO.size(); i++) {
-
-            if(i < messagesGO.size())
-                messagesGO.get(i).ReceiveMessage(m);
-        }
+       activeScene.SendMessageToGO(m);
     }
 
-    public void RegisterToMessage(GameObject gO)
+    public void RegisterToMessage(IGameObject gO)
     {
-        messagesGO.add(gO);
+        activeScene.AddGOToMessages(gO);
     }
 
-    public void UnRegisterToMessage(GameObject gO)
+    public void UnRegisterToMessage(IGameObject gO)
     {
         messagesGO.remove(gO);
     }
