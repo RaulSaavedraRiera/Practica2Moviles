@@ -25,7 +25,7 @@ public class LevelButton extends GenericButton {
         Level level = ResourcesManager.getInstance().getLevel(this.id - 1);
         SceneManager.getInstance().pushSceneStack();
 
-        GameScene gS = new GameScene(4);
+        GameScene gS = new GameScene(4, false);
         SceneManager.getInstance().SetScene(gS);
 
         return true;

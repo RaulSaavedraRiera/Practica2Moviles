@@ -18,8 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.work.WorkRequest;
 
 
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.OnUserEarnedRewardListener;
@@ -117,13 +119,37 @@ public class Mobile {
                         .setCustomData("SAMPLE_CUSTOM_DATA_STRING")
                         .build();
                 rewardedAd.setServerSideVerificationOptions(options);
+
+                rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        // Called when ad is dismissed.
+                        // Set the ad reference to null so you don't show the ad a second time.
+                        Log.d("TAG", "Ad dismissed fullscreen content.");
+                        //rewardedAd = null;
+                        loadRewardedAd();
+                    }
+
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                        // Called when ad fails to show.
+                        Log.e("TAG", "Ad failed to show fullscreen content.");
+                        //rewardedAd = null;
+                        loadRewardedAd();
+                    }
+
+                });
             }
+
         });
+
+
 
 
     }
 
-    public void showRewardedAd(AdFinish adFinish) {
+    public void showRewardedAd(AdsFinishCallback adFinish) {
         if (rewardedAd != null) {
             app.runOnUiThread(new Runnable() {
                 @Override

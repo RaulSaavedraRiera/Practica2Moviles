@@ -8,15 +8,16 @@ import com.saavedradelariera.src.scenes.GameScene;
 public class ChangeToNewGameButton extends GenericButton {
 
     int n;
-    public ChangeToNewGameButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int n, int radius){
-        super(x,y,w,h,c,c2, radius);
+
+    public ChangeToNewGameButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int n, int radius) {
+        super(x, y, w, h, c, c2, radius);
         this.n = n;
     }
 
     @Override
     protected boolean HandleClick() {
         SceneManager.getInstance().useSceneStack();
-        GameScene gS = new GameScene(n);
+        GameScene gS = new GameScene(n, true);
         SceneManager.getInstance().SetScene(gS);
         return true;
     }
