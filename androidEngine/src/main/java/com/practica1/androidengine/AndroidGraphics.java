@@ -136,6 +136,12 @@ public class AndroidGraphics {
         RenderRect(x, y, w, h, c);
     }
 
+    public void RenderFillRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC, int cornerRadius) {
+        paint = new Paint();
+        paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
+        canvas.drawRoundRect(new RectF(x, y, x + w, y + h), cornerRadius, cornerRadius, paint);
+    }
+
     /**
      * draws an image on a canvas at the specified position (x, y) with a specified width and height (w, h).
      *
@@ -212,18 +218,6 @@ public class AndroidGraphics {
     public AndroidFont CreateFont(String route, int size, boolean boldStyle) {
         paint = actualDFont.createFont(route, size, boldStyle, assets);
         return actualDFont;
-    }
-
-    public void RenderFillRoundRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC, int cornerRadius) {
-        paint = new Paint();
-        paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
-        canvas.drawRoundRect(new RectF(x, y, x + w, y + h), cornerRadius, cornerRadius, paint);
-    }
-
-    public void drawRoundRectangle(float cx, float cy, float width, float height, float arc, ColorJ c1) {
-        paint.setColor(Color.argb(255, c1.getR(), c1.getG(), c1.getB()));
-        RectF rect = new RectF(cx - width / 2, cy - height / 2, cx + width / 2, cy + height / 2);
-        canvas.drawRoundRect(rect, arc, arc, paint);
     }
 
 
