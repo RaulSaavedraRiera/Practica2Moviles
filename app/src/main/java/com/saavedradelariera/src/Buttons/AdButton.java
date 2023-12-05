@@ -1,11 +1,7 @@
 package com.saavedradelariera.src.Buttons;
 
-import android.graphics.Bitmap;
-
 import com.practica1.androidengine.ColorJ;
-import com.practica1.androidengine.mobileManagers.AdFinish;
-import com.practica1.androidengine.mobileManagers.ScreenShootFinish;
-import com.saavedradelariera.src.GameManager;
+import com.practica1.androidengine.mobileManagers.AdsFinishCallback;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.Text;
 import com.saavedradelariera.src.scenes.GameScene;
@@ -23,7 +19,7 @@ public class AdButton extends GenericButton {
     @Override
     protected boolean HandleClick() {
 
-        SceneManager.getInstance().getEngine().SolicitateRewardAd(new AdFinish() {
+        SceneManager.getInstance().getEngine().SolicitateRewardAd(new AdsFinishCallback() {
             @Override
             public void doAction() {
 

@@ -8,9 +8,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.drawable.IconCompat;
 
-import com.practica1.androidengine.mobileManagers.AdFinish;
+import com.practica1.androidengine.mobileManagers.AdsFinishCallback;
 import com.practica1.androidengine.mobileManagers.Mobile;
 
 import java.util.ArrayList;
@@ -234,7 +233,7 @@ public class AndroidEngine implements Runnable {
         mobile.loadRewardedAd();
     }
 
-    public void SolicitateRewardAd(AdFinish adFinish)
+    public void SolicitateRewardAd(AdsFinishCallback adFinish)
     {
         mobile.showRewardedAd(adFinish);
     }
