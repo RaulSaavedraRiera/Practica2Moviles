@@ -1,6 +1,6 @@
 {
   "title": "ChristmasIcons",
-  "skinsPath": "sprites/icons/christmas",
+  "skinsPath": "sprites/icons/christmas/",
   "samplePath": "sprites/icons/christmas/sample.png",
   "price": 100
 }
