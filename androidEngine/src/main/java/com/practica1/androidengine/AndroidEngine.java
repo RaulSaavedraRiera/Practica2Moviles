@@ -8,12 +8,12 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.drawable.IconCompat;
 
 import com.practica1.androidengine.mobileManagers.AdFinish;
 import com.practica1.androidengine.mobileManagers.Mobile;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Extension of the `Engine` class and is responsible for managing
@@ -221,10 +221,9 @@ public class AndroidEngine implements Runnable {
     public void GenerateBanner(int adViewID){
         mobile.GenerateBanner(adViewID);
     }
-    public void SolicitateNotification(int icon, String title, String body, String channelName){
-        mobile.SolicitateNotification(icon, title, body, channelName);
+    public void SolicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit){
+        mobile.SolicitateNotification(icon, title, body, channelName, time, timeUnit);
     }
-
     public void SolicitateShare(Bitmap bitmap, String mnsg){
         mobile.SolicitateShare(bitmap, mnsg);
     }

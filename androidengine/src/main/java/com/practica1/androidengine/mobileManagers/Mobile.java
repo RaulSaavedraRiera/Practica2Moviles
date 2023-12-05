@@ -1,12 +1,22 @@
 package com.practica1.androidengine.mobileManagers;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.util.Log;
 import android.view.SurfaceView;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
+import androidx.annotation.NonNull;
+import androidx.work.WorkRequest;
+
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -20,14 +30,13 @@ import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions;
 
-import org.w3c.dom.Text;
 
+import java.util.concurrent.TimeUnit;
 
 public class Mobile {
 
     AppCompatActivity app;
     AdView mAdView;
-    Notifications mNotifications;
     MobileShare mobileShare;
     RewardedAd rewardedAd;
 
@@ -44,7 +53,7 @@ public class Mobile {
             }
         });
 
-        mNotifications = new Notifications(app);
+
         mobileShare = new MobileShare(surfaceView, app);
     }
 
@@ -54,9 +63,37 @@ public class Mobile {
         mAdView.loadAd(adRequest);
     }
 
-    public void SolicitateNotification(int icon, String title, String body, String channelName){
-        mNotifications.GenerateNotification( icon, title, body, channelName);
+    public void SolicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit){
+
+        SetUpNotification(channelName);
+
+        WorkRequest request = new  OneTimeWorkRequest.Builder(NotificationWorker.class)
+                .setInitialDelay(time, timeUnit)
+                .setInputData(new Data.Builder()
+                        .putString("title", title)
+                        .putString("text", body)
+                        .putInt("icon", icon)
+                        .putString("channel", channelName)
+                        .putString("package", activity.getPackageName())
+                        .build())
+                .build();
+
+        // Programa la tarea para ser ejecutada por el WorkManager
+        WorkManager.getInstance().enqueue(request);
     }
+
+    void SetUpNotification(String channelN){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // CharSequence name = "Mi Canal";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(channelN, channelN, importance);
+            channel.setDescription("---");
+            NotificationManager notificationManager = app.getApplicationContext().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+    }
+
 
     public void SolicitateShare(Bitmap bitmap, String mnsg){
         mobileShare.shareImage(bitmap, mnsg);

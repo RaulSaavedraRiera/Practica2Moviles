@@ -18,6 +18,8 @@ import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.scenes.MenuScene;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class MainActivity extends AppCompatActivity {
     AndroidEngine androidEngine;
@@ -35,8 +37,10 @@ public class MainActivity extends AppCompatActivity {
         androidEngine.GenerateMobile(this, MainActivity.this);
         androidEngine.GenerateBanner(R.id.adView);
         androidEngine.SolicitateLoadRewardAd();
+        androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground, "mastermind", "mastermindotravez", "canalmaster", 10, TimeUnit.SECONDS);
 
-        androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground, "jaje", "jeje", "R.string.channel_name");
+
+
 
 
       /*

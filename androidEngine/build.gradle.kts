@@ -29,7 +29,7 @@ android {
 }
 
 dependencies {
-    implementation("com.google.android.gms:play-services-ads:22.5.0")
+    implementation("com.google.guava:guava:29.0-android")
     implementation ("androidx.work:work-runtime:2.7.0")
     implementation("com.google.android.gms:play-services-ads:22.5.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
