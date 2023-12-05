@@ -10,7 +10,6 @@ import com.saavedradelariera.src.GameManager;
 import com.saavedradelariera.src.InputSolution;
 import com.saavedradelariera.src.Level;
 import com.saavedradelariera.src.ResourcesManager;
-import com.saavedradelariera.src.Row;
 import com.saavedradelariera.src.Text;
 import com.saavedradelariera.src.VisualRectangle;
 
@@ -19,13 +18,15 @@ import java.util.ArrayList;
 /*Escena de juego principal*/
 public class GameScene extends Scene {
     int nButtons, nRows, nColors, difficult;
+    boolean isQuickGame;
 
     GameManager gameManager;
 
     ArrayList<AndroidImage> images;
 
-    public GameScene(int diff){
+    public GameScene(int diff, boolean isQuickGame){
         difficult = diff;
+        this.isQuickGame = isQuickGame;
     }
 
     public GameScene(int diff, ArrayList<AndroidImage> levelImages)
@@ -39,8 +40,11 @@ public class GameScene extends Scene {
 
         super.SetScene(graphics, audioSystem);
 
-        images = ResourcesManager.getInstance().LoadImages(ResourcesManager.getInstance().getSkinsId(), graphics);
-
+        if (isQuickGame) {
+            images = ResourcesManager.getInstance().LoadBoughtImages(graphics);
+        } else {
+            images = ResourcesManager.getInstance().LoadLevelImages(ResourcesManager.getInstance().getSkinsId(), graphics);
+        }
 
         SetSceneSettings(difficult);
         name = "GameScene";
@@ -51,7 +55,6 @@ public class GameScene extends Scene {
 
         if(images != null)
             gameManager.SetImages(images);
-
 
         InputSolution inputSolution;
         //creamos el input solution

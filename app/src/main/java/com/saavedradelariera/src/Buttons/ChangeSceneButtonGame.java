@@ -11,8 +11,9 @@ public class ChangeSceneButtonGame extends GenericButton {
 
     int n;
     AndroidEngine engine;
-    public ChangeSceneButtonGame(int x, int y, int w, int h, ColorJ c, ColorJ c2, int n, int radius){
-        super(x,y,w,h,c,c2, radius);
+
+    public ChangeSceneButtonGame(int x, int y, int w, int h, ColorJ c, ColorJ c2, int n, int radius) {
+        super(x, y, w, h, c, c2, radius);
 
         this.n = n;
     }
@@ -21,7 +22,7 @@ public class ChangeSceneButtonGame extends GenericButton {
     protected boolean HandleClick() {
         SceneManager.getInstance().pushSceneStack();
 
-        GameScene gS = new GameScene(n);
+        GameScene gS = new GameScene(n, true);
         SceneManager.getInstance().SetScene(gS);
 
         return true;

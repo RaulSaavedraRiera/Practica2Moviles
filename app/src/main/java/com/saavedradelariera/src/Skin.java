@@ -36,4 +36,8 @@ public class Skin {
     public int getPrice() {
         return price;
     }
+
+    public String getSkinsPath() {
+        return skinsPath;
+    }
 }

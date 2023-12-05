@@ -38,8 +38,8 @@ public class ResourcesManager {
     private Context currentContext;
 
 
-
-    private void WorldManager(){}
+    private void WorldManager() {
+    }
 
     public void Init(AndroidEngine engine) {
 
@@ -48,6 +48,7 @@ public class ResourcesManager {
         ReadLevels();
         LoadImageFolders();
     }
+
     public static ResourcesManager getInstance() {
         if (instance == null) {
             instance = new ResourcesManager();
@@ -60,13 +61,12 @@ public class ResourcesManager {
         return idActualWorld;
     }
 
-    public boolean changeWorld(boolean add){
+    public boolean changeWorld(boolean add) {
 
-        if(add && idActualWorld + 1 < nWorld + 1)
-        {
+        if (add && idActualWorld + 1 < nWorld + 1) {
             idActualWorld++;
             return true;
-        }else if (!add && idActualWorld - 1 > 0){
+        } else if (!add && idActualWorld - 1 > 0) {
             idActualWorld--;
             return true;
         }
@@ -74,8 +74,7 @@ public class ResourcesManager {
     }
 
 
-    public int getLevelInWorld(int id)
-    {
+    public int getLevelInWorld(int id) {
         if (id >= 0 && id < worlds.size()) {
             ArrayList<Level> selectedLevels = worlds.get(id);
             return selectedLevels.size();
@@ -84,13 +83,13 @@ public class ResourcesManager {
         }
     }
 
-    public int getSkinsId(){
-        return worldStyles.get(idActualWorld-1).getIdSkins();
+    public int getSkinsId() {
+        return worldStyles.get(idActualWorld - 1).getIdSkins();
     }
 
     public Level getLevel(int levelIndex) {
         if (idActualWorld > 0 && idActualWorld - 1 <= worlds.size()) {
-            ArrayList<Level> selectedLevels = worlds.get(idActualWorld-1);
+            ArrayList<Level> selectedLevels = worlds.get(idActualWorld - 1);
             if (levelIndex >= 0 && levelIndex < selectedLevels.size()) {
                 setActualLevel(selectedLevels.get(levelIndex));
                 return selectedLevels.get(levelIndex);
@@ -103,8 +102,7 @@ public class ResourcesManager {
         return actualLevel;
     }
 
-    public void LoadImageFolders()
-    {
+    public void LoadImageFolders() {
         ArrayList<AndroidImage> images = new ArrayList<>();
         AssetManager mngr = currentContext.getAssets();
 
@@ -119,17 +117,16 @@ public class ResourcesManager {
         }
     }
 
-    public ArrayList<AndroidImage> LoadImages(int id, AndroidGraphics g)
-    {
+    public ArrayList<AndroidImage> LoadLevelImages(int id, AndroidGraphics g) {
         ArrayList<AndroidImage> images = new ArrayList<>();
         AssetManager mngr = currentContext.getAssets();
 
         try {
-                String[] directories = mngr.list(filesImage.get(id));
-                for (String directory : directories) {
-                    AndroidImage i = g.createImage(filesImage.get(id) + "/" + directory);
-                    images.add(i);
-                }
+            String[] directories = mngr.list(filesImage.get(id));
+            for (String directory : directories) {
+                AndroidImage i = g.createImage(filesImage.get(id) + "/" + directory);
+                images.add(i);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -137,36 +134,56 @@ public class ResourcesManager {
         return images;
     }
 
-    public void resetWorld()
-    {
+    public ArrayList<AndroidImage> LoadBoughtImages(AndroidGraphics g) {
+        if (ShopManager.getInstance().getActiveIconsSkin() == null) {
+            return null;
+        }
+
+        String skinPath = ShopManager.getInstance().getActiveIconsSkin().getSkinsPath();
+        ArrayList<AndroidImage> images = new ArrayList<>();
+        AssetManager mngr = currentContext.getAssets();
+
+        try {
+            String[] directories = mngr.list(skinPath);
+            for (String directory : directories) {
+                AndroidImage i = g.createImage(skinPath + directory);
+                images.add(i);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return images;
+    }
+
+
+    public void resetWorld() {
         idActualWorld = 1;
     }
-    public AndroidImage getBackground(AndroidGraphics graphics)
-    {
-        String aux = worldStyles.get(idActualWorld-1).getBackground();
-        if(backgrounds.containsKey(aux)){
+
+    public AndroidImage getBackground(AndroidGraphics graphics) {
+        String aux = worldStyles.get(idActualWorld - 1).getBackground();
+        if (backgrounds.containsKey(aux)) {
             return backgrounds.get(aux);
-        }else {
+        } else {
             AndroidImage androidImage = graphics.createImage(aux);
             backgrounds.put(aux, androidImage);
             return androidImage;
         }
     }
 
-    private void ReadLevels()
-    {
+    private void ReadLevels() {
         AssetManager mngr = currentContext.getAssets();
 
         try {
-            for(String nameW : files)
-            {
-                String[] directories = mngr.list(path+'/'+nameW);
+            for (String nameW : files) {
+                String[] directories = mngr.list(path + '/' + nameW);
 
                 ArrayList<Level> levels = new ArrayList<>();
 
                 for (String directory : directories) {
                     Level l = JSONToLevel(mngr, path + '/' + nameW + '/' + directory);
-                    if(l != null)
+                    if (l != null)
                         levels.add(l);
                 }
                 worlds.add(levels);
@@ -198,10 +215,9 @@ public class ResourcesManager {
             if (filePath.contains("style")) {
                 String background = jsonObject.getString("background");
                 int idSkin = jsonObject.getInt("skins");
-                WorldStyle w = new WorldStyle(BgPath+ background, idSkin);
+                WorldStyle w = new WorldStyle(BgPath + background, idSkin);
                 worldStyles.add(w);
-            }
-            else {
+            } else {
                 int codeSize = jsonObject.getInt("codeSize");
                 int codeOpt = jsonObject.getInt("codeOpt");
                 boolean repeat = jsonObject.getBoolean("repeat");
@@ -218,8 +234,7 @@ public class ResourcesManager {
         return null;
     }
 
-    private void ReadWorlds()
-    {
+    private void ReadWorlds() {
         AssetManager mngr = currentContext.getAssets();
 
         try {
