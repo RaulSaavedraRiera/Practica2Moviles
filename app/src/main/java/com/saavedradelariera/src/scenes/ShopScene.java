@@ -105,7 +105,7 @@ public class ShopScene extends Scene {
         if (ShopManager.getInstance().getActiveSkin(currentCat) != null && ShopManager.getInstance().getActiveSkin(currentCat).getTitle() == skin.getTitle()) {
             showActiveSkinIndicator(x, y);
         } else if (skin.getBought()) { //bought
-            new VisualRectangle(x - 15, y + 170, skinWidth, 80, whiteColor, true);
+            clearPrice(x, y);
             //setActiveItemButton = new GenericButton(x,y+170, skinWidth, 50, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128),10);
             //Text setActiveItemText = new Text("Spicy.ttf", x + 20, y + 190, 35, 35, "Equipar", new ColorJ(255,255,255));
         } else { //not bought
@@ -124,9 +124,9 @@ public class ShopScene extends Scene {
                         balance = new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), new ColorJ(255, 255, 255));
                         ShopManager.getInstance().addBalance(-skin.getPrice());
                         balance = new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), c);
-                        new VisualRectangle(x - 15, y + 170, skinWidth, 80, whiteColor, true);
-                        setActiveItemButton = new GenericButton(x, y + 170, skinWidth, 50, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128), 10);
-                        Text setActiveItemText = new Text("Spicy.ttf", x + 20, y + 190, 35, 35, "Equipar", whiteColor);
+                        clearPrice(x, y);
+                        //setActiveItemButton = new GenericButton(x, y + 170, skinWidth, 50, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128), 10);
+                        //Text setActiveItemText = new Text("Spicy.ttf", x + 20, y + 190, 35, 35, "Equipar", whiteColor);
                     } else {
                         // Toast.makeText(ResourcesManager.getInstance().getContext(), "No tienes monedas suficientes", Toast.LENGTH_SHORT).show();
                     }
@@ -146,6 +146,10 @@ public class ShopScene extends Scene {
     }
 
     private void clearBalanceText() {
-        balance = new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), new ColorJ(255, 255, 255));
+        new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), new ColorJ(255, 255, 255));
+    }
+
+    private void clearPrice(int x, int y) {
+        new VisualRectangle(x - 15, y + 170, skinWidth, 80, whiteColor, true);
     }
 }
