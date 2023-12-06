@@ -58,5 +58,20 @@ public class MenuScene extends Scene {
         Text t2 = new Text("Night.ttf", 215, 735, 50, 100, "MUNDOS", new ColorJ(0, 0, 0));
         Text t3 = new Text("Night.ttf", 145, 935, 50, 100, "PERSONALIZAR", new ColorJ(0, 0, 0));
 
-    }
+
+
+
+        GenericButton bReset = new GenericButton(450, 30, 100,
+                100, new ColorJ(220, 80, 80), new ColorJ (220, 80, 80), 10);
+        Text t4 = new Text("Night.ttf", 460, 60, 30, 100, "RESET", new ColorJ(0, 0, 0));
+
+        bReset.setClickListener(new ClickListener() {
+            @Override
+            public void onClick() {
+
+                DeleteScene sS = new DeleteScene();
+                SceneManager.getInstance().SetScene(sS);
+            }
+        });
+        }
 }

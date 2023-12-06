@@ -13,6 +13,7 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.practica1.androidengine.AndroidEngine;
+import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.ShopManager;
@@ -93,24 +94,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         ResourcesManager.getInstance().Init(androidEngine);
+        ProgressManager.getInstance().Init(androidEngine.getContext());
         SceneManager.getInstance().Init(androidEngine);
         ShopManager.getInstance().Init(androidEngine);
         MenuScene mS = new MenuScene();
-        //WorldScene mS = new WorldScene();
         SceneManager.getInstance().SetScene(mS);
-        //androidEngine.Resume();
+
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        ProgressManager.getInstance().loadFromJSON();
         androidEngine.Resume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        ProgressManager.getInstance().saveInJSON();
         androidEngine.Pause();
+
     }
 }

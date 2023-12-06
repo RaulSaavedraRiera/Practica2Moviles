@@ -25,7 +25,7 @@ public class WorldScene extends Scene {
     private ColorJ c2 = new ColorJ(0, 0, 0);
 
     public WorldScene(){
-        id = ResourcesManager.getInstance().getIdActualWordl();
+        id = ResourcesManager.getInstance().getIdActualWorld();
     }
 
     @Override

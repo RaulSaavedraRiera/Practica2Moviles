@@ -4,6 +4,7 @@ import com.practica1.androidengine.AndroidFont;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Level;
+import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.Text;
@@ -24,7 +25,7 @@ public class LevelButton extends GenericButton {
 
     private AndroidFont font;
 
-    ResourcesManager rM;
+    ProgressManager pM;
 
 
     public LevelButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int id, String routeF, String routeI, int radius){
@@ -43,9 +44,7 @@ public class LevelButton extends GenericButton {
 
         pass = true;
 
-        rM = ResourcesManager.getInstance();
-
-        //Text t = new Text(font, posX + width / 3, posY + height / 3, w / 3, height / 3, String.valueOf(id), c2);
+        pM = ProgressManager.getInstance();
 
         font = new AndroidFont(routeF, w, false);
         this.routeI = routeI;
@@ -54,10 +53,7 @@ public class LevelButton extends GenericButton {
     @Override
     public void Render(AndroidGraphics graphics) {
         graphics.RenderFillRect(posX, posY, width, height, c, c2, radius);
-
-
-        if ((rM.getIdActualWordl() < rM.getWorldPass()) ||
-                ( rM.getIdActualWordl() == rM.getWorldPass() && id <= rM.getLevelPass()))
+        if ((pM.getIdActualWorld() < pM.getWorldPass()) || ( pM.getIdActualWorld() == pM.getWorldPass() && id <= pM.getLevelPass()))
         {
             //pass = true;
             graphics.CreateFont(font.getRoute(), font.getSize(), font.getBold());
@@ -72,6 +68,7 @@ public class LevelButton extends GenericButton {
     protected boolean HandleClick() {
         if(pass)
         {
+            ResourcesManager.getInstance().setIdActualLevel(this.id - 1);
             Level level = ResourcesManager.getInstance().getLevel(this.id - 1);
             SceneManager.getInstance().pushSceneStack();
 

@@ -24,6 +24,8 @@ import java.util.HashMap;
  */
 public class ResourcesManager {
     private int idActualWorld = 1;
+    private int idActualLevel = 1;
+
     private int nWorld;
     final String path = "levels";
     final String BgPath = "sprites/backgrounds/";
@@ -36,8 +38,6 @@ public class ResourcesManager {
     private static ResourcesManager instance = null;
     private Level actualLevel;
     private Context currentContext;
-    private int worldPass = 1;
-    private int levelPass = 1;
 
 
     private void WorldManager() {
@@ -45,8 +45,6 @@ public class ResourcesManager {
 
     public void Init(AndroidEngine engine) {
 
-        worldPass = 1;
-        levelPass = 1;
         idActualWorld = 1;
 
         backgrounds = new HashMap<>();
@@ -69,7 +67,7 @@ public class ResourcesManager {
     }
 
 
-    public int getIdActualWordl() {
+    public int getIdActualWorld() {
         return idActualWorld;
     }
 
@@ -266,32 +264,16 @@ public class ResourcesManager {
         return currentContext;
     }
 
-    public void setLevelPass() {
-        int levelsInCurrentWorld = getLevelsInWorld(idActualWorld - 1);
 
-        if(idActualWorld < worldPass)
-            return;
-
-        if (levelPass > levelsInCurrentWorld)
-            return;
-
-        // Si se ha pasado un mundo entero
-        if (levelsInCurrentWorld == levelPass ) {
-            // Si no es el último mundo
-            if (idActualWorld + 1 <= nWorld) {
-                levelPass = 1;
-                worldPass++;
-            }
-        } else {
-            levelPass++;
-        }
+    public int getnWorld() {
+        return nWorld;
     }
 
-    public int getLevelPass() {
-        return levelPass;
+    public int getIdActualLevel() {
+        return idActualLevel;
     }
 
-    public int getWorldPass() {
-        return worldPass;
+    public void setIdActualLevel(int idActualLevel) {
+        this.idActualLevel = idActualLevel;
     }
 }

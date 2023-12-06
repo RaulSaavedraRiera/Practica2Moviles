@@ -8,6 +8,7 @@ import com.saavedradelariera.src.messages.Message;
 import com.saavedradelariera.src.messages.InputColorMessage;
 import com.saavedradelariera.src.messages.PlaySoundMessage;
 import com.saavedradelariera.src.messages.ReleaseSoundMessage;
+import com.saavedradelariera.src.scenes.EndBasicScene;
 import com.saavedradelariera.src.scenes.EndScene;
 
 import java.util.ArrayList;
@@ -192,9 +193,18 @@ public class GameManager extends GameObject {
         if(!win)
             SceneManager.getInstance().pushSceneStack();
 
-        EndScene endScene = new EndScene(win, currentRow, colors, solutionManager.getSolution(), currentDaltonicEnable, difficult);
-        SceneManager.getInstance().SendMessageToActiveScene(new ReleaseSoundMessage());
-        SceneManager.getInstance().SetScene(endScene);
+
+        if(difficult != 4)
+        {
+            EndBasicScene endSceneB = new EndBasicScene(win, currentRow, colors, solutionManager.getSolution(), currentDaltonicEnable, difficult);
+            SceneManager.getInstance().SetScene(endSceneB);
+
+        }else {
+            EndScene endScene = new EndScene(win, currentRow, colors, solutionManager.getSolution(), currentDaltonicEnable, difficult);
+            SceneManager.getInstance().SetScene(endScene);
+
+        }
+
     }
 
     @Override
