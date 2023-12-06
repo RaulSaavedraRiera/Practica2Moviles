@@ -28,20 +28,32 @@ public class ResourcesManager {
     final String path = "levels";
     final String BgPath = "sprites/backgrounds/";
 
-    private ArrayList<String> files = new ArrayList<String>();
-    private ArrayList<String> filesImage = new ArrayList<String>();
-    private ArrayList<WorldStyle> worldStyles = new ArrayList<WorldStyle>();
-    private ArrayList<ArrayList<Level>> worlds = new ArrayList<ArrayList<Level>>();
-    private Map<String, AndroidImage> backgrounds = new HashMap<>();
+    private ArrayList<String> files;
+    private ArrayList<String> filesImage;
+    private ArrayList<WorldStyle> worldStyles;
+    private ArrayList<ArrayList<Level>> worlds;
+    private Map<String, AndroidImage> backgrounds;
     private static ResourcesManager instance = null;
     private Level actualLevel;
     private Context currentContext;
+    private int worldPass = 1;
+    private int levelPass = 1;
 
 
     private void WorldManager() {
     }
 
     public void Init(AndroidEngine engine) {
+
+        worldPass = 1;
+        levelPass = 1;
+        idActualWorld = 1;
+
+        backgrounds = new HashMap<>();
+        worlds = new ArrayList<ArrayList<Level>>();
+        worldStyles = new ArrayList<WorldStyle>();
+        files = new ArrayList<String>();
+        filesImage = new ArrayList<String>();
 
         currentContext = engine.getContext();
         ReadWorlds();
@@ -74,7 +86,7 @@ public class ResourcesManager {
     }
 
 
-    public int getLevelInWorld(int id) {
+    public int getLevelsInWorld(int id) {
         if (id >= 0 && id < worlds.size()) {
             ArrayList<Level> selectedLevels = worlds.get(id);
             return selectedLevels.size();
@@ -82,6 +94,7 @@ public class ResourcesManager {
             return -1;
         }
     }
+
 
     public int getSkinsId() {
         return worldStyles.get(idActualWorld - 1).getIdSkins();
@@ -251,5 +264,34 @@ public class ResourcesManager {
 
     public Context getContext() {
         return currentContext;
+    }
+
+    public void setLevelPass() {
+        int levelsInCurrentWorld = getLevelsInWorld(idActualWorld - 1);
+
+        if(idActualWorld < worldPass)
+            return;
+
+        if (levelPass > levelsInCurrentWorld)
+            return;
+
+        // Si se ha pasado un mundo entero
+        if (levelsInCurrentWorld == levelPass ) {
+            // Si no es el último mundo
+            if (idActualWorld + 1 <= nWorld) {
+                levelPass = 1;
+                worldPass++;
+            }
+        } else {
+            levelPass++;
+        }
+    }
+
+    public int getLevelPass() {
+        return levelPass;
+    }
+
+    public int getWorldPass() {
+        return worldPass;
     }
 }

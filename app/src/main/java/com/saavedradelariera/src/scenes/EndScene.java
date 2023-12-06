@@ -9,6 +9,7 @@ import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.Buttons.ChangeToNewGameButton;
 import com.saavedradelariera.src.Buttons.ShareButton;
 import com.saavedradelariera.src.ClickListener;
+import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.Text;
 
@@ -46,6 +47,9 @@ public class EndScene extends Scene {
             new Text("Night.ttf",230, 250, 30, 70,  String.valueOf(tries) + " intentos", new ColorJ(0, 0, 0));
 
             new ShareButton(100, 510, 400, 100, new ColorJ(0, 255, 255), new ColorJ(0, 0, 0), "Night.ttf", 10);
+
+            //Nivel se marca como pasado
+            ResourcesManager.getInstance().setLevelPass();
         }
         else
         {

@@ -1,5 +1,7 @@
 package com.saavedradelariera.src.Buttons;
 
+import com.practica1.androidengine.AndroidFont;
+import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Level;
 import com.saavedradelariera.src.ResourcesManager;
@@ -12,21 +14,71 @@ import com.saavedradelariera.src.scenes.GameScene;
 public class LevelButton extends GenericButton {
 
     private int id;
+    private ColorJ c, c2;
+    private int x, y, w, h;
+    private int radius;
+    private String routeF;
+    private String routeI;
 
-    public LevelButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int id, String font, int radius){
+    private boolean pass;
+
+    private AndroidFont font;
+
+    ResourcesManager rM;
+
+
+    public LevelButton(int x, int y, int w, int h, ColorJ c, ColorJ c2, int id, String routeF, String routeI, int radius){
         super(x,y,w,h,c,c2, radius);
 
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.c = c;
+        this.c2 = c2;
+        this.routeF = routeF;
+        this.radius = radius;
+
         this.id = id;
-        Text t = new Text(font, posX + width / 3, posY + height / 3, w / 3, height / 3, String.valueOf(id), c2);
+
+        pass = true;
+
+        rM = ResourcesManager.getInstance();
+
+        //Text t = new Text(font, posX + width / 3, posY + height / 3, w / 3, height / 3, String.valueOf(id), c2);
+
+        font = new AndroidFont(routeF, w, false);
+        this.routeI = routeI;
     }
 
     @Override
-    protected boolean HandleClick() {
-        Level level = ResourcesManager.getInstance().getLevel(this.id - 1);
-        SceneManager.getInstance().pushSceneStack();
+    public void Render(AndroidGraphics graphics) {
+        graphics.RenderFillRect(posX, posY, width, height, c, c2, radius);
 
-        GameScene gS = new GameScene(4, false);
-        SceneManager.getInstance().SetScene(gS);
+
+        if ((rM.getIdActualWordl() < rM.getWorldPass()) ||
+                ( rM.getIdActualWordl() == rM.getWorldPass() && id <= rM.getLevelPass()))
+        {
+            //pass = true;
+            graphics.CreateFont(font.getRoute(), font.getSize(), font.getBold());
+            graphics.RenderText(x + w / 3,  y + h / 3, w / 3, String.valueOf(id), c2);
+        }else
+        {
+            pass = false;
+            graphics.RenderImage(graphics.createImage(routeI),x + w/4, y+ h/6, w/2, h/2);
+        }
+    }
+    @Override
+    protected boolean HandleClick() {
+        if(pass)
+        {
+            Level level = ResourcesManager.getInstance().getLevel(this.id - 1);
+            SceneManager.getInstance().pushSceneStack();
+
+            GameScene gS = new GameScene(4, false);
+            SceneManager.getInstance().SetScene(gS);
+        }
+
 
         return true;
     }

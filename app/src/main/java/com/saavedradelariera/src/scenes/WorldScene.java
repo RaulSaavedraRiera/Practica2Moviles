@@ -44,7 +44,7 @@ public class WorldScene extends Scene {
                 50, true);
 
         int contGlobal = 0;
-        int n = ResourcesManager.getInstance().getLevelInWorld(id - 1);
+        int n = ResourcesManager.getInstance().getLevelsInWorld(id - 1);
         int numberOfRows = Math.min(n / buttonsPerRow + 1, 4);
 
         int row = 0;
@@ -54,7 +54,7 @@ public class WorldScene extends Scene {
                 int y = startY + row * (buttonHeight + padding * 2);
 
                 if (contGlobal < n) {
-                    LevelButton l = new LevelButton(x, y, buttonWidth, buttonHeight, c, c2, contGlobal + 1, "Night.ttf", 10);
+                    LevelButton l = new LevelButton(x, y, buttonWidth, buttonHeight, c, c2, contGlobal + 1, "Night.ttf", "lock.png",10);
                     contGlobal++;
                 } else {
                     break;
