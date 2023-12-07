@@ -178,4 +178,10 @@ public class ShopManager {
             return null;
         }
     }
+
+    public void removeActiveSkin(String category) {
+        if (activeSkinsMap.containsKey(category)) {
+            activeSkinsMap.remove(category);
+        }
+    }
 }

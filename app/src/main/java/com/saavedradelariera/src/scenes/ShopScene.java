@@ -1,5 +1,9 @@
 package com.saavedradelariera.src.scenes;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.Toast;
+
 import com.practica1.androidengine.AndroidAudio;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
@@ -9,6 +13,7 @@ import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.Buttons.ImageButton;
 import com.saavedradelariera.src.Buttons.SkinButton;
 import com.saavedradelariera.src.ClickListener;
+import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Skin;
 import com.saavedradelariera.src.Text;
@@ -31,6 +36,7 @@ public class ShopScene extends Scene {
     private VisualRectangle activeSkinIndicator;
 
     private GenericButton setActiveItemButton;
+    String toastMsg = "";
 
     public ShopScene() {
         pageId = ShopManager.getInstance().getCurrentPage();
@@ -80,14 +86,37 @@ public class ShopScene extends Scene {
         int buttonsPerRow = 3;
         int contGlobal = 0;
         int numberOfRows = Math.min(n / buttonsPerRow + 1, 4);
+        Skin skin;
 
-        int row = 0;
+        ImageButton removeSkin = new ImageButton("remove_img.png", startX, startY, skinWidth, skinHeight);
+
+        removeSkin.setClickListener(new ClickListener() {
+            @Override
+            public void onClick() {
+                ShopManager.getInstance().removeActiveSkin(currentCat);
+                showToast("Te has quitado la skin actual");
+            }
+        });
+
+        //display first row
+        for (int col = 1; col < buttonsPerRow; col++) {
+            int x = startX + col * (skinWidth + padding);
+            if (contGlobal < n) {
+                skin = ShopManager.getInstance().getSkinsByCat(currentCat).get(contGlobal);
+                showSkin(androidGraphics, skin, x, startY);
+                contGlobal++;
+            } else {
+                break;
+            }
+        }
+
+        int row = 1;
         while (contGlobal < n && row < numberOfRows) {
             for (int col = 0; col < buttonsPerRow; col++) {
                 int x = startX + col * (skinWidth + padding);
                 int y = startY + row * (skinHeight + 65 + padding * 2);
                 if (contGlobal < n) {
-                    Skin skin = ShopManager.getInstance().getSkinsByCat(currentCat).get(contGlobal);
+                    skin = ShopManager.getInstance().getSkinsByCat(currentCat).get(contGlobal);
                     showSkin(androidGraphics, skin, x, y);
                     contGlobal++;
                 } else {
@@ -116,26 +145,27 @@ public class ShopScene extends Scene {
         skinButton.setClickListener(new ClickListener() {
             @Override
             public void onClick() {
+
                 if (!skin.getBought()) {
                     if (ShopManager.getInstance().getBalance() >= skin.getPrice()) {
-                        //Toast.makeText(ResourcesManager.getInstance().getContext(), "Has comprado " + skin.getTitle(), Toast.LENGTH_SHORT).show();
+                        // Comprar skin
+                        toastMsg = "Has comprado " + skin.getTitle();
                         ShopManager.getInstance().addBoughtSkin(skin.getTitle());
                         skin.setBought(true);
                         balance = new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), new ColorJ(255, 255, 255));
                         ShopManager.getInstance().addBalance(-skin.getPrice());
                         balance = new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), c);
                         clearPrice(x, y);
-                        //setActiveItemButton = new GenericButton(x, y + 170, skinWidth, 50, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128), 10);
-                        //Text setActiveItemText = new Text("Spicy.ttf", x + 20, y + 190, 35, 35, "Equipar", whiteColor);
                     } else {
-                        // Toast.makeText(ResourcesManager.getInstance().getContext(), "No tienes monedas suficientes", Toast.LENGTH_SHORT).show();
+                        toastMsg = "No tienes monedas suficientes";
                     }
                 } else {
                     // Equipar Skin
-                    // Toast.makeText(ResourcesManager.getInstance().getContext(), "Te has equipado "+skin.getTitle(), Toast.LENGTH_SHORT).show();
+                    toastMsg = "Te has equipado " + skin.getTitle();
                     ShopManager.getInstance().setActiveSkin(skin.getCategory(), skin);
-                    showActiveSkinIndicator(x, y);
+                    //showActiveSkinIndicator(x, y);
                 }
+                showToast(toastMsg);
             }
         });
     }
@@ -151,5 +181,14 @@ public class ShopScene extends Scene {
 
     private void clearPrice(int x, int y) {
         new VisualRectangle(x - 15, y + 170, skinWidth, 80, whiteColor, true);
+    }
+
+    private void showToast(String toastMsg) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(ResourcesManager.getInstance().getContext(), toastMsg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
