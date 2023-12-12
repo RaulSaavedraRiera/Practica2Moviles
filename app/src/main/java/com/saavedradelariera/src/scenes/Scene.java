@@ -64,11 +64,13 @@ public abstract class Scene implements IScene {
         {
             gO.Update(IEngine, deltaTime);
         }
+
+        SceneManager.getInstance().ProcceseMessages();
     }
 
     public void SendMessageToGO(Message m){
         for (int i = 0; i < GOMessageList.size(); i++) {
-            if(i < GOMessageList.size())
+            if(i < GOMessageList.size() &&  GOMessageList.get(i) != null)
                 GOMessageList.get(i).ReceiveMessage(m);
         }
     }

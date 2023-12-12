@@ -83,4 +83,6 @@ public class RandomWinCombination {
         return winCombination;
 
     }
+
+    public int getNColors() { return nColors;}
 }

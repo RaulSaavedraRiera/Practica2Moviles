@@ -6,13 +6,12 @@ import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
 import com.saavedradelariera.src.messages.Message;
 import com.saavedradelariera.src.messages.InputColorMessage;
-import com.saavedradelariera.src.messages.PlaySoundMessage;
-import com.saavedradelariera.src.messages.ReleaseSoundMessage;
 import com.saavedradelariera.src.scenes.EndBasicScene;
 import com.saavedradelariera.src.scenes.EndScene;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 /*Clase GameManager que se encarga de gestionar el estado del juego en el nivel
 * principal. Guarda los colores, las columnas, redirige el input a estas, etc.*/
@@ -36,6 +35,7 @@ public class GameManager extends GameObject {
 
 
     ArrayList<AndroidImage> images;
+    private Random random = new Random();
 
 
     //si activamos inputInRows y no clearInRows podras seleccionar colores desde las filas pero no quitarlos
@@ -239,7 +239,9 @@ public class GameManager extends GameObject {
         }
     }
 
+
     //Recibe mensajes tanto de input como de cambio en el modo daltonico
+
     @Override
     public void ReceiveMessage(Message m) {
         switch(m.id)
@@ -250,6 +252,9 @@ public class GameManager extends GameObject {
                 break;
             case "DaltonicChangeSolicitate":
                 currentDaltonicEnable = !currentDaltonicEnable;
+                break;
+            case "AcceleratorEvent":
+                ColorInput(random.nextInt(solutionManager.getNTypes()));
                 break;
         }
     }

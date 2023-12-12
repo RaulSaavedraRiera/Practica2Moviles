@@ -1,10 +1,12 @@
 package com.saavedradelariera.src;
 
 import com.practica1.androidengine.AndroidEngine;
+import com.saavedradelariera.src.messages.AcceleratorEventMessage;
 import com.saavedradelariera.src.messages.Message;
 import com.saavedradelariera.src.scenes.Scene;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /*Clase que gestiona las escenas del juego para facilitar su funcionamiento y relacion con el motor de
@@ -18,6 +20,7 @@ public class SceneManager {
     Stack<Scene> sceneStack = new Stack<>();
     ArrayList<GameObject> messagesGO = new ArrayList<>();
 
+    List<Message> messages= new ArrayList<>();
     //constructor vacio
     private void SceneManager(){}
     //incialziacion en dos pasos
@@ -73,7 +76,16 @@ public class SceneManager {
 
     public void SendMessageToActiveScene(Message m)
     {
-       activeScene.SendMessageToGO(m);
+        messages.add(m);
+    }
+
+    public void ProcceseMessages()
+    {
+        for (Message m: messages) {
+            activeScene.SendMessageToGO(m);
+        }
+
+        messages.clear();
     }
 
     public void RegisterToMessage(IGameObject gO)
@@ -105,5 +117,10 @@ public class SceneManager {
             return null;
 
         return sceneStack.peek();
+    }
+
+    public void LaunchAcceleratorEvent()
+    {
+      SendMessageToActiveScene(new AcceleratorEventMessage());
     }
 }

@@ -1,6 +1,10 @@
 package com.saavedradelariera.mastermind;
 
 import android.content.pm.ActivityInfo;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.tv.AdRequest;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,8 +26,12 @@ import com.saavedradelariera.src.scenes.MenuScene;
 import java.util.concurrent.TimeUnit;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
     AndroidEngine androidEngine;
+    private SensorManager sensorManager;
+    private Sensor accelerometer;
+    private final float SENSORTHRESHOLD = 10f, TIMEBTWUSES = 1F;
+    private long lastCallInSeconds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,65 +48,18 @@ public class MainActivity extends AppCompatActivity {
         androidEngine.SolicitateLoadRewardAd();
         androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground, "mastermind", "mastermindotravez", "canalmaster", 10, TimeUnit.SECONDS);
 
-
-
-
-
-      /*
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "mic";
-            String description = "aaaa";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("mi canal", name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this.
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        Intent intent = new Intent(this,getClass());
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "mi canal")
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("My notification")
-                .setContentText("Hello World!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                // Set the intent that fires when the user taps the notification.
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-
-// notificationId is a unique int for each notification that you must define.
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-        Log.e("TAG", "notificacion apunto");
-        notificationManager.notify(0, builder.build());
-
-        Log.e("TAG", "notificacionya");
-
-        */
-
-
         ResourcesManager.getInstance().Init(androidEngine);
         ProgressManager.getInstance().Init(androidEngine.getContext());
         SceneManager.getInstance().Init(androidEngine);
         ShopManager.getInstance().Init(androidEngine);
         MenuScene mS = new MenuScene();
         SceneManager.getInstance().SetScene(mS);
+
+        //agregamos el sensor
+        sensorManager = (SensorManager) getSystemService(getApplicationContext().SENSOR_SERVICE);
+        if (sensorManager != null) {
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        }
 
 
     }
@@ -108,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         ProgressManager.getInstance().loadFromJSON();
         androidEngine.Resume();
+
+        if (accelerometer != null)
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -115,6 +79,27 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         ProgressManager.getInstance().saveInJSON();
         androidEngine.Pause();
+
+        if (accelerometer != null)
+            sensorManager.unregisterListener(this);
+
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            long t = (System.currentTimeMillis()/1000) - lastCallInSeconds;
+            if (t >= TIMEBTWUSES && (event.values[0] > SENSORTHRESHOLD || event.values[1] > SENSORTHRESHOLD || event.values[2] > SENSORTHRESHOLD)) {
+                SceneManager.getInstance().LaunchAcceleratorEvent();
+                System.out.println("lanza bolita!");
+                lastCallInSeconds = System.currentTimeMillis();
+                lastCallInSeconds /= 1000;
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
 }

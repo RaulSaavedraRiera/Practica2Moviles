@@ -107,4 +107,5 @@ public class SolutionManager {
     public ArrayList<Integer> getSolution() {
         return solution;
     }
+    public int getNTypes() { return rand.getNColors();}
 }
