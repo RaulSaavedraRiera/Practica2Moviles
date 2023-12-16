@@ -129,6 +129,9 @@ public class ShopScene extends Scene {
 
         if (skin.getBought()) { //bought
             clearPrice(x, y);
+            if (ShopManager.getInstance().getActiveSkin(currentCat) == skin) {
+                showActiveIndicator(x,y);
+            }
         } else { //not bought
             new ImageButton("coin.png", x - 15, y + 170, 50, 60);
             new Text(amountFont, x + 55, y + 190, 60, 60, "" + skin.getPrice(), c);
@@ -156,7 +159,7 @@ public class ShopScene extends Scene {
                     // Equipar Skin
                     toastMsg = "Te has equipado " + skin.getTitle();
                     ShopManager.getInstance().setActiveSkin(skin.getCategory(), skin);
-                    showActiveIndicator(x,y);
+                    displaySkins();
                 }
                 showToast(toastMsg);
             }

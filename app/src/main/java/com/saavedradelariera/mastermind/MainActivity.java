@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         ResourcesManager.getInstance().Init(androidEngine);
         ProgressManager.getInstance().Init(androidEngine.getContext());
         SceneManager.getInstance().Init(androidEngine);
-        ShopManager.getInstance().Init(androidEngine);
+        ShopManager.getInstance().init(androidEngine);
         MenuScene mS = new MenuScene();
         SceneManager.getInstance().SetScene(mS);
 
@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (sensorManager != null) {
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         }
-
-
     }
 
     @Override
@@ -91,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            long t = (System.currentTimeMillis()/1000) - lastCallInSeconds;
+            long t = (System.currentTimeMillis() / 1000) - lastCallInSeconds;
             if (t >= TIMEBTWUSES && (event.values[0] > SENSORTHRESHOLD || event.values[1] > SENSORTHRESHOLD || event.values[2] > SENSORTHRESHOLD)) {
                 SceneManager.getInstance().LaunchAcceleratorEvent();
                 System.out.println("lanza bolita!");

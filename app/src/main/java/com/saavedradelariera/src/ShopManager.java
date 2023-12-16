@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.practica1.androidengine.AndroidEngine;
-import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.ColorSkin;
 
 import org.json.JSONException;
@@ -16,17 +15,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ShopManager {
-    final String path = "store";
-    int currentPage = 0;
-    int balance = 500;
-    private ArrayList<String> categories = new ArrayList<String>();
-    private Map<String, Map<String, Skin>> skinMap = new HashMap<>();
-    private Map<String, Skin> activeSkinsMap = new HashMap<>();
+    private static final String PATH = "store";
+    private int currentPage = 0;
+    private int balance = 500;
+    private final List<String> categories = new ArrayList<>();
+    private final Map<String, Map<String, Skin>> skinMap = new HashMap<>();
+    private final Map<String, Skin> activeSkinsMap = new HashMap<>();
     private static ShopManager instance = null;
-    private ArrayList<String> boughtSkins = new ArrayList<>();
+    private final List<String> boughtSkins = new ArrayList<>();
 
     public static ShopManager getInstance() {
         if (instance == null) {
@@ -36,7 +36,8 @@ public class ShopManager {
     }
 
     public boolean changePage(boolean nextPage) {
-        if (nextPage && currentPage + 1 < categories.size()) {
+        int size = categories.size();
+        if (nextPage && currentPage + 1 < size) {
             currentPage++;
             return true;
         } else if (!nextPage && currentPage - 1 >= 0) {
@@ -46,7 +47,11 @@ public class ShopManager {
         return false;
     }
 
-    public void Init(AndroidEngine engine) {
+    public void resetScene() {
+        currentPage = 0;
+    }
+
+    public void init(AndroidEngine engine) {
         loadShop(engine);
     }
 
@@ -55,32 +60,31 @@ public class ShopManager {
         readSkins(engine.getContext());
     }
 
-    private void readCategories(Context c) {
-        AssetManager mngr = c.getAssets();
+    private void readCategories(Context context) {
+        AssetManager assetManager = context.getAssets();
 
         try {
-            String[] directories = mngr.list(path);
-
-            for (String cat : directories) {
-                categories.add(cat);
+            String[] directories = assetManager.list(PATH);
+            for (String category : directories) {
+                categories.add(category);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private Skin JSONToSkin(AssetManager mngr, String filePath, String category) {
-        Skin skin;
-
+    private Skin jsonToSkin(AssetManager assetManager, String filePath, String category) {
         try {
-            InputStream inputStream = mngr.open(filePath);
+            InputStream inputStream = assetManager.open(filePath);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuilder stringBuilder = new StringBuilder();
             String line;
+
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line);
             }
+
             bufferedReader.close();
             inputStreamReader.close();
             inputStream.close();
@@ -90,40 +94,31 @@ public class ShopManager {
 
             String title = jsonObject.getString("title");
             String skinPath = jsonObject.getString("skinsPath");
-            String samplePath = null;
+            String samplePath = jsonObject.optString("samplePath", null);
             int price = jsonObject.getInt("price");
 
-            if (jsonObject.has("samplePath")) {
-                samplePath = jsonObject.getString("samplePath");
-            }
             if (category.equals("colores")) {
                 String primaryColor = jsonObject.getString("primaryColor");
                 String secondaryColor = jsonObject.getString("secondaryColor");
-                ColorSkin colorSkin = new ColorSkin(title, price, samplePath, skinPath, category, primaryColor, secondaryColor);
-                return colorSkin;
+                return new ColorSkin(title, price, samplePath, skinPath, category, primaryColor, secondaryColor);
             } else {
-                skin = new Skin(title, price, samplePath, skinPath, category);
+                return new Skin(title, price, samplePath, skinPath, category);
             }
-
-            return skin;
-
-        } catch (IOException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
-    private void readSkins(Context c) {
-        AssetManager mngr = c.getAssets();
+    private void readSkins(Context context) {
+        AssetManager assetManager = context.getAssets();
 
         try {
             for (String category : categories) {
-                String[] files = mngr.list(path + '/' + category);
+                String[] files = assetManager.list(PATH + '/' + category);
 
                 for (String file : files) {
-                    Skin skin = JSONToSkin(mngr, path + '/' + category + '/' + file, category);
+                    Skin skin = jsonToSkin(assetManager, PATH + '/' + category + '/' + file, category);
 
                     if (skinMap.get(category) == null) {
                         skinMap.put(category, new HashMap<>());
@@ -136,7 +131,7 @@ public class ShopManager {
         }
     }
 
-    public ArrayList<Skin> getSkinsByCat(String cat) {
+    public List<Skin> getSkinsByCat(String cat) {
         if (skinMap.get(cat) != null) {
             ArrayList<Skin> skinsList = new ArrayList<>(skinMap.get(cat).values());
             return skinsList;
@@ -169,41 +164,29 @@ public class ShopManager {
         activeSkinsMap.put(category, skin);
     }
 
-    public ArrayList<String> getCategories() {
-        return categories;
+    public List<String> getCategories() {
+        return new ArrayList<>(categories);
     }
 
     public Skin getActiveSkin(String category) {
-        if (activeSkinsMap.containsKey(category)) {
-            return activeSkinsMap.get(category);
-        } else {
-            return null;
-        }
+        return activeSkinsMap.get(category);
     }
 
     public void removeActiveSkin(String category) {
-        if (activeSkinsMap.containsKey(category)) {
-            activeSkinsMap.remove(category);
-        }
+        activeSkinsMap.remove(category);
     }
 
     public boolean isActiveSkin(String category, String skinTitle) {
-        return false;
+        return false; // Implement logic if needed
     }
 
     public String getPrimaryColor() {
-        ColorSkin colorSkin = (ColorSkin)getActiveSkin("colores");
-        if(colorSkin != null)
-            return colorSkin.getPrimaryColor();
-        else
-            return null;
+        ColorSkin colorSkin = (ColorSkin) getActiveSkin("colores");
+        return (colorSkin != null) ? colorSkin.getPrimaryColor() : null;
     }
 
     public String getSecondaryColor() {
-        ColorSkin colorSkin = (ColorSkin)getActiveSkin("colores");
-        if(colorSkin != null)
-            return colorSkin.getSecondaryColor();
-        else
-            return null;
+        ColorSkin colorSkin = (ColorSkin) getActiveSkin("colores");
+        return (colorSkin != null) ? colorSkin.getSecondaryColor() : null;
     }
 }

@@ -3,6 +3,7 @@ package com.saavedradelariera.src.Buttons;
 import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.SceneManager;
+import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.messages.ReleaseSoundMessage;
 import com.saavedradelariera.src.scenes.MenuScene;
 import com.saavedradelariera.src.scenes.WorldScene;
@@ -24,18 +25,11 @@ public class ChangeSceneButtonBack extends ImageButton {
 
     @Override
     protected boolean HandleClick() {
-        if(!isWorld)
-        {
-            SceneManager.getInstance().SendMessageToActiveScene(new ReleaseSoundMessage());
-            SceneManager.getInstance().SetScene(SceneManager.getInstance().useSceneStack());
-
-            //ProgressManager.getInstance().resetGame();
-        }else {
-            SceneManager.getInstance().resetStack();
-            ResourcesManager.getInstance().resetWorld();
-            MenuScene m = new MenuScene();
-            SceneManager.getInstance().SetScene(m);
-        }
+        SceneManager.getInstance().resetStack();
+        ResourcesManager.getInstance().resetWorld();
+        ShopManager.getInstance().resetScene();
+        MenuScene m = new MenuScene();
+        SceneManager.getInstance().SetScene(m);
         return true;
     }
 }
