@@ -1,9 +1,11 @@
 package com.saavedradelariera.src.Buttons;
 
+import android.graphics.Color;
 import android.widget.Toast;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
+import com.saavedradelariera.ColorSkin;
 import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.GameObject;
 import com.saavedradelariera.src.ResourcesManager;
@@ -29,7 +31,15 @@ public class SkinButton extends GameObject {
 
     @Override
     public void Render(AndroidGraphics graphics) {
-        graphics.RenderImage(graphics.createImage(skin.getSamplePath()), X, Y, W, H);
+        if (skin.getCategory().equals("colores")) {
+            ColorSkin colorSkin = (ColorSkin)skin;
+            graphics.RenderFillRect(X,Y,W,H/2,new ColorJ(colorSkin.getPrimaryColor()), new ColorJ("#000000"));
+            graphics.RenderFillRect(X,Y + (H/2),W,H/2,new ColorJ(colorSkin.getSecondaryColor()), new ColorJ("#000000"));
+        } else  {
+            graphics.RenderImage(graphics.createImage(skin.getSamplePath()), X, Y, W, H);
+            graphics.RenderRect(X,Y,W,H, new ColorJ("#000000"));
+        }
+
     }
 
     @Override
@@ -42,7 +52,6 @@ public class SkinButton extends GameObject {
 
         return false;
     }
-
 
     public int getH() {
         return H;
@@ -62,8 +71,6 @@ public class SkinButton extends GameObject {
 
     //Método para procesar dicho click
     protected boolean HandleClick(){
-
-
         clickListener.onClick();
         return true;
     }

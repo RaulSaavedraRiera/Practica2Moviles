@@ -14,6 +14,14 @@ public class ColorJ {
         this.setRGB(R, G, B);
     }
 
+    public ColorJ(String color) {
+        int red = Integer.parseInt(color.substring(1, 3), 16);
+        int green = Integer.parseInt(color.substring(3, 5), 16);
+        int blue = Integer.parseInt(color.substring(5, 7), 16);
+
+        this.setRGB(red,green,blue);
+    }
+
     public void setRGB(int R, int G, int B){
         r = R;
         b = B;

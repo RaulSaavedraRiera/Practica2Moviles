@@ -3,7 +3,6 @@ package com.saavedradelariera.src.scenes;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
-
 import com.practica1.androidengine.AndroidAudio;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
@@ -33,9 +32,6 @@ public class ShopScene extends Scene {
     String currentCat;
     private ColorJ c = new ColorJ(0, 0, 0);
     private ColorJ whiteColor = new ColorJ(255, 255, 255);
-    private VisualRectangle activeSkinIndicator;
-
-    private GenericButton setActiveItemButton;
     String toastMsg = "";
 
     public ShopScene() {
@@ -133,11 +129,9 @@ public class ShopScene extends Scene {
         // if this skin is bought..
         if (skin.getBought()) { //bought
             clearPrice(x, y);
-            //setActiveItemButton = new GenericButton(x,y+170, skinWidth, 50, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128),10);
-            //Text setActiveItemText = new Text("Spicy.ttf", x + 20, y + 190, 35, 35, "Equipar", new ColorJ(255,255,255));
         } else { //not bought
-            ImageButton coin = new ImageButton("coin.png", x - 15, y + 170, 50, 60);
-            Text priceText = new Text(amountFont, x + 55, y + 190, 60, 60, "" + skin.getPrice(), c);
+            new ImageButton("coin.png", x - 15, y + 170, 50, 60);
+            new Text(amountFont, x + 55, y + 190, 60, 60, "" + skin.getPrice(), c);
         }
 
         skinButton.setClickListener(new ClickListener() {

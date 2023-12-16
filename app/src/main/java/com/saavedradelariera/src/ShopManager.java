@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.practica1.androidengine.AndroidEngine;
+import com.saavedradelariera.ColorSkin;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,6 +69,8 @@ public class ShopManager {
     }
 
     private Skin JSONToSkin(AssetManager mngr, String filePath, String category) {
+        Skin skin;
+
         try {
             InputStream inputStream = mngr.open(filePath);
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -92,8 +95,14 @@ public class ShopManager {
             if (jsonObject.has("samplePath")) {
                 samplePath = jsonObject.getString("samplePath");
             }
-
-            Skin skin = new Skin(title, price, samplePath, skinPath, category);
+            if (category.equals("colores")) {
+                String primaryColor = jsonObject.getString("primaryColor");
+                String secondaryColor = jsonObject.getString("secondaryColor");
+                ColorSkin colorSkin = new ColorSkin(title, price, samplePath, skinPath, category, primaryColor, secondaryColor);
+                return colorSkin;
+            } else {
+                skin = new Skin(title, price, samplePath, skinPath, category);
+            }
 
             return skin;
 

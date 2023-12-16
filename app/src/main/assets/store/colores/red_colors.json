@@ -1,0 +1,8 @@
+{
+  "title": "RedColors",
+  "skinsPath": "sprites/colors/christmas/",
+  "samplePath": "sprites/icons/christmas/sample.png",
+  "price": 100,
+  "primaryColor": "#fae8ed",
+  "secondaryColor": "#f12929"
+}
