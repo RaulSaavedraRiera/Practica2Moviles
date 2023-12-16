@@ -114,6 +114,7 @@ public class ProgressManager {
         }
     }
 
+    //Marca el nivel como completado y comprueba si hay que pasar de mundo
     public void setLevelPass() {
         int levelsInCurrentWorld = resourcesManager.getLevelsInWorld(resourcesManager.getIdActualWorld() - 1);
 
@@ -127,13 +128,12 @@ public class ProgressManager {
             return;
 
         if (levelsInCurrentWorld == levelPass ) {
-            if (resourcesManager.getIdActualWorld() + 1 <= resourcesManager.getnWorld()) {
+            if (resourcesManager.getIdActualWorld() + 1 <= resourcesManager.getNWorld()) {
                 levelPass = 1;
                 worldPass++;
             }
         } else
             levelPass++;
-
     }
 
 
@@ -160,8 +160,8 @@ public class ProgressManager {
         return worldPass;
     }
 
-    public int getIdActualWorld()
-    {
+    //Mundo actual en el que estoy
+    public int getIdActualWorld(){
         return resourcesManager.getIdActualWorld();
     }
 

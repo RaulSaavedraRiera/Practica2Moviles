@@ -154,6 +154,7 @@ public class ShopScene extends Scene {
                         ShopManager.getInstance().addBalance(-skin.getPrice());
                         balance = new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), c);
                         clearPrice(x, y);
+                        ShopManager.getInstance().setActiveSkin(skin.getCategory(), skin);
                     } else {
                         toastMsg = "No tienes monedas suficientes";
                     }
@@ -180,7 +181,7 @@ public class ShopScene extends Scene {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(ResourcesManager.getInstance().getContext(), toastMsg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ResourcesManager.getInstance().getContext(), toastMsg, Toast.LENGTH_SHORT).show();
             }
         });
     }
