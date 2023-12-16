@@ -66,6 +66,7 @@ public class ProgressManager {
     {
         levelPass = 1;
         worldPass = 1;
+        levelState = "NONE";
     }
 
     public void loadFromJSON() {
