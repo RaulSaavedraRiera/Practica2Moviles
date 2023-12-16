@@ -19,7 +19,7 @@ public class ProgressManager {
     private ResourcesManager resourcesManager = ResourcesManager.getInstance();
     private int worldPass = 1;
     private int levelPass = 1;
-    private String levelState = "", rowsInfo = "";
+    private String levelState = "NONE", rowsInfo = "";
     private int[] solutionInfo;
     private static ProgressManager instance = null;
     private Context context;
@@ -199,7 +199,7 @@ public class ProgressManager {
     }
 
     public boolean levelInProgress(){
-        return levelState != "NONE";
+        return levelState.equals("NONE");
     }
 
     public void DeleteProgressInLevel(){

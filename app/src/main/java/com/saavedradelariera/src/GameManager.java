@@ -76,7 +76,7 @@ public class GameManager extends GameObject {
 
 
 
-        if(!ProgressManager.getInstance().levelInProgress())
+        if(ProgressManager.getInstance().levelInProgress())
         {
             this.difficult = difficult;
             solutionManager = new SolutionManager(difficult, false);
@@ -96,7 +96,7 @@ public class GameManager extends GameObject {
         triesT =   new Text("Night.ttf",205, 70, 20, 40,
                 "Te quedan " + String.valueOf(rows.size() - currentRow) + " intentos", new ColorJ(0, 0, 0));
 
-        if(ProgressManager.getInstance().levelInProgress())
+        if(!ProgressManager.getInstance().levelInProgress())
             LoadLevelState();
     }
 

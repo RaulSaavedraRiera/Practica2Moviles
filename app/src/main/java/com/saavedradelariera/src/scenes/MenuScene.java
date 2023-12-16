@@ -33,7 +33,7 @@ public class MenuScene extends Scene {
                 SceneManager.getInstance().pushSceneStack();
 
                 Scene s;
-                if(!ProgressManager.getInstance().levelInProgress())
+                if(ProgressManager.getInstance().levelInProgress())
                     s = new ChooseScene();
                 else
                     s = new GameScene(ProgressManager.getInstance().getLevelInProgressDifficult(), true);

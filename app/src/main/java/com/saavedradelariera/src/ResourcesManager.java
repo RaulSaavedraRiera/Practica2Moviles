@@ -93,7 +93,6 @@ public class ResourcesManager {
         }
     }
 
-
     public int getSkinsId() {
         return worldStyles.get(idActualWorld - 1).getIdSkins();
     }
@@ -103,8 +102,9 @@ public class ResourcesManager {
         if (idActualWorld > 0 && idActualWorld - 1 <= worlds.size()) {
             ArrayList<Level> selectedLevels = worlds.get(idActualWorld - 1);
             if (levelIndex >= 0 && levelIndex < selectedLevels.size()) {
-                setActualLevel(selectedLevels.get(levelIndex));
-                return selectedLevels.get(levelIndex);
+                Level level = selectedLevels.get(levelIndex);
+                this.actualLevel = level;
+                return level;
             }
         }
         return null;
@@ -201,13 +201,10 @@ public class ResourcesManager {
         return images;
     }
 
-
     // Resetamos para mostrar de nuevo el mundo 1 al entrar
     public void resetWorld() {
         idActualWorld = 1;
     }
-
-
 
     private void ReadLevels() {
         AssetManager mngr = currentContext.getAssets();
@@ -229,8 +226,6 @@ public class ResourcesManager {
             e.printStackTrace();
         }
     }
-
-
     private void setActualLevel(Level actualLevel) {
         this.actualLevel = actualLevel;
     }

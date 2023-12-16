@@ -29,7 +29,7 @@ public class ChangeSceneButtonBack extends ImageButton {
             SceneManager.getInstance().SendMessageToActiveScene(new ReleaseSoundMessage());
             SceneManager.getInstance().SetScene(SceneManager.getInstance().useSceneStack());
 
-            ProgressManager.getInstance().resetGame();
+            //ProgressManager.getInstance().resetGame();
         }else {
             SceneManager.getInstance().resetStack();
             ResourcesManager.getInstance().resetWorld();
