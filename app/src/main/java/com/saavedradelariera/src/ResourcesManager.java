@@ -29,7 +29,6 @@ public class ResourcesManager {
     private int nWorld;
     final String path = "levels";
     final String BgPath = "sprites/backgrounds/";
-
     private ArrayList<String> files;
     private ArrayList<String> filesImage;
     private ArrayList<WorldStyle> worldStyles;
@@ -38,7 +37,6 @@ public class ResourcesManager {
     private static ResourcesManager instance = null;
     private Level actualLevel;
     private Context currentContext;
-
 
     private void WorldManager() {
     }
@@ -65,7 +63,6 @@ public class ResourcesManager {
         }
         return instance;
     }
-
 
     // Mundo actual en el que se encuentra el jugador
     public int getIdActualWorld() {
@@ -287,10 +284,6 @@ public class ResourcesManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public Context getContext() {
-        return currentContext;
     }
 
     public int getNWorld() {

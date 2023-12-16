@@ -27,7 +27,7 @@ public abstract class Scene implements IScene {
         SceneManager.getInstance().RegisterToMessage(aM);
     }
     public String GetStateScene(){
-        return null;
+        return "NONE";
     }
 
     public void AddGO(IGameObject g){

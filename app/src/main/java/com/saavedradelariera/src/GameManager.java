@@ -176,6 +176,8 @@ public class GameManager extends GameObject {
             state += r.GetButtonsCombination();
         }
 
+        if(state.trim().isEmpty())
+            return "NONE";
         return state;
     }
 
