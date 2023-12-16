@@ -16,9 +16,49 @@ public class SolutionManager {
     //variable con la que podemos determinar si queremos que las pistas indiquen posicion exacta ono
     boolean unordererClue = true;
 
+    int nColors, nSol;
+    boolean canRepeat;
+
     //genera la solucion al inicializarse
     public SolutionManager(int diff, boolean loadSolution){
+
+        SetParams(diff);
         SetSolution(diff, loadSolution);
+    }
+
+    void SetParams(int diff){
+        //segun la dificultad seleccionada inicializamos las variables iniciales de la manera correspondiente
+        switch(diff){
+            //modo facil
+            case 0:
+                nColors = 4;
+                nSol = 4;
+                canRepeat = false;
+                break;
+            //modo medio
+            case 1:
+                nColors = 6;
+                nSol = 4;
+                canRepeat = false;
+                break;
+            //modo dificil
+            case 2:
+                nColors = 8;
+                nSol = 5;
+                canRepeat = true;
+                break;
+            //modo imposible
+            case 3:
+                nColors = 9;
+                nSol = 6;
+                canRepeat = true;
+                break;
+            case 4:
+                nColors = ResourcesManager.getInstance().getActualLevel().getCodeOpt();
+                nSol =  ResourcesManager.getInstance().getActualLevel().getCodeSize();
+                canRepeat = ResourcesManager.getInstance().getActualLevel().isRepeat();
+                break;
+        }
     }
 
     //setea la solución y la añade a su arrayList de solucion
@@ -28,7 +68,7 @@ public class SolutionManager {
 
         if(!loadSolution)
         {
-            aux = rand.GetWinCombination(diff);
+            aux = rand.GetWinCombination(nColors, nSol, canRepeat);
         }
         else
         {
@@ -115,7 +155,7 @@ public class SolutionManager {
     public ArrayList<Integer> getSolution() {
         return solution;
     }
-    public int getNTypes() { return rand.getNColors();}
+    public int getNTypes() { return nColors;}
 
     public String getSolutionData() {
         String s = "";

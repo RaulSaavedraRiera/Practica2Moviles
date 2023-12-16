@@ -12,39 +12,11 @@ public class RandomWinCombination {
     int nSol;
     boolean canRepeat;
 
-    public int[] GetWinCombination(int i){
-        //segun la dificultad seleccionada inicializamos las variables iniciales de la manera correspondiente
-        switch(i){
-            //modo facil
-            case 0:
-                nColors = 4;
-                nSol = 4;
-                canRepeat = false;
-                break;
-            //modo medio
-            case 1:
-                nColors = 6;
-                nSol = 4;
-                canRepeat = false;
-                break;
-            //modo dificil
-            case 2:
-                nColors = 8;
-                nSol = 5;
-                canRepeat = true;
-                break;
-            //modo imposible
-            case 3:
-                nColors = 9;
-                nSol = 6;
-                canRepeat = true;
-                break;
-            case 4:
-                nColors = ResourcesManager.getInstance().getActualLevel().getCodeOpt();
-                nSol =  ResourcesManager.getInstance().getActualLevel().getCodeSize();
-                canRepeat = ResourcesManager.getInstance().getActualLevel().isRepeat();
-                break;
-        }
+    public int[] GetWinCombination(int nColors, int nSol, boolean canRepeat){
+        this.nColors = nColors;
+        this.nSol = nSol;
+        this.canRepeat = canRepeat;
+
 
       return GenerateWinCombination();
     }
