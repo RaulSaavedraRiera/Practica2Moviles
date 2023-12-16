@@ -6,6 +6,7 @@ import android.content.res.AssetManager;
 import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
+import com.practica1.androidengine.ColorJ;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -292,4 +293,9 @@ public class ResourcesManager {
     public void setIdActualLevel(int idActualLevel) {
         this.idActualLevel = idActualLevel;
     }
+
+    public Context getCurrentContext() {
+        return currentContext;
+    }
+
 }

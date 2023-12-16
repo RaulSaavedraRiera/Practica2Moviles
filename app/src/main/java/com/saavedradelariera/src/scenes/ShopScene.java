@@ -60,7 +60,7 @@ public class ShopScene extends Scene {
         cw1.setClickListener(new ClickListener() {
             @Override
             public void onClick() {
-                if (pageId < ShopManager.getInstance().getCategories().size()) {
+                if (pageId < ShopManager.getInstance().getCategories().size()-1) {
                     clearBalanceText();
                 }
             }
@@ -90,6 +90,7 @@ public class ShopScene extends Scene {
             @Override
             public void onClick() {
                 ShopManager.getInstance().removeActiveSkin(currentCat);
+                showActiveIndicator(startX,startY);
                 showToast("Te has quitado la skin actual");
             }
         });
@@ -126,7 +127,6 @@ public class ShopScene extends Scene {
     private void showSkin(AndroidGraphics graphics, Skin skin, int x, int y) {
         SkinButton skinButton = new SkinButton(skin, x, y, skinWidth, skinHeight, c, amountFont, skin.getSamplePath(), skin.getPrice());
 
-        // if this skin is bought..
         if (skin.getBought()) { //bought
             clearPrice(x, y);
         } else { //not bought
@@ -156,7 +156,7 @@ public class ShopScene extends Scene {
                     // Equipar Skin
                     toastMsg = "Te has equipado " + skin.getTitle();
                     ShopManager.getInstance().setActiveSkin(skin.getCategory(), skin);
-                    //showActiveSkinIndicator(x, y);
+                    showActiveIndicator(x,y);
                 }
                 showToast(toastMsg);
             }
@@ -175,8 +175,12 @@ public class ShopScene extends Scene {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                //Toast.makeText(ResourcesManager.getInstance().getContext(), toastMsg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ResourcesManager.getInstance().getCurrentContext(), toastMsg, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void showActiveIndicator(int x, int y) {
+        new VisualRectangle(x,y,skinWidth,skinHeight,new ColorJ("#2be443"),false);
     }
 }

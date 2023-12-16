@@ -74,8 +74,6 @@ public class GameManager extends GameObject {
         buttonsPerRow = solutionSize;
         GenerateRows(nRows, graphics);
 
-
-
         if(ProgressManager.getInstance().levelInProgress())
         {
             this.difficult = difficult;

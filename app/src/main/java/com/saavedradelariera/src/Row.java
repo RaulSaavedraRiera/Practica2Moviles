@@ -60,7 +60,7 @@ public class Row extends GameObject {
     void GenerateVisuals(int initialOffset, int widthForButtons) {
 
         VisualRectangle border =
-                new VisualRectangle(posX, posY, width, height, new ColorJ(200, 200, 200), false);
+                new VisualRectangle(posX, posY, width, height, new ColorJ(100, 200, 200, 200), new ColorJ("#000000"), true);
         objectsInRow.add(border);
         VisualRectangle limit1 =
                 new VisualRectangle(posX + initialOffset,

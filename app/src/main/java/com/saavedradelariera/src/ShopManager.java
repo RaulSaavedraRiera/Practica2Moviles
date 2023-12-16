@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.ColorSkin;
 
 import org.json.JSONException;
@@ -20,7 +21,7 @@ import java.util.Map;
 public class ShopManager {
     final String path = "store";
     int currentPage = 0;
-    int balance = 100;
+    int balance = 500;
     private ArrayList<String> categories = new ArrayList<String>();
     private Map<String, Map<String, Skin>> skinMap = new HashMap<>();
     private Map<String, Skin> activeSkinsMap = new HashMap<>();
@@ -168,16 +169,8 @@ public class ShopManager {
         activeSkinsMap.put(category, skin);
     }
 
-    private Map<String, Skin> getActiveSkinsMap() {
-        return activeSkinsMap;
-    }
-
     public ArrayList<String> getCategories() {
         return categories;
-    }
-
-    public Skin getActiveIconsSkin() {
-        return activeSkinsMap.get("codigos");
     }
 
     public Skin getActiveSkin(String category) {
@@ -192,5 +185,25 @@ public class ShopManager {
         if (activeSkinsMap.containsKey(category)) {
             activeSkinsMap.remove(category);
         }
+    }
+
+    public boolean isActiveSkin(String category, String skinTitle) {
+        return false;
+    }
+
+    public String getPrimaryColor() {
+        ColorSkin colorSkin = (ColorSkin)getActiveSkin("colores");
+        if(colorSkin != null)
+            return colorSkin.getPrimaryColor();
+        else
+            return null;
+    }
+
+    public String getSecondaryColor() {
+        ColorSkin colorSkin = (ColorSkin)getActiveSkin("colores");
+        if(colorSkin != null)
+            return colorSkin.getSecondaryColor();
+        else
+            return null;
     }
 }

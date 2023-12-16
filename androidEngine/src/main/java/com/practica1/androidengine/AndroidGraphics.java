@@ -131,14 +131,14 @@ public class AndroidGraphics {
 
     public void RenderFillRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC) {
         paint = new Paint();
-        paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
+        paint.setColor(Color.argb(c.getA(), c.getR(), c.getG(), c.getB()));
         canvas.drawRect(x, y, x + w, y + h, paint);
         RenderRect(x, y, w, h, insideC);
     }
 
     public void RenderFillRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC, int cornerRadius) {
         paint = new Paint();
-        paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
+        paint.setColor(Color.argb(c.getA(), c.getR(), c.getG(), c.getB()));
         canvas.drawRoundRect(new RectF(x, y, x + w, y + h), cornerRadius, cornerRadius, paint);
     }
 

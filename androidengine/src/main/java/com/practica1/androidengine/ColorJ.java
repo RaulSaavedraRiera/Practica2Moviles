@@ -8,10 +8,17 @@ public class ColorJ {
     int  r = 255;
     int  g = 255;
     int  b = 255;
+    int a = 255;
 
     public ColorJ(int R, int G, int B)
     {
         this.setRGB(R, G, B);
+    }
+
+    public ColorJ(int A, int R, int G, int B)
+    {
+        this.setRGB(R, G, B);
+        this.a = A;
     }
 
     public ColorJ(String color) {
@@ -28,6 +35,10 @@ public class ColorJ {
         g = G;
     };
 
+    public void setA(int A){
+        this.a = A;
+    }
+
     public int getR() {
         return r;
     }
@@ -38,5 +49,9 @@ public class ColorJ {
 
     public int getG() {
         return g;
+    }
+
+    public int getA() {
+        return a;
     }
 }
