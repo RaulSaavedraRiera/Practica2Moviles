@@ -130,10 +130,8 @@ public class ShopScene extends Scene {
     private void showSkin(AndroidGraphics graphics, Skin skin, int x, int y) {
         SkinButton skinButton = new SkinButton(skin, x, y, skinWidth, skinHeight, c, amountFont, skin.getSamplePath(), skin.getPrice());
 
-        // if this skin is active or equipped...
-        if (ShopManager.getInstance().getActiveSkin(currentCat) != null && ShopManager.getInstance().getActiveSkin(currentCat).getTitle() == skin.getTitle()) {
-            showActiveSkinIndicator(x, y);
-        } else if (skin.getBought()) { //bought
+        // if this skin is bought..
+        if (skin.getBought()) { //bought
             clearPrice(x, y);
             //setActiveItemButton = new GenericButton(x,y+170, skinWidth, 50, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128),10);
             //Text setActiveItemText = new Text("Spicy.ttf", x + 20, y + 190, 35, 35, "Equipar", new ColorJ(255,255,255));
@@ -168,11 +166,6 @@ public class ShopScene extends Scene {
                 showToast(toastMsg);
             }
         });
-    }
-
-    private void showActiveSkinIndicator(int x, int y) {
-        new VisualRectangle(x - 15, y + 170, skinWidth + 15, 80, whiteColor, true);
-        new VisualRectangle(x + 50, y + 170, 60, 40, new ColorJ(0, 210, 180), true, 50);
     }
 
     private void clearBalanceText() {
