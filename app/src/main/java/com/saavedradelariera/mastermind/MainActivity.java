@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         androidEngine.SolicitateLoadRewardAd();
         androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground, "mastermind", "mastermindotravez", "canalmaster", 10, TimeUnit.SECONDS);
 
+
+        System.loadLibrary("mastermind");
+
         ResourcesManager.getInstance().Init(androidEngine);
         ProgressManager.getInstance().Init(androidEngine.getContext());
         SceneManager.getInstance().Init(androidEngine);

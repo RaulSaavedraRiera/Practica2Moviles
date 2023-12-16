@@ -29,7 +29,6 @@ public class ResourcesManager {
     private int nWorld;
     final String path = "levels";
     final String BgPath = "sprites/backgrounds/";
-
     private ArrayList<String> files;
     private ArrayList<String> filesImage;
     private ArrayList<WorldStyle> worldStyles;
@@ -38,7 +37,6 @@ public class ResourcesManager {
     private static ResourcesManager instance = null;
     private Level actualLevel;
     private Context currentContext;
-
 
     private void WorldManager() {
     }
@@ -66,11 +64,12 @@ public class ResourcesManager {
         return instance;
     }
 
-
+    // Mundo actual en el que se encuentra el jugador
     public int getIdActualWorld() {
         return idActualWorld;
     }
 
+    // Paso entre los mundos (necesario en la clase para saber que recursos cargar en cada momento)
     public boolean changeWorld(boolean add) {
 
         if (add && idActualWorld + 1 < nWorld + 1) {
@@ -84,6 +83,7 @@ public class ResourcesManager {
     }
 
 
+    // Obtiene el numero de niveles en un mundo
     public int getLevelsInWorld(int id) {
         if (id >= 0 && id < worlds.size()) {
             ArrayList<Level> selectedLevels = worlds.get(id);
@@ -93,22 +93,24 @@ public class ResourcesManager {
         }
     }
 
-
     public int getSkinsId() {
         return worldStyles.get(idActualWorld - 1).getIdSkins();
     }
 
+    // Obtiene un nivel especifico del mundo
     public Level getLevel(int levelIndex) {
         if (idActualWorld > 0 && idActualWorld - 1 <= worlds.size()) {
             ArrayList<Level> selectedLevels = worlds.get(idActualWorld - 1);
             if (levelIndex >= 0 && levelIndex < selectedLevels.size()) {
-                setActualLevel(selectedLevels.get(levelIndex));
-                return selectedLevels.get(levelIndex);
+                Level level = selectedLevels.get(levelIndex);
+                this.actualLevel = level;
+                return level;
             }
         }
         return null;
     }
 
+    // Devuelve el nivel en el que se encuentra el jugador
     public Level getActualLevel() {
         return actualLevel;
     }
@@ -148,17 +150,33 @@ public class ResourcesManager {
     public ArrayList<AndroidImage> LoadGameIcons(AndroidGraphics graphics) {
         return LoadBoughtImages(graphics, "codigos");
     }
-    public AndroidImage LoadGameBackground(AndroidGraphics graphics) {
-        AndroidImage backgroundImage;
 
-        try {
-            String skinPath = ShopManager.getInstance().getActiveSkin("fondos").getSkinsPath();
-            backgroundImage = graphics.createImage(skinPath);
-        } catch (NullPointerException e) {
-            return null;
+    public AndroidImage getBackground(AndroidGraphics graphics, boolean shop) {
+
+        String aux = "";
+        if(shop){
+            Skin skin = ShopManager.getInstance().getActiveSkin("fondos");
+            if(skin != null)
+                aux = skin.getSkinsPath();
+            else
+                return null;
+
+        }else {
+            aux = worldStyles.get(idActualWorld - 1).getBackground();
         }
 
-        return backgroundImage;
+        if (backgrounds.containsKey(aux)) {
+            return backgrounds.get(aux);
+        } else {
+
+            try {
+                AndroidImage androidImage = graphics.createImage(aux);
+                backgrounds.put(aux, androidImage);
+                return androidImage;
+            } catch (NullPointerException e) {
+                return null;
+            }
+        }
     }
 
     private ArrayList<AndroidImage> LoadBoughtImages(AndroidGraphics g, String category) {
@@ -183,20 +201,9 @@ public class ResourcesManager {
         return images;
     }
 
-
+    // Resetamos para mostrar de nuevo el mundo 1 al entrar
     public void resetWorld() {
         idActualWorld = 1;
-    }
-
-    public AndroidImage getBackground(AndroidGraphics graphics) {
-        String aux = worldStyles.get(idActualWorld - 1).getBackground();
-        if (backgrounds.containsKey(aux)) {
-            return backgrounds.get(aux);
-        } else {
-            AndroidImage androidImage = graphics.createImage(aux);
-            backgrounds.put(aux, androidImage);
-            return androidImage;
-        }
     }
 
     private void ReadLevels() {
@@ -219,8 +226,6 @@ public class ResourcesManager {
             e.printStackTrace();
         }
     }
-
-
     private void setActualLevel(Level actualLevel) {
         this.actualLevel = actualLevel;
     }
@@ -276,12 +281,7 @@ public class ResourcesManager {
         }
     }
 
-    public Context getContext() {
-        return currentContext;
-    }
-
-
-    public int getnWorld() {
+    public int getNWorld() {
         return nWorld;
     }
 

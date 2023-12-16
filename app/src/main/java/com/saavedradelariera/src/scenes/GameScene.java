@@ -7,6 +7,7 @@ import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
 import com.saavedradelariera.src.Buttons.DaltonicButton;
 import com.saavedradelariera.src.GameManager;
+import com.saavedradelariera.src.ImageBackground;
 import com.saavedradelariera.src.InputSolution;
 import com.saavedradelariera.src.Level;
 import com.saavedradelariera.src.ResourcesManager;
@@ -25,6 +26,8 @@ public class GameScene extends Scene {
     ArrayList<AndroidImage> iconImages;
     AndroidImage backgroundImage;
 
+    String progress;
+
     public GameScene(int diff, boolean isQuickGame){
         difficult = diff;
         this.isQuickGame = isQuickGame;
@@ -37,9 +40,14 @@ public class GameScene extends Scene {
 
         if (isQuickGame) {
             iconImages = ResourcesManager.getInstance().LoadGameIcons(graphics);
-            backgroundImage = ResourcesManager.getInstance().LoadGameBackground(graphics);
+            backgroundImage = ResourcesManager.getInstance().getBackground(graphics, true);
         } else {
+            backgroundImage = ResourcesManager.getInstance().getBackground(graphics, false);
             iconImages = ResourcesManager.getInstance().LoadLevelIcons(ResourcesManager.getInstance().getSkinsId(), graphics);
+        }
+
+        if(backgroundImage != null) {
+            ImageBackground imageBackground = new ImageBackground(backgroundImage);
         }
 
         SetSceneSettings(difficult);
@@ -48,8 +56,8 @@ public class GameScene extends Scene {
         //le pasamos al manager las columnas para que las gestione
         gameManager = new GameManager();
 
-        if(backgroundImage != null)
-            gameManager.setBackgroundImage(backgroundImage);
+        /*if(backgroundImage != null)
+            gameManager.setBackgroundImage(backgroundImage);*/
 
         gameManager.Init(difficult, nButtons, nRows, graphics);
 
@@ -78,6 +86,11 @@ public class GameScene extends Scene {
         if(iconImages == null)
             new DaltonicButton("ojo.png", 500, 40, 50, 50);
 
+    }
+
+    @Override
+    public String GetStateScene() {
+        return gameManager.GetLevelState();
     }
 
     public GameManager getGameManager() {

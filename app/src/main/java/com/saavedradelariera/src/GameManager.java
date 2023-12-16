@@ -10,6 +10,7 @@ import com.saavedradelariera.src.messages.InputColorMessage;
 import com.saavedradelariera.src.scenes.EndBasicScene;
 import com.saavedradelariera.src.scenes.EndScene;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -36,7 +37,7 @@ public class GameManager extends GameObject {
 
 
     ArrayList<AndroidImage> iconImages;
-    AndroidImage backgroundImage;
+    //AndroidImage backgroundImage;
     private Random random = new Random();
 
 
@@ -67,15 +68,25 @@ public class GameManager extends GameObject {
         //Lo registra para recibir mensajes
         SceneManager.getInstance().RegisterToMessage(this);
 
-        ImageButton background = new ImageButton(this.backgroundImage.getRoute(), 0,0, graphics.GetWidth(), graphics.GetHeight());
+        //ImageButton background = new ImageButton(this.backgroundImage.getRoute(), 0,0, graphics.GetWidth(), graphics.GetHeight());
 
         //almacena las columnas y la dificultad, así como crea un solutionManager
         buttonsPerRow = solutionSize;
         GenerateRows(nRows, graphics);
 
-        this.difficult = difficult;
 
-        solutionManager = new SolutionManager(difficult);
+
+        if(ProgressManager.getInstance().levelInProgress())
+        {
+            this.difficult = difficult;
+            solutionManager = new SolutionManager(difficult, false);
+        }
+        else
+        {
+            this.difficult = ProgressManager.getInstance().getLevelInProgressDifficult();
+            solutionManager = new SolutionManager(difficult, true);
+        }
+
 
         //crea el array de la solucion que reutilizará
         playerTry = new ArrayList<>(solutionSize);
@@ -84,6 +95,9 @@ public class GameManager extends GameObject {
 
         triesT =   new Text("Night.ttf",205, 70, 20, 40,
                 "Te quedan " + String.valueOf(rows.size() - currentRow) + " intentos", new ColorJ(0, 0, 0));
+
+        if(!ProgressManager.getInstance().levelInProgress())
+            LoadLevelState();
     }
 
     void GenerateRows(int nRows, AndroidGraphics graphics){
@@ -115,10 +129,10 @@ public class GameManager extends GameObject {
         this.iconImages = images;
     }
 
-    public void setBackgroundImage(AndroidImage image)
+   /* public void setBackgroundImage(AndroidImage image)
     {
         this.backgroundImage = image;
-    }
+    }*/
     
     public ColorJ GetColor(int i)
     {
@@ -141,6 +155,45 @@ public class GameManager extends GameObject {
     void CalculateRowOffset(){
         if(rows.size() > 10)
             maxYOffset = iniY + (rowHeight + offsetY) * (rows.size() - 10);
+
+    }
+
+    public String GetLevelState(){
+        String state = "";
+
+        state+= String.valueOf(difficult);
+        state+= solutionManager.getSolutionData();
+
+
+        if(rows.size() < 10)
+            state += "00" + String.valueOf(rows.size());
+        else if(rows.size() < 100)
+            state += "0" + String.valueOf(rows.size());
+        else
+            state += String.valueOf(rows.size());
+
+        for (Row r: rows  ) {
+            state += r.GetButtonsCombination();
+        }
+
+        if(state.trim().isEmpty())
+            return "NONE";
+        return state;
+    }
+
+    void LoadLevelState(){
+
+        String state = ProgressManager.getInstance().getLevelRowState();
+        if(state.length() < 3)
+            return;
+
+        int nRowsTarget = Integer.valueOf(state.substring(0 , 2));
+        if(rows.size() != nRowsTarget)
+            AddRows(nRowsTarget - rows.size());
+
+        for (int i = 2; i < state.length(); i++) {
+            ColorInput( Character.getNumericValue(state.charAt(i)));
+        }
 
     }
 

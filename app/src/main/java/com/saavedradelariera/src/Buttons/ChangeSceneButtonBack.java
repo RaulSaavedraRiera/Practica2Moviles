@@ -1,5 +1,6 @@
 package com.saavedradelariera.src.Buttons;
 
+import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.messages.ReleaseSoundMessage;
@@ -27,6 +28,8 @@ public class ChangeSceneButtonBack extends ImageButton {
         {
             SceneManager.getInstance().SendMessageToActiveScene(new ReleaseSoundMessage());
             SceneManager.getInstance().SetScene(SceneManager.getInstance().useSceneStack());
+
+            //ProgressManager.getInstance().resetGame();
         }else {
             SceneManager.getInstance().resetStack();
             ResourcesManager.getInstance().resetWorld();

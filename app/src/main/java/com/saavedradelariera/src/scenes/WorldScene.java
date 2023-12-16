@@ -34,7 +34,7 @@ public class WorldScene extends Scene {
 
         name = "WorldScene";
 
-        AndroidImage i = ResourcesManager.getInstance().getBackground(graphics);
+        AndroidImage i = ResourcesManager.getInstance().getBackground(graphics, false);
         ImageBackground img = new ImageBackground(i);
 
         Text t = new Text("Night.ttf",200, 50, 50, 100,  "MUNDO " + String.valueOf(id),c2);

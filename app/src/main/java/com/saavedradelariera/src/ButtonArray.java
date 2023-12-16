@@ -141,6 +141,14 @@ public class ButtonArray extends GameObject {
     public int GetNButtons(){
         return buttons.size();
     }
+    public String GetButtonsCombination(){
+        String s = "";
+        for(CombinationButton b : buttons)
+            if(b.IsEnable())
+                s +=  String.valueOf(b.GetNumber());
+
+        return s;
+    }
     public ArrayList<CombinationButton> GetButtons() { return buttons;}
 
     //Pasa el input a los botones

@@ -17,15 +17,23 @@ public class SolutionManager {
     boolean unordererClue = true;
 
     //genera la solucion al inicializarse
-    public SolutionManager(int diff){
-        SetSolution(diff);
+    public SolutionManager(int diff, boolean loadSolution){
+        SetSolution(diff, loadSolution);
     }
 
     //setea la solución y la añade a su arrayList de solucion
-    void SetSolution(int diff)
+    void SetSolution(int diff, boolean loadSolution)
     {
         int[] aux;
-        aux = rand.GetWinCombination(diff);
+
+        if(!loadSolution)
+        {
+            aux = rand.GetWinCombination(diff);
+        }
+        else
+        {
+           aux = ProgressManager.getInstance().getLevelInProgressSolution();
+        }
 
         for(int i = 0; i < aux.length; i++)
         {
@@ -108,4 +116,12 @@ public class SolutionManager {
         return solution;
     }
     public int getNTypes() { return rand.getNColors();}
+
+    public String getSolutionData() {
+        String s = "";
+        s+= solution.size();
+        for (int i = 0; i < solution.size(); i++)
+           s+= String.valueOf(solution.get(i));
+        return s;
+    }
 }

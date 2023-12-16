@@ -55,4 +55,8 @@ public abstract class Button extends GameObject {
         color = c;
         backgroundColor = backgroundC;
     }
+
+    public boolean IsEnable(){
+        return enable;
+    }
 }
