@@ -22,17 +22,12 @@ public class GameScene extends Scene {
 
     GameManager gameManager;
 
-    ArrayList<AndroidImage> images;
+    ArrayList<AndroidImage> iconImages;
+    AndroidImage backgroundImage;
 
     public GameScene(int diff, boolean isQuickGame){
         difficult = diff;
         this.isQuickGame = isQuickGame;
-    }
-
-    public GameScene(int diff, ArrayList<AndroidImage> levelImages)
-    {
-        difficult = diff;
-        images = levelImages;
     }
 
     @Override
@@ -41,9 +36,10 @@ public class GameScene extends Scene {
         super.SetScene(graphics, audioSystem);
 
         if (isQuickGame) {
-            images = ResourcesManager.getInstance().LoadBoughtImages(graphics);
+            iconImages = ResourcesManager.getInstance().LoadGameIcons(graphics);
+            backgroundImage = ResourcesManager.getInstance().LoadGameBackground(graphics);
         } else {
-            images = ResourcesManager.getInstance().LoadLevelImages(ResourcesManager.getInstance().getSkinsId(), graphics);
+            iconImages = ResourcesManager.getInstance().LoadLevelIcons(ResourcesManager.getInstance().getSkinsId(), graphics);
         }
 
         SetSceneSettings(difficult);
@@ -51,20 +47,25 @@ public class GameScene extends Scene {
 
         //le pasamos al manager las columnas para que las gestione
         gameManager = new GameManager();
+
+        if(backgroundImage != null)
+            gameManager.setBackgroundImage(backgroundImage);
+
         gameManager.Init(difficult, nButtons, nRows, graphics);
 
-        if(images != null)
-            gameManager.SetImages(images);
+        if(iconImages != null)
+            gameManager.setIconImages(iconImages);
+
 
         InputSolution inputSolution;
         //creamos el input solution
-        if(images == null)
+        if(iconImages == null)
             inputSolution = new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f),
                 graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, gameManager.GetColors(), false);
         //o con sprites
         else
             inputSolution = new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f),
-                    graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, images);
+                    graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, iconImages);
 
 
         //parte superior del nivel
@@ -74,7 +75,7 @@ public class GameScene extends Scene {
          new Text("Night.ttf",200, 50, 25, 50,  "Averigua el código", new ColorJ(0, 0, 0));
         new ChangeSceneButtonBack("X.png", 70, 50, 30, 30);
         //si no hay imagenes metemos el daltonic button
-        if(images == null)
+        if(iconImages == null)
             new DaltonicButton("ojo.png", 500, 40, 50, 50);
 
     }

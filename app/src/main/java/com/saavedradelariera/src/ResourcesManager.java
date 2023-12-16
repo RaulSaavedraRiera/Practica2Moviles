@@ -128,7 +128,7 @@ public class ResourcesManager {
         }
     }
 
-    public ArrayList<AndroidImage> LoadLevelImages(int id, AndroidGraphics g) {
+    public ArrayList<AndroidImage> LoadLevelIcons(int id, AndroidGraphics g) {
         ArrayList<AndroidImage> images = new ArrayList<>();
         AssetManager mngr = currentContext.getAssets();
 
@@ -145,12 +145,28 @@ public class ResourcesManager {
         return images;
     }
 
-    public ArrayList<AndroidImage> LoadBoughtImages(AndroidGraphics g) {
-        if (ShopManager.getInstance().getActiveIconsSkin() == null) {
+    public ArrayList<AndroidImage> LoadGameIcons(AndroidGraphics graphics) {
+        return LoadBoughtImages(graphics, "codigos");
+    }
+    public AndroidImage LoadGameBackground(AndroidGraphics graphics) {
+        AndroidImage backgroundImage;
+
+        try {
+            String skinPath = ShopManager.getInstance().getActiveSkin("fondos").getSkinsPath();
+            backgroundImage = graphics.createImage(skinPath);
+        } catch (NullPointerException e) {
             return null;
         }
 
-        String skinPath = ShopManager.getInstance().getActiveIconsSkin().getSkinsPath();
+        return backgroundImage;
+    }
+
+    private ArrayList<AndroidImage> LoadBoughtImages(AndroidGraphics g, String category) {
+        if (ShopManager.getInstance().getActiveSkin(category) == null) {
+            return null;
+        }
+
+        String skinPath = ShopManager.getInstance().getActiveSkin(category).getSkinsPath();
         ArrayList<AndroidImage> images = new ArrayList<>();
         AssetManager mngr = currentContext.getAssets();
 

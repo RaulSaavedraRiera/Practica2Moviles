@@ -1,7 +1,5 @@
 package com.saavedradelariera.src.Buttons;
 
-import android.graphics.Color;
-
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
@@ -32,17 +30,6 @@ public class ImageButton extends GameObject {
         Y = y;
         W = w;
         H = h;
-    }
-
-    public ImageButton(String route, int x, int y, int w, int h, boolean cleanScreen) {
-        super(x, y, w, h);
-        image = new AndroidImage();
-        image.setRoute(route);
-        X = x;
-        Y = y;
-        W = w;
-        H = h;
-        this.cleanScreen = cleanScreen;
     }
 
     @Override

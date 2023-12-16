@@ -4,6 +4,7 @@ import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
+import com.saavedradelariera.src.Buttons.ImageButton;
 import com.saavedradelariera.src.messages.Message;
 import com.saavedradelariera.src.messages.InputColorMessage;
 import com.saavedradelariera.src.scenes.EndBasicScene;
@@ -34,7 +35,8 @@ public class GameManager extends GameObject {
 
 
 
-    ArrayList<AndroidImage> images;
+    ArrayList<AndroidImage> iconImages;
+    AndroidImage backgroundImage;
     private Random random = new Random();
 
 
@@ -65,6 +67,7 @@ public class GameManager extends GameObject {
         //Lo registra para recibir mensajes
         SceneManager.getInstance().RegisterToMessage(this);
 
+        ImageButton background = new ImageButton(this.backgroundImage.getRoute(), 0,0, graphics.GetWidth(), graphics.GetHeight());
 
         //almacena las columnas y la dificultad, así como crea un solutionManager
         buttonsPerRow = solutionSize;
@@ -79,11 +82,8 @@ public class GameManager extends GameObject {
         for (int i = 0; i < solutionSize; i++)
             playerTry.add(0);
 
-
         triesT =   new Text("Night.ttf",205, 70, 20, 40,
                 "Te quedan " + String.valueOf(rows.size() - currentRow) + " intentos", new ColorJ(0, 0, 0));
-
-
     }
 
     void GenerateRows(int nRows, AndroidGraphics graphics){
@@ -110,12 +110,16 @@ public class GameManager extends GameObject {
        CalculateRowOffset();
     }
 
-    public void SetImages(ArrayList<AndroidImage> imgs)
+    public void setIconImages(ArrayList<AndroidImage> images)
     {
-        images = imgs;
+        this.iconImages = images;
     }
 
-
+    public void setBackgroundImage(AndroidImage image)
+    {
+        this.backgroundImage = image;
+    }
+    
     public ColorJ GetColor(int i)
     {
         return colors.get(i);
@@ -156,10 +160,10 @@ public class GameManager extends GameObject {
         //System.out.println("nbuttons" + rows.get(currentRow).GetNextButton() + " " + "tries" + playerTry.size());
 
         boolean rowEnded;
-        if(images == null)
+        if(iconImages == null)
             rowEnded = rows.get(currentRow).Enablebutton(optionSelected, colors.get(optionSelected), inputInRows, clearInRows, currentDaltonicEnable);
         else
-           rowEnded = rows.get(currentRow).Enablebutton(optionSelected, images.get(optionSelected), inputInRows, clearInRows);
+            rowEnded = rows.get(currentRow).Enablebutton(optionSelected, iconImages.get(optionSelected), inputInRows, clearInRows);
 
         //lo representamos graficamente, por defecto permitimos
         if(rowEnded)
