@@ -133,6 +133,10 @@ public class CombinationButton extends Button {
 
     }
 
+    public int GetNumber(){
+        return number;
+    }
+
     //Gestiona el input del boton
     @Override
     public boolean HandleInput(TouchEvent e) {

@@ -5,6 +5,7 @@ import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.ClickListener;
+import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.Text;
 
@@ -30,8 +31,14 @@ public class MenuScene extends Scene {
             @Override
             public void onClick() {
                 SceneManager.getInstance().pushSceneStack();
-                ChooseScene cS = new ChooseScene();
-                SceneManager.getInstance().SetScene(cS);
+
+                Scene s;
+                if(!ProgressManager.getInstance().levelInProgress())
+                    s = new ChooseScene();
+                else
+                    s = new GameScene(ProgressManager.getInstance().getLevelInProgressDifficult(), true);
+
+                SceneManager.getInstance().SetScene(s);
             }
         });
 

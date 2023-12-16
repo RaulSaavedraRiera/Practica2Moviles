@@ -25,6 +25,8 @@ public class GameScene extends Scene {
     ArrayList<AndroidImage> iconImages;
     AndroidImage backgroundImage;
 
+    String progress;
+
     public GameScene(int diff, boolean isQuickGame){
         difficult = diff;
         this.isQuickGame = isQuickGame;
@@ -48,8 +50,8 @@ public class GameScene extends Scene {
         //le pasamos al manager las columnas para que las gestione
         gameManager = new GameManager();
 
-        if(backgroundImage != null)
-            gameManager.setBackgroundImage(backgroundImage);
+        /*if(backgroundImage != null)
+            gameManager.setBackgroundImage(backgroundImage);*/
 
         gameManager.Init(difficult, nButtons, nRows, graphics);
 
@@ -78,6 +80,11 @@ public class GameScene extends Scene {
         if(iconImages == null)
             new DaltonicButton("ojo.png", 500, 40, 50, 50);
 
+    }
+
+    @Override
+    public String GetStateScene() {
+        return gameManager.GetLevelState();
     }
 
     public GameManager getGameManager() {

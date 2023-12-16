@@ -108,7 +108,7 @@ public class SceneManager {
     }
     public void resetStack()
     {
-        sceneStack.clear();;
+        sceneStack.clear();
     }
 
     public Scene getPeckStack()
@@ -122,5 +122,9 @@ public class SceneManager {
     public void LaunchAcceleratorEvent()
     {
       SendMessageToActiveScene(new AcceleratorEventMessage());
+    }
+
+    public  String  GetActiveSceneState (){
+        return activeScene.GetStateScene();
     }
 }

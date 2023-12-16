@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +30,10 @@ public class ProgressManager {
     private ResourcesManager resourcesManager = ResourcesManager.getInstance();
     private int worldPass = 1;
     private int levelPass = 1;
+
+    private String levelState = "", rowsInfo = "";
+    private int[] solutionInfo;
+
 
     private static ProgressManager instance = null;
 
@@ -58,6 +63,8 @@ public class ProgressManager {
         try {
             jsonObject.put("level", levelPass);
             jsonObject.put("world", worldPass);
+            if(SceneManager.getInstance() != null)
+                jsonObject.put("stateLevel", SceneManager.getInstance().GetActiveSceneState());
 
             FileOutputStream fileOutputStream = context.openFileOutput(file, Context.MODE_PRIVATE);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -96,6 +103,11 @@ public class ProgressManager {
 
             levelPass = jsonObject.getInt("level");
             worldPass = jsonObject.getInt("world");
+            levelState = jsonObject.getString("stateLevel");
+
+
+            ProcessLevelInfo();
+
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -124,6 +136,22 @@ public class ProgressManager {
 
     }
 
+
+    void ProcessLevelInfo(){
+        if(levelState != "")
+        {
+            int solutionSize = Character.getNumericValue(levelState.charAt(1));
+            int initRowInfo = solutionSize+3;
+
+            solutionInfo = new int[solutionSize];
+            for (int i = 0; i < solutionSize; i++) {
+                solutionInfo[i] = Character.getNumericValue(levelState.charAt(i+2));
+            }
+
+            rowsInfo = levelState.substring(initRowInfo, levelState.length());
+        }
+    }
+
     public int getLevelPass() {
         return levelPass;
     }
@@ -135,6 +163,26 @@ public class ProgressManager {
     public int getIdActualWorld()
     {
         return resourcesManager.getIdActualWorld();
+    }
+
+    public boolean levelInProgress(){
+        return levelState != "";
+    }
+
+    public void DeleteProgressInLevel(){
+        levelState = "";
+    }
+    public int getLevelInProgressDifficult(){
+       return  Integer.valueOf(levelState.substring(0,1));
+    }
+
+    public int[] getLevelInProgressSolution(){
+        return solutionInfo;
+    }
+    public String getLevelRowState() {
+        levelState = "";
+
+       return rowsInfo;
     }
 
 }

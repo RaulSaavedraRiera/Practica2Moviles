@@ -60,7 +60,7 @@ public class Row extends GameObject {
     void GenerateVisuals(int initialOffset, int widthForButtons) {
 
         VisualRectangle border =
-                new VisualRectangle(posX, posY, width, height, new ColorJ(200, 200, 200), true);
+                new VisualRectangle(posX, posY, width, height, new ColorJ(200, 200, 200), false);
         objectsInRow.add(border);
         VisualRectangle limit1 =
                 new VisualRectangle(posX + initialOffset,
@@ -185,6 +185,10 @@ public class Row extends GameObject {
         for (GameObject o: objectsInRow) {
             o.posY += offsetY;
         }
+    }
+
+    public String GetButtonsCombination(){
+        return combinationArray.GetButtonsCombination();
     }
 }
 
