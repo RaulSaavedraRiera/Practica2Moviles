@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.ColorSkin;
 
 import org.json.JSONException;
@@ -176,17 +177,13 @@ public class ShopManager {
         activeSkinsMap.remove(category);
     }
 
-    public boolean isActiveSkin(String category, String skinTitle) {
-        return false; // Implement logic if needed
+    public ColorJ getBackgroundColor() {
+        ColorSkin colorSkin = (ColorSkin) getActiveSkin("colores");
+        return (colorSkin != null) ? new ColorJ(colorSkin.getPrimaryColor()) : new ColorJ("#ffffff");
     }
 
-    public String getPrimaryColor() {
+    public ColorJ getButtonsColor() {
         ColorSkin colorSkin = (ColorSkin) getActiveSkin("colores");
-        return (colorSkin != null) ? colorSkin.getPrimaryColor() : null;
-    }
-
-    public String getSecondaryColor() {
-        ColorSkin colorSkin = (ColorSkin) getActiveSkin("colores");
-        return (colorSkin != null) ? colorSkin.getSecondaryColor() : null;
+        return (colorSkin != null) ? new ColorJ(colorSkin.getSecondaryColor()) : new ColorJ("#00d2b4");
     }
 }

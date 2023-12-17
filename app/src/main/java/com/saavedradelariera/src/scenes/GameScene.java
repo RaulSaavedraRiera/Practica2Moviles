@@ -26,7 +26,7 @@ public class GameScene extends Scene {
 
     ArrayList<AndroidImage> iconImages;
     AndroidImage backgroundImage;
-    String primaryColor = "#ffffff", secondaryColor = "#ffffff";
+    ColorJ primaryColor;
     String progress;
 
     public GameScene(int diff, boolean isQuickGame){
@@ -36,26 +36,22 @@ public class GameScene extends Scene {
 
     @Override
     public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
-
         super.SetScene(graphics, audioSystem);
 
         if (isQuickGame) {
+            primaryColor = ShopManager.getInstance().getBackgroundColor();
             iconImages = ResourcesManager.getInstance().LoadGameIcons(graphics);
             backgroundImage = ResourcesManager.getInstance().getBackground(graphics, true);
-
-            if (ShopManager.getInstance().getPrimaryColor() != null)
-                primaryColor = ShopManager.getInstance().getPrimaryColor();
-
-            if (ShopManager.getInstance().getSecondaryColor() != null)
-                secondaryColor = ShopManager.getInstance().getSecondaryColor();
+            new VisualRectangle(0,0,graphics.GetWidth(), graphics.GetHeight(), ShopManager.getInstance().getBackgroundColor(), true);
 
         } else {
             backgroundImage = ResourcesManager.getInstance().getBackground(graphics, false);
             iconImages = ResourcesManager.getInstance().LoadLevelIcons(ResourcesManager.getInstance().getSkinsId(), graphics);
+            primaryColor = new ColorJ("#ffffff");
         }
 
         if(backgroundImage != null) {
-            ImageBackground imageBackground = new ImageBackground(backgroundImage);
+            new ImageBackground(backgroundImage);
         }
 
         SetSceneSettings(difficult);
@@ -73,14 +69,14 @@ public class GameScene extends Scene {
         //creamos el input solution
 
         if(iconImages == null)
-            new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f), graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, new ColorJ(primaryColor), gameManager.GetColors(), false);
+            new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f), graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, primaryColor, gameManager.GetColors(), false);
         //o con sprites
         else
-            new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f), graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, new ColorJ(primaryColor), iconImages);
+            new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f), graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, primaryColor, iconImages);
 
         //parte superior del nivel
         //rectangulo para tapar la parte de arriba
-        new VisualRectangle(0, 0, (int)graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), new ColorJ(primaryColor), true);
+        new VisualRectangle(0, 0, (int)graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), primaryColor, true);
 
         new Text("Night.ttf",200, 50, 25, 50,  "Averigua el código", new ColorJ(0, 0, 0));
         new ChangeSceneButtonBack("X.png", 70, 50, 30, 30);

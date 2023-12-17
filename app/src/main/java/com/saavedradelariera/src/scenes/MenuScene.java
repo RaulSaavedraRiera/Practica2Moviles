@@ -7,7 +7,9 @@ import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.SceneManager;
+import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Text;
+import com.saavedradelariera.src.VisualRectangle;
 
 /*escena inicial */
 public class MenuScene extends Scene {
@@ -19,13 +21,16 @@ public class MenuScene extends Scene {
     public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
         super.SetScene(graphics, audioSystem);
         name = "MenuScene";
+        ColorJ buttonColor = ShopManager.getInstance().getButtonsColor();
+
+        new VisualRectangle(0,0,graphics.GetWidth(), graphics.GetHeight(), ShopManager.getInstance().getBackgroundColor(), true);
 
         GenericButton buttonMenu = new GenericButton(100, 500, 400,
-                100, new ColorJ(0, 255, 255), new ColorJ(0, 0, 128), 10);
+                100, buttonColor, new ColorJ(0, 0, 128), 10);
         GenericButton buttonWorld = new GenericButton(100, 700, 400,
-                100, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128), 10);
+                100, buttonColor, new ColorJ(0, 0, 128), 10);
         GenericButton buttonShop = new GenericButton(100, 900, 400,
-                100, new ColorJ(0, 210, 180), new ColorJ(0, 0, 128), 10);
+                100, buttonColor, new ColorJ(0, 0, 128), 10);
 
         buttonMenu.setClickListener(new ClickListener() {
             @Override
@@ -34,7 +39,7 @@ public class MenuScene extends Scene {
 
                 Scene s;
                 if(ProgressManager.getInstance().levelInProgress())
-                    s = new ChooseScene();
+                    s = new ChooseDifficultyScene();
                 else
                     s = new GameScene(ProgressManager.getInstance().getLevelInProgressDifficult(), true);
 

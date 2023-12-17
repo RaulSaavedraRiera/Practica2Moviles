@@ -27,11 +27,9 @@ public class ShopScene extends Scene {
     private int padding = 20;
     private Text balance;
     private AndroidGraphics androidGraphics;
-
     private String amountFont = "Night.ttf";
     String currentCat;
     private ColorJ c = new ColorJ(0, 0, 0);
-    private ColorJ whiteColor = new ColorJ(255, 255, 255);
     String toastMsg = "";
 
     public ShopScene() {
@@ -48,6 +46,7 @@ public class ShopScene extends Scene {
     }
 
     public void loadPage() {
+        new VisualRectangle(0, 0, androidGraphics.GetWidth(), androidGraphics.GetHeight(), ShopManager.getInstance().getBackgroundColor(), true);
         currentCat = ShopManager.getInstance().getCategory(pageId);
         Text t = new Text(amountFont, 200, 50, 50, 50, currentCat, new ColorJ(0, 0, 0));
         balance = new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), c);
@@ -159,7 +158,10 @@ public class ShopScene extends Scene {
                     // Equipar Skin
                     toastMsg = "Te has equipado " + skin.getTitle();
                     ShopManager.getInstance().setActiveSkin(skin.getCategory(), skin);
-                    displaySkins();
+                    if (skin.getCategory().equals("colores"))
+                        loadPage();
+                    else
+                        displaySkins();
                 }
                 showToast(toastMsg);
             }
@@ -167,11 +169,11 @@ public class ShopScene extends Scene {
     }
 
     private void clearBalanceText() {
-        new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), new ColorJ(255, 255, 255));
+        new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), ShopManager.getInstance().getBackgroundColor());
     }
 
     private void clearPrice(int x, int y) {
-        new VisualRectangle(x - 15, y + 170, skinWidth, 80, whiteColor, true);
+        new VisualRectangle(x - 15, y + 170, 155, 80, ShopManager.getInstance().getBackgroundColor(), true);
     }
 
     private void showToast(String toastMsg) {

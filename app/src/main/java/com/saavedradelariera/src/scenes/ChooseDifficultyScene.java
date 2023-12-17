@@ -1,17 +1,18 @@
 package com.saavedradelariera.src.scenes;
 
 import com.practica1.androidengine.AndroidAudio;
-import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonGame;
+import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Text;
+import com.saavedradelariera.src.VisualRectangle;
 
 /*Escena de selección de dificultad*/
-public class ChooseScene extends Scene {
+public class ChooseDifficultyScene extends Scene {
 
-    public ChooseScene(){
+    public ChooseDifficultyScene(){
     }
 
     @Override
@@ -20,8 +21,9 @@ public class ChooseScene extends Scene {
 
         name = "ChooseScene";
 
-        Text tT = new Text("Night.ttf", 75, 250, 30, 100,  "¿En que dificultad quieres jugar?", new ColorJ(0, 0, 0));
+        new VisualRectangle(0,0,graphics.GetWidth(), graphics.GetHeight(), ShopManager.getInstance().getBackgroundColor(), true);
 
+        Text tT = new Text("Night.ttf", 75, 250, 30, 100,  "¿En que dificultad quieres jugar?", new ColorJ(0, 0, 0));
 
         //segun que boton se pulse se le darán unos calores de inicialización diferentes al game
 
