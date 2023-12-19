@@ -1,18 +1,13 @@
 package com.saavedradelariera.src.scenes;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.widget.Toast;
 import com.practica1.androidengine.AndroidAudio;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
 import com.saavedradelariera.src.Buttons.ChangeShopPageButton;
-import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.Buttons.ImageButton;
 import com.saavedradelariera.src.Buttons.SkinButton;
 import com.saavedradelariera.src.ClickListener;
-import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Skin;
 import com.saavedradelariera.src.Text;
@@ -89,8 +84,8 @@ public class ShopScene extends Scene {
             @Override
             public void onClick() {
                 ShopManager.getInstance().removeActiveSkin(currentCat);
+                loadPage();
                 showActiveIndicator(startX,startY);
-                showToast("Te has quitado la skin actual");
             }
         });
 
@@ -143,7 +138,6 @@ public class ShopScene extends Scene {
                 if (!skin.getBought()) {
                     if (ShopManager.getInstance().getBalance() >= skin.getPrice()) {
                         // Comprar skin
-                        toastMsg = "Has comprado " + skin.getTitle();
                         ShopManager.getInstance().addBoughtSkin(skin.getTitle());
                         skin.setBought(true);
                         balance = new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), new ColorJ(255, 255, 255));
@@ -151,19 +145,12 @@ public class ShopScene extends Scene {
                         balance = new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), c);
                         clearPrice(x, y);
                         ShopManager.getInstance().setActiveSkin(skin.getCategory(), skin);
-                    } else {
-                        toastMsg = "No tienes monedas suficientes";
                     }
                 } else {
                     // Equipar Skin
-                    toastMsg = "Te has equipado " + skin.getTitle();
                     ShopManager.getInstance().setActiveSkin(skin.getCategory(), skin);
-                    if (skin.getCategory().equals("colores"))
-                        loadPage();
-                    else
-                        displaySkins();
+                    loadPage();
                 }
-                showToast(toastMsg);
             }
         });
     }
@@ -174,15 +161,6 @@ public class ShopScene extends Scene {
 
     private void clearPrice(int x, int y) {
         new VisualRectangle(x - 15, y + 170, 155, 80, ShopManager.getInstance().getBackgroundColor(), true);
-    }
-
-    private void showToast(String toastMsg) {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(ResourcesManager.getInstance().getCurrentContext(), toastMsg, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void showActiveIndicator(int x, int y) {
