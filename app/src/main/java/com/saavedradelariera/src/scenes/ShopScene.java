@@ -8,6 +8,7 @@ import com.saavedradelariera.src.Buttons.ChangeShopPageButton;
 import com.saavedradelariera.src.Buttons.ImageButton;
 import com.saavedradelariera.src.Buttons.SkinButton;
 import com.saavedradelariera.src.ClickListener;
+import com.saavedradelariera.src.ColorBackground;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Skin;
 import com.saavedradelariera.src.Text;
@@ -41,7 +42,7 @@ public class ShopScene extends Scene {
     }
 
     public void loadPage() {
-        new VisualRectangle(0, 0, androidGraphics.GetWidth(), androidGraphics.GetHeight(), ShopManager.getInstance().getBackgroundColor(), true);
+        new ColorBackground(ShopManager.getInstance().getBackgroundColor());
         currentCat = ShopManager.getInstance().getCategory(pageId);
         Text t = new Text(amountFont, 200, 50, 50, 50, currentCat, new ColorJ(0, 0, 0));
         balance = new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), c);

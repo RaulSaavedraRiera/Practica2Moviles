@@ -42,6 +42,8 @@ public class VisualRectangle extends GameObject {
     //overrideamos los métodos de GameObject y actualizamos render para que pinte lo deseado
     @Override
     public void Render(AndroidGraphics graphics) {
+
+
         if(!fill) {
             graphics.RenderRect(posX, posY, width, height, color);
             return;
@@ -61,6 +63,7 @@ public class VisualRectangle extends GameObject {
             graphics.RenderFillRect(posX,posY,width,height,color, color);
             return;
         }
+
     }
 
     @Override
