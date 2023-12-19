@@ -5,7 +5,6 @@ import android.content.res.AssetManager;
 
 import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.ColorJ;
-import com.saavedradelariera.ColorSkin;
 
 import org.json.JSONException;
 import org.json.JSONObject;

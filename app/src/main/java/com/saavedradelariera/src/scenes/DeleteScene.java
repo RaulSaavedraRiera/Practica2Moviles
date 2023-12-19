@@ -5,8 +5,10 @@ import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.ClickListener;
+import com.saavedradelariera.src.ColorBackground;
 import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.SceneManager;
+import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Text;
 
 /*Escena de selección de dificultad*/
@@ -18,6 +20,7 @@ public class DeleteScene extends Scene {
     @Override
     public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
         super.SetScene(graphics, audioSystem);
+        new ColorBackground(ShopManager.getInstance().getBackgroundColor());
 
         name = "DeleteScene";
 

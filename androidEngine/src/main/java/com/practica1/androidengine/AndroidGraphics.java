@@ -287,7 +287,6 @@ public class AndroidGraphics {
 
     public void setBackgroundImage(AndroidImage backgroundImage) {
         if (canvas != null) {
-            canvas.drawColor(Color.WHITE);
             int marginTop = 100;
             Rect src = new Rect();
             src.set(0, 0, backgroundImage.GetWidth(), backgroundImage.GetHeight());

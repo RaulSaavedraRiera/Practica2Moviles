@@ -5,6 +5,7 @@ import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.ClickListener;
+import com.saavedradelariera.src.ColorBackground;
 import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ShopManager;
@@ -22,8 +23,7 @@ public class MenuScene extends Scene {
         super.SetScene(graphics, audioSystem);
         name = "MenuScene";
         ColorJ buttonColor = ShopManager.getInstance().getButtonsColor();
-
-        new VisualRectangle(0,0,graphics.GetWidth(), graphics.GetHeight(), ShopManager.getInstance().getBackgroundColor(), true);
+        new ColorBackground(ShopManager.getInstance().getBackgroundColor());
 
         GenericButton buttonMenu = new GenericButton(100, 500, 400,
                 100, buttonColor, new ColorJ(0, 0, 128), 10);

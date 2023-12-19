@@ -1,4 +1,4 @@
-package com.saavedradelariera;
+package com.saavedradelariera.src;
 
 import com.saavedradelariera.src.Skin;
 

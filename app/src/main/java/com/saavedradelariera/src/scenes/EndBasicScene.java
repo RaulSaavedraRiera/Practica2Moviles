@@ -9,6 +9,7 @@ import com.saavedradelariera.src.Buttons.ChangeToNewGameButton;
 import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.Buttons.ShareButton;
 import com.saavedradelariera.src.ClickListener;
+import com.saavedradelariera.src.ColorBackground;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Text;
@@ -41,8 +42,7 @@ public class EndBasicScene extends Scene {
         super.SetScene(graphics, audioSystem);
 
         ColorJ buttonsColor = ShopManager.getInstance().getButtonsColor();
-
-        new VisualRectangle(0, 0, graphics.GetWidth(), graphics.GetHeight(), ShopManager.getInstance().getBackgroundColor(), true);
+        new ColorBackground(ShopManager.getInstance().getBackgroundColor());
 
         if (win) {
             new Text("Night.ttf", 150, 120, 45, 125, "ENHORABUENA!!", new ColorJ(0, 0, 0));

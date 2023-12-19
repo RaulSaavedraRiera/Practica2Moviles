@@ -9,6 +9,7 @@ import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.Buttons.ChangeToNewGameButton;
 import com.saavedradelariera.src.Buttons.ShareButton;
 import com.saavedradelariera.src.ClickListener;
+import com.saavedradelariera.src.ColorBackground;
 import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ShopManager;
@@ -40,7 +41,7 @@ public class EndScene extends Scene {
     public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
         super.SetScene(graphics, audioSystem);
 
-        new VisualRectangle(0, 0, graphics.GetWidth(), graphics.GetHeight(), ShopManager.getInstance().getBackgroundColor(), true);
+        new ColorBackground(ShopManager.getInstance().getBackgroundColor());
         ColorJ buttonsColor = ShopManager.getInstance().getButtonsColor();
 
         if (win) {

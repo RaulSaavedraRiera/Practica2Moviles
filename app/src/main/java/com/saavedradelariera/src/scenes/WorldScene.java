@@ -7,7 +7,9 @@ import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
 import com.saavedradelariera.src.Buttons.ChangeWorldButton;
 import com.saavedradelariera.src.Buttons.LevelButton;
+import com.saavedradelariera.src.ColorBackground;
 import com.saavedradelariera.src.ImageBackground;
+import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Text;
 import com.saavedradelariera.src.ResourcesManager;
 
@@ -34,6 +36,7 @@ public class WorldScene extends Scene {
 
         name = "WorldScene";
 
+        new ColorBackground(ShopManager.getInstance().getBackgroundColor());
         AndroidImage i = ResourcesManager.getInstance().getBackground(graphics, false);
         ImageBackground img = new ImageBackground(i);
 

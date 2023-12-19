@@ -6,6 +6,7 @@ import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
 import com.saavedradelariera.src.Buttons.DaltonicButton;
+import com.saavedradelariera.src.ColorBackground;
 import com.saavedradelariera.src.GameManager;
 import com.saavedradelariera.src.ImageBackground;
 import com.saavedradelariera.src.InputSolution;
@@ -42,7 +43,7 @@ public class GameScene extends Scene {
             primaryColor = ShopManager.getInstance().getBackgroundColor();
             iconImages = ResourcesManager.getInstance().LoadGameIcons(graphics);
             backgroundImage = ResourcesManager.getInstance().getBackground(graphics, true);
-            new VisualRectangle(0,0,graphics.GetWidth(), graphics.GetHeight(), ShopManager.getInstance().getBackgroundColor(), true);
+            new ColorBackground(ShopManager.getInstance().getBackgroundColor());
 
         } else {
             backgroundImage = ResourcesManager.getInstance().getBackground(graphics, false);
@@ -77,7 +78,6 @@ public class GameScene extends Scene {
         //parte superior del nivel
         //rectangulo para tapar la parte de arriba
         new VisualRectangle(0, 0, (int)graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), primaryColor, true);
-
         new Text("Night.ttf",200, 50, 25, 50,  "Averigua el código", new ColorJ(0, 0, 0));
         new ChangeSceneButtonBack("X.png", 70, 50, 30, 30);
         //si no hay imagenes metemos el daltonic button

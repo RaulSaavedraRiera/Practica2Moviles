@@ -17,6 +17,15 @@ public class Skin {
         this.category = category;
     }
 
+    public Skin(String title, int price, String samplePath, String skinsPath, String category, boolean bought) {
+        this.title = title;
+        this.price = price;
+        this.samplePath = samplePath;
+        this.skinsPath = skinsPath;
+        this.category = category;
+        this.bought = bought;
+    }
+
     public void setBought(boolean bought) {
         this.bought = bought;
     }

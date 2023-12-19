@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Clase encargada de leer los directorios de los mundos, asi como de leer los json de los niveles y guardar toda esta informacion
@@ -25,6 +27,11 @@ public class ProgressManager {
     private Context context;
     private String file = "progress.json";
     private String hashFile = "hash.txt";
+    private int balance;
+    private Map<String, Skin> activeSkinsMap;
+    private ArrayList<JSONObject> jsonActiveSkinsMap;
+    //private Map<String, Map<String, Skin>> skinsMap;
+
     NDKManager ndkManager = new NDKManager();
 
     private void ProgressManager() {
@@ -46,6 +53,9 @@ public class ProgressManager {
         try {
             jsonObject.put("level", levelPass);
             jsonObject.put("world", worldPass);
+            jsonObject.put("balance", balance);
+            //jsonObject.put("skinsMap", skinsMap);
+            //jsonObject.put("activeSkinsMap", activeSkinsMap);
 
             if (SceneManager.getInstance() != null)
                 jsonObject.put("stateLevel", SceneManager.getInstance().GetActiveSceneState());
@@ -89,6 +99,7 @@ public class ProgressManager {
             levelPass = jsonObject.getInt("level");
             worldPass = jsonObject.getInt("world");
             levelState = jsonObject.getString("stateLevel");
+            balance = jsonObject.getInt("balance");
 
             ProcessLevelInfo();
 
@@ -213,6 +224,7 @@ public class ProgressManager {
     public int[] getLevelInProgressSolution(){
         return solutionInfo;
     }
+
     public String getLevelRowState() {
         levelState = "NONE";
 

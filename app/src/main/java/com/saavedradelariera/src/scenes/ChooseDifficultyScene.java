@@ -5,6 +5,7 @@ import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonGame;
+import com.saavedradelariera.src.ColorBackground;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Text;
 import com.saavedradelariera.src.VisualRectangle;
@@ -21,7 +22,7 @@ public class ChooseDifficultyScene extends Scene {
 
         name = "ChooseScene";
 
-        new VisualRectangle(0,0,graphics.GetWidth(), graphics.GetHeight(), ShopManager.getInstance().getBackgroundColor(), true);
+        new ColorBackground(ShopManager.getInstance().getBackgroundColor());
 
         Text tT = new Text("Night.ttf", 75, 250, 30, 100,  "¿En que dificultad quieres jugar?", new ColorJ(0, 0, 0));
 

@@ -1,15 +1,11 @@
 package com.saavedradelariera.src.Buttons;
 
-import android.graphics.Color;
-import android.widget.Toast;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
-import com.saavedradelariera.ColorSkin;
+import com.saavedradelariera.src.ColorSkin;
 import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.GameObject;
-import com.saavedradelariera.src.ResourcesManager;
-import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Skin;
 
 public class SkinButton extends GameObject {
