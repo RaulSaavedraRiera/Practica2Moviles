@@ -4,14 +4,17 @@ import android.graphics.Bitmap;
 
 import com.practica1.androidengine.AndroidAudio;
 import com.practica1.androidengine.AndroidGraphics;
+import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
+import com.practica1.androidengine.mobileManagers.AdsFinishCallback;
 import com.practica1.androidengine.mobileManagers.ScreenShootFinish;
 import com.saavedradelariera.src.ButtonArray;
-import com.saavedradelariera.src.Buttons.AdButton;
 import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.ColorBackground;
+import com.saavedradelariera.src.GameManager;
 import com.saavedradelariera.src.ProgressManager;
+import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Text;
@@ -24,7 +27,7 @@ public class EndGameScene extends Scene {
     int tries, gameDifficult;
     ArrayList<ColorJ> colors;
     ArrayList<Integer> numbers;
-
+    ArrayList<AndroidImage> iconImages;
     public EndGameScene(boolean win, int tries, ArrayList<ColorJ> colors, ArrayList<Integer> numbers, boolean daltonic, int gameDifficult, boolean typeGame) {
         this.win = win;
         this.tries = tries;
@@ -33,6 +36,7 @@ public class EndGameScene extends Scene {
         this.daltonic = daltonic;
         this.gameDifficult = gameDifficult;
         this.typeGame = typeGame;
+
     }
 
     @Override
@@ -41,20 +45,30 @@ public class EndGameScene extends Scene {
 
         new ColorBackground(ShopManager.getInstance().getBackgroundColor());
         ColorJ buttonsColor = ShopManager.getInstance().getButtonsColor();
+        ColorJ blackColor = new ColorJ(0, 0, 0);
 
 
-        new Text("Night.ttf", 270, 300, 20, 50, "código:", new ColorJ(0, 0, 0));
+        if(typeGame)
+            iconImages = ResourcesManager.getInstance().LoadGameIcons(graphics);
+        else
+            iconImages = ResourcesManager.getInstance().LoadLevelIcons(ResourcesManager.getInstance().getSkinsId(), graphics);
+
+        new Text("Night.ttf", 270, 300, 20, 50, "código:", blackColor);
         ButtonArray b = new ButtonArray(100, 350, 400, 100);
-        b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, colors, false, false, daltonic);
 
-        //Si se gana la partida
+        if(iconImages == null)
+            b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, colors, false, false, daltonic);
+        else
+            b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, iconImages, false, false);
+
+            //Si se gana la partida
         if (win) {
-            new Text("Night.ttf", 150, 120, 45, 125, "ENHORABUENA!!", new ColorJ(0, 0, 0));
-            new Text("Night.ttf", 175, 175, 18, 50, "Has averiguado el código en:", new ColorJ(0, 0, 0));
-            new Text("Night.ttf", 230, 250, 30, 70, String.valueOf(tries + 1) + " intentos", new ColorJ(0, 0, 0));
+            new Text("Night.ttf", 150, 120, 45, 125, "ENHORABUENA!!", blackColor);
+            new Text("Night.ttf", 175, 175, 18, 50, "Has averiguado el código en:", blackColor);
+            new Text("Night.ttf", 230, 250, 30, 70, String.valueOf(tries + 1) + " intentos", blackColor);
 
-            GenericButton shareB = new GenericButton(100, 510, 400, 100, buttonsColor, new ColorJ(0, 0, 0), 10);
-            new Text("Night.ttf", 175, 550, 55, 55, "COMPARTIR", new ColorJ(0, 0, 0));
+            GenericButton shareB = new GenericButton(100, 510, 400, 100, buttonsColor, blackColor, 10);
+            new Text("Night.ttf", 175, 550, 55, 55, "COMPARTIR", blackColor);
             shareB.setClickListener(new ClickListener() {
                 @Override
                 public void onClick() {
@@ -72,8 +86,8 @@ public class EndGameScene extends Scene {
             if(!typeGame)
             {
                 ProgressManager.getInstance().setLevelPass();
-                GenericButton next = new GenericButton(100, 700, 400, 50, buttonsColor, new ColorJ(0, 0, 128), 10);
-                new Text("Night.ttf", 180, 710, 36, 90, "Siguiente nivel", new ColorJ(0, 0, 0));
+                GenericButton next = new GenericButton(100, 700, 400, 50, buttonsColor, blackColor, 10);
+                new Text("Night.ttf", 180, 710, 36, 90, "Siguiente nivel", blackColor);
                 next.setClickListener(new ClickListener() {
                     @Override
                     public void onClick() {
@@ -84,8 +98,8 @@ public class EndGameScene extends Scene {
                 });
             }else {
 
-                GenericButton playAgainB = new GenericButton(100, 700, 400, 50, buttonsColor, new ColorJ(0, 0, 128), 10);
-                new Text("Night.ttf", 180, 710, 36, 90, "Volver a jugar", new ColorJ(0, 0, 0));
+                GenericButton playAgainB = new GenericButton(100, 700, 400, 50, buttonsColor, blackColor, 10);
+                new Text("Night.ttf", 180, 710, 36, 90, "Volver a jugar", blackColor);
                 playAgainB.setClickListener(new ClickListener() {
                     @Override
                     public void onClick() {
@@ -95,8 +109,8 @@ public class EndGameScene extends Scene {
                     }
                 });
 
-                GenericButton finalButton = new GenericButton(100, 775, 400, 50, buttonsColor, new ColorJ(0, 0, 128), 10);
-                new Text("Night.ttf", 160, 785, 36, 90, "Elegir dificultad", new ColorJ(0, 0, 0));
+                GenericButton finalButton = new GenericButton(100, 775, 400, 50, buttonsColor, blackColor, 10);
+                new Text("Night.ttf", 160, 785, 36, 90, "Elegir dificultad", blackColor);
                 finalButton.setClickListener(new ClickListener() {
                     @Override
                     public void onClick() {
@@ -107,12 +121,30 @@ public class EndGameScene extends Scene {
             }
             // Si se pierde la partida
         } else {
-            new Text("Night.ttf", 200, 120, 45, 125, "GAME OVER", new ColorJ(0, 0, 0));
-            new Text("Night.ttf", 175, 175, 18, 50, "Te has quedado sin intentos", new ColorJ(0, 0, 0));
-            new AdButton(100, 510, 400, 100, buttonsColor, new ColorJ(0, 0, 0), "Night.ttf", 10);
+            new Text("Night.ttf", 200, 120, 45, 125, "GAME OVER", blackColor);
+            new Text("Night.ttf", 175, 175, 18, 50, "Te has quedado sin intentos", blackColor);
+            GenericButton adButton = new GenericButton(100, 510, 400, 100, buttonsColor, blackColor,  10);
+            new Text("Night.ttf",140, 535, 50, 50, "+ 2 intentos", blackColor);
+            adButton.setClickListener(new ClickListener() {
+                @Override
+                public void onClick() {
+                    SceneManager.getInstance().getEngine().SolicitateRewardAd(new AdsFinishCallback() {
+                        @Override
+                        public void doAction() {
 
-            GenericButton playAgainB = new GenericButton(100, 700, 400, 50, buttonsColor, new ColorJ(0, 0, 128), 10);
-            new Text("Night.ttf", 180, 710, 36, 90, "Volver a jugar", new ColorJ(0, 0, 0));
+                            GameScene gS = (GameScene) SceneManager.getInstance().getPeckStack();
+
+                            SceneManager.getInstance().useSceneStack();
+                            SceneManager.getInstance().ReturnToScene(gS);
+
+                            gS.getGameManager().AddRows(2);
+                        }
+                    });
+                }
+            });
+
+            GenericButton playAgainB = new GenericButton(100, 700, 400, 50, buttonsColor, blackColor, 10);
+            new Text("Night.ttf", 180, 710, 36, 90, "Volver a jugar", blackColor);
             playAgainB.setClickListener(new ClickListener() {
                 @Override
                 public void onClick() {
@@ -123,8 +155,8 @@ public class EndGameScene extends Scene {
             });
         }
 
-        GenericButton finalButton = new GenericButton(100, 775, 400, 50, buttonsColor, new ColorJ(0, 0, 128), 10);
-        new Text("Night.ttf", 260, 785, 36, 90, "Menu", new ColorJ(0, 0, 0));
+        GenericButton finalButton = new GenericButton(100, 775, 400, 50, buttonsColor, blackColor, 10);
+        new Text("Night.ttf", 260, 785, 36, 90, "Menu", blackColor);
         finalButton.setClickListener(new ClickListener() {
             @Override
             public void onClick() {
