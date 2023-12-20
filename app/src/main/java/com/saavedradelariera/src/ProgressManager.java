@@ -1,7 +1,9 @@
 package com.saavedradelariera.src;
 
 import android.content.Context;
-import com.saavedradelariera.NDKManager;
+
+import com.practica1.androidengine.NDKManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -122,6 +124,7 @@ public class ProgressManager {
             {
                 levelPass = 1;
                 worldPass = 1;
+                levelState = "NONE";
             }
 
         } catch (IOException | JSONException e) {
