@@ -26,13 +26,14 @@ import java.util.ArrayList;
 public class GameScene extends Scene {
     int nButtons, nRows, nColors, difficult;
     boolean isQuickGame;
-
     GameManager gameManager;
-
     ArrayList<AndroidImage> iconImages;
     AndroidImage backgroundImage;
     ColorJ primaryColor;
     String progress;
+
+    ResourcesManager resourcesManager;
+    ShopManager shopManager;
 
     boolean loadState;
 
@@ -40,6 +41,9 @@ public class GameScene extends Scene {
         difficult = diff;
         this.isQuickGame = isQuickGame;
         this.loadState = loadState;
+
+        resourcesManager = ResourcesManager.getInstance();
+        shopManager = ShopManager.getInstance();
     }
 
     @Override
@@ -47,14 +51,14 @@ public class GameScene extends Scene {
         super.SetScene(graphics, audioSystem);
 
         if (isQuickGame) {
-            primaryColor = ShopManager.getInstance().getBackgroundColor();
-            iconImages = ResourcesManager.getInstance().LoadGameIcons(graphics);
-            backgroundImage = ResourcesManager.getInstance().getBackground(graphics, true);
-            new ColorBackground(ShopManager.getInstance().getBackgroundColor());
+            primaryColor = shopManager.getBackgroundColor();
+            iconImages = resourcesManager.LoadGameIcons(graphics);
+            backgroundImage = resourcesManager.getBackground(graphics, true);
+            new ColorBackground(shopManager.getBackgroundColor());
 
         } else {
-            backgroundImage = ResourcesManager.getInstance().getBackground(graphics, false);
-            iconImages = ResourcesManager.getInstance().LoadLevelIcons(ResourcesManager.getInstance().getSkinsId(), graphics);
+            backgroundImage = resourcesManager.getBackground(graphics, false);
+            iconImages = resourcesManager.LoadLevelIcons(resourcesManager.getSkinsId(), graphics);
             primaryColor = new ColorJ("#ffffff");
         }
 
@@ -108,13 +112,13 @@ public class GameScene extends Scene {
           level = "9999";
         else
         {
-            int world = ResourcesManager.getInstance().getIdActualWorld();
+            int world = resourcesManager.getIdActualWorld();
             if(world < 10)
                 level = "0" + Integer.toString(world);
             else
                 level = Integer.toString(world);
 
-            int currentL = ResourcesManager.getInstance().getIdActualLevel();
+            int currentL = resourcesManager.getIdActualLevel();
             if(currentL < 10)
                 level += "0" + Integer.toString(currentL);
             else
@@ -154,7 +158,7 @@ public class GameScene extends Scene {
                 //Nivel personalizado
 
             case 4:
-                Level aux = ResourcesManager.getInstance().getActualLevel();
+                Level aux = resourcesManager.getActualLevel();
                 nButtons = aux.getCodeSize();
                 nRows = aux.getAttempts();
                 nColors = aux.getCodeOpt();

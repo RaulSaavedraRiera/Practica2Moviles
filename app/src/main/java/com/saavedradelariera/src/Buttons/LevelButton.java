@@ -39,13 +39,10 @@ public class LevelButton extends GenericButton {
         this.c2 = c2;
         this.routeF = routeF;
         this.radius = radius;
-
         this.id = id;
-
         pass = true;
 
         pM = ProgressManager.getInstance();
-
         font = new AndroidFont(routeF, w, false);
         this.routeI = routeI;
     }

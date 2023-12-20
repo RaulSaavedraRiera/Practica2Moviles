@@ -6,7 +6,6 @@ import android.content.res.AssetManager;
 import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
-import com.practica1.androidengine.ColorJ;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,9 +25,8 @@ import java.util.HashMap;
 public class ResourcesManager {
     private int idActualWorld = 1;
     private int idActualLevel = 1;
-
     private int nWorld;
-    final String path = "levels";
+    final String LvlPath = "levels";
     final String BgPath = "sprites/backgrounds/";
     private ArrayList<String> files;
     private ArrayList<String> filesImage;
@@ -43,7 +41,6 @@ public class ResourcesManager {
     }
 
     public void Init(AndroidEngine engine) {
-
         idActualWorld = 1;
 
         backgrounds = new HashMap<>();
@@ -65,7 +62,7 @@ public class ResourcesManager {
         return instance;
     }
 
-    // Mundo actual en el que se encuentra el jugador
+    // Mundo actual en el que se encuentra el jugador visualmente
     public int getIdActualWorld() {
         return idActualWorld;
     }
@@ -84,10 +81,8 @@ public class ResourcesManager {
     }
 
     public boolean setWorld(int newWorld) {
-
         if(newWorld < 0 || newWorld > nWorld)
             return false;
-
         idActualWorld = newWorld;
         return true;
     }
@@ -221,12 +216,12 @@ public class ResourcesManager {
 
         try {
             for (String nameW : files) {
-                String[] directories = mngr.list(path + '/' + nameW);
+                String[] directories = mngr.list(LvlPath + '/' + nameW);
 
                 ArrayList<Level> levels = new ArrayList<>();
 
                 for (String directory : directories) {
-                    Level l = JSONToLevel(mngr, path + '/' + nameW + '/' + directory);
+                    Level l = JSONToLevel(mngr, LvlPath + '/' + nameW + '/' + directory);
                     if (l != null)
                         levels.add(l);
                 }
@@ -235,9 +230,6 @@ public class ResourcesManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    private void setActualLevel(Level actualLevel) {
-        this.actualLevel = actualLevel;
     }
 
     private Level JSONToLevel(AssetManager mngr, String filePath) {
@@ -280,7 +272,7 @@ public class ResourcesManager {
         AssetManager mngr = currentContext.getAssets();
 
         try {
-            String[] directories = mngr.list(path);
+            String[] directories = mngr.list(LvlPath);
 
             for (String directory : directories) {
                 files.add(directory);
@@ -301,10 +293,6 @@ public class ResourcesManager {
 
     public void setIdActualLevel(int idActualLevel) {
         this.idActualLevel = idActualLevel;
-    }
-
-    public Context getCurrentContext() {
-        return currentContext;
     }
 
 }

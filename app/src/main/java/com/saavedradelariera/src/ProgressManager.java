@@ -29,7 +29,6 @@ public class ProgressManager {
     private int currentWorld, currentLevelWorld, currentLevelDifficult;
     private int[] solutionInfo;
 
-
     private static ProgressManager instance = null;
     private Context context;
     private String file = "progress.json";
@@ -37,10 +36,7 @@ public class ProgressManager {
     private int balance;
     private Map<String, Skin> activeSkinsMap;
     private ArrayList<JSONObject> jsonActiveSkinsMap;
-    //private Map<String, Map<String, Skin>> skinsMap;
-
     NDKManager ndkManager = new NDKManager();
-
     private void ProgressManager() {
     }
 
@@ -61,8 +57,6 @@ public class ProgressManager {
             jsonObject.put("level", levelPass);
             jsonObject.put("world", worldPass);
             jsonObject.put("balance", balance);
-            //jsonObject.put("skinsMap", skinsMap);
-            //jsonObject.put("activeSkinsMap", activeSkinsMap);
 
             if (SceneManager.getInstance() != null)
             {
@@ -71,7 +65,6 @@ public class ProgressManager {
                     jsonObject.put("stateLevel", s);
 
             }
-
 
             FileOutputStream fileOutputStream = context.openFileOutput(file, Context.MODE_PRIVATE);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);

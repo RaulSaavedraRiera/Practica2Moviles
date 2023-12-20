@@ -9,7 +9,9 @@ import com.saavedradelariera.src.scenes.MenuScene;
 import com.saavedradelariera.src.scenes.WorldScene;
 
 
-/*Botón de cambio de escena a la escena anterior*/
+/*
+* Botón de cambio de escena a la escena anterior, que debido a su gran uso es una clase propia
+*/
 public class ChangeSceneButtonBack extends ImageButton {
 
 
