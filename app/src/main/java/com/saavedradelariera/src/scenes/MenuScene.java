@@ -56,12 +56,12 @@ public class MenuScene extends Scene {
                 Scene s;
                 if(!ProgressManager.getInstance().levelInProgress() || !ProgressManager.getInstance().WorldLevelInProgress())
                 {
-                   s = new WorldScene();
+                    s = new WorldScene();
                 }
                 else
                 {
                     ResourcesManager.getInstance().setWorld(ProgressManager.getInstance().getWorldInProgress());
-                    ResourcesManager.getInstance().getLevel(ProgressManager.getInstance().GetLevelInProgress());
+                    ResourcesManager.getInstance().getLevel(ProgressManager.getInstance().GetLevelInProgress(), ProgressManager.getInstance().getIdActualWorld());
                     ResourcesManager.getInstance().setIdActualLevel(ProgressManager.getInstance().GetLevelInProgress());
                     SceneManager.getInstance().pushSceneStack();
 
@@ -101,5 +101,5 @@ public class MenuScene extends Scene {
                 SceneManager.getInstance().SetScene(sS);
             }
         });
-        }
+    }
 }

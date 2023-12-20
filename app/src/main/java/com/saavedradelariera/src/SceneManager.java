@@ -102,9 +102,14 @@ public class SceneManager {
         sceneStack.add(activeScene);
     }
     public Scene useSceneStack(){
-        Scene aux = sceneStack.peek();
-        sceneStack.pop();
-        return aux;
+
+        if(!sceneStack.empty())
+        {
+            Scene aux = sceneStack.peek();
+            sceneStack.pop();
+            return aux;
+        }
+        return null;
     }
     public void resetStack()
     {
@@ -121,7 +126,7 @@ public class SceneManager {
 
     public void LaunchAcceleratorEvent()
     {
-      SendMessageToActiveScene(new AcceleratorEventMessage());
+        SendMessageToActiveScene(new AcceleratorEventMessage());
     }
 
     public  String  GetActiveSceneState (){
