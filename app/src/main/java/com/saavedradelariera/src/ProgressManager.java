@@ -259,8 +259,6 @@ public class ProgressManager {
 
     public String getLevelRowState() {
         levelState = "NONE";
-
        return rowsInfo;
     }
-
 }

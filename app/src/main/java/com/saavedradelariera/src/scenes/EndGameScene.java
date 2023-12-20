@@ -10,9 +10,9 @@ import com.practica1.androidengine.mobileManagers.AdsFinishCallback;
 import com.practica1.androidengine.mobileManagers.ScreenShootFinish;
 import com.saavedradelariera.src.ButtonArray;
 import com.saavedradelariera.src.Buttons.GenericButton;
+import com.saavedradelariera.src.Buttons.ImageButton;
 import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.ColorBackground;
-import com.saavedradelariera.src.GameManager;
 import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.SceneManager;
@@ -28,6 +28,10 @@ public class EndGameScene extends Scene {
     ArrayList<ColorJ> colors;
     ArrayList<Integer> numbers;
     ArrayList<AndroidImage> iconImages;
+    ShopManager shopManager;
+    ResourcesManager resourcesManager;
+    SceneManager sceneManager;
+
     public EndGameScene(boolean win, int tries, ArrayList<ColorJ> colors, ArrayList<Integer> numbers, boolean daltonic, int gameDifficult, boolean typeGame) {
         this.win = win;
         this.tries = tries;
@@ -37,21 +41,24 @@ public class EndGameScene extends Scene {
         this.gameDifficult = gameDifficult;
         this.typeGame = typeGame;
 
+        shopManager = ShopManager.getInstance();
+        resourcesManager = ResourcesManager.getInstance();
+        sceneManager = SceneManager.getInstance();
+
     }
 
     @Override
     public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
         super.SetScene(graphics, audioSystem);
 
-        new ColorBackground(ShopManager.getInstance().getBackgroundColor());
-        ColorJ buttonsColor = ShopManager.getInstance().getButtonsColor();
+        new ColorBackground(shopManager.getBackgroundColor());
+        ColorJ buttonsColor = shopManager.getButtonsColor();
         ColorJ blackColor = new ColorJ(0, 0, 0);
 
-
         if(typeGame)
-            iconImages = ResourcesManager.getInstance().LoadGameIcons(graphics);
+            iconImages = resourcesManager.LoadGameIcons(graphics);
         else
-            iconImages = ResourcesManager.getInstance().LoadLevelIcons(ResourcesManager.getInstance().getSkinsId(), graphics);
+            iconImages = resourcesManager.LoadLevelIcons(resourcesManager.getSkinsId(), graphics);
 
         new Text("Night.ttf", 270, 300, 20, 50, "código:", blackColor);
         ButtonArray b = new ButtonArray(100, 350, 400, 100);
@@ -72,16 +79,15 @@ public class EndGameScene extends Scene {
             shareB.setClickListener(new ClickListener() {
                 @Override
                 public void onClick() {
-                    SceneManager.getInstance().getEngine().GetGraphics().generateScreenShoot(0
-                            , 0, SceneManager.getInstance().getEngine().GetGraphics().GetWidth(), SceneManager.getInstance().getEngine().GetGraphics().GetHeight() / 2, new ScreenShootFinish() {
+                 sceneManager.getEngine().GetGraphics().generateScreenShoot(0
+                            , 0, sceneManager.getEngine().GetGraphics().GetWidth(), sceneManager.getEngine().GetGraphics().GetHeight() / 2, new ScreenShootFinish() {
                                 @Override
                                 public void doAction(Bitmap bitmap) {
-                                    SceneManager.getInstance().getEngine().SolicitateShare(bitmap, "ME HE PASADO EL MASTERMIND");
+                                    sceneManager.getEngine().SolicitateShare(bitmap, "ME HE PASADO EL MASTERMIND");
                                 }
                             });
                 }
             });
-
             //Si es un nivel de mundo
             if(!typeGame)
             {
@@ -91,9 +97,9 @@ public class EndGameScene extends Scene {
                 next.setClickListener(new ClickListener() {
                     @Override
                     public void onClick() {
-                        SceneManager.getInstance().useSceneStack();
+                        sceneManager.useSceneStack();
                         WorldScene wS = new WorldScene();
-                        SceneManager.getInstance().SetScene(wS);
+                        sceneManager.SetScene(wS);
                     }
                 });
             }else {
@@ -103,9 +109,9 @@ public class EndGameScene extends Scene {
                 playAgainB.setClickListener(new ClickListener() {
                     @Override
                     public void onClick() {
-                        SceneManager.getInstance().useSceneStack();
+                        sceneManager.useSceneStack();
                         GameScene gS = new GameScene(gameDifficult, true, false);
-                        SceneManager.getInstance().SetScene(gS);
+                        sceneManager.SetScene(gS);
                     }
                 });
 
@@ -115,7 +121,7 @@ public class EndGameScene extends Scene {
                     @Override
                     public void onClick() {
                         ChooseDifficultyScene mS = new ChooseDifficultyScene();
-                        SceneManager.getInstance().SetScene(mS);
+                        sceneManager.SetScene(mS);
                     }
                 });
             }
@@ -128,15 +134,12 @@ public class EndGameScene extends Scene {
             adButton.setClickListener(new ClickListener() {
                 @Override
                 public void onClick() {
-                    SceneManager.getInstance().getEngine().SolicitateRewardAd(new AdsFinishCallback() {
+                    sceneManager.getEngine().SolicitateRewardAd(new AdsFinishCallback() {
                         @Override
                         public void doAction() {
-
-                            GameScene gS = (GameScene) SceneManager.getInstance().getPeckStack();
-
-                            SceneManager.getInstance().useSceneStack();
-                            SceneManager.getInstance().ReturnToScene(gS);
-
+                            GameScene gS = (GameScene) sceneManager.getPeckStack();
+                            sceneManager.useSceneStack();
+                            sceneManager.ReturnToScene(gS);
                             gS.getGameManager().AddRows(2);
                         }
                     });
@@ -148,9 +151,9 @@ public class EndGameScene extends Scene {
             playAgainB.setClickListener(new ClickListener() {
                 @Override
                 public void onClick() {
-                    SceneManager.getInstance().useSceneStack();
+                    sceneManager.useSceneStack();
                     GameScene gS = new GameScene(gameDifficult, typeGame, false);
-                    SceneManager.getInstance().SetScene(gS);
+                    sceneManager.SetScene(gS);
                 }
             });
         }
@@ -160,10 +163,15 @@ public class EndGameScene extends Scene {
         finalButton.setClickListener(new ClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().useSceneStack();
+                sceneManager.useSceneStack();
                 MenuScene mS = new MenuScene();
-                SceneManager.getInstance().SetScene(mS);
+                sceneManager.SetScene(mS);
             }
         });
+
+        shopManager.addBalance(15);
+        new Text("Night.ttf", 160, 875, 40, 40, " + 15 - TOTAL " + shopManager.getBalance(), blackColor);
+        new ImageButton("coin.png", 120, 850, 60, 60);
+
     }
 }
