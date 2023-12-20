@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground, "mastermind", "mastermindotravez", "canalmaster", 10, TimeUnit.SECONDS);
 
 
-        System.loadLibrary("mastermind");
+        System.loadLibrary("androidEngine");
 
         ResourcesManager.getInstance().Init(androidEngine);
         ProgressManager.getInstance().Init(androidEngine.getContext());

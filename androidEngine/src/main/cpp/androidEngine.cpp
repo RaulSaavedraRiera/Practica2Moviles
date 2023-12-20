@@ -7,7 +7,7 @@ using namespace picosha2;
 
 extern "C"
 JNIEXPORT jstring JNICALL
-Java_com_saavedradelariera_NDKManager_generateHash(JNIEnv *env, jclass clazz, jstring data) {
+Java_com_practica1_androidengine_NDKManager_generateHash(JNIEnv *env, jclass clazz, jstring data) {
     const char *convertedValue = env->GetStringUTFChars(data, nullptr);
     if (convertedValue == nullptr) {
         return nullptr;
