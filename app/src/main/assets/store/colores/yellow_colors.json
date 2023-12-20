@@ -1,0 +1,8 @@
+{
+  "title": "YellowColors",
+  "skinsPath": "sprites/colors/christmas/",
+  "samplePath": "sprites/icons/christmas/sample.png",
+  "price": 100,
+  "primaryColor": "#e8cf4d",
+  "secondaryColor": "#ad982b"
+}

@@ -102,14 +102,9 @@ public class SceneManager {
         sceneStack.add(activeScene);
     }
     public Scene useSceneStack(){
-
-        if(!sceneStack.empty())
-        {
-            Scene aux = sceneStack.peek();
-            sceneStack.pop();
-            return aux;
-        }
-        return null;
+        Scene aux = sceneStack.peek();
+        sceneStack.pop();
+        return aux;
     }
     public void resetStack()
     {

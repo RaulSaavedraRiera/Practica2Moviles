@@ -1,13 +1,11 @@
 package com.saavedradelariera.src.scenes;
 
 import android.graphics.Bitmap;
-import android.util.Pair;
 
 import com.practica1.androidengine.AndroidAudio;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
-import com.practica1.androidengine.Pool;
 import com.practica1.androidengine.mobileManagers.AdsFinishCallback;
 import com.practica1.androidengine.mobileManagers.ScreenShootFinish;
 import com.saavedradelariera.src.ButtonArray;
@@ -32,7 +30,6 @@ public class EndGameScene extends Scene {
     ArrayList<AndroidImage> iconImages;
     ShopManager shopManager;
     ResourcesManager resourcesManager;
-    ProgressManager progressManager;
     SceneManager sceneManager;
 
     public EndGameScene(boolean win, int tries, ArrayList<ColorJ> colors, ArrayList<Integer> numbers, boolean daltonic, int gameDifficult, boolean typeGame) {
@@ -47,7 +44,6 @@ public class EndGameScene extends Scene {
         shopManager = ShopManager.getInstance();
         resourcesManager = ResourcesManager.getInstance();
         sceneManager = SceneManager.getInstance();
-        progressManager = ProgressManager.getInstance();
 
     }
 
@@ -95,28 +91,15 @@ public class EndGameScene extends Scene {
             //Si es un nivel de mundo
             if(!typeGame)
             {
-                progressManager.setLevelPass();
+                ProgressManager.getInstance().setLevelPass();
                 GenericButton next = new GenericButton(100, 700, 400, 50, buttonsColor, blackColor, 10);
                 new Text("Night.ttf", 180, 710, 36, 90, "Siguiente nivel", blackColor);
                 next.setClickListener(new ClickListener() {
                     @Override
                     public void onClick() {
                         sceneManager.useSceneStack();
-
-
-                        Pair<Integer, Integer> nextLevelInfo = progressManager.getNextLevelInfo();
-
-                        if(nextLevelInfo.first != -1 && nextLevelInfo.second != -1) {
-                            resourcesManager.setIdActualLevel(nextLevelInfo.first);
-                            resourcesManager.getLevel(nextLevelInfo.first , nextLevelInfo.second);
-                            resourcesManager.setWorld(nextLevelInfo.second);
-                            progressManager.DeleteProgressInLevel();
-                            GameScene gS = new GameScene(4, false, false);
-                            sceneManager.SetScene(gS);
-                        }else {
-                            sceneManager.SetScene(new MenuScene());
-                        }
-
+                        WorldScene wS = new WorldScene();
+                        sceneManager.SetScene(wS);
                     }
                 });
             }else {
@@ -127,14 +110,7 @@ public class EndGameScene extends Scene {
                     @Override
                     public void onClick() {
                         sceneManager.useSceneStack();
-                        GameScene gS;
-
-                        if(resourcesManager.getIdActualLevel() == progressManager.getLevelPass() &&
-                                resourcesManager.getIdActualWorld() == progressManager.getWorldPass())
-                            gS = new GameScene(4, false, false);
-                        else
-                            gS = new GameScene(4, false, false);
-
+                        GameScene gS = new GameScene(gameDifficult, true, false);
                         sceneManager.SetScene(gS);
                     }
                 });

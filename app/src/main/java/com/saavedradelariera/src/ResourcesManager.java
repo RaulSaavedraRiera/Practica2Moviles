@@ -23,8 +23,8 @@ import java.util.HashMap;
  * para poder ser usada por las demas clases.
  */
 public class ResourcesManager {
-    private int idActualWorld = 0;
-    private int idActualLevel = 0;
+    private int idActualWorld = 1;
+    private int idActualLevel = 1;
     private int nWorld;
     final String LvlPath = "levels";
     final String BgPath = "sprites/backgrounds/";
@@ -41,7 +41,7 @@ public class ResourcesManager {
     }
 
     public void Init(AndroidEngine engine) {
-        idActualWorld = 0;
+        idActualWorld = 1;
 
         backgrounds = new HashMap<>();
         worlds = new ArrayList<ArrayList<Level>>();
@@ -70,10 +70,10 @@ public class ResourcesManager {
     // Paso entre los mundos (necesario en la clase para saber que recursos cargar en cada momento)
     public boolean changeWorld(boolean add) {
 
-        if (add && idActualWorld < nWorld - 1) {
+        if (add && idActualWorld + 1 < nWorld + 1) {
             idActualWorld++;
             return true;
-        } else if (!add && idActualWorld > 0) {
+        } else if (!add && idActualWorld - 1 > 0) {
             idActualWorld--;
             return true;
         }
@@ -99,13 +99,13 @@ public class ResourcesManager {
     }
 
     public int getSkinsId() {
-        return worldStyles.get(idActualWorld).getIdSkins();
+        return worldStyles.get(idActualWorld - 1).getIdSkins();
     }
 
     // Obtiene un nivel especifico del mundo
-    public Level getLevel(int levelIndex, int worldIndex) {
-        if (worldIndex >= 0 && worldIndex <= worlds.size() - 1) {
-            ArrayList<Level> selectedLevels = worlds.get(worldIndex);
+    public Level getLevel(int levelIndex) {
+        if (idActualWorld > 0 && idActualWorld - 1 <= worlds.size()) {
+            ArrayList<Level> selectedLevels = worlds.get(idActualWorld - 1);
             if (levelIndex >= 0 && levelIndex < selectedLevels.size()) {
                 Level level = selectedLevels.get(levelIndex);
                 this.actualLevel = level;
@@ -167,7 +167,7 @@ public class ResourcesManager {
                 return null;
 
         }else {
-            aux = worldStyles.get(idActualWorld).getBackground();
+            aux = worldStyles.get(idActualWorld - 1).getBackground();
         }
 
         if (backgrounds.containsKey(aux)) {
@@ -208,7 +208,7 @@ public class ResourcesManager {
 
     // Resetamos para mostrar de nuevo el mundo 1 al entrar
     public void resetWorld() {
-        idActualWorld = 0;
+        idActualWorld = 1;
     }
 
     private void ReadLevels() {

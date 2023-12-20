@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         androidEngine.GenerateMobile(this, MainActivity.this);
         androidEngine.GenerateBanner(R.id.adView);
         androidEngine.SolicitateLoadRewardAd();
+        androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground, "mastermind", "mastermindotravez", "canalmaster", 10, TimeUnit.SECONDS);
 
 
         System.loadLibrary("androidEngine");
@@ -78,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
         ProgressManager.getInstance().saveInJSON();
-        androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground, "Mastermind", "¡Entra a jugar y no te pierdas los nuevos niveles!", "canalmaster", 10, TimeUnit.SECONDS);
         androidEngine.Pause();
 
         if (accelerometer != null)
