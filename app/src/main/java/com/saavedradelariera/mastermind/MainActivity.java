@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     AndroidEngine androidEngine;
     private SensorManager sensorManager;
     private Sensor accelerometer;
-    private final float SENSORTHRESHOLD = 10f, TIMEBTWUSES = 1F;
+    private final float SENSORTHRESHOLD = 17f, TIMEBTWUSES = 1F;
     private long lastCallInSeconds;
 
     @Override

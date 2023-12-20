@@ -194,7 +194,7 @@ public class EndGameScene extends Scene {
         });
 
         shopManager.addBalance(15);
-        new Text("Night.ttf", 160, 875, 40, 40, " + 15 - TOTAL " + shopManager.getBalance(), blackColor);
+        new Text("Night.ttf", 180, 875, 40, 40, " + 15 - TOTAL " + shopManager.getBalance(), blackColor);
         new ImageButton("coin.png", 120, 850, 60, 60);
 
     }
