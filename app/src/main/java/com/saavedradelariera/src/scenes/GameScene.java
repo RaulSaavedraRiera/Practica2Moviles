@@ -5,17 +5,20 @@ import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
-import com.saavedradelariera.src.Buttons.DaltonicButton;
+import com.saavedradelariera.src.Buttons.GenericButton;
+import com.saavedradelariera.src.Buttons.ImageButton;
+import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.ColorBackground;
 import com.saavedradelariera.src.GameManager;
 import com.saavedradelariera.src.ImageBackground;
 import com.saavedradelariera.src.InputSolution;
 import com.saavedradelariera.src.Level;
-import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.ResourcesManager;
+import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Text;
 import com.saavedradelariera.src.VisualRectangle;
+import com.saavedradelariera.src.messages.DaltonicChangeSolicitateMessage;
 
 import java.util.ArrayList;
 
@@ -86,7 +89,15 @@ public class GameScene extends Scene {
         new ChangeSceneButtonBack("X.png", 70, 50, 30, 30);
         //si no hay imagenes metemos el daltonic button
         if(iconImages == null)
-            new DaltonicButton("ojo.png", 500, 40, 50, 50);
+        {
+            ImageButton daltonic = new ImageButton("ojo.png", 500, 40, 50, 50);
+            daltonic.setClickListener(new ClickListener() {
+                @Override
+                public void onClick() {
+                    SceneManager.getInstance().SendMessageToActiveScene(new DaltonicChangeSolicitateMessage());
+                }
+            });
+        }
 
     }
 

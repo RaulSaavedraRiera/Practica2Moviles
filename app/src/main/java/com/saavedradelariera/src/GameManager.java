@@ -4,13 +4,10 @@ import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
-import com.saavedradelariera.src.Buttons.ImageButton;
 import com.saavedradelariera.src.messages.Message;
 import com.saavedradelariera.src.messages.InputColorMessage;
-import com.saavedradelariera.src.scenes.EndBasicScene;
-import com.saavedradelariera.src.scenes.EndScene;
+import com.saavedradelariera.src.scenes.EndGameScene;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -248,18 +245,12 @@ public class GameManager extends GameObject {
         if(!win)
             SceneManager.getInstance().pushSceneStack();
 
-
+        boolean type = false;
         if(difficult != 4)
-        {
-            EndBasicScene endSceneB = new EndBasicScene(win, currentRow, colors, solutionManager.getSolution(), currentDaltonicEnable, difficult);
-            SceneManager.getInstance().SetScene(endSceneB);
+            type = true;
 
-        }else {
-            EndScene endScene = new EndScene(win, currentRow, colors, solutionManager.getSolution(), currentDaltonicEnable, difficult);
-            SceneManager.getInstance().SetScene(endScene);
-
-        }
-
+        EndGameScene endGameScene = new EndGameScene(win, currentRow, colors, solutionManager.getSolution(), currentDaltonicEnable, difficult, type);
+        SceneManager.getInstance().SetScene(endGameScene);
     }
 
     @Override
