@@ -50,11 +50,11 @@ public class LevelButton extends GenericButton {
     @Override
     public void Render(AndroidGraphics graphics) {
         graphics.RenderFillRect(posX, posY, width, height, c, c2, radius);
-        if ((pM.getIdActualWorld() < pM.getWorldPass()) || ( pM.getIdActualWorld() == pM.getWorldPass() && id <= pM.getLevelPass()))
+        if ((pM.getIdActualWorld() < pM.getWorldPass()) ||
+                ( pM.getIdActualWorld() == pM.getWorldPass() && id <= pM.getLevelPass()))
         {
-            //pass = true;
             graphics.CreateFont(font.getRoute(), font.getSize(), font.getBold());
-            graphics.RenderText(x + w / 3,  y + h / 3, w / 3, String.valueOf(id), c2);
+            graphics.RenderText(x + w / 3,  y + h / 3, w / 3, String.valueOf(id + 1), c2);
         }else
         {
             pass = false;
@@ -65,18 +65,15 @@ public class LevelButton extends GenericButton {
     protected boolean HandleClick() {
         if(pass)
         {
-            ResourcesManager.getInstance().setIdActualLevel(this.id - 1);
-            ResourcesManager.getInstance().getLevel(this.id - 1);
+            ResourcesManager.getInstance().setIdActualLevel(this.id);
+            ResourcesManager.getInstance().getLevel(this.id , pM.getIdActualWorld());
             SceneManager.getInstance().pushSceneStack();
 
             ProgressManager.getInstance().DeleteProgressInLevel();
 
             GameScene gS = new GameScene(4, false, false);
             SceneManager.getInstance().SetScene(gS);
-
         }
-
-
         return true;
     }
 }

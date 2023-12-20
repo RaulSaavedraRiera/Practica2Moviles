@@ -61,7 +61,7 @@ public class MenuScene extends Scene {
                 else
                 {
                     ResourcesManager.getInstance().setWorld(ProgressManager.getInstance().getWorldInProgress());
-                    ResourcesManager.getInstance().getLevel(ProgressManager.getInstance().GetLevelInProgress());
+                    ResourcesManager.getInstance().getLevel(ProgressManager.getInstance().GetLevelInProgress(), ProgressManager.getInstance().getIdActualWorld());
                     ResourcesManager.getInstance().setIdActualLevel(ProgressManager.getInstance().GetLevelInProgress());
                     SceneManager.getInstance().pushSceneStack();
 

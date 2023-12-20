@@ -1,6 +1,7 @@
 package com.saavedradelariera.src;
 
 import android.content.Context;
+import android.util.Pair;
 
 import com.practica1.androidengine.NDKManager;
 
@@ -21,8 +22,8 @@ import java.util.Map;
  */
 public class ProgressManager {
     private ResourcesManager resourcesManager = ResourcesManager.getInstance();
-    private int worldPass = 1;
-    private int levelPass = 1;
+    private int worldPass = 0;
+    private int levelPass = 0;
 
     //guardar informacion de nivel actual
     private String levelState = "NONE", rowsInfo = "";
@@ -80,8 +81,8 @@ public class ProgressManager {
 
     public void resetGame()
     {
-        levelPass = 1;
-        worldPass = 1;
+        levelPass = 0;
+        worldPass = 0;
         levelState = "NONE";
     }
 
@@ -115,8 +116,8 @@ public class ProgressManager {
             // Si vemos que ha modificado los archivos le reseteamos el progreso
             if(!hashesMatch)
             {
-                levelPass = 1;
-                worldPass = 1;
+                levelPass = 0;
+                worldPass = 0;
                 levelState = "NONE";
             }
 
@@ -126,20 +127,20 @@ public class ProgressManager {
     }
 
     public void setLevelPass() {
-        int levelsInCurrentWorld = resourcesManager.getLevelsInWorld(resourcesManager.getIdActualWorld() - 1);
+        int levelsInCurrentWorld = resourcesManager.getLevelsInWorld(resourcesManager.getIdActualWorld());
 
-        if(resourcesManager.getIdActualLevel() + 1 != levelPass)
+        if(resourcesManager.getIdActualLevel() != levelPass)
             return;
 
         if(resourcesManager.getIdActualWorld() < worldPass)
             return;
 
-        if (levelPass > levelsInCurrentWorld)
+        if (levelPass > levelsInCurrentWorld - 1)
             return;
 
-        if (levelsInCurrentWorld == levelPass ) {
-            if (resourcesManager.getIdActualWorld() + 1 <= resourcesManager.getNWorld()) {
-                levelPass = 1;
+        if (levelsInCurrentWorld - 1 == levelPass ) {
+            if (resourcesManager.getIdActualWorld() <= resourcesManager.getNWorld()) {
+                levelPass = 0;
                 worldPass++;
             }
         } else
@@ -260,5 +261,32 @@ public class ProgressManager {
     public String getLevelRowState() {
         levelState = "NONE";
        return rowsInfo;
+    }
+
+    public Pair<Integer, Integer> getNextLevelInfo() {
+        int actLevel = resourcesManager.getIdActualLevel();
+        int actWorld = resourcesManager.getIdActualWorld();
+
+        int nLevels = resourcesManager.getLevelsInWorld(actWorld);
+
+        //Si es el ultimo nivel que me he pasado
+        if(actLevel == levelPass && actWorld == worldPass)
+        {
+            //setLevelPass();
+            return Pair.create(levelPass, worldPass);
+        }
+        else
+        {
+            if(actLevel + 1 < nLevels)
+                return Pair.create(actLevel+1, actWorld);
+            else
+            {
+                if(actWorld + 1 > resourcesManager.getNWorld())
+                    return Pair.create(-1, -1);
+                else
+                    return Pair.create(0, actWorld + 1);
+            }
+
+        }
     }
 }
