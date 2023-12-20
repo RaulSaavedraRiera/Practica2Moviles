@@ -21,8 +21,13 @@ public class ProgressManager {
     private ResourcesManager resourcesManager = ResourcesManager.getInstance();
     private int worldPass = 1;
     private int levelPass = 1;
+
+    //guardar informacion de nivel actual
     private String levelState = "NONE", rowsInfo = "";
+    private int currentWorld, currentLevelWorld, currentLevelDifficult;
     private int[] solutionInfo;
+
+
     private static ProgressManager instance = null;
     private Context context;
     private String file = "progress.json";
@@ -58,7 +63,13 @@ public class ProgressManager {
             //jsonObject.put("activeSkinsMap", activeSkinsMap);
 
             if (SceneManager.getInstance() != null)
-                jsonObject.put("stateLevel", SceneManager.getInstance().GetActiveSceneState());
+            {
+                String s = SceneManager.getInstance().GetActiveSceneState();
+                if(s.length() > 0)
+                    jsonObject.put("stateLevel", s);
+
+            }
+
 
             FileOutputStream fileOutputStream = context.openFileOutput(file, Context.MODE_PRIVATE);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
@@ -139,16 +150,30 @@ public class ProgressManager {
             levelPass++;
     }
 
+    /* 0-1: mundo, 00 si es nivel rapido
+     * 2-3: nivel, 00 si es nivel rapido
+     * 4: dificultad
+     * 5: tamaño solucion
+     * 6-6+sizeof(tamañosolucion) solucion
+     * x-x+3:numero de filas
+     * x+3-y:movimientos realizados
+    */
     void ProcessLevelInfo(){
         if(!levelState.equals("NONE"))
         {
-            int solutionSize = Character.getNumericValue(levelState.charAt(1));
-            int initRowInfo = solutionSize+3;
+            currentWorld = Integer.parseInt(levelState.substring(0, 2));
+            currentLevelWorld = Integer.parseInt(levelState.substring(2, 4));
+            currentLevelDifficult = Character.getNumericValue(levelState.charAt(4));
+
+
+            int solutionSize = Integer.parseInt(levelState.substring(5, 7));
 
             solutionInfo = new int[solutionSize];
             for (int i = 0; i < solutionSize; i++) {
-                solutionInfo[i] = Character.getNumericValue(levelState.charAt(i+2));
+                solutionInfo[i] = Character.getNumericValue(levelState.charAt(i+7));
             }
+
+            int initRowInfo = 7+solutionSize;
 
             rowsInfo = levelState.substring(initRowInfo, levelState.length());
         }
@@ -211,14 +236,25 @@ public class ProgressManager {
     }
 
     public boolean levelInProgress(){
-        return levelState.equals("NONE");
+        return !levelState.equals("NONE");
+    }
+
+    public boolean WorldLevelInProgress(){
+        return currentWorld != 99;
     }
 
     public void DeleteProgressInLevel(){
         levelState = "NONE";
     }
+
+    public int getWorldInProgress(){
+        return currentWorld;
+    }
+    public int GetLevelInProgress(){
+        return  currentLevelWorld;
+    }
     public int getLevelInProgressDifficult(){
-       return  Integer.valueOf(levelState.substring(0,1));
+       return  currentLevelDifficult;
     }
 
     public int[] getLevelInProgressSolution(){

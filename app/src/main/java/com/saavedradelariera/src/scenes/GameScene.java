@@ -11,6 +11,7 @@ import com.saavedradelariera.src.GameManager;
 import com.saavedradelariera.src.ImageBackground;
 import com.saavedradelariera.src.InputSolution;
 import com.saavedradelariera.src.Level;
+import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Text;
@@ -30,9 +31,12 @@ public class GameScene extends Scene {
     ColorJ primaryColor;
     String progress;
 
-    public GameScene(int diff, boolean isQuickGame){
+    boolean loadState;
+
+    public GameScene(int diff, boolean isQuickGame, boolean loadState){
         difficult = diff;
         this.isQuickGame = isQuickGame;
+        this.loadState = loadState;
     }
 
     @Override
@@ -61,10 +65,10 @@ public class GameScene extends Scene {
         //le pasamos al manager las columnas para que las gestione
         gameManager = new GameManager();
 
-        gameManager.Init(difficult, nButtons, nRows, graphics);
-
         if(iconImages != null)
             gameManager.setIconImages(iconImages);
+
+        gameManager.Init(difficult, nButtons, nRows, graphics, loadState);
 
 
         //creamos el input solution
@@ -88,7 +92,25 @@ public class GameScene extends Scene {
 
     @Override
     public String GetStateScene() {
-        return gameManager.GetLevelState();
+        String level;
+        if(isQuickGame)
+          level = "9999";
+        else
+        {
+            int world = ResourcesManager.getInstance().getIdActualWorld();
+            if(world < 10)
+                level = "0" + Integer.toString(world);
+            else
+                level = Integer.toString(world);
+
+            int currentL = ResourcesManager.getInstance().getIdActualLevel();
+            if(currentL < 10)
+                level += "0" + Integer.toString(currentL);
+            else
+                level += Integer.toString(currentL);
+        }
+
+        return level + gameManager.GetLevelState();
     }
 
     public GameManager getGameManager() {

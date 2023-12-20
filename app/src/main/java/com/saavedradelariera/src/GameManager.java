@@ -63,7 +63,7 @@ public class GameManager extends GameObject {
     }
 
   //Inicializa el GameManager
-    public void Init(int difficult, int solutionSize, int nRows, AndroidGraphics graphics){
+    public void Init(int difficult, int solutionSize, int nRows, AndroidGraphics graphics, boolean load){
 
         //Lo registra para recibir mensajes
         SceneManager.getInstance().RegisterToMessage(this);
@@ -74,7 +74,7 @@ public class GameManager extends GameObject {
         buttonsPerRow = solutionSize;
         GenerateRows(nRows, graphics);
 
-        if(ProgressManager.getInstance().levelInProgress())
+        if(!load)
         {
             this.difficult = difficult;
             solutionManager = new SolutionManager(difficult, false);
@@ -94,7 +94,7 @@ public class GameManager extends GameObject {
         triesT =   new Text("Night.ttf",205, 70, 20, 40,
                 "Te quedan " + String.valueOf(rows.size() - currentRow) + " intentos", new ColorJ(0, 0, 0));
 
-        if(!ProgressManager.getInstance().levelInProgress())
+        if(load)
             LoadLevelState();
     }
 
@@ -185,11 +185,11 @@ public class GameManager extends GameObject {
         if(state.length() < 3)
             return;
 
-        int nRowsTarget = Integer.valueOf(state.substring(0 , 2));
+        int nRowsTarget = Integer.valueOf(state.substring(0 , 3));
         if(rows.size() != nRowsTarget)
             AddRows(nRowsTarget - rows.size());
 
-        for (int i = 2; i < state.length(); i++) {
+        for (int i = 3; i < state.length(); i++) {
             ColorInput( Character.getNumericValue(state.charAt(i)));
         }
 

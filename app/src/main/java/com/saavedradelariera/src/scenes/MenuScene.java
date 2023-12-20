@@ -6,7 +6,9 @@ import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.ColorBackground;
+import com.saavedradelariera.src.Level;
 import com.saavedradelariera.src.ProgressManager;
+import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Text;
@@ -38,10 +40,10 @@ public class MenuScene extends Scene {
                 SceneManager.getInstance().pushSceneStack();
 
                 Scene s;
-                if(ProgressManager.getInstance().levelInProgress())
+                if(!ProgressManager.getInstance().levelInProgress() || ProgressManager.getInstance().WorldLevelInProgress())
                     s = new ChooseDifficultyScene();
                 else
-                    s = new GameScene(ProgressManager.getInstance().getLevelInProgressDifficult(), true);
+                    s = new GameScene(ProgressManager.getInstance().getLevelInProgressDifficult(), true, true);
 
                 SceneManager.getInstance().SetScene(s);
             }
@@ -51,8 +53,24 @@ public class MenuScene extends Scene {
             @Override
             public void onClick() {
                 SceneManager.getInstance().pushSceneStack();
-                WorldScene wS = new WorldScene();
-                SceneManager.getInstance().SetScene(wS);
+                Scene s;
+                if(!ProgressManager.getInstance().levelInProgress() || !ProgressManager.getInstance().WorldLevelInProgress())
+                {
+                   s = new WorldScene();
+                }
+                else
+                {
+                    ResourcesManager.getInstance().setWorld(ProgressManager.getInstance().getWorldInProgress());
+                    ResourcesManager.getInstance().getLevel(ProgressManager.getInstance().GetLevelInProgress());
+                    ResourcesManager.getInstance().setIdActualLevel(ProgressManager.getInstance().GetLevelInProgress());
+                    SceneManager.getInstance().pushSceneStack();
+
+                    ProgressManager.getInstance().DeleteProgressInLevel();
+
+                    s = new GameScene(4, false, true);
+                }
+
+                SceneManager.getInstance().SetScene(s);
             }
         });
 

@@ -20,7 +20,7 @@ public class ChangeToNewGameButton extends GenericButton {
     @Override
     protected boolean HandleClick() {
         SceneManager.getInstance().useSceneStack();
-        GameScene gS = new GameScene(n, quick);
+        GameScene gS = new GameScene(n, quick, false);
         SceneManager.getInstance().SetScene(gS);
         return true;
     }

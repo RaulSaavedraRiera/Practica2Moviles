@@ -103,7 +103,7 @@ public class SolutionManager {
         //comprobamos si la solucion contiene dicho color y si es en esa posición
         for(int i = 0; i < playerTry.size(); i++)
         {
-            //el color va ahi
+            //el color va en esa posicon
             if(playerTry.get(i) == solution.get(i))
             {
                 check.add(0);
@@ -159,7 +159,11 @@ public class SolutionManager {
 
     public String getSolutionData() {
         String s = "";
-        s+= solution.size();
+        if(solution.size() < 10)
+            s+= "0" + solution.size();
+        else
+            s+= solution.size();
+
         for (int i = 0; i < solution.size(); i++)
            s+= String.valueOf(solution.get(i));
         return s;

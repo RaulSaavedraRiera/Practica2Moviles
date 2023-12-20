@@ -69,12 +69,12 @@ public class LevelButton extends GenericButton {
         if(pass)
         {
             ResourcesManager.getInstance().setIdActualLevel(this.id - 1);
-            Level level = ResourcesManager.getInstance().getLevel(this.id - 1);
+            ResourcesManager.getInstance().getLevel(this.id - 1);
             SceneManager.getInstance().pushSceneStack();
 
             ProgressManager.getInstance().DeleteProgressInLevel();
 
-            GameScene gS = new GameScene(4, false);
+            GameScene gS = new GameScene(4, false, false);
             SceneManager.getInstance().SetScene(gS);
 
         }

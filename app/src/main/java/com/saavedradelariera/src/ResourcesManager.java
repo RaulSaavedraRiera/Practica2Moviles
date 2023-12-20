@@ -83,6 +83,15 @@ public class ResourcesManager {
         return false;
     }
 
+    public boolean setWorld(int newWorld) {
+
+        if(newWorld < 0 || newWorld > nWorld)
+            return false;
+
+        idActualWorld = newWorld;
+        return true;
+    }
+
 
     // Obtiene el numero de niveles en un mundo
     public int getLevelsInWorld(int id) {

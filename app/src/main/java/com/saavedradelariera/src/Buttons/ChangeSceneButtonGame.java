@@ -22,7 +22,7 @@ public class ChangeSceneButtonGame extends GenericButton {
     protected boolean HandleClick() {
         SceneManager.getInstance().pushSceneStack();
 
-        GameScene gS = new GameScene(n, true);
+        GameScene gS = new GameScene(n, true, false);
         SceneManager.getInstance().SetScene(gS);
 
         return true;
