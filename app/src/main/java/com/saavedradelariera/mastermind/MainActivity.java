@@ -53,7 +53,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         ResourcesManager.getInstance().Init(androidEngine);
         ProgressManager.getInstance().Init(androidEngine.getContext());
         SceneManager.getInstance().Init(androidEngine);
+
         ShopManager.getInstance().init(androidEngine);
+        ProgressManager.getInstance().loadFromJSON();
+
         MenuScene mS = new MenuScene();
         SceneManager.getInstance().SetScene(mS);
 

@@ -15,18 +15,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ShopManager {
+
     private static final String PATH = "store";
     private int currentPage = 0;
     private int balance = 500;
     private final List<String> categories = new ArrayList<>();
     private final Map<String, Map<String, Skin>> skinMap = new HashMap<>();
-    private final Map<String, Skin> activeSkinsMap = new HashMap<>();
+    private Map<String, Skin> activeSkinsMap = new HashMap<>();
+    private Map<String, Set<String>> boughtSkinsMap = new HashMap<>();
     private static ShopManager instance = null;
-    private final List<String> boughtSkins = new ArrayList<>();
 
     public static ShopManager getInstance() {
         if (instance == null) {
@@ -52,12 +55,18 @@ public class ShopManager {
     }
 
     public void init(AndroidEngine engine) {
-        loadShop(engine);
+        loadShop(engine.getContext());
+
+        if (boughtSkinsMap.get("codigos") != null) {
+            for (String skinTitle : boughtSkinsMap.get("codigos")) {
+                skinMap.get("codigos").get(skinTitle).setBought(true);
+            }
+        }
     }
 
-    private void loadShop(AndroidEngine engine) {
-        readCategories(engine.getContext());
-        readSkins(engine.getContext());
+    private void loadShop(Context context) {
+        readCategories(context);
+        readSkins(context);
     }
 
     private void readCategories(Context context) {
@@ -156,12 +165,12 @@ public class ShopManager {
         balance += amount;
     }
 
-    public void addBoughtSkin(String skinTitle) {
-        boughtSkins.add(skinTitle);
-    }
-
     public void setActiveSkin(String category, Skin skin) {
         activeSkinsMap.put(category, skin);
+    }
+
+    public void setActiveSkin(String category, String skinTitle) {
+        activeSkinsMap.put(category, getSkin(category, skinTitle));
     }
 
     public List<String> getCategories() {
@@ -184,5 +193,56 @@ public class ShopManager {
     public ColorJ getButtonsColor() {
         ColorSkin colorSkin = (ColorSkin) getActiveSkin("colores");
         return (colorSkin != null) ? new ColorJ(colorSkin.getSecondaryColor()) : new ColorJ("#00d2b4");
+    }
+
+    public Skin getSkin(String category, String title) {
+        return skinMap.get(category).get(title);
+    }
+
+    public void loadActiveSkinByCat(String category, String skinActive) {
+        Skin skin = getSkin(category, skinActive);
+
+        if (skin != null) {
+            this.setActiveSkin(category, skin);
+        }
+    }
+
+    public void addBoughtSkin(String category, String itemName) {
+        if (boughtSkinsMap.get(category) == null) {
+            boughtSkinsMap.put(category, new HashSet<>());
+        }
+
+        this.boughtSkinsMap.get(category).add(itemName);
+    }
+
+    public String getBoughtSkinsStr(String category) {
+        if (boughtSkinsMap.get(category) != null)
+            return boughtSkinsMap.get(category).toString();
+        return null;
+    }
+
+    public void loadBoughtSkins(String category, String boughtSkinsStr) {
+        boughtSkinsStr = boughtSkinsStr.replace("[", "");
+        boughtSkinsStr = boughtSkinsStr.replace("]", "");
+
+        String[] boughtSkinsArray = boughtSkinsStr.split(", ");
+
+        for (int i = 0; i < boughtSkinsArray.length; i++) {
+            if (skinMap.get(category).get(boughtSkinsArray[i]) != null) {
+                skinMap.get(category).get(boughtSkinsArray[i]).setBought(true);
+                addBoughtSkin(category, boughtSkinsArray[i]);
+            }
+        }
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public void eraseData() {
+        boughtSkinsMap = new HashMap<>();
+        activeSkinsMap = new HashMap<>();
+        balance = 500;
+        loadShop(ResourcesManager.getInstance().getCurrentContext());
     }
 }

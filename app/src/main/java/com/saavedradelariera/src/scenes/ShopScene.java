@@ -139,7 +139,7 @@ public class ShopScene extends Scene {
                 if (!skin.getBought()) {
                     if (ShopManager.getInstance().getBalance() >= skin.getPrice()) {
                         // Comprar skin
-                        ShopManager.getInstance().addBoughtSkin(skin.getTitle());
+                        ShopManager.getInstance().addBoughtSkin(skin.getCategory(), skin.getTitle());
                         skin.setBought(true);
                         balance = new Text(520, 90, 40, 40, "" + ShopManager.getInstance().getBalance(), new ColorJ(255, 255, 255));
                         ShopManager.getInstance().addBalance(-skin.getPrice());

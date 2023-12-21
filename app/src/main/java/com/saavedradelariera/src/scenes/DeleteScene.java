@@ -40,6 +40,7 @@ public class DeleteScene extends Scene {
             @Override
             public void onClick() {
                 ProgressManager.getInstance().resetGame();
+                ShopManager.getInstance().eraseData();
 
                 MenuScene mS = new MenuScene();
                 SceneManager.getInstance().SetScene(mS);

@@ -295,4 +295,7 @@ public class ResourcesManager {
         this.idActualLevel = idActualLevel;
     }
 
+    public Context getCurrentContext() {
+        return currentContext;
+    }
 }

@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.StringJoiner;
 
 /**
  * Clase encargada de leer los directorios de los mundos, asi como de leer los json de los niveles y guardar toda esta informacion
@@ -57,7 +59,9 @@ public class ProgressManager {
         try {
             jsonObject.put("level", levelPass);
             jsonObject.put("world", worldPass);
-            jsonObject.put("balance", balance);
+            jsonObject.put("balance", ShopManager.getInstance().getBalance());
+
+            saveShop(jsonObject);
 
             if (SceneManager.getInstance() != null)
             {
@@ -88,6 +92,8 @@ public class ProgressManager {
 
     public void loadFromJSON() {
         try {
+            String boughtIconsStr, boughtBackgroundsStr, boughtColorsStr, activeColor, activeBackground, activeIcon;
+
             FileInputStream fileInputStream = context.openFileInput(file);
 
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -107,6 +113,38 @@ public class ProgressManager {
             worldPass = jsonObject.getInt("world");
             levelState = jsonObject.getString("stateLevel");
             balance = jsonObject.getInt("balance");
+
+            if (jsonObject.has("activeBackground")) {
+                activeBackground = jsonObject.getString("activeBackground");
+                ShopManager.getInstance().setActiveSkin("fondos", activeBackground);
+            }
+
+            if (jsonObject.has("activeColor")) {
+                activeColor = jsonObject.getString("activeColor");
+                ShopManager.getInstance().setActiveSkin("colores", activeColor);
+            }
+
+            if (jsonObject.has("activeIcon")) {
+                activeIcon = jsonObject.getString("activeIcon");
+                ShopManager.getInstance().setActiveSkin("codigos", activeIcon);
+            }
+
+            if (jsonObject.has("boughtIcons")) {
+                boughtIconsStr = jsonObject.getString("boughtIcons");
+                ShopManager.getInstance().loadBoughtSkins("codigos", boughtIconsStr);
+            }
+
+            if (jsonObject.has("boughtBackgrounds")) {
+                boughtBackgroundsStr = jsonObject.getString("boughtBackgrounds");
+                ShopManager.getInstance().loadBoughtSkins("fondos", boughtBackgroundsStr);
+            }
+
+            if (jsonObject.has("boughtColors")) {
+                boughtColorsStr = jsonObject.getString("boughtColors");
+                ShopManager.getInstance().loadBoughtSkins("colores", boughtColorsStr);
+            }
+
+            ShopManager.getInstance().setBalance(balance);
 
             ProcessLevelInfo();
 
@@ -288,5 +326,25 @@ public class ProgressManager {
             }
 
         }
+    }
+
+    public void saveShop(JSONObject jsonObject) throws JSONException {
+        if (ShopManager.getInstance().getActiveSkin("codigos") != null)
+            jsonObject.put("activeIcon", ShopManager.getInstance().getActiveSkin("codigos").getTitle());
+
+        if (ShopManager.getInstance().getActiveSkin("fondos") != null)
+            jsonObject.put("activeBackground", ShopManager.getInstance().getActiveSkin("fondos").getTitle());
+
+        if (ShopManager.getInstance().getActiveSkin("colores") != null)
+            jsonObject.put("activeColor", ShopManager.getInstance().getActiveSkin("colores").getTitle());
+
+        if (ShopManager.getInstance().getBoughtSkinsStr("codigos") != null)
+            jsonObject.put("boughtIcons", ShopManager.getInstance().getBoughtSkinsStr("codigos"));
+
+        if (ShopManager.getInstance().getBoughtSkinsStr("fondos") != null)
+            jsonObject.put("boughtBackgrounds", ShopManager.getInstance().getBoughtSkinsStr("fondos"));
+
+        if (ShopManager.getInstance().getBoughtSkinsStr("colores") != null)
+            jsonObject.put("boughtColors", ShopManager.getInstance().getBoughtSkinsStr("colores"));
     }
 }
