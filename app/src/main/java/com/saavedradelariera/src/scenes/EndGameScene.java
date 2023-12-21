@@ -58,18 +58,6 @@ public class EndGameScene extends Scene {
         ColorJ buttonsColor = shopManager.getButtonsColor();
         ColorJ blackColor = new ColorJ(0, 0, 0);
 
-        if(typeGame)
-            iconImages = resourcesManager.LoadGameIcons(graphics);
-        else
-            iconImages = resourcesManager.LoadLevelIcons(resourcesManager.getSkinsId(), graphics);
-
-        new Text("Night.ttf", 270, 300, 20, 50, "código:", blackColor);
-        ButtonArray b = new ButtonArray(100, 350, 400, 100);
-
-        if(iconImages == null)
-            b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, colors, false, false, daltonic);
-        else
-            b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, iconImages, false, false);
 
         //Si se gana la partida
         if (win) {
@@ -91,6 +79,25 @@ public class EndGameScene extends Scene {
                             });
                 }
             });
+            if(typeGame)
+                iconImages = resourcesManager.LoadGameIcons(graphics);
+            else
+                iconImages = resourcesManager.LoadLevelIcons(resourcesManager.getSkinsId(), graphics);
+
+            new Text("Night.ttf", 270, 300, 20, 50, "código:", blackColor);
+            ButtonArray b = new ButtonArray(100, 350, 400, 100);
+
+            if(iconImages == null)
+                b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, colors, false, false, daltonic);
+            else
+                b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, iconImages, false, false);
+
+
+            shopManager.addBalance(15);
+            new Text("Night.ttf", 180, 875, 40, 40, " + 15 - TOTAL " + shopManager.getBalance(), blackColor);
+            new ImageButton("coin.png", 120, 850, 60, 60);
+
+
             //Si es un nivel de mundo
             if(!typeGame)
             {
@@ -192,9 +199,6 @@ public class EndGameScene extends Scene {
             }
         });
 
-        shopManager.addBalance(15);
-        new Text("Night.ttf", 180, 875, 40, 40, " + 15 - TOTAL " + shopManager.getBalance(), blackColor);
-        new ImageButton("coin.png", 120, 850, 60, 60);
 
     }
 }
