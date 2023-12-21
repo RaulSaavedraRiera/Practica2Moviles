@@ -2,6 +2,8 @@ package com.saavedradelariera.src;
 
 import android.content.Context;
 import android.util.Pair;
+
+import com.practica1.androidengine.AndroidFile;
 import com.practica1.androidengine.NDKManager;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +34,8 @@ public class ProgressManager {
     private Map<String, Skin> activeSkinsMap;
     private ArrayList<JSONObject> jsonActiveSkinsMap;
     NDKManager ndkManager = new NDKManager();
+    private AndroidFile files = new AndroidFile();
+
     private void ProgressManager() {
     }
 
@@ -64,8 +68,8 @@ public class ProgressManager {
 
             }
 
-            FileOutputStream fileOutputStream = context.openFileOutput(file, Context.MODE_PRIVATE);
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            FileOutputStream fileOutputStream = files.openFileOutput(file, context);
+            OutputStreamWriter outputStreamWriter = files.createOutputStreamWriter(fileOutputStream);
 
             outputStreamWriter.write(jsonObject.toString());
             outputStreamWriter.close();
@@ -90,9 +94,9 @@ public class ProgressManager {
     public void loadFromJSON() {
         try {
             String boughtIconsStr, boughtBackgroundsStr, boughtColorsStr, activeColor, activeBackground, activeIcon;
-            FileInputStream fileInputStream = context.openFileInput(file);
+            FileInputStream fileInputStream = files.openFileInputStream(file, context);
 
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            InputStreamReader inputStreamReader = files.createInputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuilder stringBuilder = new StringBuilder();
             String line;
@@ -300,8 +304,8 @@ public class ProgressManager {
         if (ndkManager != null) {
             String hash = ndkManager.generateHash(infoJSON);
             try {
-                FileOutputStream fileOutputStream = context.openFileOutput(hashFile, Context.MODE_PRIVATE);
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+                FileOutputStream fileOutputStream = files.openFileOutput(hashFile, context);
+                OutputStreamWriter outputStreamWriter = files.createOutputStreamWriter(fileOutputStream);
                 outputStreamWriter.write(hash);
                 outputStreamWriter.close();
 
@@ -324,9 +328,8 @@ public class ProgressManager {
     // Método para leer el hash almacenado previamente en un archivo
     private String ReadStoredHash(String hashFile) {
         try {
-            FileInputStream fileInputStream = context.openFileInput(hashFile);
-
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            FileInputStream fileInputStream = files.openFileInputStream(hashFile, context);
+            InputStreamReader inputStreamReader = files.createInputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuilder stringBuilder = new StringBuilder();
             String line;
