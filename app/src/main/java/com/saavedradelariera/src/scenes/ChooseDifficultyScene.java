@@ -18,8 +18,8 @@ public class ChooseDifficultyScene extends Scene {
     }
 
     @Override
-    public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
-        super.SetScene(graphics, audioSystem);
+    public void setScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
+        super.setScene(graphics, audioSystem);
 
         name = "ChooseScene";
 

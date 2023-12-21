@@ -51,8 +51,8 @@ public class EndGameScene extends Scene {
     }
 
     @Override
-    public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
-        super.SetScene(graphics, audioSystem);
+    public void setScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
+        super.setScene(graphics, audioSystem);
 
         new ColorBackground(shopManager.getBackgroundColor());
         ColorJ buttonsColor = shopManager.getButtonsColor();

@@ -4,16 +4,16 @@ import java.util.ArrayList;
 public interface IScene {
     String name = "";
 
-    void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem);
+    void setScene(AndroidGraphics graphics, AndroidAudio audioSystem);
 
-    String GetName();
+    String getName();
 
-    void SetName(String n);
+    void setName(String n);
 
-    void RenderScene(AndroidGraphics iGraphics);
+    void renderScene(AndroidGraphics iGraphics);
 
-    void UpdateScene(AndroidEngine IEngine, float deltaTime);
+    void updateScene(AndroidEngine IEngine, float deltaTime);
 
-    void HandleInput(ArrayList<TouchEvent> events);
+    void handleInput(ArrayList<TouchEvent> events);
 
 }

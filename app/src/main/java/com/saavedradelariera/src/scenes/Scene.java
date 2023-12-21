@@ -20,39 +20,39 @@ public abstract class Scene implements IScene {
 
     //inicialzia la escena generando su audiomanager
 
-    public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem){
+    public void setScene(AndroidGraphics graphics, AndroidAudio audioSystem){
         AudioManager aM = new AudioManager(audioSystem);
-        AddGO(aM);
+        addGO(aM);
         SceneManager.getInstance().registerToMessage(aM);
     }
-    public String GetStateScene(){
+    public String getStateScene(){
         return "NONE";
     }
 
-    public void AddGO(IGameObject g){
+    public void addGO(IGameObject g){
         GOList.add(g);
     }
-    public void AddGOToMessages(IGameObject g){
+    public void addGOToMessages(IGameObject g){
         GOMessageList.add(g);
     }
 
-    public  void RemoveGO(IGameObject g){
+    public  void removeGO(IGameObject g){
         GOList.remove(g);
     }
 
     @Override
-    public String GetName(){
+    public String getName(){
         return name;
     }
 
     @Override
-    public void SetName(String n){
+    public void setName(String n){
         name = n;
     }
 
     //llama al render de todos los GO asociados
     @Override
-    public void RenderScene(AndroidGraphics iGraphics){
+    public void renderScene(AndroidGraphics iGraphics){
         for (IGameObject gO : GOList)
         {
             gO.Render(iGraphics);
@@ -61,7 +61,7 @@ public abstract class Scene implements IScene {
 
     //llama al update de todos los GO asociados
 
-    public void UpdateScene(AndroidEngine IEngine, float deltaTime){
+    public void updateScene(AndroidEngine IEngine, float deltaTime){
         for (IGameObject gO : GOList)
         {
             gO.Update(IEngine, deltaTime);
@@ -70,7 +70,7 @@ public abstract class Scene implements IScene {
         SceneManager.getInstance().procceseMessages();
     }
 
-    public void SendMessageToGO(Message m){
+    public void sendMessageToGO(Message m){
         for (int i = 0; i < GOMessageList.size(); i++) {
             if(i < GOMessageList.size() &&  GOMessageList.get(i) != null)
                 GOMessageList.get(i).ReceiveMessage(m);
@@ -78,7 +78,7 @@ public abstract class Scene implements IScene {
     }
 
     //pasa el input a todos los GO de la escena, se detiene si uno lo da como suyo
-    public void HandleInput(ArrayList<TouchEvent> events){
+    public void handleInput(ArrayList<TouchEvent> events){
 
         for(TouchEvent e : events)
         {

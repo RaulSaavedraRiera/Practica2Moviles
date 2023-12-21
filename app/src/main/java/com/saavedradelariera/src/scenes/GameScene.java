@@ -46,8 +46,8 @@ public class GameScene extends Scene {
     }
 
     @Override
-    public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
-        super.SetScene(graphics, audioSystem);
+    public void setScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
+        super.setScene(graphics, audioSystem);
 
         if (isQuickGame) {
             primaryColor = shopManager.getBackgroundColor();
@@ -105,7 +105,7 @@ public class GameScene extends Scene {
     }
 
     @Override
-    public String GetStateScene() {
+    public String getStateScene() {
         String level;
         if(isQuickGame)
           level = "9999";

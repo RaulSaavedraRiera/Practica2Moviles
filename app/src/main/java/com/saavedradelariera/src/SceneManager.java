@@ -47,7 +47,7 @@ public class SceneManager {
         messagesGO.clear();
 
         //inicialzia la escena y se la pasa al engine
-        activeScene.SetScene(engine.GetGraphics(), engine.GetAudioSystem());
+        activeScene.setScene(engine.GetGraphics(), engine.GetAudioSystem());
         engine.SetScene(activeScene);
     }
 
@@ -71,7 +71,7 @@ public class SceneManager {
     }
 
     public void addGameObjectToActiveScene(IGameObject gO){
-        activeScene.AddGO(gO);
+        activeScene.addGO(gO);
     }
 
     public void sendMessageToActiveScene(Message m)
@@ -82,7 +82,7 @@ public class SceneManager {
     public void procceseMessages()
     {
         for (Message m: messages) {
-            activeScene.SendMessageToGO(m);
+            activeScene.sendMessageToGO(m);
         }
 
         messages.clear();
@@ -90,7 +90,7 @@ public class SceneManager {
 
     public void registerToMessage(IGameObject gO)
     {
-        activeScene.AddGOToMessages(gO);
+        activeScene.addGOToMessages(gO);
     }
 
     public void unRegisterToMessage(IGameObject gO)
@@ -130,6 +130,6 @@ public class SceneManager {
     }
 
     public  String getActiveSceneState(){
-        return activeScene.GetStateScene();
+        return activeScene.getStateScene();
     }
 }

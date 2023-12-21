@@ -19,8 +19,8 @@ public class MenuScene extends Scene {
     }
 
     @Override
-    public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
-        super.SetScene(graphics, audioSystem);
+    public void setScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
+        super.setScene(graphics, audioSystem);
         name = "MenuScene";
         ColorJ buttonColor = ShopManager.getInstance().getButtonsColor();
         new ColorBackground(ShopManager.getInstance().getBackgroundColor());

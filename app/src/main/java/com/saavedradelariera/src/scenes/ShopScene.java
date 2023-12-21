@@ -33,8 +33,8 @@ public class ShopScene extends Scene {
     }
 
     @Override
-    public void SetScene(AndroidGraphics graphics, AndroidAudio androidAudio) {
-        super.SetScene(graphics, androidAudio);
+    public void setScene(AndroidGraphics graphics, AndroidAudio androidAudio) {
+        super.setScene(graphics, androidAudio);
         this.androidGraphics = graphics;
 
         name = "CustomizeScene";

@@ -50,7 +50,7 @@ public class AndroidEngine implements Runnable {
      */
     protected void Render() {
         graphics.CleanScreen(fColor);
-        activeIScene.RenderScene(graphics);
+        activeIScene.renderScene(graphics);
     }
 
     public Context getContext() {
@@ -61,7 +61,7 @@ public class AndroidEngine implements Runnable {
      * Update principal que se encarga de llamar al update de la escena actual
      */
     protected void Update(float deltaTime) {
-        activeIScene.UpdateScene(this, deltaTime);
+        activeIScene.updateScene(this, deltaTime);
     }
 
 
@@ -137,7 +137,7 @@ public class AndroidEngine implements Runnable {
             e.setX(e.getX() / this.graphics.getScale());
             e.setY(e.getY() / this.graphics.getScale());
         }
-        this.activeIScene.HandleInput(touchEvents);
+        this.activeIScene.handleInput(touchEvents);
     }
 
 
