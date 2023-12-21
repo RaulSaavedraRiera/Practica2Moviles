@@ -84,6 +84,11 @@ public class Mobile {
         WorkManager.getInstance().enqueue(request);
     }
 
+    public void DestroyNotificationWorker()
+    {
+        WorkManager.getInstance().cancelAllWork();
+    }
+
     void SetUpNotification(String channelN){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // CharSequence name = "Mi Canal";

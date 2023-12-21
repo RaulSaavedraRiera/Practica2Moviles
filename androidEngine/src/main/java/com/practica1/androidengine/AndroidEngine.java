@@ -228,6 +228,11 @@ public class AndroidEngine implements Runnable {
         mobile.SolicitateShare(bitmap, mnsg);
     }
 
+    public void DestroyNotification()
+    {
+        mobile.DestroyNotificationWorker();
+    }
+
     public void SolicitateLoadRewardAd()
     {
         mobile.loadRewardedAd();

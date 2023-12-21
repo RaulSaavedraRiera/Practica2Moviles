@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
         ProgressManager.getInstance().loadFromJSON();
         androidEngine.Resume();
+        androidEngine.DestroyNotification();
 
         if (accelerometer != null)
             sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -75,12 +76,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
         ProgressManager.getInstance().saveInJSON();
-        androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground, "Mastermind", "¡Entra a jugar y no te pierdas los nuevos niveles!", "canalmaster", 10, TimeUnit.SECONDS);
         androidEngine.Pause();
 
         if (accelerometer != null)
             sensorManager.unregisterListener(this);
 
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground,
+                "Mastermind", "¡Entra a jugar y no te pierdas los nuevos niveles!", "canalmaster", 10, TimeUnit.SECONDS);
     }
 
     @Override
