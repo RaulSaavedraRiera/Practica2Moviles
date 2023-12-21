@@ -109,7 +109,7 @@ public class GameManager extends GameObject {
 
         offsetX = 0;
 
-        offsetY = height/10;
+        offsetY = rowHeight/10;
 
         for (int i = 0; i < nRows; i++) {
             Row row = new Row(iniX + offsetX*i, iniY + (rowHeight + offsetY)*i, rowWidth, rowHeight, buttonsPerRow , i+1);

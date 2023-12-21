@@ -25,6 +25,8 @@ public class Row extends GameObject {
     final float offsetButtons = 1.1f, ratioCombinationSolution = 2,
             partsToRatio = 3, limitAnchor = 0.004f, limitHeight = 0.85f, smallCircleButtons = 0.3f;
 
+    final int radiusRectangle = 10;
+
     private int currentButton = 0;
 
 
@@ -60,7 +62,7 @@ public class Row extends GameObject {
     void GenerateVisuals(int initialOffset, int widthForButtons) {
 
         VisualRectangle border =
-                new VisualRectangle(posX, posY, width, height, new ColorJ(100, 200, 200, 200), new ColorJ("#000000"), true);
+                new VisualRectangle(posX, posY, width, height, new ColorJ(100, 200, 200, 200), new ColorJ("#000000"), true, radiusRectangle);
         objectsInRow.add(border);
         VisualRectangle limit1 =
                 new VisualRectangle(posX + initialOffset,

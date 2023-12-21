@@ -74,6 +74,10 @@ public class SceneManager {
         activeScene.addGO(gO);
     }
 
+    public void removeGameObjectFromActiveScene(IGameObject gO){
+        activeScene.removeGO(gO);
+    }
+
     public void sendMessageToActiveScene(Message m)
     {
         messages.add(m);
