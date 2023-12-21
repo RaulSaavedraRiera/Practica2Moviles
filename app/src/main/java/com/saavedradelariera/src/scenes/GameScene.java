@@ -5,7 +5,6 @@ import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.ChangeSceneButtonBack;
-import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.Buttons.ImageButton;
 import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.ColorBackground;
@@ -98,7 +97,7 @@ public class GameScene extends Scene {
             daltonic.setClickListener(new ClickListener() {
                 @Override
                 public void onClick() {
-                    SceneManager.getInstance().SendMessageToActiveScene(new DaltonicChangeSolicitateMessage());
+                    SceneManager.getInstance().sendMessageToActiveScene(new DaltonicChangeSolicitateMessage());
                 }
             });
         }

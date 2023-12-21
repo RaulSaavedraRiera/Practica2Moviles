@@ -71,13 +71,13 @@ public class CombinationButton extends Button {
         color = c;
 
         backgroundColor = new ColorJ(0,0,0);
-        SetSmallCircleSize(smallCircle);
+        setSmallCircleSize(smallCircle);
 
         inputEnable = input;
         daltonicEnable = daltonic;
         deleteColorButton = deleteColor;
 
-        SceneManager.getInstance().RegisterToMessage(this);
+        SceneManager.getInstance().registerToMessage(this);
 
         String s;
         if(daltonicEnable)
@@ -98,12 +98,12 @@ public class CombinationButton extends Button {
         image = i;
 
         backgroundColor = new ColorJ(0,0,0);
-        SetSmallCircleSize(smallCircle);
+        setSmallCircleSize(smallCircle);
 
         inputEnable = input;
         deleteColorButton = deleteColor;
 
-        SceneManager.getInstance().RegisterToMessage(this);
+        SceneManager.getInstance().registerToMessage(this);
 
         String s;
         if(daltonicEnable)
@@ -124,11 +124,11 @@ public class CombinationButton extends Button {
     {
         enable = false;
         number = 0;
-        SetColor(new ColorJ(85, 85, 85));
-        SetBackgroundColor(new ColorJ(200, 200, 200));
-        SceneManager.getInstance().UnRegisterToMessage(this);
-        SceneManager.getInstance().UnRegisterToMessage(this);
-        SetSmallCircleSize(initialSmallCirclePercent);
+        setColor(new ColorJ(85, 85, 85));
+        setBackgroundColor(new ColorJ(200, 200, 200));
+        SceneManager.getInstance().unRegisterToMessage(this);
+        SceneManager.getInstance().unRegisterToMessage(this);
+        setSmallCircleSize(initialSmallCirclePercent);
         colorText.txt = "";
 
     }
@@ -152,14 +152,14 @@ public class CombinationButton extends Button {
                 //Da una nueva entrada de input
                 if(!deleteColorButton)
                 {
-                    SceneManager.getInstance().SendMessageToActiveScene(new InputColorMessage(number));
-                    SceneManager.getInstance().SendMessageToActiveScene(new PlaySoundMessage("playButton.wav", false));
+                    SceneManager.getInstance().sendMessageToActiveScene(new InputColorMessage(number));
+                    SceneManager.getInstance().sendMessageToActiveScene(new PlaySoundMessage("playButton.wav", false));
                 }
                 //Desactiva el botón
                 else
                 {
                     DisableCombinationButton();
-                    SceneManager.getInstance().SendMessageToActiveScene(new PlaySoundMessage("playButton.wav", false));
+                    SceneManager.getInstance().sendMessageToActiveScene(new PlaySoundMessage("playButton.wav", false));
                 }
 
                 return true;

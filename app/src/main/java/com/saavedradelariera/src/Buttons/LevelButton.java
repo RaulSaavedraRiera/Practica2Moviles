@@ -3,11 +3,9 @@ package com.saavedradelariera.src.Buttons;
 import com.practica1.androidengine.AndroidFont;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
-import com.saavedradelariera.src.Level;
 import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.SceneManager;
-import com.saavedradelariera.src.Text;
 import com.saavedradelariera.src.scenes.GameScene;
 
 
@@ -72,7 +70,7 @@ public class LevelButton extends GenericButton {
             ProgressManager.getInstance().DeleteProgressInLevel();
 
             GameScene gS = new GameScene(4, false, false);
-            SceneManager.getInstance().SetScene(gS);
+            SceneManager.getInstance().setScene(gS);
         }
         return true;
     }

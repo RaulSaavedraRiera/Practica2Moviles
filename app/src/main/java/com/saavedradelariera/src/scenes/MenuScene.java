@@ -6,13 +6,11 @@ import com.practica1.androidengine.ColorJ;
 import com.saavedradelariera.src.Buttons.GenericButton;
 import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.ColorBackground;
-import com.saavedradelariera.src.Level;
 import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ShopManager;
 import com.saavedradelariera.src.Text;
-import com.saavedradelariera.src.VisualRectangle;
 
 /*escena inicial */
 public class MenuScene extends Scene {
@@ -45,7 +43,7 @@ public class MenuScene extends Scene {
                 else
                     s = new GameScene(ProgressManager.getInstance().getLevelInProgressDifficult(), true, true);
 
-                SceneManager.getInstance().SetScene(s);
+                SceneManager.getInstance().setScene(s);
             }
         });
 
@@ -70,7 +68,7 @@ public class MenuScene extends Scene {
                     s = new GameScene(4, false, true);
                 }
 
-                SceneManager.getInstance().SetScene(s);
+                SceneManager.getInstance().setScene(s);
             }
         });
 
@@ -79,7 +77,7 @@ public class MenuScene extends Scene {
             public void onClick() {
                 SceneManager.getInstance().pushSceneStack();
                 ShopScene sS = new ShopScene();
-                SceneManager.getInstance().SetScene(sS);
+                SceneManager.getInstance().setScene(sS);
             }
         });
 
@@ -98,7 +96,7 @@ public class MenuScene extends Scene {
             public void onClick() {
 
                 DeleteScene sS = new DeleteScene();
-                SceneManager.getInstance().SetScene(sS);
+                SceneManager.getInstance().setScene(sS);
             }
         });
     }

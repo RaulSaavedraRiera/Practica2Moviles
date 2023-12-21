@@ -24,7 +24,7 @@ public class SceneManager {
     //constructor vacio
     private void SceneManager(){}
     //incialziacion en dos pasos
-    public void Init(AndroidEngine e) {
+    public void init(AndroidEngine e) {
         engine = e;
     }
 
@@ -37,7 +37,7 @@ public class SceneManager {
     }
 
     //lanza una nueva escena al motor y la inicializa
-    public void SetScene(Scene scene) //boolean clearWithDelay
+    public void setScene(Scene scene) //boolean clearWithDelay
     {
         if(engine == null)
             throw new RuntimeException("no seteado el engine");
@@ -52,7 +52,7 @@ public class SceneManager {
     }
 
     //lanza una nueva escena al motor y la inicializa
-    public void ReturnToScene(Scene scene) //boolean clearWithDelay
+    public void returnToScene(Scene scene) //boolean clearWithDelay
     {
         if(engine == null)
             throw new RuntimeException("no seteado el engine");
@@ -70,16 +70,16 @@ public class SceneManager {
         return engine;
     }
 
-    public void AddGameObjectToActiveScene(IGameObject gO){
+    public void addGameObjectToActiveScene(IGameObject gO){
         activeScene.AddGO(gO);
     }
 
-    public void SendMessageToActiveScene(Message m)
+    public void sendMessageToActiveScene(Message m)
     {
         messages.add(m);
     }
 
-    public void ProcceseMessages()
+    public void procceseMessages()
     {
         for (Message m: messages) {
             activeScene.SendMessageToGO(m);
@@ -88,12 +88,12 @@ public class SceneManager {
         messages.clear();
     }
 
-    public void RegisterToMessage(IGameObject gO)
+    public void registerToMessage(IGameObject gO)
     {
         activeScene.AddGOToMessages(gO);
     }
 
-    public void UnRegisterToMessage(IGameObject gO)
+    public void unRegisterToMessage(IGameObject gO)
     {
         messagesGO.remove(gO);
     }
@@ -124,12 +124,12 @@ public class SceneManager {
         return sceneStack.peek();
     }
 
-    public void LaunchAcceleratorEvent()
+    public void launchAcceleratorEvent()
     {
-        SendMessageToActiveScene(new AcceleratorEventMessage());
+        sendMessageToActiveScene(new AcceleratorEventMessage());
     }
 
-    public  String  GetActiveSceneState (){
+    public  String getActiveSceneState(){
         return activeScene.GetStateScene();
     }
 }

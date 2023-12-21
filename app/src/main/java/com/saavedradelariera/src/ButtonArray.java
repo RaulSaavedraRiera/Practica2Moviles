@@ -144,7 +144,7 @@ public class ButtonArray extends GameObject {
     public String GetButtonsCombination(){
         String s = "";
         for(CombinationButton b : buttons)
-            if(b.IsEnable())
+            if(b.isEnable())
                 s +=  String.valueOf(b.GetNumber());
 
         return s;

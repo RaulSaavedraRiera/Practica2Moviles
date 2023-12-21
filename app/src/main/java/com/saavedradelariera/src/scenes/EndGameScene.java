@@ -7,7 +7,6 @@ import com.practica1.androidengine.AndroidAudio;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
-import com.practica1.androidengine.Pool;
 import com.practica1.androidengine.mobileManagers.AdsFinishCallback;
 import com.practica1.androidengine.mobileManagers.ScreenShootFinish;
 import com.saavedradelariera.src.ButtonArray;
@@ -112,9 +111,9 @@ public class EndGameScene extends Scene {
                             resourcesManager.setWorld(nextLevelInfo.second);
                             progressManager.DeleteProgressInLevel();
                             GameScene gS = new GameScene(4, false, false);
-                            sceneManager.SetScene(gS);
+                            sceneManager.setScene(gS);
                         }else {
-                            sceneManager.SetScene(new MenuScene());
+                            sceneManager.setScene(new MenuScene());
                         }
 
                     }
@@ -135,7 +134,7 @@ public class EndGameScene extends Scene {
                         else
                             gS = new GameScene(4, false, false);
 
-                        sceneManager.SetScene(gS);
+                        sceneManager.setScene(gS);
                     }
                 });
 
@@ -145,7 +144,7 @@ public class EndGameScene extends Scene {
                     @Override
                     public void onClick() {
                         ChooseDifficultyScene mS = new ChooseDifficultyScene();
-                        sceneManager.SetScene(mS);
+                        sceneManager.setScene(mS);
                     }
                 });
             }
@@ -163,7 +162,7 @@ public class EndGameScene extends Scene {
                         public void doAction() {
                             GameScene gS = (GameScene) sceneManager.getPeckStack();
                             sceneManager.useSceneStack();
-                            sceneManager.ReturnToScene(gS);
+                            sceneManager.returnToScene(gS);
                             gS.getGameManager().AddRows(2);
                         }
                     });
@@ -177,7 +176,7 @@ public class EndGameScene extends Scene {
                 public void onClick() {
                     sceneManager.useSceneStack();
                     GameScene gS = new GameScene(gameDifficult, typeGame, false);
-                    sceneManager.SetScene(gS);
+                    sceneManager.setScene(gS);
                 }
             });
         }
@@ -189,7 +188,7 @@ public class EndGameScene extends Scene {
             public void onClick() {
                 sceneManager.useSceneStack();
                 MenuScene mS = new MenuScene();
-                sceneManager.SetScene(mS);
+                sceneManager.setScene(mS);
             }
         });
 

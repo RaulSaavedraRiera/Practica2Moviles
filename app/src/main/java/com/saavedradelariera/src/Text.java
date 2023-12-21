@@ -48,7 +48,7 @@ public class Text extends GameObject {
 
     }
 
-    public void SetText(String s){
+    public void setText(String s){
         txt = s;
     }
 }

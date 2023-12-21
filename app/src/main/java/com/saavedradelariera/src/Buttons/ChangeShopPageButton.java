@@ -26,9 +26,9 @@ public class ChangeShopPageButton extends ImageButton {
             if (this.nextPage) {
                 SceneManager.getInstance().pushSceneStack();
                 ShopScene sS = new ShopScene();
-                SceneManager.getInstance().SetScene(sS);
+                SceneManager.getInstance().setScene(sS);
             } else {
-                SceneManager.getInstance().SetScene(SceneManager.getInstance().useSceneStack());
+                SceneManager.getInstance().setScene(SceneManager.getInstance().useSceneStack());
             }
         }
 

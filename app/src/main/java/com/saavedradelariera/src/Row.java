@@ -168,7 +168,7 @@ public class Row extends GameObject {
     //muestra graficamente la pista combinacion - solucion
     public void SetSolution(ArrayList<Integer> solution) {
         for (int i = 0; i < solutionButtons.size(); i++) {
-            solutionButtons.get(i).SetSolution(solution.get(i));
+            solutionButtons.get(i).setSolution(solution.get(i));
         }
 
         //desactiva el input de los botones para impedir que se puedan eliminar una vez pasados de fila

@@ -63,7 +63,7 @@ public class GameManager extends GameObject {
     public void Init(int difficult, int solutionSize, int nRows, AndroidGraphics graphics, boolean load){
 
         //Lo registra para recibir mensajes
-        SceneManager.getInstance().RegisterToMessage(this);
+        SceneManager.getInstance().registerToMessage(this);
 
         //ImageButton background = new ImageButton(this.backgroundImage.getRoute(), 0,0, graphics.GetWidth(), graphics.GetHeight());
 
@@ -250,7 +250,7 @@ public class GameManager extends GameObject {
             type = true;
 
         EndGameScene endGameScene = new EndGameScene(win, currentRow, colors, solutionManager.getSolution(), currentDaltonicEnable, difficult, type);
-        SceneManager.getInstance().SetScene(endGameScene);
+        SceneManager.getInstance().setScene(endGameScene);
     }
 
     @Override
@@ -311,9 +311,9 @@ public class GameManager extends GameObject {
         int tries =  rows.size() - currentRow;
 
         if(tries > 1)
-            triesT.SetText("Te quedan " + String.valueOf(tries) + " intentos");
+            triesT.setText("Te quedan " + String.valueOf(tries) + " intentos");
         else
-            triesT.SetText("Es tu último intento!!");
+            triesT.setText("Es tu último intento!!");
 
     }
 }

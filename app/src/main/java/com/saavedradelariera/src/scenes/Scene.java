@@ -5,7 +5,6 @@ import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.IScene;
 import com.practica1.androidengine.TouchEvent;
-import com.saavedradelariera.src.GameObject;
 import com.saavedradelariera.src.IGameObject;
 import com.saavedradelariera.src.AudioManager;
 import com.saavedradelariera.src.SceneManager;
@@ -24,7 +23,7 @@ public abstract class Scene implements IScene {
     public void SetScene(AndroidGraphics graphics, AndroidAudio audioSystem){
         AudioManager aM = new AudioManager(audioSystem);
         AddGO(aM);
-        SceneManager.getInstance().RegisterToMessage(aM);
+        SceneManager.getInstance().registerToMessage(aM);
     }
     public String GetStateScene(){
         return "NONE";
@@ -68,7 +67,7 @@ public abstract class Scene implements IScene {
             gO.Update(IEngine, deltaTime);
         }
 
-        SceneManager.getInstance().ProcceseMessages();
+        SceneManager.getInstance().procceseMessages();
     }
 
     public void SendMessageToGO(Message m){

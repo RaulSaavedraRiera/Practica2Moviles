@@ -43,7 +43,7 @@ public class DeleteScene extends Scene {
                 ShopManager.getInstance().eraseData();
 
                 MenuScene mS = new MenuScene();
-                SceneManager.getInstance().SetScene(mS);
+                SceneManager.getInstance().setScene(mS);
             }
         });
 
@@ -51,7 +51,7 @@ public class DeleteScene extends Scene {
             @Override
             public void onClick() {
                 MenuScene mS = new MenuScene();
-                SceneManager.getInstance().SetScene(mS);
+                SceneManager.getInstance().setScene(mS);
             }
         });
 

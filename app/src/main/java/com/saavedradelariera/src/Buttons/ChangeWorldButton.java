@@ -24,9 +24,9 @@ public class ChangeWorldButton extends ImageButton {
 
                 SceneManager.getInstance().pushSceneStack();
                 WorldScene ws = new WorldScene();
-                SceneManager.getInstance().SetScene(ws);
+                SceneManager.getInstance().setScene(ws);
             }else{
-                SceneManager.getInstance().SetScene(SceneManager.getInstance().useSceneStack());
+                SceneManager.getInstance().setScene(SceneManager.getInstance().useSceneStack());
             }
 
         }

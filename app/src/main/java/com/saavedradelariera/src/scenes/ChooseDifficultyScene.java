@@ -56,7 +56,7 @@ public class ChooseDifficultyScene extends Scene {
             public void onClick() {
                 SceneManager.getInstance().pushSceneStack();
                 GameScene gS = new GameScene(n, true, false);
-                SceneManager.getInstance().SetScene(gS);
+                SceneManager.getInstance().setScene(gS);
 
             }
         };

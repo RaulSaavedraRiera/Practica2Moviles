@@ -1,12 +1,9 @@
 package com.saavedradelariera.src.Buttons;
 
-import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ShopManager;
-import com.saavedradelariera.src.messages.ReleaseSoundMessage;
 import com.saavedradelariera.src.scenes.MenuScene;
-import com.saavedradelariera.src.scenes.WorldScene;
 
 
 /*
@@ -31,7 +28,7 @@ public class ChangeSceneButtonBack extends ImageButton {
         ResourcesManager.getInstance().resetWorld();
         ShopManager.getInstance().resetScene();
         MenuScene m = new MenuScene();
-        SceneManager.getInstance().SetScene(m);
+        SceneManager.getInstance().setScene(m);
         return true;
     }
 }

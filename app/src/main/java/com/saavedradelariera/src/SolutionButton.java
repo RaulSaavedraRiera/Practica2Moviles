@@ -28,15 +28,15 @@ public class SolutionButton extends Button{
 
 
     //una vez dada la información de pista a representar; ajusta sus valores para mostrarlo gráficamente
-    public void SetSolution(int i){
+    public void setSolution(int i){
         switch(i){
             case 0:
-                SetSmallCircleSize(1f);
+                setSmallCircleSize(1f);
                 color.setRGB(0,0,0);
                 backgroundColor.setRGB(255,255,255);
                 break;
             case 1:
-                SetSmallCircleSize(0.85f);
+                setSmallCircleSize(0.85f);
                 backgroundColor.setRGB(0,0,0);
                 color.setRGB(255,255,255);
                 break;

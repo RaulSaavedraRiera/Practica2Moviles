@@ -5,17 +5,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.tv.AdRequest;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.SurfaceView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.rewarded.RewardedAd;
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.practica1.androidengine.AndroidEngine;
 import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.SceneManager;
@@ -52,13 +46,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         ResourcesManager.getInstance().Init(androidEngine);
         ProgressManager.getInstance().Init(androidEngine.getContext());
-        SceneManager.getInstance().Init(androidEngine);
+        SceneManager.getInstance().init(androidEngine);
 
         ShopManager.getInstance().init(androidEngine);
         ProgressManager.getInstance().loadFromJSON();
 
         MenuScene mS = new MenuScene();
-        SceneManager.getInstance().SetScene(mS);
+        SceneManager.getInstance().setScene(mS);
 
         //agregamos el sensor
         sensorManager = (SensorManager) getSystemService(getApplicationContext().SENSOR_SERVICE);
@@ -94,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             long t = (System.currentTimeMillis() / 1000) - lastCallInSeconds;
             if (t >= TIMEBTWUSES && (event.values[0] > SENSORTHRESHOLD || event.values[1] > SENSORTHRESHOLD || event.values[2] > SENSORTHRESHOLD)) {
-                SceneManager.getInstance().LaunchAcceleratorEvent();
+                SceneManager.getInstance().launchAcceleratorEvent();
                 System.out.println("lanza bolita!");
                 lastCallInSeconds = System.currentTimeMillis();
                 lastCallInSeconds /= 1000;

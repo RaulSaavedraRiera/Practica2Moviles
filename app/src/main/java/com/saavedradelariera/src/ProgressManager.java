@@ -14,9 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.StringJoiner;
 
 /**
  * Clase encargada de leer los directorios de los mundos, asi como de leer los json de los niveles y guardar toda esta informacion
@@ -65,7 +63,7 @@ public class ProgressManager {
 
             if (SceneManager.getInstance() != null)
             {
-                String s = SceneManager.getInstance().GetActiveSceneState();
+                String s = SceneManager.getInstance().getActiveSceneState();
                 if(s.length() > 0)
                     jsonObject.put("stateLevel", s);
 

@@ -22,11 +22,11 @@ public class SolutionManager {
     //genera la solucion al inicializarse
     public SolutionManager(int diff, boolean loadSolution){
 
-        SetParams(diff);
-        SetSolution(diff, loadSolution);
+        setParams(diff);
+        setSolution(diff, loadSolution);
     }
 
-    void SetParams(int diff){
+    void setParams(int diff){
         //segun la dificultad seleccionada inicializamos las variables iniciales de la manera correspondiente
         switch(diff){
             //modo facil
@@ -62,7 +62,7 @@ public class SolutionManager {
     }
 
     //setea la solución y la añade a su arrayList de solucion
-    void SetSolution(int diff, boolean loadSolution)
+    void setSolution(int diff, boolean loadSolution)
     {
         int[] aux;
 

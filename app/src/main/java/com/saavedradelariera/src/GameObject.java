@@ -17,7 +17,7 @@ public abstract class GameObject implements IGameObject {
         width = w;
         height = h;
 
-        SceneManager.getInstance().AddGameObjectToActiveScene(this);
+        SceneManager.getInstance().addGameObjectToActiveScene(this);
     }
 
     @Override

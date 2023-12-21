@@ -23,7 +23,7 @@ public abstract class Button extends GameObject {
         this.color = new ColorJ(80, 80, 80);
         this.backgroundColor = new ColorJ(180, 180, 180);
 
-        SetSmallCircleSize(smallCircle);
+        setSmallCircleSize(smallCircle);
     }
 
     public void Render(AndroidGraphics graphics) {
@@ -33,19 +33,19 @@ public abstract class Button extends GameObject {
     }
 
     //ajusta el diámetro del circulo interior
-    public void SetSmallCircleSize(float size){
+    public void setSmallCircleSize(float size){
 
         smallCirclePercent = size;
 
         posXSmallCircle = posYSmallCircle = (int)((width - (width*smallCirclePercent))/2);
     }
 
-    public void SetColor(ColorJ c)
+    public void setColor(ColorJ c)
     {
         color = c;
     }
 
-    public void SetBackgroundColor(ColorJ c)
+    public void setBackgroundColor(ColorJ c)
     {
         backgroundColor = c;
     }
@@ -56,7 +56,7 @@ public abstract class Button extends GameObject {
         backgroundColor = backgroundC;
     }
 
-    public boolean IsEnable(){
+    public boolean isEnable(){
         return enable;
     }
 }

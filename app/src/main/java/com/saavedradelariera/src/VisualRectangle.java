@@ -31,14 +31,6 @@ public class VisualRectangle extends GameObject {
         this.fill = fill;
     }
 
-    public VisualRectangle(int x, int y, int w, int h, ColorJ c, boolean fill, int radius) {
-        super(x, y, w, h);
-
-        color = c;
-        this.fill = fill;
-        this.radius = radius;
-    }
-
     //overrideamos los métodos de GameObject y actualizamos render para que pinte lo deseado
     @Override
     public void Render(AndroidGraphics graphics) {
