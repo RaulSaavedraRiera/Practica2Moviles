@@ -1,12 +1,9 @@
 package com.saavedradelariera.src;
 
-import android.content.Context;
-import android.content.res.AssetManager;
 
-import com.practica1.androidengine.AndroidEngine;
-
-import java.io.IOException;
-import java.util.ArrayList;
+/**
+ * Clase encargada de guardar la informacion de cada uno de los niveles
+ */
 
 public class Level {
 

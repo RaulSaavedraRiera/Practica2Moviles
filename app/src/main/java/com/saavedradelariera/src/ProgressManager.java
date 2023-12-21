@@ -2,9 +2,7 @@ package com.saavedradelariera.src;
 
 import android.content.Context;
 import android.util.Pair;
-
 import com.practica1.androidengine.NDKManager;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -17,19 +15,15 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * Clase encargada de leer los directorios de los mundos, asi como de leer los json de los niveles y guardar toda esta informacion
- * para poder ser usada por las demas clases.
+ * Clase encargada de actualizar, guardar y obtener la progresion del jugador
  */
 public class ProgressManager {
     private ResourcesManager resourcesManager = ResourcesManager.getInstance();
     private int worldPass = 0;
     private int levelPass = 0;
-
-    //guardar informacion de nivel actual
     private String levelState = "NONE", rowsInfo = "";
     private int currentWorld, currentLevelWorld, currentLevelDifficult;
     private int[] solutionInfo;
-
     private static ProgressManager instance = null;
     private Context context;
     private String file = "progress.json";
@@ -52,6 +46,7 @@ public class ProgressManager {
         this.context = context;
     }
 
+    // Metodo encargado de guardar en json la informacion en ese momento del juego asi de crear un hash de esa informacion
     public void saveInJSON() {
         JSONObject jsonObject = new JSONObject();
         try {
@@ -81,6 +76,7 @@ public class ProgressManager {
         }
     }
 
+    // Reinicia los valores iniciales del juego
     public void resetGame()
     {
         levelPass = 0;
@@ -88,10 +84,12 @@ public class ProgressManager {
         levelState = "NONE";
     }
 
+
+    // Carga la informacion del json (si existe) relacionada con el estado del juego y comprueba que no se hayan producido modificaciones
+    // externas en estos
     public void loadFromJSON() {
         try {
             String boughtIconsStr, boughtBackgroundsStr, boughtColorsStr, activeColor, activeBackground, activeIcon;
-
             FileInputStream fileInputStream = context.openFileInput(file);
 
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -106,7 +104,6 @@ public class ProgressManager {
             bufferedReader.close();
 
             JSONObject jsonObject = new JSONObject(stringBuilder.toString());
-
             levelPass = jsonObject.getInt("level");
             worldPass = jsonObject.getInt("world");
             levelState = jsonObject.getString("stateLevel");
@@ -162,6 +159,7 @@ public class ProgressManager {
         }
     }
 
+    // Encargado de setear como pasado el nivel actual y desbloquear el siguiente nivel teniendo en cuenta el paso entre los mundos
     public void setLevelPass() {
         int levelsInCurrentWorld = resourcesManager.getLevelsInWorld(resourcesManager.getIdActualWorld());
 
@@ -183,6 +181,90 @@ public class ProgressManager {
             levelPass++;
     }
 
+    // Metodo encargado de obtener el siguiente nivel que jugara el jugador (no importa si esta pasado o no)
+    public Pair<Integer, Integer> getNextLevelInfo() {
+        int actLevel = resourcesManager.getIdActualLevel();
+        int actWorld = resourcesManager.getIdActualWorld();
+
+        int nLevels = resourcesManager.getLevelsInWorld(actWorld);
+
+        //Si es el ultimo nivel que me he pasado
+        if(actLevel == levelPass && actWorld == worldPass)
+        {
+            return Pair.create(levelPass, worldPass);
+        }
+        else
+        {
+            if(actLevel + 1 < nLevels)
+                return Pair.create(actLevel+1, actWorld);
+            else
+            {
+                if(actWorld + 1 > resourcesManager.getNWorld())
+                    return Pair.create(-1, -1);
+                else
+                    return Pair.create(0, actWorld + 1);
+            }
+
+        }
+    }
+
+    // Obtener el nivel que se tiene que pasar el jugador
+    public int getLevelPass() {
+        return levelPass;
+    }
+
+    // Obtener el mundo que se tiene que pasar el jugador
+    public int getWorldPass() {
+        return worldPass;
+    }
+
+    // Obtener la pantalla de mundo donde esta el juagdor
+    public int getIdActualWorld(){
+        return resourcesManager.getIdActualWorld();
+    }
+
+    // Comprobamos si se ha dejado o no un nivel a medias
+    public boolean levelInProgress(){
+        return !levelState.equals("NONE");
+    }
+
+    // Comprobamos si se ha dejado un nivel a medias a partir del mundo
+    public boolean WorldLevelInProgress(){
+        return currentWorld != 99;
+    }
+
+    // Borramos informacion del nivel que se ha dejado a medias
+    public void DeleteProgressInLevel(){
+        levelState = "NONE";
+    }
+
+    // Obtenemos el id del mundo al que esta jugando el jugador
+    public int getWorldInProgress(){
+        return currentWorld;
+    }
+
+    // Obtenemos el id del nivel al que estaba jugando el jugador
+    public int GetLevelInProgress(){
+        return  currentLevelWorld;
+    }
+
+    // Obtenemos la dificultad del nivel al que estaba jugando el jugador
+    public int getLevelInProgressDifficult(){
+        return  currentLevelDifficult;
+    }
+
+    // Obtenemos la solucion del nivel que estaba jugando el jugador
+    public int[] getLevelInProgressSolution(){
+        return solutionInfo;
+    }
+
+    // Obtenemos la informacion de las filas del nivel que estaba jugando el jugador y borramos la informacion del nivel que se estaba pasando
+    public String getLevelRowState() {
+        levelState = "NONE";
+        return rowsInfo;
+    }
+
+    // Encargado de convertir la informacion del estado del nivel (si hubiera) para poder usarla en el juego
     /* 0-1: mundo, 00 si es nivel rapido
      * 2-3: nivel, 00 si es nivel rapido
      * 4: dificultad
@@ -191,7 +273,7 @@ public class ProgressManager {
      * x-x+3:numero de filas
      * x+3-y:movimientos realizados
      */
-    void ProcessLevelInfo(){
+    private void ProcessLevelInfo(){
         if(!levelState.equals("NONE"))
         {
             currentWorld = Integer.parseInt(levelState.substring(0, 2));
@@ -206,13 +288,15 @@ public class ProgressManager {
                 solutionInfo[i] = Character.getNumericValue(levelState.charAt(i+7));
             }
 
-            int initRowInfo = 7+solutionSize;
+            int initRowInfo = 7+ solutionSize;
 
             rowsInfo = levelState.substring(initRowInfo, levelState.length());
         }
     }
 
-    void CreateHash(String infoJSON){
+
+    // A partir del ndkManager genera el hash de la informacion que se ha guardado en el json y se guarda en un archivo
+    private void CreateHash(String infoJSON){
         if (ndkManager != null) {
             String hash = ndkManager.generateHash(infoJSON);
             try {
@@ -227,7 +311,8 @@ public class ProgressManager {
         }
     }
 
-    public boolean CompareHash(String infoJSON, String hashFile) {
+    // Compara si dos archivos hash tienen la misma informacion
+    private boolean CompareHash(String infoJSON, String hashFile) {
 
         String hash = ndkManager.generateHash(infoJSON);
         String storedHash = ReadStoredHash(hashFile);
@@ -258,75 +343,8 @@ public class ProgressManager {
         return null;
     }
 
-    public int getLevelPass() {
-        return levelPass;
-    }
-    public int getWorldPass() {
-        return worldPass;
-    }
-    public int getIdActualWorld(){
-        return resourcesManager.getIdActualWorld();
-    }
-
-    public boolean levelInProgress(){
-        return !levelState.equals("NONE");
-    }
-
-    public boolean WorldLevelInProgress(){
-        return currentWorld != 99;
-    }
-
-    public void DeleteProgressInLevel(){
-        levelState = "NONE";
-    }
-
-    public int getWorldInProgress(){
-        return currentWorld;
-    }
-    public int GetLevelInProgress(){
-        return  currentLevelWorld;
-    }
-    public int getLevelInProgressDifficult(){
-        return  currentLevelDifficult;
-    }
-
-    public int[] getLevelInProgressSolution(){
-        return solutionInfo;
-    }
-
-    public String getLevelRowState() {
-        levelState = "NONE";
-        return rowsInfo;
-    }
-
-    public Pair<Integer, Integer> getNextLevelInfo() {
-        int actLevel = resourcesManager.getIdActualLevel();
-        int actWorld = resourcesManager.getIdActualWorld();
-
-        int nLevels = resourcesManager.getLevelsInWorld(actWorld);
-
-        //Si es el ultimo nivel que me he pasado
-        if(actLevel == levelPass && actWorld == worldPass)
-        {
-            //setLevelPass();
-            return Pair.create(levelPass, worldPass);
-        }
-        else
-        {
-            if(actLevel + 1 < nLevels)
-                return Pair.create(actLevel+1, actWorld);
-            else
-            {
-                if(actWorld + 1 > resourcesManager.getNWorld())
-                    return Pair.create(-1, -1);
-                else
-                    return Pair.create(0, actWorld + 1);
-            }
-
-        }
-    }
-
-    public void saveShop(JSONObject jsonObject) throws JSONException {
+    // Metodo para guardar en el json toda la informacion necesaria para la tienda
+    private void saveShop(JSONObject jsonObject) throws JSONException {
         if (ShopManager.getInstance().getActiveSkin("codigos") != null)
             jsonObject.put("activeIcon", ShopManager.getInstance().getActiveSkin("codigos").getTitle());
 
@@ -345,4 +363,5 @@ public class ProgressManager {
         if (ShopManager.getInstance().getBoughtSkinsStr("colores") != null)
             jsonObject.put("boughtColors", ShopManager.getInstance().getBoughtSkinsStr("colores"));
     }
+
 }

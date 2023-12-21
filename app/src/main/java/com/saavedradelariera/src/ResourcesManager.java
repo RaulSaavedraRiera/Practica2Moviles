@@ -19,8 +19,9 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * Clase encargada de leer los directorios de los mundos, asi como de leer los json de los niveles y guardar toda esta informacion
- * para poder ser usada por las demas clases.
+ * Clase encargada de leer los directorios de los mundos, asi como de leer los json de los niveles y
+ * guardar toda esta informacion para poder ser usada por las demas clases. Tambien guarda lo realacionado
+ * a los iconos y fondos de los mundos y niveles.
  */
 public class ResourcesManager {
     private int idActualWorld = 0;
@@ -33,6 +34,7 @@ public class ResourcesManager {
     private ArrayList<WorldStyle> worldStyles;
     private ArrayList<ArrayList<Level>> worlds;
     private Map<String, AndroidImage> backgrounds;
+    private Map<Integer, ArrayList<AndroidImage>> iconsLoaded;
     private static ResourcesManager instance = null;
     private Level actualLevel;
     private Context currentContext;
@@ -40,6 +42,7 @@ public class ResourcesManager {
     private void WorldManager() {
     }
 
+    // Inicialilzacion del Singleton
     public void Init(AndroidEngine engine) {
         idActualWorld = 0;
 
@@ -48,6 +51,7 @@ public class ResourcesManager {
         worldStyles = new ArrayList<WorldStyle>();
         files = new ArrayList<String>();
         filesImage = new ArrayList<String>();
+        iconsLoaded = new HashMap<>();
 
         currentContext = engine.getContext();
         ReadWorlds();
@@ -80,13 +84,13 @@ public class ResourcesManager {
         return false;
     }
 
+    // Setea el mundo en el que se encentra el jugador visualmente
     public boolean setWorld(int newWorld) {
         if(newWorld < 0 || newWorld > nWorld)
             return false;
         idActualWorld = newWorld;
         return true;
     }
-
 
     // Obtiene el numero de niveles en un mundo
     public int getLevelsInWorld(int id) {
@@ -98,11 +102,12 @@ public class ResourcesManager {
         }
     }
 
+    // Obtiene el id de los iconos enlazados a un mundo en especifico
     public int getSkinsId() {
         return worldStyles.get(idActualWorld).getIdSkins();
     }
 
-    // Obtiene un nivel especifico del mundo
+    // Obtiene un nivel (Level) especifico de un mundo
     public Level getLevel(int levelIndex, int worldIndex) {
         if (worldIndex >= 0 && worldIndex <= worlds.size() - 1) {
             ArrayList<Level> selectedLevels = worlds.get(worldIndex);
@@ -120,6 +125,8 @@ public class ResourcesManager {
         return actualLevel;
     }
 
+    // Metodo encargado de cargar las carpetas donde se encuentran los iconos para los niveles.
+    // Aqui solo se guarda la ruta hacia la carpeta y cuando se necesario se cargaran los iconos
     public void LoadImageFolders() {
         ArrayList<AndroidImage> images = new ArrayList<>();
         AssetManager mngr = currentContext.getAssets();
@@ -135,16 +142,22 @@ public class ResourcesManager {
         }
     }
 
+    // Carga todos los iconos de las carpetas y los guarda para su posterior uso
     public ArrayList<AndroidImage> LoadLevelIcons(int id, AndroidGraphics g) {
         ArrayList<AndroidImage> images = new ArrayList<>();
         AssetManager mngr = currentContext.getAssets();
 
         try {
+
+            if(iconsLoaded.containsKey(id))
+                return iconsLoaded.get(id);
+
             String[] directories = mngr.list(filesImage.get(id));
             for (String directory : directories) {
                 AndroidImage i = g.createImage(filesImage.get(id) + "/" + directory);
                 images.add(i);
             }
+            iconsLoaded.put(id, images);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -152,10 +165,13 @@ public class ResourcesManager {
         return images;
     }
 
+
+    // Carga los iconos de la tienda
     public ArrayList<AndroidImage> LoadGameIcons(AndroidGraphics graphics) {
         return LoadBoughtImages(graphics, "codigos");
     }
 
+    // Obtiene el background que ha sido comprado (tienda) o el correspondiente al mundo actual
     public AndroidImage getBackground(AndroidGraphics graphics, boolean shop) {
 
         String aux = "";
@@ -184,6 +200,7 @@ public class ResourcesManager {
         }
     }
 
+    // Se encarga de cargar todas los iconos que se mostraran en la tienda
     private ArrayList<AndroidImage> LoadBoughtImages(AndroidGraphics g, String category) {
         if (ShopManager.getInstance().getActiveSkin(category) == null) {
             return null;
@@ -211,6 +228,7 @@ public class ResourcesManager {
         idActualWorld = 0;
     }
 
+    // Leemos la informacion correspondiente a los niveles de cada mundo y lo guardamos para su posterior uso
     private void ReadLevels() {
         AssetManager mngr = currentContext.getAssets();
 
@@ -232,6 +250,7 @@ public class ResourcesManager {
         }
     }
 
+    // Leemos del json la informacion de los niveles
     private Level JSONToLevel(AssetManager mngr, String filePath) {
         try {
             InputStream inputStream = mngr.open(filePath);
@@ -268,6 +287,7 @@ public class ResourcesManager {
         return null;
     }
 
+    // Leemos y obtenemos todos los directorios de los mundos de juego
     private void ReadWorlds() {
         AssetManager mngr = currentContext.getAssets();
 
@@ -283,18 +303,22 @@ public class ResourcesManager {
         }
     }
 
+    // Devuelve el numero de mundos que hay
     public int getNWorld() {
         return nWorld;
     }
 
+    // Devuelve el nivel que esta viendo el jugador
     public int getIdActualLevel() {
         return idActualLevel;
     }
 
+    // Seteamos el nivel que verá el jugador, asi podemos setear y devolver toda la informacion relativa a este
     public void setIdActualLevel(int idActualLevel) {
         this.idActualLevel = idActualLevel;
     }
 
+    // Contexto de la aplicacion
     public Context getCurrentContext() {
         return currentContext;
     }
