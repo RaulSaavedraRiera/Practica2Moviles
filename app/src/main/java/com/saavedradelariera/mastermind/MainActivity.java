@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     AndroidEngine androidEngine;
-    private SensorManager sensorManager;
     private Sensor accelerometer;
     private final float SENSORTHRESHOLD = 17f, TIMEBTWUSES = 1F;
     private long lastCallInSeconds;
@@ -54,11 +53,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         MenuScene mS = new MenuScene();
         SceneManager.getInstance().setScene(mS);
 
-        //agregamos el sensor
-        sensorManager = (SensorManager) getSystemService(getApplicationContext().SENSOR_SERVICE);
-        if (sensorManager != null) {
-            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        }
+       accelerometer = androidEngine.getAccelerometer();
     }
 
     @Override
@@ -69,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         androidEngine.DestroyNotification();
 
         if (accelerometer != null)
-            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+            androidEngine.getSensorManager().registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -79,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         androidEngine.Pause();
 
         if (accelerometer != null)
-            sensorManager.unregisterListener(this);
+            androidEngine.getSensorManager().unregisterListener(this);
 
     }
 

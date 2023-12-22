@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.graphics.Bitmap;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -37,12 +39,14 @@ import java.util.concurrent.TimeUnit;
 
 public class Mobile {
 
-    AppCompatActivity app;
-    AdView mAdView;
-    MobileShare mobileShare;
-    RewardedAd rewardedAd;
+    private AppCompatActivity app;
+    private AdView mAdView;
+    private MobileShare mobileShare;
+    private RewardedAd rewardedAd;
 
-    Activity activity;
+    private Activity activity;
+
+    private SensorsMobile sensors;
 
     public Mobile(AppCompatActivity app, SurfaceView surfaceView, Activity activity){
 
@@ -57,6 +61,7 @@ public class Mobile {
 
 
         mobileShare = new MobileShare(surfaceView, app);
+        sensors = new SensorsMobile(activity.getApplicationContext());
     }
 
     public void GenerateBanner(int adViewID){
@@ -104,6 +109,14 @@ public class Mobile {
 
     public void SolicitateShare(Bitmap bitmap, String mnsg){
         mobileShare.shareImage(bitmap, mnsg);
+    }
+
+    public Sensor getAccelerometer(){
+        return sensors.getAccelerometer();
+    }
+
+    public SensorManager getSensorManager(){
+        return sensors.getSensorManager();
     }
 
     // Método para cargar el anuncio recompensado

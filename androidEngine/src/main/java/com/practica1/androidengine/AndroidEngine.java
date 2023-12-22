@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -243,4 +245,11 @@ public class AndroidEngine implements Runnable {
         mobile.showRewardedAd(adFinish);
     }
 
+    public SensorManager getSensorManager(){
+        return mobile.getSensorManager();
+    }
+
+    public Sensor getAccelerometer(){
+        return mobile.getAccelerometer();
+    }
 }
