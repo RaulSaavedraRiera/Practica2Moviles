@@ -257,6 +257,10 @@ public class AndroidEngine implements Runnable {
         return ndkManager.generateHash(file);
     }
 
+    public void loadLibraries()
+    {
+        System.loadLibrary("androidEngine");
+    }
 
 
 }

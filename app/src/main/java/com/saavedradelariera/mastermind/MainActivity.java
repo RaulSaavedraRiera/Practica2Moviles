@@ -40,9 +40,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         androidEngine.GenerateBanner(R.id.adView);
         androidEngine.SolicitateLoadRewardAd();
 
-
-        System.loadLibrary("androidEngine");
-
+        androidEngine.loadLibraries();
         ResourcesManager.getInstance().Init(androidEngine);
         ProgressManager.getInstance().Init(androidEngine);
         SceneManager.getInstance().init(androidEngine);

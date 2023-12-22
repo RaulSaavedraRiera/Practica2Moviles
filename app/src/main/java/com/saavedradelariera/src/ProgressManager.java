@@ -87,6 +87,7 @@ public class ProgressManager {
         levelPass = 0;
         worldPass = 0;
         levelState = "NONE";
+        ShopManager.getInstance().eraseData();
     }
 
 
@@ -154,9 +155,7 @@ public class ProgressManager {
             // Si vemos que ha modificado los archivos le reseteamos el progreso
             if(!hashesMatch)
             {
-                levelPass = 0;
-                worldPass = 0;
-                levelState = "NONE";
+                resetGame();
             }
 
         } catch (IOException | JSONException e) {
