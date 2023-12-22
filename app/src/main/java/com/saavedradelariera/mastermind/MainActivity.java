@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         System.loadLibrary("androidEngine");
 
         ResourcesManager.getInstance().Init(androidEngine);
-        ProgressManager.getInstance().Init(androidEngine.getContext());
+        ProgressManager.getInstance().Init(androidEngine);
         SceneManager.getInstance().init(androidEngine);
 
         ShopManager.getInstance().init(androidEngine);

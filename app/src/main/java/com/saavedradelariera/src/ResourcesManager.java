@@ -1,9 +1,9 @@
 package com.saavedradelariera.src;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 
 import com.practica1.androidengine.AndroidEngine;
+import com.practica1.androidengine.AndroidFile;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
 
@@ -38,6 +38,8 @@ public class ResourcesManager {
     private static ResourcesManager instance = null;
     private Level actualLevel;
     private Context currentContext;
+
+    private AndroidFile filesAndroid = new AndroidFile();
 
     private void WorldManager() {
     }
@@ -129,10 +131,8 @@ public class ResourcesManager {
     // Aqui solo se guarda la ruta hacia la carpeta y cuando se necesario se cargaran los iconos
     public void LoadImageFolders() {
         ArrayList<AndroidImage> images = new ArrayList<>();
-        AssetManager mngr = currentContext.getAssets();
-
         try {
-            String[] directories = mngr.list("sprites/icons");
+            String[] directories = filesAndroid.listFiles(currentContext,"sprites/icons");
 
             for (String directory : directories) {
                 filesImage.add("sprites/icons/" + directory);
@@ -145,14 +145,13 @@ public class ResourcesManager {
     // Carga todos los iconos de las carpetas y los guarda para su posterior uso
     public ArrayList<AndroidImage> LoadLevelIcons(int id, AndroidGraphics g) {
         ArrayList<AndroidImage> images = new ArrayList<>();
-        AssetManager mngr = currentContext.getAssets();
 
         try {
 
             if(iconsLoaded.containsKey(id))
                 return iconsLoaded.get(id);
 
-            String[] directories = mngr.list(filesImage.get(id));
+            String[] directories = filesAndroid.listFiles(currentContext,filesImage.get(id));
             for (String directory : directories) {
                 AndroidImage i = g.createImage(filesImage.get(id) + "/" + directory);
                 images.add(i);
@@ -205,13 +204,11 @@ public class ResourcesManager {
         if (ShopManager.getInstance().getActiveSkin(category) == null) {
             return null;
         }
-
         String skinPath = ShopManager.getInstance().getActiveSkin(category).getSkinsPath();
         ArrayList<AndroidImage> images = new ArrayList<>();
-        AssetManager mngr = currentContext.getAssets();
 
         try {
-            String[] directories = mngr.list(skinPath);
+            String[] directories = filesAndroid.listFiles(currentContext,skinPath);
             for (String directory : directories) {
                 AndroidImage i = g.createImage(skinPath + directory);
                 images.add(i);
@@ -230,16 +227,14 @@ public class ResourcesManager {
 
     // Leemos la informacion correspondiente a los niveles de cada mundo y lo guardamos para su posterior uso
     private void ReadLevels() {
-        AssetManager mngr = currentContext.getAssets();
-
         try {
             for (String nameW : files) {
-                String[] directories = mngr.list(LvlPath + '/' + nameW);
+                String[] directories = filesAndroid.listFiles(currentContext ,LvlPath + '/' + nameW);
 
                 ArrayList<Level> levels = new ArrayList<>();
 
                 for (String directory : directories) {
-                    Level l = JSONToLevel(mngr, LvlPath + '/' + nameW + '/' + directory);
+                    Level l = JSONToLevel(LvlPath + '/' + nameW + '/' + directory);
                     if (l != null)
                         levels.add(l);
                 }
@@ -251,10 +246,10 @@ public class ResourcesManager {
     }
 
     // Leemos del json la informacion de los niveles
-    private Level JSONToLevel(AssetManager mngr, String filePath) {
+    private Level JSONToLevel(String filePath) {
         try {
-            InputStream inputStream = mngr.open(filePath);
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            InputStream inputStream = filesAndroid.createInputStream(currentContext, filePath);
+            InputStreamReader inputStreamReader = filesAndroid.createInputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuilder stringBuilder = new StringBuilder();
             String line;
@@ -289,10 +284,8 @@ public class ResourcesManager {
 
     // Leemos y obtenemos todos los directorios de los mundos de juego
     private void ReadWorlds() {
-        AssetManager mngr = currentContext.getAssets();
-
         try {
-            String[] directories = mngr.list(LvlPath);
+            String[] directories = filesAndroid.listFiles(currentContext, LvlPath);
 
             for (String directory : directories) {
                 files.add(directory);

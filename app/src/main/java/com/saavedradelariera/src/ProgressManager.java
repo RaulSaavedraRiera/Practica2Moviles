@@ -3,6 +3,7 @@ package com.saavedradelariera.src;
 import android.content.Context;
 import android.util.Pair;
 
+import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidFile;
 import com.practica1.androidengine.NDKManager;
 import org.json.JSONException;
@@ -29,12 +30,10 @@ public class ProgressManager {
     private int[] solutionInfo;
     private static ProgressManager instance = null;
     private Context context;
+    private AndroidEngine engine;
     private String file = "progress.json";
     private String hashFile = "hash.txt";
     private int balance;
-    private Map<String, Skin> activeSkinsMap;
-    private ArrayList<JSONObject> jsonActiveSkinsMap;
-    NDKManager ndkManager = new NDKManager();
     private AndroidFile files = new AndroidFile();
 
     private void ProgressManager() {
@@ -47,8 +46,9 @@ public class ProgressManager {
         return instance;
     }
 
-    public void Init(Context context) {
-        this.context = context;
+    public void Init(AndroidEngine engine) {
+        this.context = engine.getContext();
+        this.engine = engine;
     }
 
     // Metodo encargado de guardar en json la informacion en ese momento del juego asi de crear un hash de esa informacion
@@ -302,8 +302,8 @@ public class ProgressManager {
 
     // A partir del ndkManager genera el hash de la informacion que se ha guardado en el json y se guarda en un archivo
     private void CreateHash(String infoJSON){
-        if (ndkManager != null) {
-            String hash = ndkManager.generateHash(infoJSON);
+
+            String hash = engine.doGenerateHash(infoJSON);
             try {
                 FileOutputStream fileOutputStream = files.openFileOutput(hashFile, context);
                 OutputStreamWriter outputStreamWriter = files.createOutputStreamWriter(fileOutputStream);
@@ -313,13 +313,13 @@ public class ProgressManager {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+
     }
 
     // Compara si dos archivos hash tienen la misma informacion
     private boolean CompareHash(String infoJSON, String hashFile) {
 
-        String hash = ndkManager.generateHash(infoJSON);
+        String hash = engine.doGenerateHash(infoJSON);
         String storedHash = ReadStoredHash(hashFile);
 
         return storedHash != null && storedHash.equals(hash);
