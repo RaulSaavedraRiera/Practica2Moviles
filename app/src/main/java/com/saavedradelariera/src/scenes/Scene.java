@@ -74,11 +74,11 @@ public abstract class Scene implements IScene {
 
         if(!inverseRender)
             for (int i = 0; i < GOList.size(); i++) {
-                GOList.get(i).Render(iGraphics);
+                GOList.get(i).render(iGraphics);
             }
         else
             for (int i = GOList.size()-1; i >= 0; i--) {
-                GOList.get(i).Render(iGraphics);
+                GOList.get(i).render(iGraphics);
             }
     }
 
@@ -87,7 +87,7 @@ public abstract class Scene implements IScene {
     public void updateScene(AndroidEngine IEngine, float deltaTime){
         for (IGameObject gO : GOList)
         {
-            gO.Update(IEngine, deltaTime);
+            gO.update(IEngine, deltaTime);
         }
 
         SceneManager.getInstance().procceseMessages();
@@ -96,7 +96,7 @@ public abstract class Scene implements IScene {
     public void sendMessageToGO(Message m){
         for (int i = 0; i < GOMessageList.size(); i++) {
             if(i < GOMessageList.size() &&  GOMessageList.get(i) != null)
-                GOMessageList.get(i).ReceiveMessage(m);
+                GOMessageList.get(i).receiveMessage(m);
         }
     }
 
@@ -107,7 +107,7 @@ public abstract class Scene implements IScene {
         {
             for(IGameObject gO : GOList)
             {
-                if(gO.HandleInput(e)) break;
+                if(gO.handleInput(e)) break;
             }
         }
 

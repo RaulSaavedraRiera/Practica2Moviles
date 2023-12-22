@@ -263,7 +263,7 @@ public class GameManager extends GameObject {
     }
 
     @Override
-    public boolean HandleInput(TouchEvent e) {
+    public boolean handleInput(TouchEvent e) {
 
             if(e.getType() == TouchEvent.TouchEventType.DRAG) {
                 int changeInY = (int)(e.getY() - dragY);
@@ -298,7 +298,7 @@ public class GameManager extends GameObject {
     //Recibe mensajes tanto de input como de cambio en el modo daltonico
 
     @Override
-    public void ReceiveMessage(Message m) {
+    public void receiveMessage(Message m) {
         switch(m.id)
         {
             case "InputColor":

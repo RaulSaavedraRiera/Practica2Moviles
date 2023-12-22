@@ -21,11 +21,11 @@ public class ImageBackground extends GameObject {
 
      //Renderiza el texto con la fuente default o una especifica
     @Override
-    public void Render(AndroidGraphics graphics) {
+    public void render(AndroidGraphics graphics) {
         graphics.setBackgroundImage(img);
     }
 
     @Override
-    public void Update(AndroidEngine iEngine, float deltaTime) {
+    public void update(AndroidEngine iEngine, float deltaTime) {
     }
 }

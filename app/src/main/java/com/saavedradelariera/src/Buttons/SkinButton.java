@@ -26,7 +26,7 @@ public class SkinButton extends GameObject {
     }
 
     @Override
-    public void Render(AndroidGraphics graphics) {
+    public void render(AndroidGraphics graphics) {
         if (skin.getCategory().equals("colores")) {
             ColorSkin colorSkin = (ColorSkin)skin;
             graphics.RenderFillRect(X,Y,W,H/2,new ColorJ(colorSkin.getPrimaryColor()), new ColorJ("#000000"));
@@ -39,9 +39,9 @@ public class SkinButton extends GameObject {
     }
 
     @Override
-    public boolean HandleInput(TouchEvent e) {
+    public boolean handleInput(TouchEvent e) {
         if (e.getType() == TouchEvent.TouchEventType.CLICK || e.getType() == TouchEvent.TouchEventType.TOUCH_UP) {
-            if (ISOver(e.getX(), e.getY())) {
+            if (isOver(e.getX(), e.getY())) {
                 return HandleClick();
             }
         }

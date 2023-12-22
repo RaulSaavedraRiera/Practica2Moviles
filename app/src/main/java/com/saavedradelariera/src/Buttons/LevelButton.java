@@ -46,7 +46,7 @@ public class LevelButton extends GenericButton {
     }
 
     @Override
-    public void Render(AndroidGraphics graphics) {
+    public void render(AndroidGraphics graphics) {
         graphics.RenderFillRect(posX, posY, width, height, c, c2, radius);
         if ((pM.getIdActualWorld() < pM.getWorldPass()) ||
                 ( pM.getIdActualWorld() == pM.getWorldPass() && id <= pM.getLevelPass()))

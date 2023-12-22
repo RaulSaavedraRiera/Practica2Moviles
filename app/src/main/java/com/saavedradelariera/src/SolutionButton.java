@@ -17,12 +17,12 @@ public class SolutionButton extends Button {
 
     //overrideamos los métodos de GameObject y actualizamos render para que pinte lo deseado
     @Override
-    public void Render(AndroidGraphics graphics) {
-        super.Render(graphics);
+    public void render(AndroidGraphics graphics) {
+        super.render(graphics);
     }
 
     @Override
-    public void Update(AndroidEngine IEngine, float deltaTime) {
+    public void update(AndroidEngine IEngine, float deltaTime) {
 
     }
 

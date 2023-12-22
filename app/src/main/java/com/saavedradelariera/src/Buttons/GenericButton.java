@@ -26,15 +26,15 @@ public class GenericButton extends GameObject {
 
     //Los botones serán representados como rectángulos
     @Override
-    public void Render(AndroidGraphics graphics) {
+    public void render(AndroidGraphics graphics) {
         graphics.RenderFillRect(posX, posY, width, height, c, c2, radius);
     }
 
     //Comprobamos si se ha pulsado sobre el botón y si es así llamamos al método HandleClick para procesarlo
     @Override
-    public boolean HandleInput(TouchEvent e) {
+    public boolean handleInput(TouchEvent e) {
         if (e.getType() == TouchEvent.TouchEventType.CLICK || e.getType() == TouchEvent.TouchEventType.TOUCH_UP) {
-            if (ISOver(e.getX(), e.getY())) {
+            if (isOver(e.getX(), e.getY())) {
 
                 return HandleClick();
             }

@@ -50,7 +50,7 @@ public class VisualRectangle extends GameObject {
 
     //overrideamos los métodos de GameObject y actualizamos render para que pinte lo deseado
     @Override
-    public void Render(AndroidGraphics graphics) {
+    public void render(AndroidGraphics graphics) {
         //segun las caracteristicas dadas en el constructor lo pintamos de diferentes maneras
 
         if (!fill) {
@@ -76,7 +76,7 @@ public class VisualRectangle extends GameObject {
     }
 
     @Override
-    public void Update(AndroidEngine engine, float deltaTime) {
+    public void update(AndroidEngine engine, float deltaTime) {
 
     }
 }

@@ -1,9 +1,10 @@
 package com.saavedradelariera.src;
 
-import com.saavedradelariera.src.Skin;
+/* Esta clase se usa para representar las skins de los colores. Hereda todas las funcionalidades de
+Skin y adicionalmente almacena los dos colores que tiene.*/
 
 public class ColorSkin extends Skin {
-    private String primaryColor;
+    private String primaryColor, secondaryColor;
 
     public String getPrimaryColor() {
         return primaryColor;
@@ -12,8 +13,6 @@ public class ColorSkin extends Skin {
     public String getSecondaryColor() {
         return secondaryColor;
     }
-
-    private String secondaryColor;
 
     public ColorSkin(String title, int price, String samplePath, String skinsPath, String category, String primaryColor, String secondaryColor) {
         super(title, price, samplePath, skinsPath, category);

@@ -68,7 +68,7 @@ public class GameScene extends Scene {
             background = new ImageBackground(backgroundImage);
         }
 
-        SetSceneSettings(difficult);
+        setSceneSettings(difficult);
         name = "GameScene";
 
         //le pasamos al manager las columnas para que las gestione
@@ -133,7 +133,7 @@ public class GameScene extends Scene {
         return gameManager;
     }
 
-    void SetSceneSettings(int difficult) {
+    void setSceneSettings(int difficult) {
         switch (difficult) {
             case 0:
                 nButtons = 4;
@@ -164,6 +164,5 @@ public class GameScene extends Scene {
                 nColors = aux.getCodeOpt();
                 break;
         }
-
     }
 }

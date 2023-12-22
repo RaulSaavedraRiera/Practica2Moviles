@@ -35,7 +35,7 @@ public class Text extends GameObject {
 
     //Renderiza el texto con la fuente default o una especifica
     @Override
-    public void Render(AndroidGraphics graphics) {
+    public void render(AndroidGraphics graphics) {
         //Si usa la fuente la crea o setea
         if (useFont)
             graphics.CreateFont(font.getRoute(), font.getSize(), font.getBold());
@@ -44,7 +44,7 @@ public class Text extends GameObject {
     }
 
     @Override
-    public void Update(AndroidEngine iEngine, float deltaTime) {
+    public void update(AndroidEngine iEngine, float deltaTime) {
 
     }
 
