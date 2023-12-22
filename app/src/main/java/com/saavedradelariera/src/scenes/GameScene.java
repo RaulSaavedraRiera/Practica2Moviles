@@ -9,6 +9,7 @@ import com.saavedradelariera.src.Buttons.ImageButton;
 import com.saavedradelariera.src.ClickListener;
 import com.saavedradelariera.src.ColorBackground;
 import com.saavedradelariera.src.GameManager;
+import com.saavedradelariera.src.GameObject;
 import com.saavedradelariera.src.ImageBackground;
 import com.saavedradelariera.src.InputSolution;
 import com.saavedradelariera.src.Level;
@@ -37,6 +38,9 @@ public class GameScene extends Scene {
     boolean loadState;
 
     public GameScene(int diff, boolean isQuickGame, boolean loadState){
+
+        inverseRender = true;
+
         difficult = diff;
         this.isQuickGame = isQuickGame;
         this.loadState = loadState;
@@ -49,11 +53,14 @@ public class GameScene extends Scene {
     public void setScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
         super.setScene(graphics, audioSystem);
 
+        GameObject background = null;
+
         if (isQuickGame) {
             primaryColor = shopManager.getBackgroundColor();
             iconImages = resourcesManager.LoadGameIcons(graphics);
             backgroundImage = resourcesManager.getBackground(graphics, true);
-            new ColorBackground(shopManager.getBackgroundColor());
+            if(backgroundImage == null)
+                background = new ColorBackground(shopManager.getBackgroundColor());
 
         } else {
             backgroundImage = resourcesManager.getBackground(graphics, false);
@@ -62,7 +69,7 @@ public class GameScene extends Scene {
         }
 
         if(backgroundImage != null) {
-            new ImageBackground(backgroundImage);
+            background = new ImageBackground(backgroundImage);
         }
 
         SetSceneSettings(difficult);
@@ -74,20 +81,7 @@ public class GameScene extends Scene {
         if(iconImages != null)
             gameManager.setIconImages(iconImages);
 
-        gameManager.Init(difficult, nButtons, nRows, graphics, loadState);
-
-
-        //creamos el input solution
-
-        if(iconImages == null)
-            new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f), graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, primaryColor, gameManager.GetColors(), false);
-        //o con sprites
-        else
-            new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f), graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, primaryColor, iconImages);
-
         //parte superior del nivel
-        //rectangulo para tapar la parte de arriba
-        new VisualRectangle(0, 0, (int)graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), primaryColor, true);
         new Text("Night.ttf",200, 50, 25, 50,  "Averigua el código", new ColorJ(0, 0, 0));
         new ChangeSceneButtonBack("X.png", 70, 50, 30, 30);
         //si no hay imagenes metemos el daltonic button
@@ -101,6 +95,20 @@ public class GameScene extends Scene {
                 }
             });
         }
+
+        //creamos el input solution
+        if(iconImages == null)
+            new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f), graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, primaryColor, gameManager.GetColors(), false);
+        //o con sprites
+        else
+            new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f), graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, primaryColor, iconImages);
+
+        //rectangulo para tapar las partes de arriba y de abajo
+        new VisualRectangle(0, (int)(-graphics.GetHeightRelative()*0.4f), (int)graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.5f), primaryColor, true);
+        new VisualRectangle(0, (int)(graphics.GetHeightRelative()), (int)graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.5f), primaryColor, true);
+
+        gameManager.Init(background, difficult, nButtons, nRows, graphics, loadState);
+
 
     }
 

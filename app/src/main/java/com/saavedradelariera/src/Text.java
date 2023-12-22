@@ -6,7 +6,7 @@ import com.practica1.androidengine.AndroidFont;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 
-//Clase text para dibujar textos
+/*Clase text para dibujar textos en pantalla con posibilidad de modificar color y fuente*/
 public class Text extends GameObject {
 
     //color y cadena de texto

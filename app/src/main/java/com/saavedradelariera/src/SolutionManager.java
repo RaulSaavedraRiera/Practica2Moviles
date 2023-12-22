@@ -155,8 +155,10 @@ public class SolutionManager {
     public ArrayList<Integer> getSolution() {
         return solution;
     }
+    //devuelve el numero de posibles tipos de entrada para hallar la solucion
     public int getNTypes() { return nColors;}
 
+    //obtiene un string con formato normalizado que contiene la informacion de la solucion para poder almacenarla
     public String getSolutionData() {
         String s = "";
         if(solution.size() < 10)

@@ -23,7 +23,6 @@ public class InputSolution extends GameObject {
     {
         super(x,y,w,h);
         writeArray = new ArrayList<Integer>(tam);
-        vRectangle = new VisualRectangle(x,y,w,h, rectangleColor, true);
         buttons = new ButtonArray(x,y,w,h);
 
         //añade los numeros y almacena los colores para usarlos más adelante
@@ -35,6 +34,7 @@ public class InputSolution extends GameObject {
         }
         //genera los botones y los activa
         buttons.GenerateEnableButtons(tam, spaceCoefficient, offsetBtwButtons, 1f, nums, colors, true, false, daltonic);
+        vRectangle = new VisualRectangle(x,y,w,h, rectangleColor, true);
     }
 
     public InputSolution(int x, int y, int w, int h, int tam, ColorJ rectangleColor, ArrayList<AndroidImage> imgs)
@@ -42,8 +42,6 @@ public class InputSolution extends GameObject {
         super(x,y,w,h);
         writeArray = new ArrayList<Integer>(tam);
 
-
-        vRectangle = new VisualRectangle(x,y,w,h, rectangleColor, true);
 
         buttons = new ButtonArray(x,y,w,h);
 
@@ -55,6 +53,7 @@ public class InputSolution extends GameObject {
         }
         //genera los botones y los activa
         buttons.GenerateEnableButtons(tam, spaceCoefficient, offsetBtwButtons, 1f, nums, imgs, true, false);
+        vRectangle = new VisualRectangle(x,y,w,h, rectangleColor, true);
     }
 
 

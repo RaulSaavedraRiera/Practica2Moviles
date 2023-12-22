@@ -37,6 +37,8 @@ public class GameManager extends GameObject {
     //AndroidImage backgroundImage;
     private Random random = new Random();
 
+    private IGameObject background;
+
 
     //si activamos inputInRows y no clearInRows podras seleccionar colores desde las filas pero no quitarlos
     boolean currentDaltonicEnable = false,
@@ -60,7 +62,9 @@ public class GameManager extends GameObject {
     }
 
   //Inicializa el GameManager
-    public void Init(int difficult, int solutionSize, int nRows, AndroidGraphics graphics, boolean load){
+    public void Init(IGameObject background, int difficult, int solutionSize, int nRows, AndroidGraphics graphics, boolean load){
+
+        this.background = background;
 
         //Lo registra para recibir mensajes
         SceneManager.getInstance().registerToMessage(this);
@@ -117,6 +121,9 @@ public class GameManager extends GameObject {
         }
 
        CalculateRowOffset();
+
+        if(background != null)
+            SceneManager.getInstance().moveGOToBottomInActiveScene(background);
     }
 
     public void setIconImages(ArrayList<AndroidImage> images)
@@ -140,11 +147,13 @@ public class GameManager extends GameObject {
 
     public void AddRows(int n){
         for (int i = 1; i <= n; i++) {
-            Row row = new Row(iniX + offsetX* rows.size(), iniY + (rowHeight + offsetY)*rows.size() , rowWidth, rowHeight, buttonsPerRow , rows.size());
+            Row row = new Row(iniX + offsetX* rows.size(), iniY + (rowHeight + offsetY)*rows.size() , rowWidth, rowHeight, buttonsPerRow , rows.size()+1);
             rows.add(row);
         }
 
         CalculateRowOffset();
+        if(background != null)
+            SceneManager.getInstance().moveGOToBottomInActiveScene(background);
     }
 
     void CalculateRowOffset(){

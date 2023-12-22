@@ -5,7 +5,7 @@ import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.ColorJ;
 
-//clase que permite dibujar un rectángulo gráficamente
+/*clase que permite dibujar un rectángulo gráficamente con diferentes opciones*/
 public class VisualRectangle extends GameObject {
 
 
@@ -15,7 +15,7 @@ public class VisualRectangle extends GameObject {
 
     int radius = 0;
 
-    //en el inicializador pasamos todos los atributos necesarios
+    //Crear un rectangulo de un solo color
     public VisualRectangle(int x, int y, int w, int h, ColorJ c, boolean fill) {
         super(x, y, w, h);
 
@@ -23,6 +23,7 @@ public class VisualRectangle extends GameObject {
         this.fill = fill;
     }
 
+    //Crear un rectangulo con dos colores
     public VisualRectangle(int x, int y, int w, int h, ColorJ c, ColorJ c2, boolean fill) {
         super(x, y, w, h);
 
@@ -31,6 +32,7 @@ public class VisualRectangle extends GameObject {
         this.fill = fill;
     }
 
+    //Crear un rectangulo de un solo color redondeado
     public VisualRectangle(int x, int y, int w, int h, ColorJ c, boolean fill, int radius) {
         super(x, y, w, h);
 
@@ -39,6 +41,7 @@ public class VisualRectangle extends GameObject {
         this.radius = radius;
     }
 
+    //Crear un rectangulo con dos colores redondeado
     public VisualRectangle(int x, int y, int w, int h, ColorJ c, ColorJ c2, boolean fill, int radius) {
         super(x, y, w, h);
 
@@ -52,6 +55,8 @@ public class VisualRectangle extends GameObject {
     @Override
     public void Render(AndroidGraphics graphics) {
 
+
+        //segun las caracteristicas dadas en el constructor lo pintamos de diferentes maneras
 
         if(!fill) {
             graphics.RenderRect(posX, posY, width, height, color);

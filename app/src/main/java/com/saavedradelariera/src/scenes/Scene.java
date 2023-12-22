@@ -18,6 +18,8 @@ public abstract class Scene implements IScene {
     protected ArrayList<IGameObject> GOList = new ArrayList<IGameObject>();
     protected ArrayList<IGameObject> GOMessageList = new ArrayList<>();
 
+    protected boolean inverseRender;
+
     //inicialzia la escena generando su audiomanager
 
     public void setScene(AndroidGraphics graphics, AndroidAudio audioSystem){
@@ -40,6 +42,22 @@ public abstract class Scene implements IScene {
         GOList.remove(g);
     }
 
+    public void moveToBottonGO(IGameObject g){
+        GOList.remove(g);
+        if(!inverseRender)
+            GOList.add(0,g);
+        else
+            GOList.add(g);
+    }
+
+    public void moveToTopGO(IGameObject g){
+        GOList.remove(g);
+        if(!inverseRender)
+            GOList.add(g);
+        else
+            GOList.add(0, g);
+    }
+
     @Override
     public String getName(){
         return name;
@@ -53,10 +71,15 @@ public abstract class Scene implements IScene {
     //llama al render de todos los GO asociados
     @Override
     public void renderScene(AndroidGraphics iGraphics){
-        for (IGameObject gO : GOList)
-        {
-            gO.Render(iGraphics);
-        }
+
+        if(!inverseRender)
+            for (int i = 0; i < GOList.size(); i++) {
+                GOList.get(i).Render(iGraphics);
+            }
+        else
+            for (int i = GOList.size()-1; i >= 0; i--) {
+                GOList.get(i).Render(iGraphics);
+            }
     }
 
     //llama al update de todos los GO asociados

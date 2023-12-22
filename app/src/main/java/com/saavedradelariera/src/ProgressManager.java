@@ -16,8 +16,9 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
-/**
- * Clase encargada de actualizar, guardar y obtener la progresion del jugador
+/*
+ * Clase encargada de leer los directorios de los mundos, asi como de leer los json de los niveles y guardar toda esta informacion
+ * para poder ser usada por las demas clases.
  */
 public class ProgressManager {
     private ResourcesManager resourcesManager = ResourcesManager.getInstance();

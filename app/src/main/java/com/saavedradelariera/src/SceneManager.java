@@ -17,13 +17,15 @@ public class SceneManager {
 
     //escena activa
     Scene activeScene = null;
+    //pila de escenas para poder volver para atras
     Stack<Scene> sceneStack = new Stack<>();
+    //lista de gameObjects suscritos a mensajes
     ArrayList<GameObject> messagesGO = new ArrayList<>();
-
+    //lista de mensajes para ser mandados en paquete
     List<Message> messages= new ArrayList<>();
     //constructor vacio
     private void SceneManager(){}
-    //incialziacion en dos pasos
+    //iniicalizacion en dos pasos
     public void init(AndroidEngine e) {
         engine = e;
     }
@@ -70,19 +72,29 @@ public class SceneManager {
         return engine;
     }
 
+    //añade el gameObject a la escena activa
     public void addGameObjectToActiveScene(IGameObject gO){
         activeScene.addGO(gO);
     }
-
+    //elimina el gameObject de la escena activa
     public void removeGameObjectFromActiveScene(IGameObject gO){
         activeScene.removeGO(gO);
     }
-
+    //mueve el gameObject para ser renderizado sobre los demas
+    public void moveGOToTopInActiveScene(IGameObject gO){
+        activeScene.moveToTopGO(gO);
+    }
+    //mueve el gameObject para ser renderizado por debajo de los demas
+    public void moveGOToBottomInActiveScene(IGameObject gO){
+        activeScene.moveToBottonGO(gO);
+    }
+    //añade el mensaje a la pila de mensajes para ser procesado posteriormente
     public void sendMessageToActiveScene(Message m)
     {
         messages.add(m);
     }
 
+    //procesa los mensajes pendientes enviandolos a los gameobject suscritos en la escena
     public void procceseMessages()
     {
         for (Message m: messages) {
@@ -92,19 +104,21 @@ public class SceneManager {
         messages.clear();
     }
 
+    //registra el gameObject a los mensajes
     public void registerToMessage(IGameObject gO)
     {
         activeScene.addGOToMessages(gO);
     }
-
+    //desregistra el gameObject a los mensajes
     public void unRegisterToMessage(IGameObject gO)
     {
         messagesGO.remove(gO);
     }
-
+    //añade la escena activa al stack de escenas
     public void pushSceneStack(){
         sceneStack.add(activeScene);
     }
+    //usa la escena almacenada en el stack
     public Scene useSceneStack(){
 
         if(!sceneStack.empty())
@@ -115,6 +129,7 @@ public class SceneManager {
         }
         return null;
     }
+    //resetea el stack de escenas
     public void resetStack()
     {
         sceneStack.clear();
@@ -128,11 +143,13 @@ public class SceneManager {
         return sceneStack.peek();
     }
 
+    //lanza un mensaje de evento de aceleracion
     public void launchAcceleratorEvent()
     {
         sendMessageToActiveScene(new AcceleratorEventMessage());
     }
 
+    //obtiene el progreso de la escena activa
     public  String getActiveSceneState(){
         return activeScene.getStateScene();
     }
