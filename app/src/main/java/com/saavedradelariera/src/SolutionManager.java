@@ -12,7 +12,7 @@ public class SolutionManager {
     private RandomWinCombination rand = new RandomWinCombination();
     //almacenamos la solución
     ArrayList<Integer> solution = new ArrayList<Integer>();
-   Map<Integer, Integer> nTypePerSolution = new HashMap<>();
+    Map<Integer, Integer> nTypePerSolution = new HashMap<>();
     //variable con la que podemos determinar si queremos que las pistas indiquen posicion exacta ono
     boolean unordererClue = true;
 
@@ -20,15 +20,15 @@ public class SolutionManager {
     boolean canRepeat;
 
     //genera la solucion al inicializarse
-    public SolutionManager(int diff, boolean loadSolution){
+    public SolutionManager(int diff, boolean loadSolution) {
 
         setParams(diff);
         setSolution(diff, loadSolution);
     }
 
-    void setParams(int diff){
+    void setParams(int diff) {
         //segun la dificultad seleccionada inicializamos las variables iniciales de la manera correspondiente
-        switch(diff){
+        switch (diff) {
             //modo facil
             case 0:
                 nColors = 4;
@@ -55,31 +55,26 @@ public class SolutionManager {
                 break;
             case 4:
                 nColors = ResourcesManager.getInstance().getActualLevel().getCodeOpt();
-                nSol =  ResourcesManager.getInstance().getActualLevel().getCodeSize();
+                nSol = ResourcesManager.getInstance().getActualLevel().getCodeSize();
                 canRepeat = ResourcesManager.getInstance().getActualLevel().isRepeat();
                 break;
         }
     }
 
     //setea la solución y la añade a su arrayList de solucion
-    void setSolution(int diff, boolean loadSolution)
-    {
+    void setSolution(int diff, boolean loadSolution) {
         int[] aux;
 
-        if(!loadSolution)
-        {
+        if (!loadSolution) {
             aux = rand.GetWinCombination(nColors, nSol, canRepeat);
-        }
-        else
-        {
-           aux = ProgressManager.getInstance().getLevelInProgressSolution();
+        } else {
+            aux = ProgressManager.getInstance().getLevelInProgressSolution();
         }
 
-        for(int i = 0; i < aux.length; i++)
-        {
+        for (int i = 0; i < aux.length; i++) {
             solution.add(aux[i]);
             //sumamos cuantos hay de cada color
-            if(nTypePerSolution.containsKey(aux[i]))
+            if (nTypePerSolution.containsKey(aux[i]))
                 nTypePerSolution.put(aux[i], nTypePerSolution.get(aux[i]) + 1);
             else
                 nTypePerSolution.put(aux[i], 1);
@@ -93,25 +88,22 @@ public class SolutionManager {
      *   - 1: el color se encuentra en la solucion pero no en esa posicion
      *   - 2: el color no se encuentra en la solucion
      * */
-    public ArrayList<Integer> compareSolution(ArrayList<Integer> playerTry)
-    {
+    public ArrayList<Integer> compareSolution(ArrayList<Integer> playerTry) {
         boolean hasWin = true;
 
         ArrayList<Integer> check = new ArrayList<>();
-        Map<Integer,Integer> nType = new HashMap<>(nTypePerSolution);
+        Map<Integer, Integer> nType = new HashMap<>(nTypePerSolution);
 
         //comprobamos si la solucion contiene dicho color y si es en esa posición
-        for(int i = 0; i < playerTry.size(); i++)
-        {
+        for (int i = 0; i < playerTry.size(); i++) {
             //el color va en esa posicon
-            if(playerTry.get(i) == solution.get(i))
-            {
+            if (playerTry.get(i) == solution.get(i)) {
                 check.add(0);
                 //quitamos uno a los numeros de ese tipo presentes en la solucion
-                if(nType.get(playerTry.get(i)) != 0)
-                    nType.put(playerTry.get(i), nType.get(playerTry.get(i))- 1);
-                //si no quedaban numero es porque ha puesto este numero en otra posicion,
-                //para priorizar buenas colocaciones quitamos un 1 correspondiente a este
+                if (nType.get(playerTry.get(i)) != 0)
+                    nType.put(playerTry.get(i), nType.get(playerTry.get(i)) - 1);
+                    //si no quedaban numero es porque ha puesto este numero en otra posicion,
+                    //para priorizar buenas colocaciones quitamos un 1 correspondiente a este
                 else
 
                     for (int j = 0; j < check.size(); j++)
@@ -122,16 +114,12 @@ public class SolutionManager {
                         }
 
 
-            }
-            else if(solution.contains(playerTry.get(i)) && nType.get(playerTry.get(i)) > 0)
-            {
-                nType.put(playerTry.get(i), nType.get(playerTry.get(i))- 1);
+            } else if (solution.contains(playerTry.get(i)) && nType.get(playerTry.get(i)) > 0) {
+                nType.put(playerTry.get(i), nType.get(playerTry.get(i)) - 1);
 
                 hasWin = false;
                 check.add(1);
-            }
-            else
-            {
+            } else {
                 hasWin = false;
                 check.add(2);
             }
@@ -139,13 +127,12 @@ public class SolutionManager {
         }
 
         //si ha ganado añade -1 al final
-        if(hasWin)
-        {
-           check.add(99);
+        if (hasWin) {
+            check.add(99);
         }
 
         //si debe ser desordenado la ordena por aciertos/fallos
-        if(unordererClue)
+        if (unordererClue)
             Collections.sort(check);
 
         return check;
@@ -155,19 +142,22 @@ public class SolutionManager {
     public ArrayList<Integer> getSolution() {
         return solution;
     }
+
     //devuelve el numero de posibles tipos de entrada para hallar la solucion
-    public int getNTypes() { return nColors;}
+    public int getNTypes() {
+        return nColors;
+    }
 
     //obtiene un string con formato normalizado que contiene la informacion de la solucion para poder almacenarla
     public String getSolutionData() {
         String s = "";
-        if(solution.size() < 10)
-            s+= "0" + solution.size();
+        if (solution.size() < 10)
+            s += "0" + solution.size();
         else
-            s+= solution.size();
+            s += solution.size();
 
         for (int i = 0; i < solution.size(); i++)
-           s+= String.valueOf(solution.get(i));
+            s += String.valueOf(solution.get(i));
         return s;
     }
 }

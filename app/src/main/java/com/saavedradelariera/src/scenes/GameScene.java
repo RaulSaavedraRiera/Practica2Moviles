@@ -25,19 +25,15 @@ import java.util.ArrayList;
 /*Escena de juego principal*/
 public class GameScene extends Scene {
     int nButtons, nRows, nColors, difficult;
-    boolean isQuickGame;
+    boolean isQuickGame, loadState;
     GameManager gameManager;
     ArrayList<AndroidImage> iconImages;
     AndroidImage backgroundImage;
     ColorJ primaryColor;
-    String progress;
-
     ResourcesManager resourcesManager;
     ShopManager shopManager;
 
-    boolean loadState;
-
-    public GameScene(int diff, boolean isQuickGame, boolean loadState){
+    public GameScene(int diff, boolean isQuickGame, boolean loadState) {
 
         inverseRender = true;
 
@@ -59,7 +55,7 @@ public class GameScene extends Scene {
             primaryColor = shopManager.getBackgroundColor();
             iconImages = resourcesManager.LoadGameIcons(graphics);
             backgroundImage = resourcesManager.getBackground(graphics, true);
-            if(backgroundImage == null)
+            if (backgroundImage == null)
                 background = new ColorBackground(shopManager.getBackgroundColor());
 
         } else {
@@ -68,7 +64,7 @@ public class GameScene extends Scene {
             primaryColor = new ColorJ("#ffffff");
         }
 
-        if(backgroundImage != null) {
+        if (backgroundImage != null) {
             background = new ImageBackground(backgroundImage);
         }
 
@@ -78,15 +74,14 @@ public class GameScene extends Scene {
         //le pasamos al manager las columnas para que las gestione
         gameManager = new GameManager();
 
-        if(iconImages != null)
+        if (iconImages != null)
             gameManager.setIconImages(iconImages);
 
         //parte superior del nivel
-        new Text("Night.ttf",200, 50, 25, 50,  "Averigua el código", new ColorJ(0, 0, 0));
+        new Text("Night.ttf", 200, 50, 25, 50, "Averigua el código", new ColorJ(0, 0, 0));
         new ChangeSceneButtonBack("X.png", 70, 50, 30, 30);
         //si no hay imagenes metemos el daltonic button
-        if(iconImages == null)
-        {
+        if (iconImages == null) {
             ImageButton daltonic = new ImageButton("ojo.png", 500, 40, 50, 50);
             daltonic.setClickListener(new ClickListener() {
                 @Override
@@ -97,15 +92,15 @@ public class GameScene extends Scene {
         }
 
         //creamos el input solution
-        if(iconImages == null)
-            new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f), graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, primaryColor, gameManager.GetColors(), false);
-        //o con sprites
+        if (iconImages == null)
+            new InputSolution(0, (int) (graphics.GetHeightRelative() * 0.9f), graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.1f), nColors, primaryColor, gameManager.GetColors(), false);
+            //o con sprites
         else
-            new InputSolution(0, (int)(graphics.GetHeightRelative()*0.9f), graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.1f), nColors, primaryColor, iconImages);
+            new InputSolution(0, (int) (graphics.GetHeightRelative() * 0.9f), graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.1f), nColors, primaryColor, iconImages);
 
         //rectangulo para tapar las partes de arriba y de abajo
-        new VisualRectangle(0, (int)(-graphics.GetHeightRelative()*0.4f), (int)graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.5f), primaryColor, true);
-        new VisualRectangle(0, (int)(graphics.GetHeightRelative()), (int)graphics.GetWidthRelative(), (int)(graphics.GetHeightRelative()*0.5f), primaryColor, true);
+        new VisualRectangle(0, (int) (-graphics.GetHeightRelative() * 0.4f), (int) graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.5f), primaryColor, true);
+        new VisualRectangle(0, (int) (graphics.GetHeightRelative()), (int) graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.5f), primaryColor, true);
 
         gameManager.Init(background, difficult, nButtons, nRows, graphics, loadState);
 
@@ -115,18 +110,17 @@ public class GameScene extends Scene {
     @Override
     public String getStateScene() {
         String level;
-        if(isQuickGame)
-          level = "9999";
-        else
-        {
+        if (isQuickGame)
+            level = "9999";
+        else {
             int world = resourcesManager.getIdActualWorld();
-            if(world < 10)
+            if (world < 10)
                 level = "0" + Integer.toString(world);
             else
                 level = Integer.toString(world);
 
             int currentL = resourcesManager.getIdActualLevel();
-            if(currentL < 10)
+            if (currentL < 10)
                 level += "0" + Integer.toString(currentL);
             else
                 level += Integer.toString(currentL);
@@ -139,9 +133,8 @@ public class GameScene extends Scene {
         return gameManager;
     }
 
-    void SetSceneSettings(int difficult){
-        switch(difficult)
-        {
+    void SetSceneSettings(int difficult) {
+        switch (difficult) {
             case 0:
                 nButtons = 4;
                 nRows = 6;
@@ -162,7 +155,7 @@ public class GameScene extends Scene {
                 nRows = 10;
                 nColors = 9;
                 break;
-                //Nivel personalizado
+            //Nivel personalizado
 
             case 4:
                 Level aux = resourcesManager.getActualLevel();

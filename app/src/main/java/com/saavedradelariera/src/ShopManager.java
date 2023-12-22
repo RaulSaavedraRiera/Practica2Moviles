@@ -133,8 +133,7 @@ public class ShopManager {
                 return new ColorSkin(title, price, samplePath, skinPath, category, primaryColor, secondaryColor);
             }
             //si no se genera con los valores normales
-            else
-            {
+            else {
                 return new Skin(title, price, samplePath, skinPath, category);
             }
             //se recogen excepciones en caso de fallo
@@ -197,7 +196,7 @@ public class ShopManager {
     //Modifica la cantidad de dinero actual
     public void addBalance(int amount) {
         balance += amount;
-        if(balance < 0)
+        if (balance < 0)
             balance = 0;
     }
 
