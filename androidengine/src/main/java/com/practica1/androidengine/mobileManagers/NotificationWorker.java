@@ -36,6 +36,8 @@ public class NotificationWorker extends Worker {
         String packageName = getInputData().getString("package");
 
         Intent intent = getApplicationContext().getPackageManager().getLaunchIntentForPackage(packageName);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 1, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Configuramos la notificación
