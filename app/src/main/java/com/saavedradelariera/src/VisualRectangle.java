@@ -54,22 +54,22 @@ public class VisualRectangle extends GameObject {
         //segun las caracteristicas dadas en el constructor lo pintamos de diferentes maneras
 
         if (!fill) {
-            graphics.RenderRect(posX, posY, width, height, color);
+            graphics.renderRect(posX, posY, width, height, color);
             return;
         }
 
         if (radius > 0 && fill) {
-            graphics.RenderFillRect(posX, posY, width, height, color, color, radius);
+            graphics.renderFillRect(posX, posY, width, height, color, color, radius);
             return;
         }
 
         if (color2 != null && fill) {
-            graphics.RenderFillRect(posX, posY, width, height, color, color2);
+            graphics.renderFillRect(posX, posY, width, height, color, color2);
             return;
         }
 
         if (fill) {
-            graphics.RenderFillRect(posX, posY, width, height, color, color);
+            graphics.renderFillRect(posX, posY, width, height, color, color);
             return;
         }
 

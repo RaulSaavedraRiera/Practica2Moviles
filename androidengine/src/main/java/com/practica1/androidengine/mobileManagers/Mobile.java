@@ -9,12 +9,14 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.util.Log;
 import android.view.SurfaceView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.annotation.NonNull;
 import androidx.work.WorkRequest;
+
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -28,6 +30,7 @@ import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -42,7 +45,7 @@ public class Mobile {
     private Activity activity;
     private SensorsMobile sensors;
 
-    public Mobile(AppCompatActivity app, SurfaceView surfaceView, Activity activity){
+    public Mobile(AppCompatActivity app, SurfaceView surfaceView, Activity activity) {
 
         this.app = app;
         this.activity = activity;
@@ -58,18 +61,18 @@ public class Mobile {
     }
 
     // Crea un banner de anuncio
-    public void GenerateBanner(int adViewID){
+    public void generateBanner(int adViewID) {
         mAdView = app.findViewById(adViewID);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
 
     // Solicita la creación de una nueva notificacion
-    public void solicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit){
+    public void solicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit) {
 
-        SetUpNotification(channelName);
+        setUpNotification(channelName);
 
-        WorkRequest request = new  OneTimeWorkRequest.Builder(NotificationWorker.class)
+        WorkRequest request = new OneTimeWorkRequest.Builder(NotificationWorker.class)
                 .setInitialDelay(time, timeUnit)
                 .setInputData(new Data.Builder()
                         .putString("title", title)
@@ -85,13 +88,12 @@ public class Mobile {
     }
 
     // Borra todos los canales realacionados con las notificaciones
-    public void destroyNotificationWorker()
-    {
+    public void destroyNotificationWorker() {
         WorkManager.getInstance().cancelAllWork();
     }
 
     // Setea el canal para la notificacion que hemos creado
-    void SetUpNotification(String channelN){
+    void setUpNotification(String channelN) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // CharSequence name = "Mi Canal";
             int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -103,14 +105,15 @@ public class Mobile {
     }
 
     // Permite compartir con otra aplicaciones
-    public void solicitateShare(Bitmap bitmap, String mnsg){
+    public void solicitateShare(Bitmap bitmap, String mnsg) {
         mobileShare.shareImage(bitmap, mnsg);
     }
 
-    public Sensor getAccelerometer(){
+    public Sensor getAccelerometer() {
         return sensors.getAccelerometer();
     }
-    public SensorManager getSensorManager(){
+
+    public SensorManager getSensorManager() {
         return sensors.getSensorManager();
     }
 

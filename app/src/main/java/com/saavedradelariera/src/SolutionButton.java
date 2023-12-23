@@ -9,8 +9,6 @@ public class SolutionButton extends Button {
     //Creamos un SolutionButton, seteando todos los valores iniciales y damos su color por defecto
     SolutionButton(int x, int y, int w, int h, float smallCircle) {
         super(x, y, w, h, smallCircle);
-
-
         color.setRGB(180, 180, 180);
         backgroundColor.setRGB(180, 180, 180);
     }
@@ -23,9 +21,7 @@ public class SolutionButton extends Button {
 
     @Override
     public void update(AndroidEngine IEngine, float deltaTime) {
-
     }
-
 
     //una vez dada la información de pista a representar; ajusta sus valores para mostrarlo gráficamente
     public void setSolution(int i) {
@@ -43,9 +39,5 @@ public class SolutionButton extends Button {
             case 2:
                 break;
         }
-
-
     }
-
-
 }

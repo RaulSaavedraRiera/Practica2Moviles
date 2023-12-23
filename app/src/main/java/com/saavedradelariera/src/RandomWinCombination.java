@@ -1,28 +1,24 @@
 package com.saavedradelariera.src;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /*Clase usada para generar la combinacion ganadora
 basada en unos parámetros marcados por la dificultad*/
 public class RandomWinCombination {
-
-    int nColors;
-    int nSol;
+    int nColors, nSol;
     boolean canRepeat;
 
-    public int[] GetWinCombination(int nColors, int nSol, boolean canRepeat){
+    public int[] getWinCombination(int nColors, int nSol, boolean canRepeat) {
         this.nColors = nColors;
         this.nSol = nSol;
         this.canRepeat = canRepeat;
 
-
-      return GenerateWinCombination();
+        return generateWinCombination();
     }
 
     //obtiene la combinación ganadora
-    int[] GenerateWinCombination(){
+    int[] generateWinCombination() {
 
         //array a devolver y array dinamico con los usados
         int[] winCombination = new int[nSol];
@@ -32,19 +28,16 @@ public class RandomWinCombination {
         Random random = new Random();
         int tmp;
 
-        for (int i = 0; i < nSol; i++)
-        {
+        for (int i = 0; i < nSol; i++) {
             //si se puede repetir simplemente cogemos un numero aleatorio
-            if(canRepeat)
-            {
+            if (canRepeat) {
                 winCombination[i] = random.nextInt(nColors);
             }
             //si no cogemos un numero aleatorio hasta que salga uno no usado
-            else
-            {
+            else {
                 do {
                     tmp = random.nextInt(nColors);
-                } while(used.contains((tmp)));
+                } while (used.contains((tmp)));
                 //y lo almacenamos en la combiancion ganadora
                 winCombination[i] = tmp;
                 used.add(tmp);
@@ -55,6 +48,4 @@ public class RandomWinCombination {
         return winCombination;
 
     }
-
-    public int getNColors() { return nColors;}
 }

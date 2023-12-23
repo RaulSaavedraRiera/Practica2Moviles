@@ -26,8 +26,8 @@ public abstract class Button extends GameObject {
 
     // Renderiza el botón
     public void render(AndroidGraphics graphics) {
-        graphics.RenderCircle(posX, posY, width / 2, this.backgroundColor);
-        graphics.RenderCircle(posX + posXSmallCircle, posY + posYSmallCircle, (int) (width * smallCirclePercent) / 2, this.color);
+        graphics.renderCircle(posX, posY, width / 2, this.backgroundColor);
+        graphics.renderCircle(posX + posXSmallCircle, posY + posYSmallCircle, (int) (width * smallCirclePercent) / 2, this.color);
     }
 
     //ajusta el diámetro del circulo interior

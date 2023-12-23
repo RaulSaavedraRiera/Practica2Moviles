@@ -1,7 +1,6 @@
 package com.practica1.androidengine;
-import android.content.Context;
-import android.content.res.AssetManager;
 
+import android.content.Context;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -18,18 +17,15 @@ public class AndroidFile {
         return context.openFileOutput(file, Context.MODE_PRIVATE);
     }
 
-    public OutputStreamWriter createOutputStreamWriter(FileOutputStream fileOutputStream)
-    {
+    public OutputStreamWriter createOutputStreamWriter(FileOutputStream fileOutputStream) {
         return new OutputStreamWriter(fileOutputStream);
     }
 
-    public InputStreamReader createInputStreamReader(FileInputStream fileInputStream)
-    {
+    public InputStreamReader createInputStreamReader(FileInputStream fileInputStream) {
         return new InputStreamReader(fileInputStream);
     }
 
-    public InputStreamReader createInputStreamReader(InputStream inputStream)
-    {
+    public InputStreamReader createInputStreamReader(InputStream inputStream) {
         return new InputStreamReader(inputStream);
     }
 

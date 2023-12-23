@@ -47,16 +47,16 @@ public class LevelButton extends GenericButton {
 
     @Override
     public void render(AndroidGraphics graphics) {
-        graphics.RenderFillRect(posX, posY, width, height, c, c2, radius);
+        graphics.renderFillRect(posX, posY, width, height, c, c2, radius);
         if ((pM.getIdActualWorld() < pM.getWorldPass()) ||
                 ( pM.getIdActualWorld() == pM.getWorldPass() && id <= pM.getLevelPass()))
         {
-            graphics.CreateFont(font.getRoute(), font.getSize(), font.getBold());
-            graphics.RenderText(x + w / 3,  y + h / 3, w / 3, String.valueOf(id + 1), c2);
+            graphics.createFont(font.getRoute(), font.getSize(), font.getBold());
+            graphics.renderText(x + w / 3,  y + h / 3, w / 3, String.valueOf(id + 1), c2);
         }else
         {
             pass = false;
-            graphics.RenderImage(graphics.createImage(routeI),x + w/4, y+ h/6, w/2, h/2);
+            graphics.renderImage(graphics.createImage(routeI),x + w/4, y+ h/6, w/2, h/2);
         }
     }
     @Override

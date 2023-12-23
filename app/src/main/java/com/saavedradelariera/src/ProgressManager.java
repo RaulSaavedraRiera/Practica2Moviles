@@ -22,17 +22,14 @@ import java.io.OutputStreamWriter;
  */
 public class ProgressManager {
     private ResourcesManager resourcesManager = ResourcesManager.getInstance();
-    private int worldPass = 0;
-    private int levelPass = 0;
+    private int worldPass = 0, levelPass = 0;
     private String levelState = "NONE", rowsInfo = "";
-    private int currentWorld, currentLevelWorld, currentLevelDifficult;
+    private int currentWorld, currentLevelWorld, currentLevelDifficult, balance;
     private int[] solutionInfo;
     private static ProgressManager instance = null;
     private Context context;
     private AndroidEngine engine;
-    private String file = "progress.json";
-    private String hashFile = "hash.txt";
-    private int balance;
+    private String file = "progress.json", hashFile = "hash.txt";
     private AndroidFile files = new AndroidFile();
 
     public static ProgressManager getInstance() {
@@ -59,8 +56,7 @@ public class ProgressManager {
 
             if (SceneManager.getInstance() != null) {
                 String s = SceneManager.getInstance().getActiveSceneState();
-                if (s.length() > 0)
-                    jsonObject.put("stateLevel", s);
+                if (s.length() > 0) jsonObject.put("stateLevel", s);
 
             }
 
@@ -158,22 +154,18 @@ public class ProgressManager {
     public void setLevelPass() {
         int levelsInCurrentWorld = resourcesManager.getLevelsInWorld(resourcesManager.getIdActualWorld());
 
-        if (resourcesManager.getIdActualLevel() != levelPass)
-            return;
+        if (resourcesManager.getIdActualLevel() != levelPass) return;
 
-        if (resourcesManager.getIdActualWorld() < worldPass)
-            return;
+        if (resourcesManager.getIdActualWorld() < worldPass) return;
 
-        if (levelPass > levelsInCurrentWorld - 1)
-            return;
+        if (levelPass > levelsInCurrentWorld - 1) return;
 
         if (levelsInCurrentWorld - 1 == levelPass) {
             if (resourcesManager.getIdActualWorld() <= resourcesManager.getNWorld()) {
                 levelPass = 0;
                 worldPass++;
             }
-        } else
-            levelPass++;
+        } else levelPass++;
     }
 
     // Metodo encargado de obtener el siguiente nivel que jugara el jugador (no importa si esta pasado o no)
@@ -186,13 +178,10 @@ public class ProgressManager {
         if (actLevel == levelPass && actWorld == worldPass) {
             return Pair.create(levelPass, worldPass);
         } else {
-            if (actLevel + 1 < nLevels)
-                return Pair.create(actLevel + 1, actWorld);
+            if (actLevel + 1 < nLevels) return Pair.create(actLevel + 1, actWorld);
             else {
-                if (actWorld + 1 > resourcesManager.getNWorld())
-                    return Pair.create(-1, -1);
-                else
-                    return Pair.create(0, actWorld + 1);
+                if (actWorld + 1 > resourcesManager.getNWorld()) return Pair.create(-1, -1);
+                else return Pair.create(0, actWorld + 1);
             }
         }
     }

@@ -2,10 +2,8 @@ package com.saavedradelariera.src;
 
 
 import com.practica1.androidengine.AndroidEngine;
-import com.practica1.androidengine.AndroidFont;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
-import com.practica1.androidengine.ColorJ;
 
 //Clase para poner una imgen de fondo de pantalla
 public class ImageBackground extends GameObject {

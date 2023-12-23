@@ -8,16 +8,17 @@ import android.graphics.Bitmap;
  * access the image's width, height, and the underlying `Bitmap` object.
  */
 public class AndroidImage {
-
     String route;
     private Bitmap bitmap;
+
     public AndroidImage() {
     }
 
-    public int GetWidth() {
+    public int getWidth() {
         return this.bitmap.getWidth();
     }
-    public int GetHeight() {
+
+    public int getHeight() {
         return this.bitmap.getHeight();
     }
 

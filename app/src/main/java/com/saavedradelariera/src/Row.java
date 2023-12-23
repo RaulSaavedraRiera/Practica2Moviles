@@ -52,7 +52,7 @@ public class Row extends GameObject {
         combinationArray = new ButtonArray(posX + offset, posY, widthForButtons, height);
         combinationArray.GenerateButtons(nButtons, limitHeight, offsetButtons, smallCircleButtons);
 
-        objectsInRow.addAll(combinationArray.GetButtons());
+        objectsInRow.addAll(combinationArray.getButtons());
         objectsInRow.add((new Text("Night.ttf", posX + width/16, posY + height/3, width/15, height/15, String.valueOf(index), new ColorJ(0 ,0, 0))));
 
         //visuals.add(new VisualRectangle(posX + offset+widthForButtons, posY, offset, height, new ColorJ(128, 128, 128), true));
@@ -138,14 +138,14 @@ public class Row extends GameObject {
     //activamos un boton de la combinacion. Devolvemos si la fila ya esta completa
     public boolean Enablebutton(int n, ColorJ color, boolean inputEnabled, boolean clearColorEnable, boolean currentDaltonicEnable) {
         //obtenemos el primer boton disponible
-        currentButton = combinationArray.GetFirstAvailableButton();
+        currentButton = combinationArray.getFirstAvailableButton();
         //lo activamos
-        combinationArray.Enablebutton(currentButton, color, n, 0.9f, inputEnabled, clearColorEnable, currentDaltonicEnable);
+        combinationArray.enableButton(currentButton, color, n, 0.9f, inputEnabled, clearColorEnable, currentDaltonicEnable);
         //y ahora buscamos el proximo disponible
-        currentButton = combinationArray.GetFirstAvailableButton();
+        currentButton = combinationArray.getFirstAvailableButton();
 
         //devolvemos true o false segun si la fila esta completa
-        if(currentButton == combinationArray.GetNButtons())
+        if(currentButton == combinationArray.getNButtons())
             return true;
         else
             return false;
@@ -154,14 +154,14 @@ public class Row extends GameObject {
     //activamos un boton de la combinacion, en este caso con una imagen
     public boolean Enablebutton(int n, AndroidImage image, boolean inputEnabled, boolean clearColorEnable) {
         //obtenemos el primer boton disponible
-        currentButton = combinationArray.GetFirstAvailableButton();
+        currentButton = combinationArray.getFirstAvailableButton();
         //lo activamos
-        combinationArray.Enablebutton(currentButton, image, n, 0.9f, inputEnabled, clearColorEnable);
+        combinationArray.enableButton(currentButton, image, n, 0.9f, inputEnabled, clearColorEnable);
         //y ahora buscamos el proximo disponible
-        currentButton = combinationArray.GetFirstAvailableButton();
+        currentButton = combinationArray.getFirstAvailableButton();
 
         //devolvemos true o false segun si la fila esta completa
-        if(currentButton == combinationArray.GetNButtons())
+        if(currentButton == combinationArray.getNButtons())
             return true;
         else
             return false;
@@ -179,7 +179,7 @@ public class Row extends GameObject {
 
     //devuelve el siguiente boton disponible para asignarle un color
     public int GetNextButton(){
-        currentButton = combinationArray.GetFirstAvailableButton();
+        currentButton = combinationArray.getFirstAvailableButton();
         return currentButton;
     }
 
@@ -190,7 +190,7 @@ public class Row extends GameObject {
     }
 
     public String GetButtonsCombination(){
-        return combinationArray.GetButtonsCombination();
+        return combinationArray.getButtonsCombination();
     }
 }
 

@@ -82,10 +82,10 @@ public class GameManager extends GameObject {
         rows = new ArrayList<>();
 
         //calcula diferentes valores para poder colocar los elementos correctamenrte
-        iniX = (int) (graphics.GetWidthRelative() * 0.025f);
-        iniY = (int) (graphics.GetHeightRelative() * 0.1f);
-        rowWidth = (int) (graphics.GetWidthRelative() * 0.95f);
-        rowHeight = (int) ((graphics.GetHeightRelative() * 0.7f) / 10);
+        iniX = (int) (graphics.getWidthRelative() * 0.025f);
+        iniY = (int) (graphics.getHeightRelative() * 0.1f);
+        rowWidth = (int) (graphics.getWidthRelative() * 0.95f);
+        rowHeight = (int) ((graphics.getHeightRelative() * 0.7f) / 10);
         offsetX = 0;
         offsetY = rowHeight / 10;
 

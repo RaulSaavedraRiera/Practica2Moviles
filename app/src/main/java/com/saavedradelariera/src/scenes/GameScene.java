@@ -45,6 +45,12 @@ public class GameScene extends Scene {
         shopManager = ShopManager.getInstance();
     }
 
+    /*
+    Configura la escena de juego, establece el fondo y elementos visuales según la dificultad y tipo
+    de juego. Crea un objeto GameManager, inicializa elementos como texto y botones, y gestiona la
+    interfaz de entrada de soluciones. Finalmente, prepara la escena para el juego mediante la
+    inicialización del GameManager.
+     */
     @Override
     public void setScene(AndroidGraphics graphics, AndroidAudio audioSystem) {
         super.setScene(graphics, audioSystem);
@@ -53,14 +59,14 @@ public class GameScene extends Scene {
 
         if (isQuickGame) {
             primaryColor = shopManager.getBackgroundColor();
-            iconImages = resourcesManager.LoadGameIcons(graphics);
+            iconImages = resourcesManager.loadGameIcons(graphics);
             backgroundImage = resourcesManager.getBackground(graphics, true);
             if (backgroundImage == null)
                 background = new ColorBackground(shopManager.getBackgroundColor());
 
         } else {
             backgroundImage = resourcesManager.getBackground(graphics, false);
-            iconImages = resourcesManager.LoadLevelIcons(resourcesManager.getSkinsId(), graphics);
+            iconImages = resourcesManager.loadLevelIcons(resourcesManager.getSkinsId(), graphics);
             primaryColor = new ColorJ("#ffffff");
         }
 
@@ -93,20 +99,23 @@ public class GameScene extends Scene {
 
         //creamos el input solution
         if (iconImages == null)
-            new InputSolution(0, (int) (graphics.GetHeightRelative() * 0.9f), graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.1f), nColors, primaryColor, gameManager.getColors(), false);
+            new InputSolution(0, (int) (graphics.getHeightRelative() * 0.9f), graphics.getWidthRelative(), (int) (graphics.getHeightRelative() * 0.1f), nColors, primaryColor, gameManager.getColors(), false);
             //o con sprites
         else
-            new InputSolution(0, (int) (graphics.GetHeightRelative() * 0.9f), graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.1f), nColors, primaryColor, iconImages);
+            new InputSolution(0, (int) (graphics.getHeightRelative() * 0.9f), graphics.getWidthRelative(), (int) (graphics.getHeightRelative() * 0.1f), nColors, primaryColor, iconImages);
 
         //rectangulo para tapar las partes de arriba y de abajo
-        new VisualRectangle(0, (int) (-graphics.GetHeightRelative() * 0.4f), (int) graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.5f), primaryColor, true);
-        new VisualRectangle(0, (int) (graphics.GetHeightRelative()), (int) graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.5f), primaryColor, true);
+        new VisualRectangle(0, (int) (-graphics.getHeightRelative() * 0.4f), (int) graphics.getWidthRelative(), (int) (graphics.getHeightRelative() * 0.5f), primaryColor, true);
+        new VisualRectangle(0, (int) (graphics.getHeightRelative()), (int) graphics.getWidthRelative(), (int) (graphics.getHeightRelative() * 0.5f), primaryColor, true);
 
         gameManager.init(background, difficult, nButtons, nRows, graphics, loadState);
 
 
     }
 
+    /*
+    Devuelve una cadena que representa el estado de la escena, incluido el nivel actual del juego.
+     */
     @Override
     public String getStateScene() {
         String level;
@@ -115,13 +124,13 @@ public class GameScene extends Scene {
         else {
             int world = resourcesManager.getIdActualWorld();
             if (world < 10)
-                level = "0" + Integer.toString(world);
+                level = "0" + world;
             else
                 level = Integer.toString(world);
 
             int currentL = resourcesManager.getIdActualLevel();
             if (currentL < 10)
-                level += "0" + Integer.toString(currentL);
+                level += "0" + currentL;
             else
                 level += Integer.toString(currentL);
         }
@@ -133,6 +142,9 @@ public class GameScene extends Scene {
         return gameManager;
     }
 
+    /*
+    Configura los atributos de la escena (nButtons, nRows, nColors) en función de la dificultad del juego.
+     */
     void setSceneSettings(int difficult) {
         switch (difficult) {
             case 0:

@@ -40,7 +40,7 @@ public class CombinationButton extends Button {
         if (!enable || image == null)
             super.render(graphics);
         else
-            graphics.RenderImage(image, posX, posY, width, height);
+            graphics.renderImage(image, posX, posY, width, height);
     }
 
     @Override

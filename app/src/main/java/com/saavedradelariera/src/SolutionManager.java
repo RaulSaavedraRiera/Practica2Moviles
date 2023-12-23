@@ -66,7 +66,7 @@ public class SolutionManager {
         int[] aux;
 
         if (!loadSolution) {
-            aux = rand.GetWinCombination(nColors, nSol, canRepeat);
+            aux = rand.getWinCombination(nColors, nSol, canRepeat);
         } else {
             aux = ProgressManager.getInstance().getLevelInProgressSolution();
         }

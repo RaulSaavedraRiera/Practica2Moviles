@@ -17,6 +17,6 @@ public class ColorBackground extends GameObject {
     //Renderiza el texto con la fuente default o una especifica
     @Override
     public void render(AndroidGraphics graphics) {
-        graphics.CleanScreen(c);
+        graphics.cleanScreen(c);
     }
 }

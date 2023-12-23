@@ -2,7 +2,6 @@ package com.practica1.androidengine;
 
 /*Clase base para la creacion y funcionamiento de la pool*/
 public class Pool{
-
     private int size;
     private TouchEvent[] pool;
     int id = 0;
@@ -48,5 +47,4 @@ public class Pool{
         e.free();
         actSize--;
     }
-
 }

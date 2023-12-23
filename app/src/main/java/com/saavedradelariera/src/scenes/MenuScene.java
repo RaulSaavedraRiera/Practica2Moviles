@@ -38,7 +38,7 @@ public class MenuScene extends Scene {
                 SceneManager.getInstance().pushSceneStack();
 
                 Scene s;
-                if(!ProgressManager.getInstance().levelInProgress() || ProgressManager.getInstance().worldLevelInProgress())
+                if (!ProgressManager.getInstance().levelInProgress() || ProgressManager.getInstance().worldLevelInProgress())
                     s = new ChooseDifficultyScene();
                 else
                     s = new GameScene(ProgressManager.getInstance().getLevelInProgressDifficult(), true, true);
@@ -52,12 +52,9 @@ public class MenuScene extends Scene {
             public void onClick() {
                 SceneManager.getInstance().pushSceneStack();
                 Scene s;
-                if(!ProgressManager.getInstance().levelInProgress() || !ProgressManager.getInstance().worldLevelInProgress())
-                {
+                if (!ProgressManager.getInstance().levelInProgress() || !ProgressManager.getInstance().worldLevelInProgress()) {
                     s = new WorldScene();
-                }
-                else
-                {
+                } else {
                     ResourcesManager.getInstance().setWorld(ProgressManager.getInstance().getWorldInProgress());
                     ResourcesManager.getInstance().getLevel(ProgressManager.getInstance().getLevelInProgress(), ProgressManager.getInstance().getIdActualWorld());
                     ResourcesManager.getInstance().setIdActualLevel(ProgressManager.getInstance().getLevelInProgress());
@@ -88,7 +85,7 @@ public class MenuScene extends Scene {
 
 
         GenericButton bReset = new GenericButton(450, 30, 100,
-                100, new ColorJ(220, 80, 80), new ColorJ (220, 80, 80), 10);
+                100, new ColorJ(220, 80, 80), new ColorJ(220, 80, 80), 10);
         Text t4 = new Text("Night.ttf", 460, 60, 30, 100, "RESET", new ColorJ(0, 0, 0));
 
         bReset.setClickListener(new ClickListener() {

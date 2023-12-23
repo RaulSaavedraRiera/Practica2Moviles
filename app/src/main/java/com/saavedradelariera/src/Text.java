@@ -38,9 +38,9 @@ public class Text extends GameObject {
     public void render(AndroidGraphics graphics) {
         //Si usa la fuente la crea o setea
         if (useFont)
-            graphics.CreateFont(font.getRoute(), font.getSize(), font.getBold());
+            graphics.createFont(font.getRoute(), font.getSize(), font.getBold());
 
-        graphics.RenderText(posX, posY, width, txt, c);
+        graphics.renderText(posX, posY, width, txt, c);
     }
 
     @Override

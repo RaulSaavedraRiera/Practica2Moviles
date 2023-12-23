@@ -7,9 +7,7 @@ package com.saavedradelariera.src;
 
 public class Level {
 
-    private int codeSize;
-    private int codeOpt;
-    private int attempts;
+    private int codeSize, codeOpt, attempts;
     private boolean repeat;
 
     Level(int codeSize, int codeOpt, boolean repeat, int attempts) {

@@ -3,7 +3,9 @@ package com.practica1.androidengine;
 import android.content.res.AssetManager;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+
 import androidx.annotation.RequiresApi;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +28,7 @@ public class AndroidFont {
         Size = size;
         paint = new Paint();
     }
+
     @RequiresApi(api = 34)
     public String getName() {
         return actualFont.getSystemFontFamilyName();
@@ -44,11 +47,12 @@ public class AndroidFont {
      */
 
     public int getSize() {
-        return (int)paint.getTextSize();
+        return (int) paint.getTextSize();
     }
 
     /**
      * Sets the size of the text.
+     *
      * @param size desired size
      */
 
@@ -58,6 +62,7 @@ public class AndroidFont {
 
     /**
      * Specify if bold text or not
+     *
      * @param to boolean
      */
 
@@ -68,10 +73,11 @@ public class AndroidFont {
     }
 
     /**
-     *  Generates a custom Paint object with specified font style, size, and asset route, returning it for text rendering.
-     * @param route font route
-     * @param size text size
-     * @param boldStyle bold style
+     * Generates a custom Paint object with specified font style, size, and asset route, returning it for text rendering.
+     *
+     * @param route        font route
+     * @param size         text size
+     * @param boldStyle    bold style
      * @param assetManager Android assets
      * @return Created paint.
      */
@@ -81,8 +87,7 @@ public class AndroidFont {
 
         actualFont = fontMap.get(route);
 
-        if(actualFont == null)
-        {
+        if (actualFont == null) {
             int style = boldStyle ? Typeface.BOLD : Typeface.NORMAL;
             Typeface customTypeface = Typeface.createFromAsset(assetManager, route);
             customTypeface = Typeface.create(customTypeface, style);

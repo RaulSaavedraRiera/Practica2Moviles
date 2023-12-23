@@ -55,7 +55,7 @@ public class ShopScene extends Scene {
         cw1.setClickListener(new ClickListener() {
             @Override
             public void onClick() {
-                if (pageId < ShopManager.getInstance().getCategories().size()-1) {
+                if (pageId < ShopManager.getInstance().getCategories().size() - 1) {
                     clearBalanceText();
                 }
             }
@@ -86,7 +86,7 @@ public class ShopScene extends Scene {
             public void onClick() {
                 ShopManager.getInstance().removeActiveSkin(currentCat);
                 loadPage();
-                showActiveIndicator(startX,startY);
+                showActiveIndicator(startX, startY);
             }
         });
 
@@ -125,7 +125,7 @@ public class ShopScene extends Scene {
         if (skin.getBought()) { //bought
             clearPrice(x, y);
             if (ShopManager.getInstance().getActiveSkin(currentCat) == skin) {
-                showActiveIndicator(x,y);
+                showActiveIndicator(x, y);
             }
         } else { //not bought
             new ImageButton("coin.png", x - 15, y + 170, 50, 60);
@@ -165,6 +165,6 @@ public class ShopScene extends Scene {
     }
 
     private void showActiveIndicator(int x, int y) {
-        new VisualRectangle(x,y,skinWidth,skinHeight,new ColorJ("#2be443"),false);
+        new VisualRectangle(x, y, skinWidth, skinHeight, new ColorJ("#2be443"), false);
     }
 }

@@ -22,6 +22,7 @@ public class AndroidAudio {
      * Loads and plays an audio sound using Android's SoundPool. It stops any previously playing
      * sound with the same identifier and sets an OnLoadCompleteListener to play the sound once it's
      * fully loaded.
+     *
      * @param sound Sound to play
      */
 
@@ -29,13 +30,13 @@ public class AndroidAudio {
         AndroidSound s = null;
         int soundId = -1;
         try {
-            AssetFileDescriptor assetFileDescriptor = this.assets.openFd(sound.GetSoundName());
+            AssetFileDescriptor assetFileDescriptor = this.assets.openFd(sound.getSoundName());
             soundId = this.soundsPool.load(assetFileDescriptor, -1);
         } catch (Exception e) {
             throw new RuntimeException("Couln't load sound.");
         }
         if (soundId != -1)
-            s = new AndroidSound(soundId, sound.GetSoundName(), sound.LoopSound());
+            s = new AndroidSound(soundId, sound.getSoundName(), sound.loopSound());
 
         if (s.getStreamId() != -1) {
             this.soundsPool.stop(s.getStreamId());
@@ -51,12 +52,13 @@ public class AndroidAudio {
 
     /**
      * Stops playing the received sound.
+     *
      * @param sound Sound to stop playing.
      */
 
     public void stopAudio(AndroidSound sound) {
 
-        if(sound.getStreamId() != -1)
+        if (sound.getStreamId() != -1)
             this.soundsPool.stop(sound.getStreamId());
     }
 

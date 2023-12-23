@@ -31,7 +31,7 @@ public class InputSolution extends GameObject {
             nums.add(i);
         }
         //genera los botones y los activa
-        buttons.GenerateEnableButtons(tam, spaceCoefficient, offsetBtwButtons, 1f, nums, colors, true, false, daltonic);
+        buttons.generateEnableButtons(tam, spaceCoefficient, offsetBtwButtons, 1f, nums, colors, true, false, daltonic);
         vRectangle = new VisualRectangle(x,y,w,h, rectangleColor, true);
     }
 
@@ -50,7 +50,7 @@ public class InputSolution extends GameObject {
             nums.add(i);
         }
         //genera los botones y los activa
-        buttons.GenerateEnableButtons(tam, spaceCoefficient, offsetBtwButtons, 1f, nums, imgs, true, false);
+        buttons.generateEnableButtons(tam, spaceCoefficient, offsetBtwButtons, 1f, nums, imgs, true, false);
         vRectangle = new VisualRectangle(x,y,w,h, rectangleColor, true);
     }
 

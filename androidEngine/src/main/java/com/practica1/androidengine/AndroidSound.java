@@ -1,7 +1,6 @@
 package com.practica1.androidengine;
 
 
-
 /**
  * Extension of the `SoundJ` class and represents a sound
  * resource in an Android application. It provides information about the sound's ID, name,
@@ -25,12 +24,12 @@ public class AndroidSound {
     }
 
 
-    public String GetSoundName() {
+    public String getSoundName() {
         return name;
     }
 
 
-    public boolean LoopSound() {
+    public boolean loopSound() {
         return loop;
     }
 }

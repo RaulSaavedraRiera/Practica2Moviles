@@ -30,10 +30,8 @@ public class AndroidGraphics {
     private AndroidFont actualDFont;
     private AndroidImage actualDImage;
     private Canvas canvas;
-    private int relWidth, relHeight;
+    private int relWidth, relHeight, tX, tY;
     private Map<String, AndroidImage> imageMap = new HashMap<>();
-    int tX;
-    int tY;
     float scl;
 
     public void setScl(float scl) {
@@ -94,7 +92,7 @@ public class AndroidGraphics {
      * @param r: radius of the circle.
      * @param c: color of the circle.
      */
-    public void RenderCircle(int x, int y, int r, ColorJ c) {
+    public void renderCircle(int x, int y, int r, ColorJ c) {
         paint = new Paint();
         paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
         canvas.drawCircle(x + r, y + r, r, paint);
@@ -110,7 +108,7 @@ public class AndroidGraphics {
      * @param c: color of the outline.
      */
 
-    public void RenderRect(int x, int y, int w, int h, ColorJ c) {
+    public void renderRect(int x, int y, int w, int h, ColorJ c) {
         paint = new Paint();
         paint.setStyle(Paint.Style.STROKE); // Establece el estilo del contorno
         paint.setStrokeWidth(2); // Establece el grosor del contorno
@@ -129,14 +127,14 @@ public class AndroidGraphics {
      * @param insideC: color parameter, for the fill color of the rectangle.
      */
 
-    public void RenderFillRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC) {
+    public void renderFillRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC) {
         paint = new Paint();
         paint.setColor(Color.argb(c.getA(), c.getR(), c.getG(), c.getB()));
         canvas.drawRect(x, y, x + w, y + h, paint);
-        RenderRect(x, y, w, h, insideC);
+        renderRect(x, y, w, h, insideC);
     }
 
-    public void RenderFillRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC, int cornerRadius) {
+    public void renderFillRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC, int cornerRadius) {
         paint = new Paint();
         paint.setColor(Color.argb(c.getA(), c.getR(), c.getG(), c.getB()));
         canvas.drawRoundRect(new RectF(x, y, x + w, y + h), cornerRadius, cornerRadius, paint);
@@ -152,10 +150,10 @@ public class AndroidGraphics {
      * @param h:     Height on the canvas.
      */
 
-    public void RenderImage(AndroidImage image, int x, int y, int w, int h) {
+    public void renderImage(AndroidImage image, int x, int y, int w, int h) {
         AndroidImage androidImage = image;
         Rect src = new Rect();
-        src.set(0, 0, androidImage.GetWidth(), androidImage.GetHeight());
+        src.set(0, 0, androidImage.getWidth(), androidImage.getHeight());
         Rect dst = new Rect();
         dst.set(x, y, x + w, y + h);
         Paint paint = new Paint();
@@ -172,7 +170,7 @@ public class AndroidGraphics {
      * @param c:  color of the line.
      */
 
-    public void RenderLine(int x1, int y1, int x2, int y2, ColorJ c) {
+    public void renderLine(int x1, int y1, int x2, int y2, ColorJ c) {
         paint.setColor(Color.argb(100, c.getR(), c.getG(), c.getB()));
         canvas.drawLine(x1, y1, x2, y2, paint);
     }
@@ -187,7 +185,7 @@ public class AndroidGraphics {
      * @param c:    Color of the text.
      */
 
-    public void RenderText(int x, int y, int size, String txt, ColorJ c) {
+    public void renderText(int x, int y, int size, String txt, ColorJ c) {
         paint.setTextSize(size);
         paint.setColor(Color.argb(255, c.getR(), c.getG(), c.getB()));
         Paint.FontMetrics fm = paint.getFontMetrics();
@@ -202,7 +200,7 @@ public class AndroidGraphics {
      * @param font: The font to be set as the current font.
      */
 
-    public void SetFont(AndroidFont font) {
+    public void setFont(AndroidFont font) {
         actualDFont = font;
     }
 
@@ -215,7 +213,7 @@ public class AndroidGraphics {
      * @return The created AndroidFont instance.
      */
 
-    public AndroidFont CreateFont(String route, int size, boolean boldStyle) {
+    public AndroidFont createFont(String route, int size, boolean boldStyle) {
         paint = actualDFont.createFont(route, size, boldStyle, assets);
         return actualDFont;
     }
@@ -228,7 +226,7 @@ public class AndroidGraphics {
      * @return The current font.
      */
 
-    public AndroidFont GetFont(String name) {
+    public AndroidFont getFont(String name) {
         return actualDFont;
     }
 
@@ -238,7 +236,7 @@ public class AndroidGraphics {
      * @return The height of the canvas.
      */
 
-    public int GetHeight() {
+    public int getHeight() {
         return myView.getHeight();
     }
 
@@ -248,7 +246,7 @@ public class AndroidGraphics {
      * @return The width of the canvas.
      */
 
-    public int GetWidth() {
+    public int getWidth() {
         return myView.getWidth();
     }
 
@@ -258,7 +256,7 @@ public class AndroidGraphics {
      * @return The relative height of the canvas.
      */
 
-    public int GetHeightRelative() {
+    public int getHeightRelative() {
         return relHeight;
     }
 
@@ -268,7 +266,7 @@ public class AndroidGraphics {
      * @return The relative width of the canvas.
      */
 
-    public int GetWidthRelative() {
+    public int getWidthRelative() {
         return relWidth;
     }
 
@@ -278,7 +276,7 @@ public class AndroidGraphics {
      * @param color: The color used to clear the screen.
      */
 
-    public void CleanScreen(ColorJ color) {
+    public void cleanScreen(ColorJ color) {
         paint.setColor(Color.argb(255, color.getR(), color.getG(), color.getB()));
         canvas.drawColor(Color.argb(255, color.getR(), color.getG(), color.getB()));
         this.canvas.drawRect(0, 0, myView.getWidth(), myView.getHeight(), paint);
@@ -289,13 +287,13 @@ public class AndroidGraphics {
         if (canvas != null) {
             int marginTop = 100;
             Rect src = new Rect();
-            src.set(0, 0, backgroundImage.GetWidth(), backgroundImage.GetHeight());
+            src.set(0, 0, backgroundImage.getWidth(), backgroundImage.getHeight());
 
-            int canvasWidth = GetWidth();
+            int canvasWidth = getWidth();
             int posY = marginTop;
 
             Rect dst = new Rect();
-            dst.set(0, posY, canvasWidth, posY + backgroundImage.GetHeight());
+            dst.set(0, posY, canvasWidth, posY + backgroundImage.getHeight());
             Paint paint = new Paint();
             this.canvas.drawBitmap(backgroundImage.getImage(), src, dst, paint);
         }
@@ -366,21 +364,21 @@ public class AndroidGraphics {
     }
 
     public void rescale() {
-        float w = GetWidth();
-        float h = GetHeight();
-        float scale = Math.min(w / GetWidthRelative(), h / GetHeightRelative());
+        float w = getWidth();
+        float h = getHeight();
+        float scale = Math.min(w / getWidthRelative(), h / getHeightRelative());
 
-        float transformX = (GetWidth() - (GetWidthRelative() * scale)) / 2;
-        float transformY = (GetHeight() - (GetHeightRelative() * scale)) / 2;
+        float transformX = (getWidth() - (getWidthRelative() * scale)) / 2;
+        float transformY = (getHeight() - (getHeightRelative() * scale)) / 2;
 
         if (transformX > 0) {
-            transformX = (GetWidth() / 2) - GetWidthRelative() * scale / 2;
+            transformX = (getWidth() / 2) - getWidthRelative() * scale / 2;
         } else {
             transformX = 0;
         }
 
         if (transformY > 0) {
-            transformY = (GetHeight() / 2) - GetHeightRelative() * scale / 2;
+            transformY = (getHeight() / 2) - getHeightRelative() * scale / 2;
         } else {
             transformY = 0;
         }
@@ -392,8 +390,6 @@ public class AndroidGraphics {
         canvas.translate(transformX, transformY);
         canvas.scale(scale, scale);
     }
-
-
 
     public void generateScreenShoot(int x, int y, int w, int h, ScreenShootFinish callBack) {
         Bitmap bitmap = Bitmap.createBitmap(myView.getWidth(), myView.getHeight(),

@@ -29,11 +29,11 @@ public class SkinButton extends GameObject {
     public void render(AndroidGraphics graphics) {
         if (skin.getCategory().equals("colores")) {
             ColorSkin colorSkin = (ColorSkin)skin;
-            graphics.RenderFillRect(X,Y,W,H/2,new ColorJ(colorSkin.getPrimaryColor()), new ColorJ("#000000"));
-            graphics.RenderFillRect(X,Y + (H/2),W,H/2,new ColorJ(colorSkin.getSecondaryColor()), new ColorJ("#000000"));
+            graphics.renderFillRect(X,Y,W,H/2,new ColorJ(colorSkin.getPrimaryColor()), new ColorJ("#000000"));
+            graphics.renderFillRect(X,Y + (H/2),W,H/2,new ColorJ(colorSkin.getSecondaryColor()), new ColorJ("#000000"));
         } else  {
-            graphics.RenderImage(graphics.createImage(skin.getSamplePath()), X, Y, W, H);
-            graphics.RenderRect(X,Y,W,H, new ColorJ("#000000"));
+            graphics.renderImage(graphics.createImage(skin.getSamplePath()), X, Y, W, H);
+            graphics.renderRect(X,Y,W,H, new ColorJ("#000000"));
         }
 
     }

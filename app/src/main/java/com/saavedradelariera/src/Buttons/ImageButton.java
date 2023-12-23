@@ -35,9 +35,9 @@ public class ImageButton extends GameObject {
     @Override
     public void render(AndroidGraphics graphics) {
         if (cleanScreen) {
-            graphics.CleanScreen(c);
+            graphics.cleanScreen(c);
         }
-        graphics.RenderImage(graphics.createImage(image.getRoute()), X, Y, W, H);
+        graphics.renderImage(graphics.createImage(image.getRoute()), X, Y, W, H);
     }
 
 

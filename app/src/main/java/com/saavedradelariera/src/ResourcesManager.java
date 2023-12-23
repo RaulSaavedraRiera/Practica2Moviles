@@ -1,12 +1,15 @@
 package com.saavedradelariera.src;
 
 import android.content.Context;
+
 import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidFile;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,9 +52,9 @@ public class ResourcesManager {
         iconsLoaded = new HashMap<>();
 
         currentContext = engine.getContext();
-        ReadWorlds();
-        ReadLevels();
-        LoadImageFolders();
+        readWorlds();
+        readLevels();
+        loadImageFolders();
     }
 
     public static ResourcesManager getInstance() {
@@ -81,7 +84,7 @@ public class ResourcesManager {
 
     // Setea el mundo en el que se encentra el jugador visualmente
     public boolean setWorld(int newWorld) {
-        if(newWorld < 0 || newWorld > nWorld)
+        if (newWorld < 0 || newWorld > nWorld)
             return false;
         idActualWorld = newWorld;
         return true;
@@ -122,10 +125,9 @@ public class ResourcesManager {
 
     // Metodo encargado de cargar las carpetas donde se encuentran los iconos para los niveles.
     // Aqui solo se guarda la ruta hacia la carpeta y cuando se necesario se cargaran los iconos
-    public void LoadImageFolders() {
-        ArrayList<AndroidImage> images = new ArrayList<>();
+    public void loadImageFolders() {
         try {
-            String[] directories = filesAndroid.listFiles(currentContext,"sprites/icons");
+            String[] directories = filesAndroid.listFiles(currentContext, "sprites/icons");
 
             for (String directory : directories) {
                 filesImage.add("sprites/icons/" + directory);
@@ -136,15 +138,15 @@ public class ResourcesManager {
     }
 
     // Carga todos los iconos de las carpetas y los guarda para su posterior uso
-    public ArrayList<AndroidImage> LoadLevelIcons(int id, AndroidGraphics g) {
+    public ArrayList<AndroidImage> loadLevelIcons(int id, AndroidGraphics g) {
         ArrayList<AndroidImage> images = new ArrayList<>();
 
         try {
 
-            if(iconsLoaded.containsKey(id))
+            if (iconsLoaded.containsKey(id))
                 return iconsLoaded.get(id);
 
-            String[] directories = filesAndroid.listFiles(currentContext,filesImage.get(id));
+            String[] directories = filesAndroid.listFiles(currentContext, filesImage.get(id));
             for (String directory : directories) {
                 AndroidImage i = g.createImage(filesImage.get(id) + "/" + directory);
                 images.add(i);
@@ -159,22 +161,22 @@ public class ResourcesManager {
 
 
     // Carga los iconos de la tienda
-    public ArrayList<AndroidImage> LoadGameIcons(AndroidGraphics graphics) {
-        return LoadBoughtImages(graphics, "codigos");
+    public ArrayList<AndroidImage> loadGameIcons(AndroidGraphics graphics) {
+        return loadBoughtImages(graphics, "codigos");
     }
 
     // Obtiene el background que ha sido comprado (tienda) o el correspondiente al mundo actual
     public AndroidImage getBackground(AndroidGraphics graphics, boolean shop) {
 
         String aux = "";
-        if(shop){
+        if (shop) {
             Skin skin = ShopManager.getInstance().getActiveSkin("fondos");
-            if(skin != null)
+            if (skin != null)
                 aux = skin.getSkinsPath();
             else
                 return null;
 
-        }else {
+        } else {
             aux = worldStyles.get(idActualWorld).getBackground();
         }
 
@@ -193,7 +195,7 @@ public class ResourcesManager {
     }
 
     // Se encarga de cargar todas los iconos que se mostraran en la tienda
-    private ArrayList<AndroidImage> LoadBoughtImages(AndroidGraphics g, String category) {
+    private ArrayList<AndroidImage> loadBoughtImages(AndroidGraphics g, String category) {
         if (ShopManager.getInstance().getActiveSkin(category) == null) {
             return null;
         }
@@ -201,7 +203,7 @@ public class ResourcesManager {
         ArrayList<AndroidImage> images = new ArrayList<>();
 
         try {
-            String[] directories = filesAndroid.listFiles(currentContext,skinPath);
+            String[] directories = filesAndroid.listFiles(currentContext, skinPath);
             for (String directory : directories) {
                 AndroidImage i = g.createImage(skinPath + directory);
                 images.add(i);
@@ -219,15 +221,15 @@ public class ResourcesManager {
     }
 
     // Leemos la informacion correspondiente a los niveles de cada mundo y lo guardamos para su posterior uso
-    private void ReadLevels() {
+    private void readLevels() {
         try {
             for (String nameW : files) {
-                String[] directories = filesAndroid.listFiles(currentContext ,LvlPath + '/' + nameW);
+                String[] directories = filesAndroid.listFiles(currentContext, LvlPath + '/' + nameW);
 
                 ArrayList<Level> levels = new ArrayList<>();
 
                 for (String directory : directories) {
-                    Level l = JSONToLevel(LvlPath + '/' + nameW + '/' + directory);
+                    Level l = jsonTolevel(LvlPath + '/' + nameW + '/' + directory);
                     if (l != null)
                         levels.add(l);
                 }
@@ -239,7 +241,7 @@ public class ResourcesManager {
     }
 
     // Leemos del json la informacion de los niveles
-    private Level JSONToLevel(String filePath) {
+    private Level jsonTolevel(String filePath) {
         try {
             InputStream inputStream = filesAndroid.createInputStream(currentContext, filePath);
             InputStreamReader inputStreamReader = filesAndroid.createInputStreamReader(inputStream);
@@ -276,7 +278,7 @@ public class ResourcesManager {
     }
 
     // Leemos y obtenemos todos los directorios de los mundos de juego
-    private void ReadWorlds() {
+    private void readWorlds() {
         try {
             String[] directories = filesAndroid.listFiles(currentContext, LvlPath);
 
@@ -302,10 +304,5 @@ public class ResourcesManager {
     // Seteamos el nivel que verá el jugador, asi podemos setear y devolver toda la informacion relativa a este
     public void setIdActualLevel(int idActualLevel) {
         this.idActualLevel = idActualLevel;
-    }
-
-    // Contexto de la aplicacion
-    public Context getCurrentContext() {
-        return currentContext;
     }
 }

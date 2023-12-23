@@ -71,7 +71,7 @@ public class EndGameScene extends Scene {
                 @Override
                 public void onClick() {
                     sceneManager.getEngine().getGraphics().generateScreenShoot(0
-                            , 0, sceneManager.getEngine().getGraphics().GetWidth(), sceneManager.getEngine().getGraphics().GetHeight() / 2, new ScreenShootFinish() {
+                            , 0, sceneManager.getEngine().getGraphics().getWidth(), sceneManager.getEngine().getGraphics().getHeight() / 2, new ScreenShootFinish() {
                                 @Override
                                 public void doAction(Bitmap bitmap) {
                                     sceneManager.getEngine().solicitateShare(bitmap, "ME HE PASADO EL MASTERMIND");
@@ -80,17 +80,17 @@ public class EndGameScene extends Scene {
                 }
             });
             if(typeGame)
-                iconImages = resourcesManager.LoadGameIcons(graphics);
+                iconImages = resourcesManager.loadGameIcons(graphics);
             else
-                iconImages = resourcesManager.LoadLevelIcons(resourcesManager.getSkinsId(), graphics);
+                iconImages = resourcesManager.loadLevelIcons(resourcesManager.getSkinsId(), graphics);
 
             new Text("Night.ttf", 270, 300, 20, 50, "código:", blackColor);
             ButtonArray b = new ButtonArray(100, 350, 400, 100);
 
             if(iconImages == null)
-                b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, colors, false, false, daltonic);
+                b.generateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, colors, false, false, daltonic);
             else
-                b.GenerateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, iconImages, false, false);
+                b.generateEnableButtons(numbers.size(), 0.9f, 1.1f, 1f, numbers, iconImages, false, false);
 
 
             shopManager.addBalance(15);

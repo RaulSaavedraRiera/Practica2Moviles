@@ -49,7 +49,7 @@ public class AndroidEngine implements Runnable {
      * Render principal que se encarga de llamar al render de la escena actual
      */
     protected void Render() {
-        graphics.CleanScreen(fColor);
+        graphics.cleanScreen(fColor);
         activeIScene.renderScene(graphics);
     }
 
@@ -77,7 +77,7 @@ public class AndroidEngine implements Runnable {
             throw new RuntimeException("run() should not be called directly");
         }
 
-        while (this.running && graphics.GetWidth() == 0) ;
+        while (this.running && graphics.getWidth() == 0) ;
 
         long lastFrameTime = System.nanoTime();
         long informePrevio = lastFrameTime; // Informes de FPS
@@ -215,7 +215,7 @@ public class AndroidEngine implements Runnable {
     }
 
     public void generateBanner(int adViewID) {
-        mobile.GenerateBanner(adViewID);
+        mobile.generateBanner(adViewID);
     }
 
     public void SolicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit) {

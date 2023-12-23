@@ -14,7 +14,7 @@ import com.saavedradelariera.src.Text;
 /*Escena de selección de dificultad*/
 public class DeleteScene extends Scene {
 
-    public DeleteScene(){
+    public DeleteScene() {
     }
 
     @Override
@@ -24,13 +24,13 @@ public class DeleteScene extends Scene {
 
         name = "DeleteScene";
 
-        Text tT = new Text("Night.ttf", 30, 250, 30, 100,  "¿Seguro que quieres borrar los datos?", new ColorJ(0, 0, 0));
+        Text tT = new Text("Night.ttf", 30, 250, 30, 100, "¿Seguro que quieres borrar los datos?", new ColorJ(0, 0, 0));
 
 
         GenericButton yesB = new GenericButton(135, 320, 300,
-                75, new ColorJ(220, 80, 80),new ColorJ(0, 0, 0), 10);
+                75, new ColorJ(220, 80, 80), new ColorJ(0, 0, 0), 10);
         GenericButton noB = new GenericButton(135, 500, 300,
-                75, new ColorJ(80, 150, 80),new ColorJ(0, 0, 0), 10);
+                75, new ColorJ(80, 150, 80), new ColorJ(0, 0, 0), 10);
 
         Text t2 = new Text("Night.ttf", 260, 340, 50, 100, "SI", new ColorJ(0, 0, 0));
         Text t3 = new Text("Night.ttf", 260, 520, 50, 100, "NO", new ColorJ(0, 0, 0));
