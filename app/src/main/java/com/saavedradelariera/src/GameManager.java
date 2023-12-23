@@ -16,22 +16,13 @@ import java.util.Random;
 * principal. Guarda los colores, las columnas, redirige el input a estas, etc.*/
 public class GameManager extends GameObject {
 
-    //private static GameManager instance = null;
-
     private ArrayList<Integer> playerTry = new ArrayList<Integer>();
     private ArrayList<Row> rows;
-
     Text triesT;
-
     private SolutionManager solutionManager;
-
     int currentRow = 0, buttonsPerRow, rowWidth, rowHeight, offsetX, offsetY, iniX, iniY;
-
     int difficult;
-
     int dragY = 0, totalYOffset = 0, maxYOffset = 0;
-
-
 
     ArrayList<AndroidImage> iconImages;
     //AndroidImage backgroundImage;

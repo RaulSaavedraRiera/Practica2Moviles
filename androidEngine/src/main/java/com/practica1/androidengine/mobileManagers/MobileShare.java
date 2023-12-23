@@ -3,15 +3,14 @@ package com.practica1.androidengine.mobileManagers;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.provider.MediaStore;
-import android.view.PixelCopy;
 import android.view.SurfaceView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Clase encargada de la lógica para compartir imagenes con otras aplicaciones
+ */
 public class MobileShare {
 
     SurfaceView surfaceView;
@@ -23,6 +22,7 @@ public class MobileShare {
         this.app = activity;
     }
 
+    // Compartimos el bitmap con un mensaje específico
     public void shareImage(Bitmap bitmap, String mnsg)
     {
         String imageUri = MediaStore.Images.Media.insertImage(app.getApplicationContext().getContentResolver(), bitmap,

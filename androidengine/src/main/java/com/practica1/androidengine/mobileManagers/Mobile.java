@@ -37,6 +37,9 @@ import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Clase encargada de la lógica de lo relacionado con anuncios, compartir y notificaciones
+ */
 public class Mobile {
 
     private AppCompatActivity app;
@@ -64,12 +67,14 @@ public class Mobile {
         sensors = new SensorsMobile(activity.getApplicationContext());
     }
 
+    // Crea un banner de anuncio
     public void GenerateBanner(int adViewID){
         mAdView = app.findViewById(adViewID);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
 
+    // Solicita la creación de una nueva notificacion
     public void SolicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit){
 
         SetUpNotification(channelName);
@@ -89,11 +94,13 @@ public class Mobile {
         WorkManager.getInstance().enqueue(request);
     }
 
+    // Borra todos los canales realacionados con las notificaciones
     public void DestroyNotificationWorker()
     {
         WorkManager.getInstance().cancelAllWork();
     }
 
+    // Setea el canal para la notificacion que hemos creado
     void SetUpNotification(String channelN){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // CharSequence name = "Mi Canal";
@@ -107,6 +114,7 @@ public class Mobile {
     }
 
 
+    // Permite compartir con otra aplicaciones
     public void SolicitateShare(Bitmap bitmap, String mnsg){
         mobileShare.shareImage(bitmap, mnsg);
     }
@@ -114,7 +122,6 @@ public class Mobile {
     public Sensor getAccelerometer(){
         return sensors.getAccelerometer();
     }
-
     public SensorManager getSensorManager(){
         return sensors.getSensorManager();
     }
@@ -161,12 +168,10 @@ public class Mobile {
             }
 
         });
-
-
-
-
     }
 
+
+    // Metodo para mostrar el anuncio recompensado y dar una recompensa
     public void showRewardedAd(AdsFinishCallback adFinish) {
         if (rewardedAd != null) {
             app.runOnUiThread(new Runnable() {
