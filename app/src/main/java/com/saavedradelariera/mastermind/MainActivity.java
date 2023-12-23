@@ -1,11 +1,13 @@
 package com.saavedradelariera.mastermind;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.SurfaceView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.ShopManager;
+import com.saavedradelariera.src.scenes.DeleteScene;
 import com.saavedradelariera.src.scenes.MenuScene;
 
 import java.util.concurrent.TimeUnit;
@@ -25,11 +28,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor accelerometer;
     private final float SENSORTHRESHOLD = 17f, TIMEBTWUSES = 1F;
     private long lastCallInSeconds;
+    private boolean enterNotification = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent intent = getIntent();
+        if(intent.getCategories().contains(Intent.CATEGORY_LAUNCHER)){
+            enterNotification = true;
+        }
         setContentView(R.layout.activity_main);
         SurfaceView renderView = findViewById(R.id.surfaceView);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
@@ -46,7 +54,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         ProgressManager.getInstance().loadFromJSON();
         MenuScene mS = new MenuScene();
         SceneManager.getInstance().setScene(mS);
-        accelerometer = androidEngine.getAccelerometer();
+
+       accelerometer = androidEngine.getAccelerometer();
+
+       if(enterNotification) {
+           ShopManager.getInstance().addBalance(100);
+       }
     }
 
     @Override
@@ -92,6 +105,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
-
     }
-}
+
+    @Override
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        if(intent.getCategories().contains(Intent.CATEGORY_LAUNCHER))
+            ShopManager.getInstance().addBalance(10);
+        }
+    }
+
