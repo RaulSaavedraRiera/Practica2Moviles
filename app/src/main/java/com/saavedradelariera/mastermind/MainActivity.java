@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor accelerometer;
     private final float SENSORTHRESHOLD = 17f, TIMEBTWUSES = 1F;
     private long lastCallInSeconds;
-    private boolean enterNotification = false;
+    private boolean enterNotification = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +57,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
        accelerometer = androidEngine.getAccelerometer();
 
-       if(enterNotification)
-       {
+       if(enterNotification) {
            ShopManager.getInstance().addBalance(100);
        }
     }
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
-        ProgressManager.getInstance().loadFromJSON();
         androidEngine.Resume();
         androidEngine.DestroyNotification();
 
