@@ -15,7 +15,6 @@ import java.util.Random;
 /*Clase GameManager que se encarga de gestionar el estado del juego en el nivel
  * principal. Guarda los colores, las columnas, redirige el input a estas, etc.*/
 public class GameManager extends GameObject {
-
     private ArrayList<Integer> playerTry = new ArrayList<Integer>();
     private ArrayList<Row> rows;
     Text triesT;
@@ -197,7 +196,7 @@ public class GameManager extends GameObject {
             rows.get(currentRow).SetSolution(compSol);
             currentRow++;
 
-            actualiceText();
+            updateText();
         }
     }
 
@@ -216,7 +215,6 @@ public class GameManager extends GameObject {
 
     @Override
     public boolean handleInput(TouchEvent e) {
-
         if (e.getType() == TouchEvent.TouchEventType.DRAG) {
             int changeInY = (int) (e.getY() - dragY);
             //comprobar si puede bajar
@@ -231,7 +229,6 @@ public class GameManager extends GameObject {
         } else if (e.getType() == TouchEvent.TouchEventType.TOUCH_DOWN) {
             dragY = (int) e.getY();
         }
-
         return false;
 
     }
@@ -260,12 +257,11 @@ public class GameManager extends GameObject {
     }
 
     //Actualiza el texto al completar una fila
-    void actualiceText() {
-
+    void updateText() {
         int tries = rows.size() - currentRow;
 
         if (tries > 1)
-            triesT.setText("Te quedan " + String.valueOf(tries) + " intentos");
+            triesT.setText("Te quedan " + tries + " intentos");
         else
             triesT.setText("Es tu último intento!!");
     }

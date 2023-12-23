@@ -38,7 +38,7 @@ public class MenuScene extends Scene {
                 SceneManager.getInstance().pushSceneStack();
 
                 Scene s;
-                if(!ProgressManager.getInstance().levelInProgress() || ProgressManager.getInstance().WorldLevelInProgress())
+                if(!ProgressManager.getInstance().levelInProgress() || ProgressManager.getInstance().worldLevelInProgress())
                     s = new ChooseDifficultyScene();
                 else
                     s = new GameScene(ProgressManager.getInstance().getLevelInProgressDifficult(), true, true);
@@ -52,15 +52,15 @@ public class MenuScene extends Scene {
             public void onClick() {
                 SceneManager.getInstance().pushSceneStack();
                 Scene s;
-                if(!ProgressManager.getInstance().levelInProgress() || !ProgressManager.getInstance().WorldLevelInProgress())
+                if(!ProgressManager.getInstance().levelInProgress() || !ProgressManager.getInstance().worldLevelInProgress())
                 {
                     s = new WorldScene();
                 }
                 else
                 {
                     ResourcesManager.getInstance().setWorld(ProgressManager.getInstance().getWorldInProgress());
-                    ResourcesManager.getInstance().getLevel(ProgressManager.getInstance().GetLevelInProgress(), ProgressManager.getInstance().getIdActualWorld());
-                    ResourcesManager.getInstance().setIdActualLevel(ProgressManager.getInstance().GetLevelInProgress());
+                    ResourcesManager.getInstance().getLevel(ProgressManager.getInstance().getLevelInProgress(), ProgressManager.getInstance().getIdActualWorld());
+                    ResourcesManager.getInstance().setIdActualLevel(ProgressManager.getInstance().getLevelInProgress());
                     SceneManager.getInstance().pushSceneStack();
 
                     ProgressManager.getInstance().DeleteProgressInLevel();

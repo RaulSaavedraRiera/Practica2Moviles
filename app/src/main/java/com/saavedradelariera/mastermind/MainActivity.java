@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         androidEngine.SolicitateLoadRewardAd();
         androidEngine.loadLibraries();
         ResourcesManager.getInstance().Init(androidEngine);
-        ProgressManager.getInstance().Init(androidEngine);
+        ProgressManager.getInstance().init(androidEngine);
         SceneManager.getInstance().init(androidEngine);
         ShopManager.getInstance().init(androidEngine);
         ProgressManager.getInstance().loadFromJSON();

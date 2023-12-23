@@ -1,14 +1,10 @@
 package com.saavedradelariera.src;
-
 import android.content.Context;
 import android.content.res.AssetManager;
-
 import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.ColorJ;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +29,7 @@ public class ShopManager {
     private Map<String, Skin> activeSkinsMap = new HashMap<>();
     private Map<String, Set<String>> boughtSkinsMap = new HashMap<>();
     private static ShopManager instance = null;
+    private Context currentContext;
 
     public static ShopManager getInstance() {
         if (instance == null) {
@@ -62,6 +59,7 @@ public class ShopManager {
 
     //inicializacion en dos pasos
     public void init(AndroidEngine engine) {
+        currentContext = engine.getContext();
         //carga la tienda
         loadShop(engine.getContext());
         //si se obtienen los codigos e skins compradas
@@ -284,6 +282,6 @@ public class ShopManager {
         boughtSkinsMap = new HashMap<>();
         activeSkinsMap = new HashMap<>();
         balance = 500;
-        loadShop(ResourcesManager.getInstance().getCurrentContext());
+        loadShop(currentContext);
     }
 }
