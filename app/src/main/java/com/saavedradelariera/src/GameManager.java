@@ -16,7 +16,6 @@ import java.util.Random;
  * principal. Guarda los colores, las columnas, redirige el input a estas, etc.*/
 public class GameManager extends GameObject {
 
-    //private static GameManager instance = null;
     private ArrayList<Integer> playerTry = new ArrayList<Integer>();
     private ArrayList<Row> rows;
     Text triesT;

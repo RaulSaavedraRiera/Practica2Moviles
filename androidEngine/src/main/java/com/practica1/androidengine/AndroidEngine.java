@@ -29,13 +29,12 @@ public class AndroidEngine implements Runnable {
     boolean changeScene = false;
     protected InputAndroid input = null;
     ColorJ fColor = new ColorJ(255, 255, 255);
-    ColorJ sColor = new ColorJ(80, 80, 80);
     private Thread renderThread;
     private volatile boolean running = false;
 
     private SurfaceHolder holder;
     private SurfaceView myView;
-
+    private NDKManager ndkManager = new NDKManager();
     private Mobile mobile;
 
     public AndroidEngine(SurfaceView surfaceView) {
@@ -252,4 +251,16 @@ public class AndroidEngine implements Runnable {
     public Sensor getAccelerometer(){
         return mobile.getAccelerometer();
     }
+
+    public String doGenerateHash(String file)
+    {
+        return ndkManager.generateHash(file);
+    }
+
+    public void loadLibraries()
+    {
+        System.loadLibrary("androidEngine");
+    }
+
+
 }

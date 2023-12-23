@@ -4,6 +4,9 @@ import android.content.Context;
 import android.hardware.SensorManager;
 import android.hardware.Sensor;
 
+/**
+ * Clase encargada de agregar los sensores necesarios
+ */
 public class SensorsMobile {
 
     private SensorManager sensorManager;
