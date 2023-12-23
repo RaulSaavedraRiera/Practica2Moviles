@@ -2,7 +2,6 @@ package com.saavedradelariera.src;
 
 /*Clase que guarda el estado del mundo actual, tanto sus skins como su fondo*/
 public class WorldStyle {
-
     private String background;
     private int idSkins;
 

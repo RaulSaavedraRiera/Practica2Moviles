@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 
         androidEngine = new AndroidEngine(renderView);
-        androidEngine.GenerateMobile(this, MainActivity.this);
-        androidEngine.GenerateBanner(R.id.adView);
-        androidEngine.SolicitateLoadRewardAd();
+        androidEngine.generateMobile(this, MainActivity.this);
+        androidEngine.generateBanner(R.id.adView);
+        androidEngine.solicitateLoadRewardAd();
         androidEngine.loadLibraries();
         ResourcesManager.getInstance().Init(androidEngine);
         ProgressManager.getInstance().init(androidEngine);
@@ -46,16 +46,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         ProgressManager.getInstance().loadFromJSON();
         MenuScene mS = new MenuScene();
         SceneManager.getInstance().setScene(mS);
-
-       accelerometer = androidEngine.getAccelerometer();
+        accelerometer = androidEngine.getAccelerometer();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         ProgressManager.getInstance().loadFromJSON();
-        androidEngine.Resume();
-        androidEngine.DestroyNotification();
+        androidEngine.resume();
+        androidEngine.destroyNotification();
 
         if (accelerometer != null)
             androidEngine.getSensorManager().registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -65,16 +64,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
         ProgressManager.getInstance().saveInJSON();
-        androidEngine.Pause();
+        androidEngine.pause();
 
         if (accelerometer != null)
             androidEngine.getSensorManager().unregisterListener(this);
-
     }
 
     @Override
-    protected void onStop()
-    {
+    protected void onStop() {
         super.onStop();
         androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground,
                 "Mastermind", "¡Entra a jugar y no te pierdas los nuevos niveles!", "canalmaster", 10, TimeUnit.SECONDS);

@@ -6,9 +6,7 @@ package com.practica1.androidengine;
  */
 public class TouchEvent implements IPool {
     private TouchEventType type;
-    private float x;
-    private float y;
-
+    private float x, y;
 
     public TouchEvent() {
     }
@@ -57,7 +55,6 @@ public class TouchEvent implements IPool {
     }
 
     public enum TouchEventType {
-
         TOUCH_DOWN,
         TOUCH_UP,
         CLICK,

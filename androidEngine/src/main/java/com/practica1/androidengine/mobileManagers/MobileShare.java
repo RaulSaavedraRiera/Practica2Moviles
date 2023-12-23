@@ -23,16 +23,15 @@ public class MobileShare {
     }
 
     // Compartimos el bitmap con un mensaje específico
-    public void shareImage(Bitmap bitmap, String mnsg)
-    {
+    public void shareImage(Bitmap bitmap, String mnsg) {
         String imageUri = MediaStore.Images.Media.insertImage(app.getApplicationContext().getContentResolver(), bitmap,
-            "Description" , null);
-        Uri uri = Uri. parse(imageUri);
-        Intent shareIntent = new Intent(Intent. ACTION_SEND);
-        shareIntent.setType( "image/*");
-        shareIntent.putExtra(Intent. EXTRA_TEXT, mnsg );
-        shareIntent.putExtra(Intent. EXTRA_STREAM, uri);
-        this.app.startActivity(Intent. createChooser(shareIntent , "Share Image" ));
+                "Description", null);
+        Uri uri = Uri.parse(imageUri);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("image/*");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, mnsg);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        this.app.startActivity(Intent.createChooser(shareIntent, "Share Image"));
     }
 
 }

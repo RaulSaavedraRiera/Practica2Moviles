@@ -49,8 +49,8 @@ public class SceneManager {
         messagesGO.clear();
 
         //inicialzia la escena y se la pasa al engine
-        activeScene.setScene(engine.GetGraphics(), engine.GetAudioSystem());
-        engine.SetScene(activeScene);
+        activeScene.setScene(engine.getGraphics(), engine.getAudioSystem());
+        engine.setScene(activeScene);
     }
 
     //lanza una nueva escena al motor y la inicializa
@@ -65,7 +65,7 @@ public class SceneManager {
 
         //inicialzia la escena y se la pasa al engine
         //activeScene.ReturnScene(engine.GetGraphics(), engine.GetAudioSystem());
-        engine.SetScene(activeScene);
+        engine.setScene(activeScene);
     }
 
     public AndroidEngine getEngine() {

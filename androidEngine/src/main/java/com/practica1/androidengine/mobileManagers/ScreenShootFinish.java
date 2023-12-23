@@ -6,6 +6,5 @@ import android.graphics.Bitmap;
  * Callback para cuando se haya completado la captura de pantalla
  */
 public interface ScreenShootFinish {
-
-    public void doAction(Bitmap bitmap);
+    void doAction(Bitmap bitmap);
 }

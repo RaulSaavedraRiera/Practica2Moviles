@@ -70,11 +70,11 @@ public class EndGameScene extends Scene {
             shareB.setClickListener(new ClickListener() {
                 @Override
                 public void onClick() {
-                    sceneManager.getEngine().GetGraphics().generateScreenShoot(0
-                            , 0, sceneManager.getEngine().GetGraphics().GetWidth(), sceneManager.getEngine().GetGraphics().GetHeight() / 2, new ScreenShootFinish() {
+                    sceneManager.getEngine().getGraphics().generateScreenShoot(0
+                            , 0, sceneManager.getEngine().getGraphics().GetWidth(), sceneManager.getEngine().getGraphics().GetHeight() / 2, new ScreenShootFinish() {
                                 @Override
                                 public void doAction(Bitmap bitmap) {
-                                    sceneManager.getEngine().SolicitateShare(bitmap, "ME HE PASADO EL MASTERMIND");
+                                    sceneManager.getEngine().solicitateShare(bitmap, "ME HE PASADO EL MASTERMIND");
                                 }
                             });
                 }
@@ -164,7 +164,7 @@ public class EndGameScene extends Scene {
             adButton.setClickListener(new ClickListener() {
                 @Override
                 public void onClick() {
-                    sceneManager.getEngine().SolicitateRewardAd(new AdsFinishCallback() {
+                    sceneManager.getEngine().solicitateRewardAd(new AdsFinishCallback() {
                         @Override
                         public void doAction() {
                             GameScene gS = (GameScene) sceneManager.getPeckStack();

@@ -4,18 +4,12 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.SoundPool;
 
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Implementation of the `IAudioSystem` interface and is responsible
  * for managing audio playback using Android's SoundPool. It provides methods to load and play audio
  * sounds, stop playing sounds, and release audio resources.
  */
 public class AndroidAudio {
-
     private AssetManager assets;
     SoundPool soundsPool;
 
@@ -31,7 +25,7 @@ public class AndroidAudio {
      * @param sound Sound to play
      */
 
-    public void PlayAudio(AndroidSound sound) {
+    public void playAudio(AndroidSound sound) {
         AndroidSound s = null;
         int soundId = -1;
         try {
@@ -60,14 +54,13 @@ public class AndroidAudio {
      * @param sound Sound to stop playing.
      */
 
-    public void StopAudio(AndroidSound sound) {
+    public void stopAudio(AndroidSound sound) {
 
         if(sound.getStreamId() != -1)
             this.soundsPool.stop(sound.getStreamId());
     }
 
-
-    public void ReleaseAudio() {
+    public void releaseAudio() {
         soundsPool.release();
         soundsPool = new SoundPool.Builder().setMaxStreams(10).build();
     }

@@ -21,13 +21,13 @@ public class AudioManager extends GameObject {
     public void receiveMessage(Message m) {
         switch (m.id) {
             case "PlaySound":
-                audioSystem.PlayAudio(((PlaySoundMessage) m).sound);
+                audioSystem.playAudio(((PlaySoundMessage) m).sound);
                 break;
             case "StopSound":
-                audioSystem.StopAudio(((StopSoundMessage) m).sound);
+                audioSystem.stopAudio(((StopSoundMessage) m).sound);
                 break;
             case "ReleaseSound":
-                audioSystem.ReleaseAudio();
+                audioSystem.releaseAudio();
                 break;
         }
     }

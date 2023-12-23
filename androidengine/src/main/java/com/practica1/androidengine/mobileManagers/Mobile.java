@@ -65,7 +65,7 @@ public class Mobile {
     }
 
     // Solicita la creación de una nueva notificacion
-    public void SolicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit){
+    public void solicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit){
 
         SetUpNotification(channelName);
 
@@ -85,7 +85,7 @@ public class Mobile {
     }
 
     // Borra todos los canales realacionados con las notificaciones
-    public void DestroyNotificationWorker()
+    public void destroyNotificationWorker()
     {
         WorkManager.getInstance().cancelAllWork();
     }
@@ -103,7 +103,7 @@ public class Mobile {
     }
 
     // Permite compartir con otra aplicaciones
-    public void SolicitateShare(Bitmap bitmap, String mnsg){
+    public void solicitateShare(Bitmap bitmap, String mnsg){
         mobileShare.shareImage(bitmap, mnsg);
     }
 

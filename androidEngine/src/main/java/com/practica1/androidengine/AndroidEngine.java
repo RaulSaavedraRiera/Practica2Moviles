@@ -31,7 +31,6 @@ public class AndroidEngine implements Runnable {
     ColorJ fColor = new ColorJ(255, 255, 255);
     private Thread renderThread;
     private volatile boolean running = false;
-
     private SurfaceHolder holder;
     private SurfaceView myView;
     private NDKManager ndkManager = new NDKManager();
@@ -84,7 +83,7 @@ public class AndroidEngine implements Runnable {
         long informePrevio = lastFrameTime; // Informes de FPS
         int frames = 0;
         // Seteamos escena inicial
-        ManageChangeScene();
+        manageChangeScene();
 
         // Bucle de juego principal.
         while (running) {
@@ -113,11 +112,11 @@ public class AndroidEngine implements Runnable {
                 graphics.restore();
 
                 graphics.finishRender();
-                HandleInput();
+                handleInput();
             }
 
             // Comprobamos si se tiene que realizar un cambio de escena
-            ManageChangeScene();
+            manageChangeScene();
         }
     }
 
@@ -126,7 +125,7 @@ public class AndroidEngine implements Runnable {
      * HandleInput transforma las coordenadas del input para tener en cuenta
      * el escalado y el desplazamiento que haya
      */
-    protected void HandleInput() {
+    protected void handleInput() {
         ArrayList<TouchEvent> touchEvents = input.getTouchEvent();
 
         for (TouchEvent e : touchEvents) {
@@ -146,7 +145,7 @@ public class AndroidEngine implements Runnable {
      * Creación del hilo principal
      */
 
-    public void Resume() {
+    public void resume() {
         if (!this.running) {
             // Solo hacemos algo si no nos estábamos ejecutando ya
             // (programación defensiva)
@@ -160,7 +159,7 @@ public class AndroidEngine implements Runnable {
     /**
      * Pausar el hilo
      */
-    public void Pause() {
+    public void pause() {
         if (this.running) {
             this.running = false;
             while (true) {
@@ -181,7 +180,7 @@ public class AndroidEngine implements Runnable {
      * @param IScene
      */
 
-    public void SetScene(IScene IScene) {
+    public void setScene(IScene IScene) {
         sceneToChange = IScene;
         changeScene = true;
     }
@@ -189,7 +188,7 @@ public class AndroidEngine implements Runnable {
     /**
      * Si tenemos que cambiar de escena actualizamos los parametros
      */
-    void ManageChangeScene() {
+    void manageChangeScene() {
         if (!changeScene)
             return;
 
@@ -199,68 +198,59 @@ public class AndroidEngine implements Runnable {
     }
 
 
-    public AndroidGraphics GetGraphics() {
+    public AndroidGraphics getGraphics() {
         return graphics;
     }
 
 
-    public AndroidAudio GetAudioSystem() {
+    public AndroidAudio getAudioSystem() {
         return audioSystem;
     }
 
-    public void GenerateMobile(AppCompatActivity app, Activity act){
-        if(app == null || mobile != null)
+    public void generateMobile(AppCompatActivity app, Activity act) {
+        if (app == null || mobile != null)
             return;
 
         mobile = new Mobile(app, myView, act);
     }
 
-    public Mobile GetMobile(){
-        return mobile;
-    }
-
-    public void GenerateBanner(int adViewID){
+    public void generateBanner(int adViewID) {
         mobile.GenerateBanner(adViewID);
     }
-    public void SolicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit){
-        mobile.SolicitateNotification(icon, title, body, channelName, time, timeUnit);
-    }
-    public void SolicitateShare(Bitmap bitmap, String mnsg){
-        mobile.SolicitateShare(bitmap, mnsg);
+
+    public void SolicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit) {
+        mobile.solicitateNotification(icon, title, body, channelName, time, timeUnit);
     }
 
-    public void DestroyNotification()
-    {
-        mobile.DestroyNotificationWorker();
+    public void solicitateShare(Bitmap bitmap, String mnsg) {
+        mobile.solicitateShare(bitmap, mnsg);
     }
 
-    public void SolicitateLoadRewardAd()
-    {
+    public void destroyNotification() {
+        mobile.destroyNotificationWorker();
+    }
+
+    public void solicitateLoadRewardAd() {
         mobile.loadRewardedAd();
     }
 
-    public void SolicitateRewardAd(AdsFinishCallback adFinish)
-    {
+    public void solicitateRewardAd(AdsFinishCallback adFinish) {
         mobile.showRewardedAd(adFinish);
     }
 
-    public SensorManager getSensorManager(){
+    public SensorManager getSensorManager() {
         return mobile.getSensorManager();
     }
 
-    public Sensor getAccelerometer(){
+    public Sensor getAccelerometer() {
         return mobile.getAccelerometer();
     }
 
-    public String doGenerateHash(String file)
-    {
+    public String doGenerateHash(String file) {
         return ndkManager.generateHash(file);
     }
 
-    public void loadLibraries()
-    {
+    public void loadLibraries() {
         System.loadLibrary("androidEngine");
     }
-
-
 }
