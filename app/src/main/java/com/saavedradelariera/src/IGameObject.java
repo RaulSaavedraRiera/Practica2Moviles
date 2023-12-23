@@ -9,22 +9,22 @@ import com.saavedradelariera.src.messages.Message;
 public interface IGameObject {
 
     //permite darle un offset, en una linea pos = lineaPos + botonPos
-    void Render(AndroidGraphics iGraphics);
+    void render(AndroidGraphics iGraphics);
 
-    void Update(AndroidEngine IEngine, float deltaTime);
+    void update(AndroidEngine IEngine, float deltaTime);
 
-    boolean HandleInput(TouchEvent e);
-
-
-    void SetX(int x);
-    void SetY(int y);
-    int GetX();
-    int GetY();
-    int GetWidth();
-    int GetHeight();
-
-     void ReceiveMessage(Message m);
+    boolean handleInput(TouchEvent e);
 
 
-    boolean ISOver(float x, float y);
+    void setX(int x);
+    void setY(int y);
+    int getX();
+    int getY();
+    int getWidth();
+    int getHeight();
+
+     void receiveMessage(Message m);
+
+
+    boolean isOver(float x, float y);
 }

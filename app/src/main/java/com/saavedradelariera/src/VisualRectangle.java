@@ -7,12 +7,9 @@ import com.practica1.androidengine.ColorJ;
 
 /*clase que permite dibujar un rectángulo gráficamente con diferentes opciones*/
 public class VisualRectangle extends GameObject {
-
-
     //almacenamos un color y si es relleno o no
     ColorJ color, color2;
     boolean fill;
-
     int radius = 0;
 
     //Crear un rectangulo de un solo color
@@ -53,35 +50,33 @@ public class VisualRectangle extends GameObject {
 
     //overrideamos los métodos de GameObject y actualizamos render para que pinte lo deseado
     @Override
-    public void Render(AndroidGraphics graphics) {
-
-
+    public void render(AndroidGraphics graphics) {
         //segun las caracteristicas dadas en el constructor lo pintamos de diferentes maneras
 
-        if(!fill) {
+        if (!fill) {
             graphics.RenderRect(posX, posY, width, height, color);
             return;
         }
 
         if (radius > 0 && fill) {
-            graphics.RenderFillRect(posX,posY,width,height,color, color, radius);
+            graphics.RenderFillRect(posX, posY, width, height, color, color, radius);
             return;
         }
 
         if (color2 != null && fill) {
-            graphics.RenderFillRect(posX,posY,width,height,color, color2);
+            graphics.RenderFillRect(posX, posY, width, height, color, color2);
             return;
         }
 
         if (fill) {
-            graphics.RenderFillRect(posX,posY,width,height,color, color);
+            graphics.RenderFillRect(posX, posY, width, height, color, color);
             return;
         }
 
     }
 
     @Override
-    public void Update(AndroidEngine engine, float deltaTime) {
+    public void update(AndroidEngine engine, float deltaTime) {
 
     }
 }

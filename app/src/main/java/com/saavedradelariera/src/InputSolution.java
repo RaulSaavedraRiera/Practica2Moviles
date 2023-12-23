@@ -1,7 +1,5 @@
 package com.saavedradelariera.src;
 
-import com.practica1.androidengine.AndroidEngine;
-import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
 import com.practica1.androidengine.ColorJ;
 import com.practica1.androidengine.TouchEvent;
@@ -58,9 +56,9 @@ public class InputSolution extends GameObject {
 
 
     @Override
-    public boolean HandleInput(TouchEvent e)
+    public boolean handleInput(TouchEvent e)
     {
-       return buttons.HandleInput(e);
+       return buttons.handleInput(e);
     }
 
 }

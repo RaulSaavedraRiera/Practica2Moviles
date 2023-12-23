@@ -43,19 +43,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 
         androidEngine = new AndroidEngine(renderView);
-
         androidEngine.GenerateMobile(this, MainActivity.this);
         androidEngine.GenerateBanner(R.id.adView);
         androidEngine.SolicitateLoadRewardAd();
-
         androidEngine.loadLibraries();
         ResourcesManager.getInstance().Init(androidEngine);
         ProgressManager.getInstance().Init(androidEngine);
         SceneManager.getInstance().init(androidEngine);
-
         ShopManager.getInstance().init(androidEngine);
         ProgressManager.getInstance().loadFromJSON();
-
         MenuScene mS = new MenuScene();
         SceneManager.getInstance().setScene(mS);
 

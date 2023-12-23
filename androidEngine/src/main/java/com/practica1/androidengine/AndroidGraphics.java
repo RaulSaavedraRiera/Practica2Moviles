@@ -417,10 +417,6 @@ public class AndroidGraphics {
 
                 }
             }, new Handler(handlerThread.getLooper()));
-
         }
-
-
     }
-
 }

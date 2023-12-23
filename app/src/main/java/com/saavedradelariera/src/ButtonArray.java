@@ -74,7 +74,7 @@ public class ButtonArray extends GameObject {
         for (int i = 0; i < n; i++) {
             b =  new CombinationButton(
                     posX + initialOffset + zoneButton * i, posY + offsetY, widthButton, widthButton, smallCircle, i);
-            b.EnableCombinationButton(colors.get(num.get(i)), num.get(i), 1f, inputEnable, cleanColorEnable, daltonic);
+            b.enableCombinationButton(colors.get(num.get(i)), num.get(i), 1f, inputEnable, cleanColorEnable, daltonic);
             buttons.add(b);
         }
     }
@@ -105,7 +105,7 @@ public class ButtonArray extends GameObject {
         for (int i = 0; i < n; i++) {
             b =  new CombinationButton(
                     posX + initialOffset + zoneButton * i, posY + offsetY, widthButton, widthButton, smallCircle, i);
-            b.EnableCombinationButton(imgs.get(num.get(i)), num.get(i), 1f, inputEnable, deleteColorButton);
+            b.enableCombinationButton(imgs.get(num.get(i)), num.get(i), 1f, inputEnable, deleteColorButton);
             buttons.add(b);
         }
     }
@@ -114,27 +114,27 @@ public class ButtonArray extends GameObject {
     //desactiva el input de todos los botones
     public void DisableInputButtons(){
         for (int i = 0; i < buttons.size(); i++) {
-            buttons.get(i).DisableInput();
+            buttons.get(i).disableInput();
         }
     }
 
     @Override
-    public void Render(AndroidGraphics iGraphics) {
+    public void render(AndroidGraphics iGraphics) {
     }
 
     @Override
-    public void Update(AndroidEngine IEngine, float deltaTime) {
+    public void update(AndroidEngine IEngine, float deltaTime) {
 
     }
 
 
   //activa el boton seleccionado con los valores dados; permitiendo diferentes comportamientos y color
     public void Enablebutton(int i, ColorJ c, int n,float smallCircle, boolean inputEnabled, boolean cleanColorEnable, boolean daltonicCurrentEnabled){
-     buttons.get(i).EnableCombinationButton(c,n,smallCircle, inputEnabled, cleanColorEnable, daltonicCurrentEnabled);
+     buttons.get(i).enableCombinationButton(c,n,smallCircle, inputEnabled, cleanColorEnable, daltonicCurrentEnabled);
     }
     //version para imagenes
     public void Enablebutton(int i, AndroidImage img, int n, float smallCircle, boolean inputEnabled, boolean cleanColorEnable){
-        buttons.get(i).EnableCombinationButton(img ,n,smallCircle, inputEnabled, cleanColorEnable);
+        buttons.get(i).enableCombinationButton(img ,n,smallCircle, inputEnabled, cleanColorEnable);
     }
 
     //devuelve el n de botones
@@ -144,21 +144,21 @@ public class ButtonArray extends GameObject {
     public String GetButtonsCombination(){
         String s = "";
         for(CombinationButton b : buttons)
-            if(b.isEnable())
-                s +=  String.valueOf(b.GetNumber());
+            if(b.isEnabled())
+                s +=  String.valueOf(b.getNumber());
 
         return s;
     }
     public ArrayList<CombinationButton> GetButtons() { return buttons;}
 
     //Pasa el input a los botones
-    public boolean HandleInput(TouchEvent e) {
+    public boolean handleInput(TouchEvent e) {
 
         for (int i = 0; i < buttons.size(); i++) {
-            if(buttons.get(i).HandleInput(e))
+            if(buttons.get(i).handleInput(e))
                 return true;
         }
-        return super.HandleInput(e);
+        return super.handleInput(e);
     }
 
 

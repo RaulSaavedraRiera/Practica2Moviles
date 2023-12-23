@@ -18,11 +18,11 @@ public class ImageBackground extends GameObject {
 
      //Pone la imagen deseada de fondo
     @Override
-    public void Render(AndroidGraphics graphics) {
+    public void render(AndroidGraphics graphics) {
         graphics.setBackgroundImage(img);
     }
 
     @Override
-    public void Update(AndroidEngine iEngine, float deltaTime) {
+    public void update(AndroidEngine iEngine, float deltaTime) {
     }
 }

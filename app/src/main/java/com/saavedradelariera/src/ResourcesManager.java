@@ -1,15 +1,12 @@
 package com.saavedradelariera.src;
 
 import android.content.Context;
-
 import com.practica1.androidengine.AndroidEngine;
 import com.practica1.androidengine.AndroidFile;
 import com.practica1.androidengine.AndroidGraphics;
 import com.practica1.androidengine.AndroidImage;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,11 +35,7 @@ public class ResourcesManager {
     private static ResourcesManager instance = null;
     private Level actualLevel;
     private Context currentContext;
-
     private AndroidFile filesAndroid = new AndroidFile();
-
-    private void WorldManager() {
-    }
 
     // Inicialilzacion del Singleton
     public void Init(AndroidEngine engine) {

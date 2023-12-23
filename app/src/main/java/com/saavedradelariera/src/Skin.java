@@ -1,8 +1,8 @@
 package com.saavedradelariera.src;
 
 /*Clase para mostrar una skin en la tienda. Contiene todos los datos necesarios:
-* precio del paquete, ruta de un ejemplo del paquete de skins, así como métodos para adquirirla
-* y acceder a su informacion */
+ * precio del paquete, ruta de un ejemplo del paquete de skins, así como métodos para adquirirla
+ * y acceder a su informacion */
 public class Skin {
     private boolean bought;
     private int price;
