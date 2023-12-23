@@ -170,7 +170,7 @@ public class EndGameScene extends Scene {
                             GameScene gS = (GameScene) sceneManager.getPeckStack();
                             sceneManager.useSceneStack();
                             sceneManager.returnToScene(gS);
-                            gS.getGameManager().AddRows(2);
+                            gS.getGameManager().addRows(2);
                         }
                     });
                 }

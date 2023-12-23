@@ -13,7 +13,7 @@ import com.saavedradelariera.src.messages.Message;
 import java.util.ArrayList;
 
 /*Clase scene abstracta que inicialia la estructura comun*/
-public abstract class Scene implements IScene {
+public class Scene implements IScene {
     protected String name = "";
     protected ArrayList<IGameObject> GOList = new ArrayList<IGameObject>();
     protected ArrayList<IGameObject> GOMessageList = new ArrayList<>();

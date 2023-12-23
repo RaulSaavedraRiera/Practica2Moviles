@@ -25,7 +25,6 @@ import java.util.Set;
  nos da todos los métodos que necesitamos para el funcionamiento correcto de la tienda:
  comprar skins, fondos, equiparlos, mostrar el dinero actual y usarlo, etc.*/
 public class ShopManager {
-
     private static final String PATH = "store";
     private int currentPage = 0;
     private int balance = 500;

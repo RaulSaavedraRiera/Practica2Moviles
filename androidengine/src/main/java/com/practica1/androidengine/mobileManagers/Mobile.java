@@ -9,17 +9,12 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.util.Log;
 import android.view.SurfaceView;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
-
 import androidx.annotation.NonNull;
 import androidx.work.WorkRequest;
-
-
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -33,8 +28,6 @@ import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions;
-
-
 import java.util.concurrent.TimeUnit;
 
 public class Mobile {
@@ -43,9 +36,7 @@ public class Mobile {
     private AdView mAdView;
     private MobileShare mobileShare;
     private RewardedAd rewardedAd;
-
     private Activity activity;
-
     private SensorsMobile sensors;
 
     public Mobile(AppCompatActivity app, SurfaceView surfaceView, Activity activity){
@@ -58,7 +49,6 @@ public class Mobile {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-
 
         mobileShare = new MobileShare(surfaceView, app);
         sensors = new SensorsMobile(activity.getApplicationContext());
@@ -103,9 +93,7 @@ public class Mobile {
             NotificationManager notificationManager = app.getApplicationContext().getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-
     }
-
 
     public void SolicitateShare(Bitmap bitmap, String mnsg){
         mobileShare.shareImage(bitmap, mnsg);
@@ -137,9 +125,7 @@ public class Mobile {
                         .setCustomData("SAMPLE_CUSTOM_DATA_STRING")
                         .build();
                 rewardedAd.setServerSideVerificationOptions(options);
-
                 rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-
                     @Override
                     public void onAdDismissedFullScreenContent() {
                         // Called when ad is dismissed.
@@ -156,15 +142,9 @@ public class Mobile {
                         //rewardedAd = null;
                         loadRewardedAd();
                     }
-
                 });
             }
-
         });
-
-
-
-
     }
 
     public void showRewardedAd(AdsFinishCallback adFinish) {

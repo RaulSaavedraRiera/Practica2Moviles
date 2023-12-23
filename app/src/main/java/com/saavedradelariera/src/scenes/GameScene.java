@@ -93,7 +93,7 @@ public class GameScene extends Scene {
 
         //creamos el input solution
         if (iconImages == null)
-            new InputSolution(0, (int) (graphics.GetHeightRelative() * 0.9f), graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.1f), nColors, primaryColor, gameManager.GetColors(), false);
+            new InputSolution(0, (int) (graphics.GetHeightRelative() * 0.9f), graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.1f), nColors, primaryColor, gameManager.getColors(), false);
             //o con sprites
         else
             new InputSolution(0, (int) (graphics.GetHeightRelative() * 0.9f), graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.1f), nColors, primaryColor, iconImages);
@@ -102,7 +102,7 @@ public class GameScene extends Scene {
         new VisualRectangle(0, (int) (-graphics.GetHeightRelative() * 0.4f), (int) graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.5f), primaryColor, true);
         new VisualRectangle(0, (int) (graphics.GetHeightRelative()), (int) graphics.GetWidthRelative(), (int) (graphics.GetHeightRelative() * 0.5f), primaryColor, true);
 
-        gameManager.Init(background, difficult, nButtons, nRows, graphics, loadState);
+        gameManager.init(background, difficult, nButtons, nRows, graphics, loadState);
 
 
     }
@@ -126,7 +126,7 @@ public class GameScene extends Scene {
                 level += Integer.toString(currentL);
         }
 
-        return level + gameManager.GetLevelState();
+        return level + gameManager.getLevelState();
     }
 
     public GameManager getGameManager() {
