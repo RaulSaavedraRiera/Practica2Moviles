@@ -46,7 +46,7 @@ public class ImageButton extends GameObject {
     public boolean handleInput(TouchEvent e) {
         if (e.getType() == TouchEvent.TouchEventType.TOUCH_DOWN) {
             if (isOver(e.getX(), e.getY())) {
-                return HandleClick();
+                return handleClick();
             }
         }
         return false;
@@ -69,7 +69,7 @@ public class ImageButton extends GameObject {
     }
 
     //Método para procesar dicho click
-    protected boolean HandleClick() {
+    protected boolean handleClick() {
         if (clickListener != null) {
             clickListener.onClick();
         }

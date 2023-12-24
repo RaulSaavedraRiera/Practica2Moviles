@@ -60,7 +60,7 @@ public class LevelButton extends GenericButton {
         }
     }
     @Override
-    protected boolean HandleClick() {
+    protected boolean handleClick() {
         if(pass)
         {
             ResourcesManager.getInstance().setIdActualLevel(this.id);

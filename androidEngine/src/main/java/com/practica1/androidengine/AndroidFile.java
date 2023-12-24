@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+/*Clase para abstraer la lectura y escritura de arhivos en el sistema android*/
 public class AndroidFile {
     public AndroidFile() {
     }

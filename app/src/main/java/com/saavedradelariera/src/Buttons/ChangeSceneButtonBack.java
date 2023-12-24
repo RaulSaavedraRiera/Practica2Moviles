@@ -23,7 +23,7 @@ public class ChangeSceneButtonBack extends ImageButton {
     }
 
     @Override
-    protected boolean HandleClick() {
+    protected boolean handleClick() {
         SceneManager.getInstance().resetStack();
         ResourcesManager.getInstance().resetWorld();
         ShopManager.getInstance().resetScene();

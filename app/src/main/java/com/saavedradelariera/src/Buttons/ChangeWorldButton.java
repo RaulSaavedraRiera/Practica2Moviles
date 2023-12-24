@@ -16,7 +16,7 @@ public class ChangeWorldButton extends ImageButton {
     }
 
     @Override
-    protected boolean HandleClick() {
+    protected boolean handleClick() {
 
         if(ResourcesManager.getInstance().changeWorld(this.type))
         {

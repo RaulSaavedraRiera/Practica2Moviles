@@ -23,6 +23,7 @@ public class NotificationWorker extends Worker {
         super(context, workerParams);
     }
 
+    //Metodo lanzado por los workers que permite abrir la aplicacion que solicito la notificacion
     @NonNull
     @Override
     public Result doWork() {

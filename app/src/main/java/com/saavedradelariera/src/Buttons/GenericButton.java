@@ -36,7 +36,7 @@ public class GenericButton extends GameObject {
         if (e.getType() == TouchEvent.TouchEventType.CLICK || e.getType() == TouchEvent.TouchEventType.TOUCH_UP) {
             if (isOver(e.getX(), e.getY())) {
 
-                return HandleClick();
+                return handleClick();
             }
         }
         return false;
@@ -59,7 +59,7 @@ public class GenericButton extends GameObject {
     }
 
     //Método para procesar dicho click
-    protected boolean HandleClick() {
+    protected boolean handleClick() {
         if (clickListener != null) {
             clickListener.onClick();
         }

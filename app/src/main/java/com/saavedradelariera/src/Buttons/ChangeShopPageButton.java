@@ -17,7 +17,7 @@ public class ChangeShopPageButton extends ImageButton {
     }
 
     @Override
-    protected boolean HandleClick() {
+    protected boolean handleClick() {
         if (clickListener != null) {
             clickListener.onClick();
         }
