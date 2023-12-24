@@ -2,12 +2,7 @@ package com.saavedradelariera.mastermind;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.SurfaceView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +12,6 @@ import com.saavedradelariera.src.ProgressManager;
 import com.saavedradelariera.src.SceneManager;
 import com.saavedradelariera.src.ResourcesManager;
 import com.saavedradelariera.src.ShopManager;
-import com.saavedradelariera.src.scenes.DeleteScene;
 import com.saavedradelariera.src.scenes.MenuScene;
 
 import java.util.concurrent.TimeUnit;
@@ -85,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        androidEngine.SolicitateNotification(R.drawable.ic_launcher_foreground,
+        androidEngine.solicitateNotification(R.drawable.ic_launcher_foreground,
                 "Mastermind", "¡Entra a jugar y no te pierdas los nuevos niveles!", "canalmaster", 10, TimeUnit.SECONDS);
     }
 

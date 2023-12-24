@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorManager;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -14,14 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.practica1.androidengine.mobileManagers.AdsFinishCallback;
 import com.practica1.androidengine.mobileManagers.Mobile;
-import com.practica1.androidengine.mobileManagers.SensorsMobile;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Extension of the `Engine` class and is responsible for managing
- * the core functionality of a game engine in an Android application.
+/*
+ * Ampliación de la clase `Engine` que se encarga de gestionar
+ * la funcionalidad principal de un motor de juego en una aplicación de Android.
  */
 public class AndroidEngine implements Runnable {
 
@@ -47,7 +43,7 @@ public class AndroidEngine implements Runnable {
         audioSystem = new AndroidAudio(myView.getContext().getAssets());
     }
 
-    /**
+    /*
      * Render principal que se encarga de llamar al render de la escena actual
      */
     protected void Render() {
@@ -59,7 +55,7 @@ public class AndroidEngine implements Runnable {
         return myView.getContext().getApplicationContext();
     }
 
-    /**
+    /*
      * Update principal que se encarga de llamar al update de la escena actual
      */
     protected void Update(float deltaTime) {
@@ -67,7 +63,7 @@ public class AndroidEngine implements Runnable {
     }
 
 
-    /**
+    /*
      * Método para el bucle principal de los juegos
      */
     @Override
@@ -123,7 +119,7 @@ public class AndroidEngine implements Runnable {
     }
 
 
-    /**
+    /*
      * HandleInput transforma las coordenadas del input para tener en cuenta
      * el escalado y el desplazamiento que haya
      */
@@ -147,7 +143,7 @@ public class AndroidEngine implements Runnable {
     }
 
 
-    /**
+    /*
      * Creación del hilo principal
      */
 
@@ -162,7 +158,7 @@ public class AndroidEngine implements Runnable {
         }
     }
 
-    /**
+    /*
      * Pausar el hilo
      */
     public void pause() {
@@ -180,10 +176,8 @@ public class AndroidEngine implements Runnable {
         }
     }
 
-    /**
+    /*
      * Guardamos la escena a la que queremos cambiar y decimos que hay que cambiar de escena
-     *
-     * @param IScene
      */
 
     public void setScene(IScene IScene) {
@@ -191,7 +185,7 @@ public class AndroidEngine implements Runnable {
         changeScene = true;
     }
 
-    /**
+    /*
      * Si tenemos que cambiar de escena actualizamos los parametros
      */
     void manageChangeScene() {
@@ -203,11 +197,9 @@ public class AndroidEngine implements Runnable {
         changeScene = false;
     }
 
-
     public AndroidGraphics getGraphics() {
         return graphics;
     }
-
 
     public AndroidAudio getAudioSystem() {
         return audioSystem;
@@ -224,7 +216,7 @@ public class AndroidEngine implements Runnable {
         mobile.generateBanner(adViewID);
     }
 
-    public void SolicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit) {
+    public void solicitateNotification(int icon, String title, String body, String channelName, int time, TimeUnit timeUnit) {
         mobile.solicitateNotification(icon, title, body, channelName, time, timeUnit);
     }
 
@@ -244,12 +236,17 @@ public class AndroidEngine implements Runnable {
         mobile.showRewardedAd(adFinish);
     }
 
+    public void setValuesAccelerometer(float threshold) {
+        mobile.setAccelerometerParam(threshold);
+    }
 
-    public void setValuesAccelerometer(float threshold){ mobile.setAccelerometerParam(threshold);}
+    public void enableSensors() {
+        mobile.enableSensors();
+    }
 
-    public void enableSensors(){ mobile.enableSensors();}
-
-    public void disableSensors(){ mobile.disableSensors();}
+    public void disableSensors() {
+        mobile.disableSensors();
+    }
 
     public String doGenerateHash(String file) {
         return ndkManager.generateHash(file);

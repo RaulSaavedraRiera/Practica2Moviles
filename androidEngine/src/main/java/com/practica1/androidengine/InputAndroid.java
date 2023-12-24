@@ -5,8 +5,8 @@ import android.view.SurfaceView;
 import java.util.ArrayList;
 
 /*
- * The `InputAndroid` class provides an implementation of the `IInput` interface
- * for handling touch events on a `SurfaceView` in an Android application.
+ * La clase `InputAndroid` proporciona una implementación de la interfaz `IInput`
+ * para manejar eventos táctiles en un `SurfaceView` en una aplicación de Android.
  */
 public class InputAndroid {
     private InputHandlerAndroid handler;

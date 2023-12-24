@@ -21,29 +21,25 @@ public class InputHandlerAndroid implements View.OnTouchListener {
 
 
     /*
-     * Handles touch events and converts them into TouchEvent objects for processing.
-     * @param view        The view that received the touch event.
-     * @param motionEvent The MotionEvent representing the touch event.
-     * @return True if the event was handled, false otherwise.
+     * Maneja eventos táctiles y los convierte en objetos TouchEvent para su procesamiento.
      */
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        TouchEvent event = pool.newEvent();;
+        TouchEvent event = pool.newEvent();
+        ;
 
-        int action =  motionEvent.getActionMasked();
+        int action = motionEvent.getActionMasked();
         event.setX((int) motionEvent.getX());
         event.setY((int) motionEvent.getY());
 
-        if(action == MotionEvent.ACTION_DOWN) {
+        if (action == MotionEvent.ACTION_DOWN) {
             event.setType(TouchEvent.TouchEventType.TOUCH_DOWN);
 
         } else if (action == MotionEvent.ACTION_UP) {
             event.setType(TouchEvent.TouchEventType.TOUCH_UP);
-        }
-        else if (action == MotionEvent.ACTION_MOVE) {
+        } else if (action == MotionEvent.ACTION_MOVE) {
             event.setType(TouchEvent.TouchEventType.DRAG);
-        }
-        else {
+        } else {
             event.setType(TouchEvent.TouchEventType.NONE);
         }
 
@@ -55,8 +51,7 @@ public class InputHandlerAndroid implements View.OnTouchListener {
     }
 
     /*
-     * Retrieves the list of touch events and clears the pending events.
-     * @return An ArrayList containing TouchEvent objects.
+     * Recupera la lista de eventos táctiles y borra los eventos pendientes.
      */
     public synchronized ArrayList<TouchEvent> getTouchEvent() {
         freeEvents(this.events);
@@ -66,12 +61,10 @@ public class InputHandlerAndroid implements View.OnTouchListener {
     }
 
     /*
-     * Frees the TouchEvent objects in the provided ArrayList and clears the list.
-     * @param event The ArrayList of TouchEvent objects to be cleared and freed.
+     * Libera los objetos TouchEvent en el ArrayList proporcionado y borra la lista.     * @param event The ArrayList of TouchEvent objects to be cleared and freed.
      */
-    private void freeEvents(ArrayList<TouchEvent> event){
-        for(TouchEvent e : event)
-        {
+    private void freeEvents(ArrayList<TouchEvent> event) {
+        for (TouchEvent e : event) {
             pool.freeEvent(e);
         }
         event.clear();

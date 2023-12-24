@@ -46,15 +46,8 @@ public class AndroidGraphics {
         this.tY = tY;
     }
 
-    /**
+    /*
      * Constructor para la clase AndroidGraphics.
-     *
-     * @param canvas El lienzo utilizado para dibujar.
-     * @param holder El portador de la superficie del lienzo.
-     * @param myView La SurfaceView asociada con el lienzo.
-     * @param rW     Ancho relativo del lienzo.
-     * @param rH     Altura relativa del lienzo.
-     * @param assets El AssetManager para acceder a los recursos.
      */
     public AndroidGraphics(Canvas canvas, SurfaceHolder holder, SurfaceView myView, int rW, int rH, AssetManager assets) {
         this.canvas = canvas;
@@ -84,13 +77,8 @@ public class AndroidGraphics {
         return scl;
     }
 
-    /**
+    /*
      * Dibuja un círculo relleno con las coordenadas de centro especificadas (x, y), radio (r) y color de contorno (c).
-     *
-     * @param x: coordenada x del centro del círculo.
-     * @param y: coordenada y del centro del círculo.
-     * @param r: radio del círculo.
-     * @param c: color del círculo.
      */
     public void renderCircle(int x, int y, int r, ColorJ c) {
         paint = new Paint();
@@ -98,14 +86,8 @@ public class AndroidGraphics {
         canvas.drawCircle(x + r, y + r, r, paint);
     }
 
-    /**
+    /*
      * Dibuja un rectángulo vacío con la posición, dimensiones y color de contorno especificados.
-     *
-     * @param x: coordenada x de la esquina superior izquierda del rectángulo.
-     * @param y: coordenada y de la esquina superior izquierda del rectángulo.
-     * @param w: ancho del rectángulo.
-     * @param h: altura del rectángulo.
-     * @param c: color del contorno.
      */
     public void renderRect(int x, int y, int w, int h, ColorJ c) {
         paint = new Paint();
@@ -115,15 +97,8 @@ public class AndroidGraphics {
         canvas.drawRect(x, y, x + w, y + h, paint);
     }
 
-    /**
+    /*
      * Dibuja un rectángulo relleno con la posición, dimensiones, color de contorno y color de relleno especificados.
-     *
-     * @param x:       coordenada x de la esquina superior izquierda del rectángulo.
-     * @param y:       coordenada y de la esquina superior izquierda del rectángulo.
-     * @param w:       ancho del rectángulo.
-     * @param h:       altura del rectángulo.
-     * @param c:       parámetro de color, para el color de contorno del rectángulo.
-     * @param insideC: parámetro de color, para el color de relleno del rectángulo.
      */
     public void renderFillRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC) {
         paint = new Paint();
@@ -138,14 +113,8 @@ public class AndroidGraphics {
         canvas.drawRoundRect(new RectF(x, y, x + w, y + h), cornerRadius, cornerRadius, paint);
     }
 
-    /**
+    /*
      * draws an image on a canvas at the specified position (x, y) with a specified width and height (w, h).
-     *
-     * @param image: The image to be rendered.
-     * @param x:     X-coordinate on the canvas.
-     * @param y:     Y-coordinate on the canvas.
-     * @param w:     Width on the canvas.
-     * @param h:     Height on the canvas.
      */
 
     public void renderImage(AndroidImage image, int x, int y, int w, int h) {
@@ -158,28 +127,16 @@ public class AndroidGraphics {
         this.canvas.drawBitmap(androidImage.getImage(), src, dst, paint);
     }
 
-    /**
+    /*
      * Dibuja una línea desde (x1, y1) hasta (x2, y2) con el color especificado (c).
-     *
-     * @param x1: coordenada x del punto de inicio.
-     * @param y1: coordenada y del punto de inicio.
-     * @param x2: coordenada x del punto final.
-     * @param y2: coordenada y del punto final.
-     * @param c:  color de la línea.
      */
     public void renderLine(int x1, int y1, int x2, int y2, ColorJ c) {
         paint.setColor(Color.argb(100, c.getR(), c.getG(), c.getB()));
         canvas.drawLine(x1, y1, x2, y2, paint);
     }
 
-    /**
+    /*
      * Renderiza texto en la posición especificada (x, y) con un tamaño de fuente específico, contenido de texto y color.
-     *
-     * @param x:    coordenada x de la posición del texto.
-     * @param y:    coordenada y de la posición del texto.
-     * @param size: tamaño de fuente para el texto.
-     * @param txt:  contenido del texto a renderizar.
-     * @param c:    color del texto.
      */
 
     public void renderText(int x, int y, int size, String txt, ColorJ c) {
@@ -191,23 +148,16 @@ public class AndroidGraphics {
         canvas.drawText(txt, x, yDown, paint);
     }
 
-    /**
+    /*
      * Establece la fuente actual para renderizar texto.
-     *
-     * @param font: La fuente que se establecerá como la fuente actual.
      */
 
     public void setFont(AndroidFont font) {
         actualDFont = font;
     }
 
-    /**
+    /*
      * Crea una fuente con la ruta de archivo, tamaño y estilo especificados.
-     *
-     * @param route:     La ruta del archivo de la fuente.
-     * @param size:      Tamaño de la fuente.
-     * @param boldStyle: Indicador de estilo para la negrita de la fuente.
-     * @return La instancia de AndroidFont creada.
      */
     public AndroidFont createFont(String route, int size, boolean boldStyle) {
         paint = actualDFont.createFont(route, size, boldStyle, assets);
@@ -215,11 +165,8 @@ public class AndroidGraphics {
     }
 
 
-    /**
+    /*
      * Obtiene la fuente actual por nombre.
-     *
-     * @param name: Nombre de la fuente.
-     * @return La fuente actual.
      */
 
     public AndroidFont getFont(String name) {
@@ -242,10 +189,8 @@ public class AndroidGraphics {
         return relWidth;
     }
 
-    /**
+    /*
      * Limpia la pantalla con el color especificado.
-     *
-     * @param color: El color utilizado para limpiar la pantalla.
      */
 
     public void cleanScreen(ColorJ color) {
@@ -255,10 +200,8 @@ public class AndroidGraphics {
     }
 
 
-    /**
+    /*
      * Establece la imagen de fondo del lienzo.
-     *
-     * @param backgroundImage El objeto AndroidImage que representa la imagen de fondo.
      */
     public void setBackgroundImage(AndroidImage backgroundImage) {
         if (canvas != null) {
@@ -277,11 +220,8 @@ public class AndroidGraphics {
 
     }
 
-    /**
+    /*
      * Crea una imagen a partir de la ruta de archivo especificada.
-     *
-     * @param route: La ruta de archivo de la imagen.
-     * @return La instancia creada de AndroidImage.
      */
     public AndroidImage createImage(String route) {
         actualDImage = imageMap.get(route);
@@ -305,10 +245,8 @@ public class AndroidGraphics {
         return actualDImage;
     }
 
-    /**
+    /*
      * Inicia el proceso de renderizado y bloquea el lienzo para renderizar.
-     *
-     * @return Verdadero si el proceso de renderizado ha comenzado correctamente.
      */
 
     public boolean startRender() {
@@ -317,28 +255,28 @@ public class AndroidGraphics {
         return true;
     }
 
-    /**
+    /*
      * Finaliza el proceso de renderizado y desbloquea el lienzo.
      */
     public void finishRender() {
         this.holder.unlockCanvasAndPost(canvas);
     }
 
-    /**
+    /*
      * Guarda el estado actual del lienzo, permitiendo su restauración posterior.
      */
     public void save() {
         canvas.save();
     }
 
-    /**
+    /*
      * Restaura el estado previamente guardado del lienzo.
      */
     public void restore() {
         canvas.restore();
     }
 
-    /**
+    /*
      * Reescala la vista según las proporciones relativas especificadas.
      */
     public void rescale() {
@@ -369,14 +307,8 @@ public class AndroidGraphics {
         canvas.scale(scale, scale);
     }
 
-    /**
+    /*
      * Genera una captura de pantalla de la región especificada dentro de la vista y realiza una acción de devolución de llamada.
-     *
-     * @param x        La coordenada x de la esquina superior izquierda de la región.
-     * @param y        La coordenada y de la esquina superior izquierda de la región.
-     * @param w        El ancho de la región.
-     * @param h        La altura de la región.
-     * @param callBack La interfaz de devolución de llamada para acciones adicionales con la captura de pantalla generada.
      */
     public void generateScreenShoot(int x, int y, int w, int h, ScreenShootFinish callBack) {
         Bitmap bitmap = Bitmap.createBitmap(myView.getWidth(), myView.getHeight(),

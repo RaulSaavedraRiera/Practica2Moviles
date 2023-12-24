@@ -33,7 +33,6 @@ public class MobileShare {
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
         this.app.startActivity(Intent.createChooser(shareIntent, "Share Image"));
     }
-
 }
 
 

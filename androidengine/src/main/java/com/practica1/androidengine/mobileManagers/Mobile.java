@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.graphics.Bitmap;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorManager;
 import android.os.Build;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -112,12 +109,15 @@ public class Mobile {
     public void solicitateShare(Bitmap bitmap, String mnsg) {
         mobileShare.shareImage(bitmap, mnsg);
     }
+
     public void setAccelerometerParam(float threshold) {
         sensors.setParamsAccelerometer(threshold);
     }
+
     public void enableSensors() {
         sensors.enableSensors();
     }
+
     public void disableSensors() {
         sensors.disableSensors();
     }

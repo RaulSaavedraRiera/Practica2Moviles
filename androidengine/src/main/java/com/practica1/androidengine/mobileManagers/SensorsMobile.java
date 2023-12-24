@@ -6,8 +6,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.hardware.Sensor;
 
-import androidx.core.app.ActivityCompat;
-
 import com.practica1.androidengine.TouchEvent;
 
 import java.lang.reflect.Array;
@@ -28,8 +26,8 @@ public class SensorsMobile implements SensorEventListener {
 
     ArrayList<TouchEvent> events = new ArrayList<>();
 
-    public SensorsMobile(Context context){
-        this.context =  context;
+    public SensorsMobile(Context context) {
+        this.context = context;
         sensorManager = (SensorManager) context.getSystemService(context.SENSOR_SERVICE);
 
         //agregamos el sensor
@@ -39,31 +37,29 @@ public class SensorsMobile implements SensorEventListener {
     }
 
     //setea los parametros del acelerometro, necesario para que registre eventos
-    public void setParamsAccelerometer(float accelerometerThreshold)
-    {
+    public void setParamsAccelerometer(float accelerometerThreshold) {
         this.accelerometerThreshold = accelerometerThreshold;
         this.timeBtwUses = timeBtwUses;
     }
 
     //activa sensores
-    public void enableSensors(){
+    public void enableSensors() {
         if (accelerometer != null)
             sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 
     //desactiva sensores
-    public void disableSensors(){
+    public void disableSensors() {
         if (accelerometer != null)
             sensorManager.unregisterListener(this);
     }
 
     //devuelve si el evento es un evento de acelerometro valido dado los parametros dados
-    boolean validAccelerometerEvent(SensorEvent event)
-    {
+    boolean validAccelerometerEvent(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 
-            if ( (event.values[0] > accelerometerThreshold || event.values[1] > accelerometerThreshold || event.values[2] > accelerometerThreshold)) {
+            if ((event.values[0] > accelerometerThreshold || event.values[1] > accelerometerThreshold || event.values[2] > accelerometerThreshold)) {
                 lastCallInSeconds = System.currentTimeMillis();
                 lastCallInSeconds /= 1000;
                 return true;
@@ -72,20 +68,20 @@ public class SensorsMobile implements SensorEventListener {
 
         return false;
     }
-    //obtenemos los eventos originados por los sensores
-    public ArrayList<TouchEvent> getEvents(){
 
-            ArrayList tmp = events;
-            events = new ArrayList<>();
-            return tmp;
+    //obtenemos los eventos originados por los sensores
+    public ArrayList<TouchEvent> getEvents() {
+
+        ArrayList tmp = events;
+        events = new ArrayList<>();
+        return tmp;
 
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        //comporbamos eventos de acelerometro
-        if(validAccelerometerEvent(sensorEvent))
-        {
+        //comprobamos eventos de acelerometro
+        if (validAccelerometerEvent(sensorEvent)) {
             TouchEvent shakeEvent = new TouchEvent();
             shakeEvent.setType(TouchEvent.TouchEventType.SHAKE);
             synchronized (events) {

@@ -4,11 +4,12 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.SoundPool;
 
-/**
- * Implementation of the `IAudioSystem` interface and is responsible
- * for managing audio playback using Android's SoundPool. It provides methods to load and play audio
- * sounds, stop playing sounds, and release audio resources.
+/*
+ * Implementación de la interfaz `IAudioSystem` y es responsable
+ * de gestionar la reproducción de audio utilizando el SoundPool de Android. Proporciona métodos para cargar y reproducir sonidos,
+ * detener la reproducción de sonidos y liberar recursos de audio.
  */
+
 public class AndroidAudio {
     private AssetManager assets;
     SoundPool soundsPool;
@@ -18,14 +19,11 @@ public class AndroidAudio {
         this.soundsPool = new SoundPool.Builder().setMaxStreams(10).build();
     }
 
-    /**
-     * Loads and plays an audio sound using Android's SoundPool. It stops any previously playing
-     * sound with the same identifier and sets an OnLoadCompleteListener to play the sound once it's
-     * fully loaded.
-     *
-     * @param sound Sound to play
+    /*
+     * Carga y reproduce un sonido utilizando el SoundPool de Android. Detiene cualquier sonido que esté reproduciéndose
+     * previamente con el mismo identificador y establece un OnLoadCompleteListener para reproducir el sonido una vez que se
+     * haya cargado completamente.
      */
-
     public void playAudio(AndroidSound sound) {
         AndroidSound s = null;
         int soundId = -1;
@@ -50,12 +48,9 @@ public class AndroidAudio {
         });
     }
 
-    /**
-     * Stops playing the received sound.
-     *
-     * @param sound Sound to stop playing.
+    /*
+     * Detiene la reproducción del sonido recibido.
      */
-
     public void stopAudio(AndroidSound sound) {
 
         if (sound.getStreamId() != -1)

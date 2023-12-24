@@ -10,8 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
- * Extension of the `FontJ` class and represents a font for text rendering in an Android application.
- * It provides methods to access font properties, set font size, bold style, and create a custom Paint object for rendering text.
+ * Extensión de la clase `FontJ` y representa una fuente para la renderización de texto en una aplicación de Android.
+ * Proporciona métodos para acceder a las propiedades de la fuente, establecer el tamaño de la fuente, el estilo en negrita,
+ * y crear un objeto Paint personalizado para renderizar texto.
  */
 public class AndroidFont {
     private Typeface actualFont;
@@ -34,37 +35,17 @@ public class AndroidFont {
         return actualFont.getSystemFontFamilyName();
     }
 
-    /**
-     * @return Is actualFont bold or not.
-     */
-
     public boolean getBold() {
         return Bold;
     }
-
-    /**
-     * @return current textSize
-     */
 
     public int getSize() {
         return (int) paint.getTextSize();
     }
 
-    /**
-     * Sets the size of the text.
-     *
-     * @param size desired size
-     */
-
     public void setSize(int size) {
         paint.setTextSize(size);
     }
-
-    /**
-     * Specify if bold text or not
-     *
-     * @param to boolean
-     */
 
     public void setBold(boolean to) {
         int style = this.Bold ? Typeface.BOLD : Typeface.NORMAL;
@@ -72,14 +53,8 @@ public class AndroidFont {
         actualFont = newFont;
     }
 
-    /**
-     * Generates a custom Paint object with specified font style, size, and asset route, returning it for text rendering.
-     *
-     * @param route        font route
-     * @param size         text size
-     * @param boldStyle    bold style
-     * @param assetManager Android assets
-     * @return Created paint.
+    /*
+     * Genera un objeto Paint personalizado con el estilo, tamaño y ruta de recurso especificados, devolviéndolo para la renderización de texto.
      */
     public Paint createFont(String route, int size, boolean boldStyle, AssetManager assetManager) {
 
@@ -100,13 +75,9 @@ public class AndroidFont {
         return paint;
     }
 
-    /**
-     * @return current Font
-     */
     public Typeface getFont() {
         return actualFont;
     }
-
     public String getRoute() {
         return Route;
     }
