@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity implements  SensorEventListener {
     AndroidEngine androidEngine;
 
-    private boolean enterNotification = true;
+    private boolean enterNotification = false;
 
     float accelerometerColdown = 1f, acceleromeThreshold = 17f;
 
@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements  SensorEventListe
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
-
     }
 
     @Override
