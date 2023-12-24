@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.practica1.androidengine.mobileManagers.AdsFinishCallback;
 import com.practica1.androidengine.mobileManagers.Mobile;
+import com.practica1.androidengine.mobileManagers.SensorsMobile;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -238,13 +240,8 @@ public class AndroidEngine implements Runnable {
         mobile.showRewardedAd(adFinish);
     }
 
-    public SensorManager getSensorManager() {
-        return mobile.getSensorManager();
-    }
 
-    public Sensor getAccelerometer() {
-        return mobile.getAccelerometer();
-    }
+    public SensorsMobile getSensors(){ return mobile.getSensors();}
 
     public String doGenerateHash(String file) {
         return ndkManager.generateHash(file);

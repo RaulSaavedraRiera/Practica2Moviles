@@ -23,12 +23,12 @@ import com.saavedradelariera.src.scenes.MenuScene;
 import java.util.concurrent.TimeUnit;
 
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity implements  SensorEventListener {
     AndroidEngine androidEngine;
-    private Sensor accelerometer;
-    private final float SENSORTHRESHOLD = 17f, TIMEBTWUSES = 1F;
-    private long lastCallInSeconds;
+
     private boolean enterNotification = true;
+
+    float accelerometerColdown = 1f, acceleromeThreshold = 17f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         androidEngine.generateBanner(R.id.adView);
         androidEngine.solicitateLoadRewardAd();
         androidEngine.loadLibraries();
+        androidEngine.getSensors().initializateSensors(this, this.getApplicationContext());
+        androidEngine.getSensors().setParamsAccelerometer(acceleromeThreshold, accelerometerColdown);
+
+
         ResourcesManager.getInstance().Init(androidEngine);
         ProgressManager.getInstance().init(androidEngine);
         SceneManager.getInstance().init(androidEngine);
@@ -55,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         MenuScene mS = new MenuScene();
         SceneManager.getInstance().setScene(mS);
 
-       accelerometer = androidEngine.getAccelerometer();
 
        if(enterNotification) {
            ShopManager.getInstance().addBalance(100);
@@ -68,9 +71,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         ProgressManager.getInstance().loadFromJSON();
         androidEngine.resume();
         androidEngine.destroyNotification();
-
-        if (accelerometer != null)
-            androidEngine.getSensorManager().registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        androidEngine.getSensors().enableSensors();
     }
 
     @Override
@@ -78,9 +79,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onPause();
         ProgressManager.getInstance().saveInJSON();
         androidEngine.pause();
-
-        if (accelerometer != null)
-            androidEngine.getSensorManager().unregisterListener(this);
+        androidEngine.getSensors().disableSensors();
     }
 
     @Override
@@ -92,19 +91,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            long t = (System.currentTimeMillis() / 1000) - lastCallInSeconds;
-            if (t >= TIMEBTWUSES && (event.values[0] > SENSORTHRESHOLD || event.values[1] > SENSORTHRESHOLD || event.values[2] > SENSORTHRESHOLD)) {
-                SceneManager.getInstance().launchAcceleratorEvent();
-                System.out.println("lanza bolita!");
-                lastCallInSeconds = System.currentTimeMillis();
-                lastCallInSeconds /= 1000;
-            }
+        if(androidEngine.getSensors().validAccelerometerEvent(event))
+        {
+            SceneManager.getInstance().launchAcceleratorEvent();
+            System.out.println("lanza bolita!");
         }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
+
     }
 
     @Override
