@@ -1,10 +1,9 @@
 package com.practica1.androidengine;
 
-
 /*
- * Extension of the `SoundJ` class and represents a sound
- * resource in an Android application. It provides information about the sound's ID, name,
- * and loop status.
+ * Extensión de la clase `SoundJ` y representa un recurso de sonido
+ * en una aplicación de Android. Proporciona información sobre el ID, nombre y
+ * estado de bucle del sonido.
  */
 public class AndroidSound {
 
@@ -23,11 +22,9 @@ public class AndroidSound {
         return this.streamId;
     }
 
-
     public String getSoundName() {
         return name;
     }
-
 
     public boolean loopSound() {
         return loop;

@@ -47,14 +47,14 @@ public class AndroidGraphics {
     }
 
     /**
-     * Constructor for the AndroidGraphics class.
+     * Constructor para la clase AndroidGraphics.
      *
-     * @param canvas The canvas used for drawing.
-     * @param holder The surface holder of the canvas.
-     * @param myView The SurfaceView associated with the canvas.
-     * @param rW     Relative width of the canvas.
-     * @param rH     Relative height of the canvas.
-     * @param assets The AssetManager for accessing assets.
+     * @param canvas El lienzo utilizado para dibujar.
+     * @param holder El portador de la superficie del lienzo.
+     * @param myView La SurfaceView asociada con el lienzo.
+     * @param rW     Ancho relativo del lienzo.
+     * @param rH     Altura relativa del lienzo.
+     * @param assets El AssetManager para acceder a los recursos.
      */
     public AndroidGraphics(Canvas canvas, SurfaceHolder holder, SurfaceView myView, int rW, int rH, AssetManager assets) {
         this.canvas = canvas;
@@ -85,12 +85,12 @@ public class AndroidGraphics {
     }
 
     /**
-     * Draws a filled circle with the specified center coordinates (x, y), radius (r), and outline color (c)
+     * Dibuja un círculo relleno con las coordenadas de centro especificadas (x, y), radio (r) y color de contorno (c).
      *
-     * @param x: x-coordinate of the center of the circle.
-     * @param y: y-coordinate of the center of the circle.
-     * @param r: radius of the circle.
-     * @param c: color of the circle.
+     * @param x: coordenada x del centro del círculo.
+     * @param y: coordenada y del centro del círculo.
+     * @param r: radio del círculo.
+     * @param c: color del círculo.
      */
     public void renderCircle(int x, int y, int r, ColorJ c) {
         paint = new Paint();
@@ -99,15 +99,14 @@ public class AndroidGraphics {
     }
 
     /**
-     * Draws an empty rectangle with the specified position, dimensions, and outline color.
+     * Dibuja un rectángulo vacío con la posición, dimensiones y color de contorno especificados.
      *
-     * @param x: x-coordinate of the top-left corner of the rectangle.
-     * @param y: y-coordinate of the top-left corner of the rectangle.
-     * @param w: width of the rectangle.
-     * @param h: height of the rectangle.
-     * @param c: color of the outline.
+     * @param x: coordenada x de la esquina superior izquierda del rectángulo.
+     * @param y: coordenada y de la esquina superior izquierda del rectángulo.
+     * @param w: ancho del rectángulo.
+     * @param h: altura del rectángulo.
+     * @param c: color del contorno.
      */
-
     public void renderRect(int x, int y, int w, int h, ColorJ c) {
         paint = new Paint();
         paint.setStyle(Paint.Style.STROKE); // Establece el estilo del contorno
@@ -117,16 +116,15 @@ public class AndroidGraphics {
     }
 
     /**
-     * Draws a filled rectangle with the given position, dimensions, outline color, and fill color,
+     * Dibuja un rectángulo relleno con la posición, dimensiones, color de contorno y color de relleno especificados.
      *
-     * @param x:       x-coordinate of the top-left corner of the rectangle.
-     * @param y:       y-coordinate of the top-left corner of the rectangle.
-     * @param w:       width of the rectangle.
-     * @param h:       height of the rectangle.
-     * @param c:       color parameter, for the outline color of the rectangle.
-     * @param insideC: color parameter, for the fill color of the rectangle.
+     * @param x:       coordenada x de la esquina superior izquierda del rectángulo.
+     * @param y:       coordenada y de la esquina superior izquierda del rectángulo.
+     * @param w:       ancho del rectángulo.
+     * @param h:       altura del rectángulo.
+     * @param c:       parámetro de color, para el color de contorno del rectángulo.
+     * @param insideC: parámetro de color, para el color de relleno del rectángulo.
      */
-
     public void renderFillRect(int x, int y, int w, int h, ColorJ c, ColorJ insideC) {
         paint = new Paint();
         paint.setColor(Color.argb(c.getA(), c.getR(), c.getG(), c.getB()));
@@ -161,28 +159,27 @@ public class AndroidGraphics {
     }
 
     /**
-     * Draws a line from (x1, y1) to (x2, y2) with the specified color (c).
+     * Dibuja una línea desde (x1, y1) hasta (x2, y2) con el color especificado (c).
      *
-     * @param x1: x-coordinate of the starting point.
-     * @param y1: y-coordinate of the starting point.
-     * @param x2: x-coordinate of the ending point.
-     * @param y2: y-coordinate of the ending point.
-     * @param c:  color of the line.
+     * @param x1: coordenada x del punto de inicio.
+     * @param y1: coordenada y del punto de inicio.
+     * @param x2: coordenada x del punto final.
+     * @param y2: coordenada y del punto final.
+     * @param c:  color de la línea.
      */
-
     public void renderLine(int x1, int y1, int x2, int y2, ColorJ c) {
         paint.setColor(Color.argb(100, c.getR(), c.getG(), c.getB()));
         canvas.drawLine(x1, y1, x2, y2, paint);
     }
 
     /**
-     * Renders text at the specified position (x, y) with a specific font size, text content, and color.
+     * Renderiza texto en la posición especificada (x, y) con un tamaño de fuente específico, contenido de texto y color.
      *
-     * @param x:    x-coordinate of the text position.
-     * @param y:    y-coordinate of the text position.
-     * @param size: Font size for the text.
-     * @param txt:  Text content to be rendered.
-     * @param c:    Color of the text.
+     * @param x:    coordenada x de la posición del texto.
+     * @param y:    coordenada y de la posición del texto.
+     * @param size: tamaño de fuente para el texto.
+     * @param txt:  contenido del texto a renderizar.
+     * @param c:    color del texto.
      */
 
     public void renderText(int x, int y, int size, String txt, ColorJ c) {
@@ -195,9 +192,9 @@ public class AndroidGraphics {
     }
 
     /**
-     * Sets the current font for rendering text.
+     * Establece la fuente actual para renderizar texto.
      *
-     * @param font: The font to be set as the current font.
+     * @param font: La fuente que se establecerá como la fuente actual.
      */
 
     public void setFont(AndroidFont font) {
@@ -205,14 +202,13 @@ public class AndroidGraphics {
     }
 
     /**
-     * Creates a font with the specified font file path, size, and style.
+     * Crea una fuente con la ruta de archivo, tamaño y estilo especificados.
      *
-     * @param route:     The font file path.
-     * @param size:      Font size.
-     * @param boldStyle: Style flag for font boldness.
-     * @return The created AndroidFont instance.
+     * @param route:     La ruta del archivo de la fuente.
+     * @param size:      Tamaño de la fuente.
+     * @param boldStyle: Indicador de estilo para la negrita de la fuente.
+     * @return La instancia de AndroidFont creada.
      */
-
     public AndroidFont createFont(String route, int size, boolean boldStyle) {
         paint = actualDFont.createFont(route, size, boldStyle, assets);
         return actualDFont;
@@ -220,60 +216,36 @@ public class AndroidGraphics {
 
 
     /**
-     * Gets the current font by name.
+     * Obtiene la fuente actual por nombre.
      *
-     * @param name: Name of the font.
-     * @return The current font.
+     * @param name: Nombre de la fuente.
+     * @return La fuente actual.
      */
 
     public AndroidFont getFont(String name) {
         return actualDFont;
     }
 
-    /**
-     * Gets the height of the rendering canvas.
-     *
-     * @return The height of the canvas.
-     */
-
     public int getHeight() {
         return myView.getHeight();
     }
-
-    /**
-     * Gets the width of the rendering canvas.
-     *
-     * @return The width of the canvas.
-     */
 
     public int getWidth() {
         return myView.getWidth();
     }
 
-    /**
-     * Gets the relative height of the rendering canvas.
-     *
-     * @return The relative height of the canvas.
-     */
-
     public int getHeightRelative() {
         return relHeight;
     }
-
-    /**
-     * Gets the relative width of the rendering canvas.
-     *
-     * @return The relative width of the canvas.
-     */
 
     public int getWidthRelative() {
         return relWidth;
     }
 
     /**
-     * Clears the screen with the specified color.
+     * Limpia la pantalla con el color especificado.
      *
-     * @param color: The color used to clear the screen.
+     * @param color: El color utilizado para limpiar la pantalla.
      */
 
     public void cleanScreen(ColorJ color) {
@@ -283,6 +255,11 @@ public class AndroidGraphics {
     }
 
 
+    /**
+     * Establece la imagen de fondo del lienzo.
+     *
+     * @param backgroundImage El objeto AndroidImage que representa la imagen de fondo.
+     */
     public void setBackgroundImage(AndroidImage backgroundImage) {
         if (canvas != null) {
             int marginTop = 100;
@@ -301,10 +278,10 @@ public class AndroidGraphics {
     }
 
     /**
-     * Creates an image from the specified file route.
+     * Crea una imagen a partir de la ruta de archivo especificada.
      *
-     * @param route: The file route of the image.
-     * @return The created AndroidImage instance.
+     * @param route: La ruta de archivo de la imagen.
+     * @return La instancia creada de AndroidImage.
      */
     public AndroidImage createImage(String route) {
         actualDImage = imageMap.get(route);
@@ -329,9 +306,9 @@ public class AndroidGraphics {
     }
 
     /**
-     * Initiates the rendering process and locks the canvas for rendering.
+     * Inicia el proceso de renderizado y bloquea el lienzo para renderizar.
      *
-     * @return True if the rendering process has started successfully.
+     * @return Verdadero si el proceso de renderizado ha comenzado correctamente.
      */
 
     public boolean startRender() {
@@ -341,28 +318,29 @@ public class AndroidGraphics {
     }
 
     /**
-     * Finishes the rendering process and unlocks the canvas.
+     * Finaliza el proceso de renderizado y desbloquea el lienzo.
      */
-
     public void finishRender() {
         this.holder.unlockCanvasAndPost(canvas);
     }
 
     /**
-     * Saves the current state of the canvas, allowing for later restoration.
+     * Guarda el estado actual del lienzo, permitiendo su restauración posterior.
      */
-
     public void save() {
         canvas.save();
     }
 
     /**
-     * Restores the previously saved state of the canvas.
+     * Restaura el estado previamente guardado del lienzo.
      */
     public void restore() {
         canvas.restore();
     }
 
+    /**
+     * Reescala la vista según las proporciones relativas especificadas.
+     */
     public void rescale() {
         float w = getWidth();
         float h = getHeight();
@@ -391,6 +369,15 @@ public class AndroidGraphics {
         canvas.scale(scale, scale);
     }
 
+    /**
+     * Genera una captura de pantalla de la región especificada dentro de la vista y realiza una acción de devolución de llamada.
+     *
+     * @param x        La coordenada x de la esquina superior izquierda de la región.
+     * @param y        La coordenada y de la esquina superior izquierda de la región.
+     * @param w        El ancho de la región.
+     * @param h        La altura de la región.
+     * @param callBack La interfaz de devolución de llamada para acciones adicionales con la captura de pantalla generada.
+     */
     public void generateScreenShoot(int x, int y, int w, int h, ScreenShootFinish callBack) {
         Bitmap bitmap = Bitmap.createBitmap(myView.getWidth(), myView.getHeight(),
                 Bitmap.Config.ARGB_8888);
@@ -405,12 +392,9 @@ public class AndroidGraphics {
                         // generar Bitmap a partir de otro dadas unas coordenadas y un tamaño
                         Bitmap finalBitmap = Bitmap.createBitmap(bitmap, x, y, w, h);
                         //shareImage(finalBitmap, "Me he pasado el Mastermind!!");
-
                         callBack.doAction(finalBitmap);
-
                     }
                     handlerThread.quitSafely();
-
                 }
             }, new Handler(handlerThread.getLooper()));
         }
