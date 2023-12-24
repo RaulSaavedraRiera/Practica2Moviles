@@ -1,6 +1,6 @@
 package com.practica1.androidengine;
 
-/**
+/*
  * Clase que se encarga de guardar los datos sobre los colores
  */
 public class ColorJ {

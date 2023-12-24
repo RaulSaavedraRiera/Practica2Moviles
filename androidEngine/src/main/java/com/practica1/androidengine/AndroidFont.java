@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
+/*
  * Extension of the `FontJ` class and represents a font for text rendering in an Android application.
  * It provides methods to access font properties, set font size, bold style, and create a custom Paint object for rendering text.
  */

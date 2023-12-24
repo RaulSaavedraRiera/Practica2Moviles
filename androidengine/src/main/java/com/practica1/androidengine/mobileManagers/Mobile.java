@@ -33,7 +33,7 @@ import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions;
 
 import java.util.concurrent.TimeUnit;
 
-/**
+/*
  * Clase encargada de la lógica de lo relacionado con anuncios, compartir y notificaciones
  */
 public class Mobile {
@@ -45,6 +45,7 @@ public class Mobile {
     private Activity activity;
     private SensorsMobile sensors;
 
+    //Inicializamos todos los elementos internos que gestiona mobile como los sensores y los anuncios
     public Mobile(AppCompatActivity app, SurfaceView surfaceView, Activity activity) {
 
         this.app = app;

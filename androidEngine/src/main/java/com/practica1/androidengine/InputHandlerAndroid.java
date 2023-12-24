@@ -20,7 +20,7 @@ public class InputHandlerAndroid implements View.OnTouchListener {
     }
 
 
-    /**
+    /*
      * Handles touch events and converts them into TouchEvent objects for processing.
      * @param view        The view that received the touch event.
      * @param motionEvent The MotionEvent representing the touch event.
@@ -54,7 +54,7 @@ public class InputHandlerAndroid implements View.OnTouchListener {
         return true;
     }
 
-    /**
+    /*
      * Retrieves the list of touch events and clears the pending events.
      * @return An ArrayList containing TouchEvent objects.
      */
@@ -65,7 +65,7 @@ public class InputHandlerAndroid implements View.OnTouchListener {
         return events;
     }
 
-    /**
+    /*
      * Frees the TouchEvent objects in the provided ArrayList and clears the list.
      * @param event The ArrayList of TouchEvent objects to be cleared and freed.
      */

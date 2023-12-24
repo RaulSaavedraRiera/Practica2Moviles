@@ -1,7 +1,7 @@
 package com.practica1.androidengine;
 
 
-/**
+/*
  * Extension of the `SoundJ` class and represents a sound
  * resource in an Android application. It provides information about the sound's ID, name,
  * and loop status.

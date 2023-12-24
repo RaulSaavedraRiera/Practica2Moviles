@@ -1,6 +1,11 @@
 package com.practica1.androidengine;
 import java.util.ArrayList;
 
+/*
+Interfaz de escena de la que heredarán las clases Scene y dervidadas d ela aplicación que construyamos
+sobre el motor
+*/
+
 public interface IScene {
     String name = "";
 

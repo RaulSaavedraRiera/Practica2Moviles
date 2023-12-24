@@ -15,7 +15,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-/**
+/*
  * Encargado de la creacion del Worker para las notificaciones
  */
 public class NotificationWorker extends Worker {

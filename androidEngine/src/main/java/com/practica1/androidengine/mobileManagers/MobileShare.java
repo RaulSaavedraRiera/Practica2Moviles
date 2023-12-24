@@ -8,7 +8,7 @@ import android.view.SurfaceView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-/**
+/*
  * Clase encargada de la lógica para compartir imagenes con otras aplicaciones
  */
 public class MobileShare {

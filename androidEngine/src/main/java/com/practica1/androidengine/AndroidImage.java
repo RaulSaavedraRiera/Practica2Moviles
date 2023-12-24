@@ -2,7 +2,7 @@ package com.practica1.androidengine;
 
 import android.graphics.Bitmap;
 
-/**
+/*
  * The `AndroidImage` class is an extension of the `ImageJ` class and represents an image
  * resource in an Android application. It encapsulates a `Bitmap` and provides methods to
  * access the image's width, height, and the underlying `Bitmap` object.
