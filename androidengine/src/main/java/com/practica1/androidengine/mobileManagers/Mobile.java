@@ -59,7 +59,7 @@ public class Mobile {
         });
 
         mobileShare = new MobileShare(surfaceView, app);
-        sensors = new SensorsMobile();
+        sensors = new SensorsMobile(activity.getApplicationContext());
     }
 
     // Crea un banner de anuncio

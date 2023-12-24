@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements  SensorEventListe
         androidEngine.generateBanner(R.id.adView);
         androidEngine.solicitateLoadRewardAd();
         androidEngine.loadLibraries();
-        androidEngine.getSensors().initializateSensors(this, this.getApplicationContext());
+        androidEngine.getSensors().initializateSensors(this);
         androidEngine.getSensors().setParamsAccelerometer(acceleromeThreshold, accelerometerColdown);
 
 

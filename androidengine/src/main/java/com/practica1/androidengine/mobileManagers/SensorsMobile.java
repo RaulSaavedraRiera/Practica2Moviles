@@ -21,13 +21,14 @@ public class SensorsMobile {
     SensorEventListener activity;
     Context context;
 
-    public SensorsMobile(){
+    public SensorsMobile(Context context){
+        this.context =  context;
     }
 
     //inicializa los sensores dada una aplicacion compatible con escucha de eventos
-    public void initializateSensors(SensorEventListener activity, Context context){
+    public void initializateSensors(SensorEventListener activity){
         this.activity = activity;
-        this.context =  context;
+
 
         sensorManager = (SensorManager) context.getSystemService(context.SENSOR_SERVICE);
 
