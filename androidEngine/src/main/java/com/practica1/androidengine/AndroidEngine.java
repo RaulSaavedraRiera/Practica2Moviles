@@ -139,6 +139,10 @@ public class AndroidEngine implements Runnable {
             e.setX(e.getX() / this.graphics.getScale());
             e.setY(e.getY() / this.graphics.getScale());
         }
+
+        //añadimos eventos especiales de movil
+        touchEvents.addAll(mobile.getSensorsEvents());
+
         this.activeIScene.handleInput(touchEvents);
     }
 
@@ -241,7 +245,11 @@ public class AndroidEngine implements Runnable {
     }
 
 
-    public SensorsMobile getSensors(){ return mobile.getSensors();}
+    public void setValuesAccelerometer(float threshold){ mobile.setAccelerometerParam(threshold);}
+
+    public void enableSensors(){ mobile.enableSensors();}
+
+    public void disableSensors(){ mobile.disableSensors();}
 
     public String doGenerateHash(String file) {
         return ndkManager.generateHash(file);

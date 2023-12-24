@@ -15,8 +15,8 @@ import java.util.ArrayList;
 /*Clase scene abstracta que inicialia la estructura comun*/
 public class Scene implements IScene {
     protected String name = "";
-    protected ArrayList<IGameObject> GOList = new ArrayList<IGameObject>();
-    protected ArrayList<IGameObject> GOMessageList = new ArrayList<>();
+    protected ArrayList<IGameObject> gOList = new ArrayList<IGameObject>();
+    protected ArrayList<IGameObject> gOMessageList = new ArrayList<>();
 
     protected boolean inverseRender;
 
@@ -33,31 +33,31 @@ public class Scene implements IScene {
     }
 
     public void addGO(IGameObject g) {
-        GOList.add(g);
+        gOList.add(g);
     }
 
     public void addGOToMessages(IGameObject g) {
-        GOMessageList.add(g);
+        gOMessageList.add(g);
     }
 
     public void removeGO(IGameObject g) {
-        GOList.remove(g);
+        gOList.remove(g);
     }
 
     public void moveToBottonGO(IGameObject g) {
-        GOList.remove(g);
+        gOList.remove(g);
         if (!inverseRender)
-            GOList.add(0, g);
+            gOList.add(0, g);
         else
-            GOList.add(g);
+            gOList.add(g);
     }
 
     public void moveToTopGO(IGameObject g) {
-        GOList.remove(g);
+        gOList.remove(g);
         if (!inverseRender)
-            GOList.add(g);
+            gOList.add(g);
         else
-            GOList.add(0, g);
+            gOList.add(0, g);
     }
 
     @Override
@@ -75,19 +75,19 @@ public class Scene implements IScene {
     public void renderScene(AndroidGraphics iGraphics) {
 
         if (!inverseRender)
-            for (int i = 0; i < GOList.size(); i++) {
-                GOList.get(i).render(iGraphics);
+            for (int i = 0; i < gOList.size(); i++) {
+                gOList.get(i).render(iGraphics);
             }
         else
-            for (int i = GOList.size() - 1; i >= 0; i--) {
-                GOList.get(i).render(iGraphics);
+            for (int i = gOList.size() - 1; i >= 0; i--) {
+                gOList.get(i).render(iGraphics);
             }
     }
 
     //llama al update de todos los GO asociados
 
     public void updateScene(AndroidEngine IEngine, float deltaTime) {
-        for (IGameObject gO : GOList) {
+        for (IGameObject gO : gOList) {
             gO.update(IEngine, deltaTime);
         }
 
@@ -95,9 +95,9 @@ public class Scene implements IScene {
     }
 
     public void sendMessageToGO(Message m) {
-        for (int i = 0; i < GOMessageList.size(); i++) {
-            if (i < GOMessageList.size() && GOMessageList.get(i) != null)
-                GOMessageList.get(i).receiveMessage(m);
+        for (int i = 0; i < gOMessageList.size(); i++) {
+            if (i < gOMessageList.size() && gOMessageList.get(i) != null)
+                gOMessageList.get(i).receiveMessage(m);
         }
     }
 
@@ -105,8 +105,10 @@ public class Scene implements IScene {
     public void handleInput(ArrayList<TouchEvent> events) {
 
         for (TouchEvent e : events) {
-            for (IGameObject gO : GOList) {
-                if (gO.handleInput(e)) break;
+            for (int i = 0; i < gOList.size(); i++) {
+                if (i < gOList.size() && gOList.get(i) != null)
+                    if(gOList.get(i).handleInput(e))
+                        break;
             }
         }
 

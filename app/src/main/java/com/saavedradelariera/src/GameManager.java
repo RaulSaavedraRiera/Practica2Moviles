@@ -42,6 +42,9 @@ public class GameManager extends GameObject {
             new ColorJ(210, 180, 140)// Marrón
     ));
 
+    long lastShake = -1;
+    final float timeBtwUses = 1f;
+
     public GameManager() {
         super(0, 0, 0, 0);
     }
@@ -228,6 +231,15 @@ public class GameManager extends GameObject {
             return true;
         } else if (e.getType() == TouchEvent.TouchEventType.TOUCH_DOWN) {
             dragY = (int) e.getY();
+        }  else if (e.getType() == TouchEvent.TouchEventType.SHAKE) {
+
+            //si ha pasado mas de 1 segundo desde la ultima entrada por acelerometro
+            if ((System.currentTimeMillis() / 1000) - lastShake >= timeBtwUses) {
+                //nueva entrada y actualizamos tiempo
+                lastShake = (System.currentTimeMillis() / 1000);
+                colorInput(random.nextInt(solutionManager.getNTypes()));
+            }
+            return true;
         }
         return false;
 
@@ -249,9 +261,6 @@ public class GameManager extends GameObject {
                 break;
             case "DaltonicChangeSolicitate":
                 currentDaltonicEnable = !currentDaltonicEnable;
-                break;
-            case "AcceleratorEvent":
-                colorInput(random.nextInt(solutionManager.getNTypes()));
                 break;
         }
     }

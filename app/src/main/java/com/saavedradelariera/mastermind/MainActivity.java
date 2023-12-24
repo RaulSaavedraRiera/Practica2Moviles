@@ -23,12 +23,12 @@ import com.saavedradelariera.src.scenes.MenuScene;
 import java.util.concurrent.TimeUnit;
 
 
-public class MainActivity extends AppCompatActivity implements  SensorEventListener {
+public class MainActivity extends AppCompatActivity {
     AndroidEngine androidEngine;
 
     private boolean enterNotification = false;
 
-    float accelerometerColdown = 1f, acceleromeThreshold = 17f;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements  SensorEventListe
         androidEngine.generateBanner(R.id.adView);
         androidEngine.solicitateLoadRewardAd();
         androidEngine.loadLibraries();
-        androidEngine.getSensors().initializateSensors(this);
-        androidEngine.getSensors().setParamsAccelerometer(acceleromeThreshold, accelerometerColdown);
+
+        androidEngine.setValuesAccelerometer(17f);
 
 
         ResourcesManager.getInstance().Init(androidEngine);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements  SensorEventListe
         ProgressManager.getInstance().loadFromJSON();
         androidEngine.resume();
         androidEngine.destroyNotification();
-        androidEngine.getSensors().enableSensors();
+        androidEngine.enableSensors();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements  SensorEventListe
         super.onPause();
         ProgressManager.getInstance().saveInJSON();
         androidEngine.pause();
-        androidEngine.getSensors().disableSensors();
+        androidEngine.disableSensors();
     }
 
     @Override
@@ -89,18 +89,6 @@ public class MainActivity extends AppCompatActivity implements  SensorEventListe
                 "Mastermind", "¡Entra a jugar y no te pierdas los nuevos niveles!", "canalmaster", 10, TimeUnit.SECONDS);
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if(androidEngine.getSensors().validAccelerometerEvent(event))
-        {
-            SceneManager.getInstance().launchAcceleratorEvent();
-            System.out.println("lanza bolita!");
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-    }
 
     @Override
     protected void onNewIntent(Intent intent)

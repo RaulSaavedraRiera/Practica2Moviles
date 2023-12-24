@@ -31,7 +31,9 @@ import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions;
+import com.practica1.androidengine.TouchEvent;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /*
@@ -110,7 +112,19 @@ public class Mobile {
     public void solicitateShare(Bitmap bitmap, String mnsg) {
         mobileShare.shareImage(bitmap, mnsg);
     }
-    public SensorsMobile getSensors() { return sensors;}
+    public void setAccelerometerParam(float threshold) {
+        sensors.setParamsAccelerometer(threshold);
+    }
+    public void enableSensors() {
+        sensors.enableSensors();
+    }
+    public void disableSensors() {
+        sensors.disableSensors();
+    }
+
+    public ArrayList<TouchEvent> getSensorsEvents() {
+        return sensors.getEvents();
+    }
 
     // Método para cargar el anuncio recompensado
     public void loadRewardedAd() {
