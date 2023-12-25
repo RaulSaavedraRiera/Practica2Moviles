@@ -27,6 +27,12 @@ public class CombinationButton extends Button {
     //generamos el boton con unos valores predeterminados
     public CombinationButton(int x, int y, int w, int h, float smallCircle, int rowN) {
         super(x, y, w, h, smallCircle);
+
+
+
+        colorText = new Text("Night.ttf", posX + (3 * width) / 8, posY + (3 * height) / 8, width / 2,
+                height / 2, "", new ColorJ(0, 0, 0));
+
         initialSmallCirclePercent = smallCircle;
         number = 0;
         color.setRGB(85, 85, 85);
@@ -37,10 +43,14 @@ public class CombinationButton extends Button {
 
     @Override
     public void render(AndroidGraphics graphics) {
+
         if (!enable || image == null)
             super.render(graphics);
         else
             graphics.renderImage(image, posX, posY, width, height);
+
+        if(enable && daltonicEnable)
+            colorText.render(graphics);
     }
 
     @Override
@@ -67,15 +77,11 @@ public class CombinationButton extends Button {
         daltonicEnable = daltonic;
         deleteColorButton = deleteColor;
         SceneManager.getInstance().registerToMessage(this);
-        String s;
+
 
         if (daltonicEnable)
-            s = String.valueOf(number);
-        else
-            s = "";
+            colorText.setText(String.valueOf(number));
 
-        colorText = new Text("Night.ttf", posX + (3 * width) / 8, posY + (3 * height) / 8, width / 2,
-                height / 2, s, new ColorJ(0, 0, 0));
     }
 
     //para botones con imagen
