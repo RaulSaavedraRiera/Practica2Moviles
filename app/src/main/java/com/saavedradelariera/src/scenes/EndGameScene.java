@@ -82,7 +82,14 @@ public class EndGameScene extends Scene {
             if(typeGame)
                 iconImages = resourcesManager.loadGameIcons(graphics);
             else
-                iconImages = resourcesManager.loadLevelIcons(resourcesManager.getSkinsId(), graphics);
+            {
+                int id = resourcesManager.getSkinsId();
+                if(id != -1)
+                iconImages = resourcesManager.loadLevelIcons(id, graphics);
+
+            }
+
+
 
             new Text("Night.ttf", 270, 300, 20, 50, "código:", blackColor);
             ButtonArray b = new ButtonArray(100, 350, 400, 100);

@@ -66,7 +66,11 @@ public class GameScene extends Scene {
 
         } else {
             backgroundImage = resourcesManager.getBackground(graphics, false);
-            iconImages = resourcesManager.loadLevelIcons(resourcesManager.getSkinsId(), graphics);
+
+            int i = resourcesManager.getSkinsId();
+            if(i != -1)
+                iconImages = resourcesManager.loadLevelIcons(i, graphics);
+
             primaryColor = new ColorJ("#ffffff");
         }
 

@@ -31,7 +31,7 @@ public class ResourcesManager {
     final String BgPath = "sprites/backgrounds/";
     private ArrayList<String> files;
     private ArrayList<String> filesImage;
-    private ArrayList<WorldStyle> worldStyles;
+    private HashMap<Integer ,WorldStyle> worldStyles;
     private ArrayList<ArrayList<Level>> worlds;
     private Map<String, AndroidImage> backgrounds;
     private Map<Integer, ArrayList<AndroidImage>> iconsLoaded;
@@ -39,6 +39,7 @@ public class ResourcesManager {
     private Level actualLevel;
     private Context currentContext;
     private AndroidFile filesAndroid = new AndroidFile();
+    private int contStyle = 0;
 
     // Inicialilzacion del Singleton
     public void Init(AndroidEngine engine) {
@@ -46,7 +47,7 @@ public class ResourcesManager {
 
         backgrounds = new HashMap<>();
         worlds = new ArrayList<ArrayList<Level>>();
-        worldStyles = new ArrayList<WorldStyle>();
+        worldStyles = new HashMap<>();
         files = new ArrayList<String>();
         filesImage = new ArrayList<String>();
         iconsLoaded = new HashMap<>();
@@ -102,7 +103,10 @@ public class ResourcesManager {
 
     // Obtiene el id de los iconos enlazados a un mundo en especifico
     public int getSkinsId() {
-        return worldStyles.get(idActualWorld).getIdSkins();
+        if(worldStyles.containsKey(idActualWorld))
+            return worldStyles.get(idActualWorld).getIdSkins();
+        else
+            return -1;
     }
 
     // Obtiene un nivel (Level) especifico de un mundo
@@ -177,7 +181,13 @@ public class ResourcesManager {
                 return null;
 
         } else {
-            aux = worldStyles.get(idActualWorld).getBackground();
+            if(worldStyles.containsKey(idActualWorld))
+            {
+                aux = worldStyles.get(idActualWorld).getBackground();
+            }
+
+            if(aux.equals("NONE"))
+                return null;
         }
 
         if (backgrounds.containsKey(aux)) {
@@ -225,13 +235,22 @@ public class ResourcesManager {
         try {
             for (String nameW : files) {
                 String[] directories = filesAndroid.listFiles(currentContext, LvlPath + '/' + nameW);
-
                 ArrayList<Level> levels = new ArrayList<>();
 
+
+                int tam = worldStyles.size();
                 for (String directory : directories) {
                     Level l = jsonTolevel(LvlPath + '/' + nameW + '/' + directory);
+
                     if (l != null)
                         levels.add(l);
+                }
+
+                if(worldStyles.size() == tam)
+                {
+                    WorldStyle wS = new WorldStyle("NONE", -1);
+                    worldStyles.put(contStyle, wS);
+                    contStyle++;
                 }
                 worlds.add(levels);
             }
@@ -259,7 +278,8 @@ public class ResourcesManager {
                 String background = jsonObject.getString("background");
                 int idSkin = jsonObject.getInt("skins");
                 WorldStyle w = new WorldStyle(BgPath + background, idSkin);
-                worldStyles.add(w);
+                worldStyles.put(contStyle, w);
+                contStyle++;
             } else {
                 int codeSize = jsonObject.getInt("codeSize");
                 int codeOpt = jsonObject.getInt("codeOpt");

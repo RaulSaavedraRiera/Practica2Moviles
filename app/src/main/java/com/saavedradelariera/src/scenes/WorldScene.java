@@ -38,7 +38,11 @@ public class WorldScene extends Scene {
 
         new ColorBackground(ShopManager.getInstance().getBackgroundColor());
         AndroidImage i = ResourcesManager.getInstance().getBackground(graphics, false);
-        ImageBackground img = new ImageBackground(i);
+        if(i != null)
+        {
+            ImageBackground img = new ImageBackground(i);
+        }
+
 
         Text t = new Text("Night.ttf",200, 50, 50, 100,  "MUNDO " + String.valueOf(id + 1),c2);
         ChangeWorldButton cw1 = new ChangeWorldButton("arrowC1.png", 400, 35, 50, 50, true);
